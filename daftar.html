@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Daftar - NgajiPlus</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+  <script src="supabase-config.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="auth-container">
+
+  <div class="auth-box">
+
+    <div class="auth-logo">
+      📖
+    </div>
+
+    <h1>NgajiPlus</h1>
+
+    <p>
+      Buat akun untuk mulai belajar
+    </p>
+
+
+    <form id="registerForm">
+
+
+      <input
+        type="text"
+        id="nama"
+        placeholder="Nama lengkap"
+        required
+      >
+
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        required
+      >
+
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password minimal 6 karakter"
+        minlength="6"
+        required
+      >
+
+
+      <button type="submit">
+        Daftar
+      </button>
+
+
+    </form>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+    <div class="auth-link">
+
+      Sudah punya akun?
+
+      <a href="login.html">
+        Login
+      </a>
+
+    </div>
+
+
+    <a
+      href="index.html"
+      class="back-home"
+    >
+      ← Kembali ke Beranda
+    </a>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+const form =
+  document.getElementById("registerForm");
+
+const message =
+  document.getElementById("message");
+
+
+form.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const nama =
+      document
+        .getElementById("nama")
+        .value
+        .trim();
+
+
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById("password")
+        .value;
+
+
+    message.textContent =
+      "Membuat akun...";
+
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.signUp({
+
+      email: email,
+
+      password: password,
+
+      options: {
+
+        data: {
+          nama: nama
+        }
+
+      }
+
+    });
+
+
+    if (error) {
+
+      message.textContent =
+        "❌ " + error.message;
+
+      return;
+
+    }
+
+
+    message.textContent =
+      "✅ Akun berhasil dibuat. Silakan cek email Anda untuk verifikasi.";
+
+
+    form.reset();
+
+  }
+
+);
+
+</script>
+
+
+</body>
+
+</html>

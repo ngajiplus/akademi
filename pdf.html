@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Materi PDF - NgajiPlus
+  </title>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background: #f6f8f7;
+
+      color: #202a24;
+
+    }
+
+
+    a {
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+
+      background: white;
+
+      border-bottom:
+        1px solid #e5e9e6;
+
+      position:
+        sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+    }
+
+
+    .header-inner {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding:
+        15px 20px;
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+    }
+
+
+    .logo {
+
+      color:
+        #238b57;
+
+      font-weight:
+        bold;
+
+      font-size:
+        21px;
+
+    }
+
+
+    nav {
+
+      display:
+        flex;
+
+      gap:
+        8px;
+
+      flex-wrap:
+        wrap;
+
+      justify-content:
+        center;
+
+    }
+
+
+    nav a {
+
+      color:
+        #555;
+
+      padding:
+        8px 12px;
+
+      border-radius:
+        8px;
+
+      font-size:
+        14px;
+
+    }
+
+
+    nav a:hover {
+
+      background:
+        #eef7f1;
+
+      color:
+        #238b57;
+
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+
+      max-width:
+        1100px;
+
+      margin:
+        auto;
+
+      padding:
+        45px 20px;
+
+    }
+
+
+    .page-title {
+
+      text-align:
+        center;
+
+      margin-bottom:
+        35px;
+
+    }
+
+
+    .page-title h1 {
+
+      margin:
+        0 0 8px;
+
+      font-size:
+        35px;
+
+    }
+
+
+    .page-title p {
+
+      margin: 0;
+
+      color:
+        #737b76;
+
+    }
+
+
+    /* =========================
+       FILTER
+    ========================= */
+
+    .filter-box {
+
+      background:
+        white;
+
+      padding:
+        18px;
+
+      border-radius:
+        15px;
+
+      border:
+        1px solid #e5e9e6;
+
+      margin-bottom:
+        25px;
+
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      flex-wrap:
+        wrap;
+
+    }
+
+
+    .filter-box input,
+    .filter-box select {
+
+      padding:
+        12px;
+
+      border:
+        1px solid #ddd;
+
+      border-radius:
+        9px;
+
+      outline:
+        none;
+
+      background:
+        white;
+
+    }
+
+
+    .filter-box input {
+
+      flex:
+        1;
+
+      min-width:
+        200px;
+
+    }
+
+
+    /* =========================
+       GRID
+    ========================= */
+
+    #pdfContainer {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap:
+        20px;
+
+    }
+
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .pdf-card {
+
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      overflow:
+        hidden;
+
+      border:
+        1px solid #e3e8e5;
+
+      transition:
+        .2s;
+
+    }
+
+
+    .pdf-card:hover {
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.07);
+
+    }
+
+
+    .pdf-cover {
+
+      height:
+        180px;
+
+      background:
+        #e9f4ec;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        55px;
+
+      overflow:
+        hidden;
+
+    }
+
+
+    .pdf-cover img {
+
+      width:
+        100%;
+
+      height:
+        100%;
+
+      object-fit:
+        cover;
+
+    }
+
+
+    .pdf-body {
+
+      padding:
+        20px;
+
+    }
+
+
+    .pdf-type {
+
+      display:
+        inline-block;
+
+      padding:
+        5px 9px;
+
+      border-radius:
+        50px;
+
+      background:
+        #eef7f1;
+
+      color:
+        #238b57;
+
+      font-size:
+        11px;
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        10px;
+
+    }
+
+
+    .pdf-body h3 {
+
+      margin:
+        0 0 8px;
+
+      font-size:
+        18px;
+
+    }
+
+
+    .pdf-description {
+
+      color:
+        #737b76;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+
+      min-height:
+        45px;
+
+    }
+
+
+    .pdf-button {
+
+      display:
+        block;
+
+      text-align:
+        center;
+
+      margin-top:
+        15px;
+
+      padding:
+        11px;
+
+      border-radius:
+        9px;
+
+      background:
+        #238b57;
+
+      color:
+        white;
+
+      font-weight:
+        bold;
+
+      font-size:
+        14px;
+
+    }
+
+
+    /* =========================
+       PREMIUM
+    ========================= */
+
+    .premium {
+
+      background:
+        #202a24;
+
+      color:
+        white;
+
+    }
+
+
+    .premium .pdf-description {
+
+      color:
+        #c6cec9;
+
+    }
+
+
+    .premium .pdf-type {
+
+      background:
+        #35463c;
+
+      color:
+        #b9e4c8;
+
+    }
+
+
+    .premium .pdf-button {
+
+      background:
+        white;
+
+      color:
+        #202a24;
+
+    }
+
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading {
+
+      grid-column:
+        1 / -1;
+
+      text-align:
+        center;
+
+      padding:
+        50px;
+
+      color:
+        #777;
+
+    }
+
+
+    .empty {
+
+      grid-column:
+        1 / -1;
+
+      background:
+        white;
+
+      padding:
+        50px;
+
+      text-align:
+        center;
+
+      border-radius:
+        15px;
+
+      color:
+        #777;
+
+    }
+
+
+    .error {
+
+      grid-column:
+        1 / -1;
+
+      background:
+        #fff1f1;
+
+      color:
+        #b42318;
+
+      padding:
+        20px;
+
+      border-radius:
+        12px;
+
+      text-align:
+        center;
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      #pdfContainer {
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
+      }
+
+    }
+
+
+    @media (max-width: 550px) {
+
+      .header-inner {
+
+        flex-direction:
+          column;
+
+        gap:
+          10px;
+
+      }
+
+
+      main {
+
+        padding:
+          30px 15px;
+
+      }
+
+
+      #pdfContainer {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .page-title h1 {
+
+        font-size:
+          28px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="header-inner">
+
+
+    <a
+      href="index.html"
+      class="logo"
+    >
+
+      📖 NgajiPlus
+
+    </a>
+
+
+    <nav>
+
+      <a href="index.html">
+        Beranda
+      </a>
+
+      <a href="materi.html">
+        Video
+      </a>
+
+      <a href="audio.html">
+        Audio
+      </a>
+
+      <a href="pdf.html">
+        PDF
+      </a>
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+    </nav>
+
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+  <div class="page-title">
+
+    <h1>
+      📄 Materi PDF
+    </h1>
+
+    <p>
+      Download materi pembelajaran
+      untuk dipelajari kapan saja.
+    </p>
+
+  </div>
+
+
+
+  <!-- FILTER -->
+
+  <div class="filter-box">
+
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="🔎 Cari materi PDF..."
+    >
+
+
+    <select id="categoryFilter">
+
+      <option value="">
+        Semua Kategori
+      </option>
+
+      <option value="quran">
+        Al-Qur'an & Tahsin
+      </option>
+
+      <option value="fiqih">
+        Fiqih
+      </option>
+
+      <option value="aqidah">
+        Aqidah
+      </option>
+
+      <option value="akhlak">
+        Akhlak & Adab
+      </option>
+
+      <option value="arab">
+        Bahasa Arab
+      </option>
+
+      <option value="hadits">
+        Hadits
+      </option>
+
+      <option value="tafsir">
+        Tafsir
+      </option>
+
+      <option value="sejarah">
+        Sejarah Islam
+      </option>
+
+    </select>
+
+
+  </div>
+
+
+
+  <!-- PDF -->
+
+  <div id="pdfContainer">
+
+    <div class="loading">
+
+      ⏳ Memuat materi PDF...
+
+    </div>
+
+  </div>
+
+
+</main>
+
+
+
+<script>
+
+
+let allPdf = [];
+
+
+
+// ======================================
+// SESSION
+// ======================================
+
+async function getCurrentSession() {
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
+
+  return session;
+
+}
+
+
+
+// ======================================
+// CEK MEMBER
+// ======================================
+
+async function checkMembership(
+  session
+) {
+
+
+  if (!session) {
+
+    return false;
+
+  }
+
+
+  const {
+    data: profile
+  } =
+  await supabaseClient
+    .from("profiles")
+    .select(
+      "status, berlaku_sampai"
+    )
+    .eq(
+      "id",
+      session.user.id
+    )
+    .single();
+
+
+  if (!profile) {
+
+    return false;
+
+  }
+
+
+  const active =
+    profile.status === "aktif";
+
+
+  let notExpired = true;
+
+
+  if (profile.berlaku_sampai) {
+
+    notExpired =
+      new Date(
+        profile.berlaku_sampai
+      ) > new Date();
+
+  }
+
+
+  return (
+    active &&
+    notExpired
+  );
+
+}
+
+
+
+// ======================================
+// LOAD PDF
+// ======================================
+
+async function loadPdf() {
+
+
+  const container =
+    document.getElementById(
+      "pdfContainer"
+    );
+
+
+  container.innerHTML = `
+
+    <div class="loading">
+
+      ⏳ Memuat materi PDF...
+
+    </div>
+
+  `;
+
+
+  const session =
+    await getCurrentSession();
+
+
+  const isMember =
+    await checkMembership(
+      session
+    );
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("materials")
+    .select("*")
+    .eq("tipe", "pdf")
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
+
+
+  if (error) {
+
+
+    console.error(error);
+
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        ❌ Gagal mengambil materi PDF.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+
+    return;
+
+  }
+
+
+  allPdf =
+    data || [];
+
+
+  displayPdf(
+    allPdf,
+    isMember
+  );
+
+}
+
+
+
+// ======================================
+// DISPLAY PDF
+// ======================================
+
+function displayPdf(
+  pdfList,
+  isMember
+) {
+
+
+  const container =
+    document.getElementById(
+      "pdfContainer"
+    );
+
+
+  if (!pdfList.length) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        📄 Belum ada materi PDF.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    pdfList.map(
+      item => {
+
+
+        const premium =
+          item.premium === true;
+
+
+        const locked =
+          premium &&
+          !isMember;
+
+
+        let button;
+
+
+        if (locked) {
+
+
+          button = `
+
+            <a
+              href="login.html"
+              class="pdf-button"
+            >
+
+              🔒 Login untuk Download
+
+            </a>
+
+          `;
+
+
+        } else if (item.url) {
+
+
+          button = `
+
+            <a
+              href="${escapeHtml(
+                item.url
+              )}"
+              target="_blank"
+              rel="noopener"
+              class="pdf-button"
+              download
+            >
+
+              📥 Download PDF
+
+            </a>
+
+          `;
+
+
+        } else {
+
+
+          button = `
+
+            <div
+              class="pdf-button"
+              style="
+                background:#ddd;
+                color:#555;
+              "
+            >
+
+              File belum tersedia
+
+            </div>
+
+          `;
+
+        }
+
+
+        const cover =
+          item.thumbnail
+          ?
+
+          `
+
+            <img
+              src="${escapeHtml(
+                item.thumbnail
+              )}"
+              alt="${escapeHtml(
+                item.judul
+              )}"
+            >
+
+          `
+
+          :
+
+          "📄";
+
+
+        return `
+
+          <article
+            class="
+              pdf-card
+              ${locked ? "premium" : ""}
+            "
+          >
+
+
+            <div class="pdf-cover">
+
+              ${cover}
+
+            </div>
+
+
+            <div class="pdf-body">
+
+
+              <span class="pdf-type">
+
+                ${
+                  escapeHtml(
+                    item.kategori ||
+                    "Materi"
+                  )
+                }
+
+              </span>
+
+
+              <h3>
+
+                ${
+                  escapeHtml(
+                    item.judul
+                  )
+                }
+
+              </h3>
+
+
+              <p
+                class="pdf-description"
+              >
+
+                ${
+                  escapeHtml(
+                    item.deskripsi ||
+                    "Materi PDF NgajiPlus."
+                  )
+                }
+
+              </p>
+
+
+              ${
+                premium
+                ?
+
+                `
+
+                  <div
+                    style="
+                      font-size:12px;
+                      margin-top:8px;
+                    "
+                  >
+
+                    🔐 Materi Premium
+
+                  </div>
+
+                `
+
+                :
+
+                ""
+
+              }
+
+
+              ${button}
+
+
+            </div>
+
+
+          </article>
+
+        `;
+
+      }
+    )
+    .join("");
+
+}
+
+
+
+// ======================================
+// FILTER
+// ======================================
+
+async function filterPdf() {
+
+
+  const keyword =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const category =
+    document
+      .getElementById(
+        "categoryFilter"
+      )
+      .value;
+
+
+  const session =
+    await getCurrentSession();
+
+
+  const isMember =
+    await checkMembership(
+      session
+    );
+
+
+  const filtered =
+    allPdf.filter(
+      item => {
+
+
+        const matchKeyword =
+
+          !keyword ||
+
+          item.judul
+            ?.toLowerCase()
+            .includes(keyword)
+
+          ||
+
+          item.deskripsi
+            ?.toLowerCase()
+            .includes(keyword);
+
+
+        const matchCategory =
+
+          !category ||
+
+          item.kategori
+            ?.toLowerCase()
+            .includes(category);
+
+
+        return (
+          matchKeyword &&
+          matchCategory
+        );
+
+      }
+    );
+
+
+  displayPdf(
+    filtered,
+    isMember
+  );
+
+}
+
+
+
+document
+  .getElementById(
+    "searchInput"
+  )
+  .addEventListener(
+    "input",
+    filterPdf
+  );
+
+
+document
+  .getElementById(
+    "categoryFilter"
+  )
+  .addEventListener(
+    "change",
+    filterPdf
+  );
+
+
+
+// ======================================
+// ESCAPE HTML
+// ======================================
+
+function escapeHtml(value) {
+
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+// ======================================
+// START
+// ======================================
+
+loadPdf();
+
+</script>
+
+
+</body>
+
+</html>

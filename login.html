@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Login - NgajiPlus</title>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+  <script src="supabase-config.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #eef8f1,
+          #f8faf9
+        );
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+
+      color: #202a24;
+
+    }
+
+
+    .login-container {
+
+      width: 100%;
+
+      max-width: 420px;
+
+    }
+
+
+    .logo {
+
+      text-align: center;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .logo a {
+
+      color: #238b57;
+
+      font-size: 28px;
+
+      font-weight: bold;
+
+      text-decoration: none;
+
+    }
+
+
+    .login-card {
+
+      background: white;
+
+      border-radius: 20px;
+
+      padding: 30px;
+
+      border:
+        1px solid #e2e8e4;
+
+      box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.08);
+
+    }
+
+
+    h1 {
+
+      margin:
+        0 0 8px;
+
+      text-align: center;
+
+      font-size: 27px;
+
+    }
+
+
+    .subtitle {
+
+      text-align: center;
+
+      color: #737b76;
+
+      font-size: 14px;
+
+      margin-bottom: 25px;
+
+    }
+
+
+    .form-group {
+
+      margin-bottom: 17px;
+
+    }
+
+
+    label {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+    }
+
+
+    input {
+
+      width: 100%;
+
+      padding: 13px;
+
+      border:
+        1px solid #d9dfdb;
+
+      border-radius: 10px;
+
+      font-size: 15px;
+
+      outline: none;
+
+    }
+
+
+    input:focus {
+
+      border-color:
+        #238b57;
+
+    }
+
+
+    button {
+
+      width: 100%;
+
+      border: 0;
+
+      padding: 13px;
+
+      border-radius: 10px;
+
+      background:
+        #238b57;
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    }
+
+
+    button:disabled {
+
+      opacity: .6;
+
+      cursor: not-allowed;
+
+    }
+
+
+    .message {
+
+      display: none;
+
+      padding: 12px;
+
+      border-radius: 9px;
+
+      margin-bottom: 15px;
+
+      font-size: 14px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .error {
+
+      background: #fff1f1;
+
+      color: #b42318;
+
+    }
+
+
+    .success {
+
+      background: #edf9f1;
+
+      color: #18794e;
+
+    }
+
+
+    .register {
+
+      text-align: center;
+
+      margin-top: 20px;
+
+      font-size: 14px;
+
+      color: #737b76;
+
+    }
+
+
+    .register a {
+
+      color: #238b57;
+
+      font-weight: bold;
+
+      text-decoration: none;
+
+    }
+
+
+    .back {
+
+      display: block;
+
+      text-align: center;
+
+      margin-top: 18px;
+
+      color: #737b76;
+
+      font-size: 13px;
+
+      text-decoration: none;
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+  <div class="logo">
+
+    <a href="index.html">
+
+      📖 NgajiPlus
+
+    </a>
+
+  </div>
+
+
+  <div class="login-card">
+
+
+    <h1>
+
+      Selamat Datang
+
+    </h1>
+
+
+    <div class="subtitle">
+
+      Login untuk mengakses
+      pembelajaran Anda.
+
+    </div>
+
+
+    <div
+      id="errorMessage"
+      class="message error"
+    ></div>
+
+
+    <div
+      id="successMessage"
+      class="message success"
+    ></div>
+
+
+    <form id="loginForm">
+
+
+      <div class="form-group">
+
+        <label for="email">
+
+          Email
+
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="nama@email.com"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="password">
+
+          Password
+
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Masukkan password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        id="loginButton"
+      >
+
+        🔐 Login
+
+      </button>
+
+
+    </form>
+
+
+    <div class="register">
+
+      Belum punya akun?
+
+      <a href="daftar.html">
+
+        Daftar sekarang
+
+      </a>
+
+    </div>
+
+
+    <a
+      href="index.html"
+      class="back"
+    >
+
+      ← Kembali ke beranda
+
+    </a>
+
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+
+// ======================================
+// ELEMENT
+// ======================================
+
+const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
+
+
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
+
+
+const errorMessage =
+  document.getElementById(
+    "errorMessage"
+  );
+
+
+const successMessage =
+  document.getElementById(
+    "successMessage"
+  );
+
+
+
+// ======================================
+// MESSAGE
+// ======================================
+
+function showError(message) {
+
+  errorMessage.textContent =
+    message;
+
+  errorMessage.style.display =
+    "block";
+
+  successMessage.style.display =
+    "none";
+
+}
+
+
+function showSuccess(message) {
+
+  successMessage.textContent =
+    message;
+
+  successMessage.style.display =
+    "block";
+
+  errorMessage.style.display =
+    "none";
+
+}
+
+
+
+// ======================================
+// LOGIN
+// ======================================
+
+loginForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    errorMessage.style.display =
+      "none";
+
+    successMessage.style.display =
+      "none";
+
+
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById("password")
+        .value;
+
+
+    if (!email || !password) {
+
+      showError(
+        "Email dan password wajib diisi."
+      );
+
+      return;
+
+    }
+
+
+    loginButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "⏳ Memproses...";
+
+
+    try {
+
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient.auth
+        .signInWithPassword({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      if (!data.session) {
+
+        throw new Error(
+          "Login berhasil tetapi sesi tidak ditemukan."
+        );
+
+      }
+
+
+      showSuccess(
+        "Login berhasil. Mengalihkan..."
+      );
+
+
+      setTimeout(
+        function() {
+
+          window.location.href =
+            "dashboard.html";
+
+        },
+        700
+      );
+
+
+    }
+
+    catch (error) {
+
+
+      console.error(error);
+
+
+      let message =
+        "Login gagal.";
+
+
+      if (
+        error.message
+          .toLowerCase()
+          .includes("invalid login")
+      ) {
+
+        message =
+          "Email atau password salah.";
+
+      }
+
+
+      else if (
+        error.message
+          .toLowerCase()
+          .includes("email not confirmed")
+      ) {
+
+        message =
+          "Email Anda belum dikonfirmasi. Silakan cek email.";
+
+      }
+
+
+      else {
+
+        message =
+          error.message;
+
+      }
+
+
+      showError(
+        message
+      );
+
+
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "🔐 Login";
+
+    }
+
+  }
+);
+
+
+
+// ======================================
+// CEK JIKA SUDAH LOGIN
+// ======================================
+
+async function checkAlreadyLogin() {
+
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth
+    .getSession();
+
+
+  if (session) {
+
+    window.location.href =
+      "dashboard.html";
+
+  }
+
+}
+
+
+checkAlreadyLogin();
+
+</script>
+
+
+</body>
+
+</html>

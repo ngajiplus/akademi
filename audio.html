@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Audio pembelajaran NgajiPlus"
+  >
+
+  <title>
+    Audio Pembelajaran - NgajiPlus
+  </title>
+
+
+  <!-- Supabase -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+  <script src="supabase-config.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f8f7;
+      color: #202a24;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+
+    /* HEADER */
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e9e6;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 15px 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #238b57;
+      font-weight: bold;
+      font-size: 21px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    nav a {
+      color: #555;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      background: #eef7f1;
+      color: #238b57;
+    }
+
+
+    /* MAIN */
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .page-title h1 {
+      margin: 0 0 8px;
+      font-size: 35px;
+    }
+
+    .page-title p {
+      margin: 0;
+      color: #737b76;
+    }
+
+
+    /* FILTER */
+
+    .filter-box {
+      background: white;
+      padding: 18px;
+      border-radius: 15px;
+      border: 1px solid #e5e9e6;
+
+      margin-bottom: 25px;
+
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-box input,
+    .filter-box select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      outline: none;
+      background: white;
+    }
+
+    .filter-box input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+
+    /* GRID */
+
+    #audioContainer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+
+    /* CARD */
+
+    .audio-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+
+      border: 1px solid #e3e8e5;
+
+      transition: .2s;
+    }
+
+    .audio-card:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.07);
+    }
+
+
+    .audio-icon {
+      width: 65px;
+      height: 65px;
+
+      border-radius: 16px;
+
+      background: #e5f2e9;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 32px;
+
+      margin-bottom: 15px;
+    }
+
+
+    .audio-type {
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      border-radius: 50px;
+
+      background: #eef7f1;
+
+      color: #238b57;
+
+      font-size: 11px;
+
+      font-weight: bold;
+
+      margin-bottom: 10px;
+    }
+
+
+    .audio-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+
+    .audio-description {
+      color: #737b76;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      min-height: 45px;
+    }
+
+
+    audio {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+
+    .login-button {
+      display: block;
+
+      text-align: center;
+
+      margin-top: 15px;
+
+      padding: 11px;
+
+      border-radius: 9px;
+
+      background: #238b57;
+
+      color: white;
+
+      font-weight: bold;
+
+      font-size: 14px;
+    }
+
+
+    /* PREMIUM */
+
+    .premium {
+      background: #202a24;
+      color: white;
+    }
+
+    .premium .audio-description {
+      color: #c6cec9;
+    }
+
+    .premium .audio-type {
+      background: #35463c;
+      color: #b9e4c8;
+    }
+
+    .premium .login-button {
+      background: white;
+      color: #202a24;
+    }
+
+
+    /* LOADING */
+
+    .loading {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 50px;
+
+      color: #777;
+    }
+
+
+    .empty {
+      grid-column: 1 / -1;
+
+      background: white;
+
+      padding: 50px;
+
+      text-align: center;
+
+      border-radius: 15px;
+
+      color: #777;
+    }
+
+
+    .error {
+      grid-column: 1 / -1;
+
+      background: #fff1f1;
+
+      color: #b42318;
+
+      padding: 20px;
+
+      border-radius: 12px;
+
+      text-align: center;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      #audioContainer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+
+    @media (max-width: 550px) {
+
+      .header-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      main {
+        padding: 30px 15px;
+      }
+
+      #audioContainer {
+        grid-template-columns: 1fr;
+      }
+
+      .page-title h1 {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="header-inner">
+
+    <a
+      href="index.html"
+      class="logo"
+    >
+
+      📖 NgajiPlus
+
+    </a>
+
+
+    <nav>
+
+      <a href="index.html">
+        Beranda
+      </a>
+
+      <a href="materi.html">
+        Video
+      </a>
+
+      <a href="audio.html">
+        Audio
+      </a>
+
+      <a href="pdf.html">
+        PDF
+      </a>
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+  <div class="page-title">
+
+    <h1>
+      🎧 Audio Pembelajaran
+    </h1>
+
+    <p>
+      Dengarkan materi pembelajaran
+      NgajiPlus kapan saja.
+    </p>
+
+  </div>
+
+
+
+  <!-- FILTER -->
+
+  <div class="filter-box">
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="🔎 Cari audio..."
+    >
+
+
+    <select id="categoryFilter">
+
+      <option value="">
+        Semua Kategori
+      </option>
+
+      <option value="quran">
+        Al-Qur'an & Tahsin
+      </option>
+
+      <option value="fiqih">
+        Fiqih
+      </option>
+
+      <option value="aqidah">
+        Aqidah
+      </option>
+
+      <option value="akhlak">
+        Akhlak & Adab
+      </option>
+
+      <option value="arab">
+        Bahasa Arab
+      </option>
+
+      <option value="hadits">
+        Hadits
+      </option>
+
+      <option value="tafsir">
+        Tafsir
+      </option>
+
+      <option value="sejarah">
+        Sejarah Islam
+      </option>
+
+    </select>
+
+  </div>
+
+
+
+  <!-- AUDIO -->
+
+  <div id="audioContainer">
+
+    <div class="loading">
+
+      ⏳ Memuat audio...
+
+    </div>
+
+  </div>
+
+
+</main>
+
+
+
+<script>
+
+
+let allAudio = [];
+
+
+
+// ======================================
+// CEK LOGIN
+// ======================================
+
+async function getCurrentSession() {
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession

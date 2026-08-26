@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Dashboard - NgajiPlus</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+  <script src="supabase-config.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard-container">
+
+
+  <!-- HEADER -->
+
+  <header class="dashboard-header">
+
+    <div>
+
+      <h1>
+        📖 NgajiPlus
+      </h1>
+
+      <p>
+        Dashboard Pembelajaran
+      </p>
+
+    </div>
+
+
+    <button
+      id="logoutBtn"
+      class="logout-btn"
+    >
+      Keluar
+    </button>
+
+  </header>
+
+
+
+  <!-- PROFIL -->
+
+  <section class="profile-card">
+
+    <div class="profile-icon">
+      👤
+    </div>
+
+
+    <div>
+
+      <h2 id="namaUser">
+        Memuat...
+      </h2>
+
+      <p>
+        Selamat datang di NgajiPlus
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- MEMBERSHIP -->
+
+  <section class="membership-card">
+
+    <h2>
+      Status Membership
+    </h2>
+
+
+    <div class="membership-info">
+
+
+      <div>
+
+        <span>
+          Status
+        </span>
+
+        <strong id="statusUser">
+          Memuat...
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Paket
+        </span>
+
+        <strong id="paketUser">
+          -
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Berlaku Sampai
+        </span>
+
+        <strong id="tanggalUser">
+          -
+        </strong>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- MATERI -->
+
+  <section class="learning-section">
+
+    <h2>
+      📚 Materi Pembelajaran
+    </h2>
+
+
+    <div class="learning-grid">
+
+
+      <div class="learning-card">
+
+        <div class="learning-icon">
+          🎥
+        </div>
+
+        <h3>
+          Video Pembelajaran
+        </h3>
+
+        <p>
+          Kumpulan video pembelajaran
+          NgajiPlus.
+        </p>
+
+        <a href="materi.html">
+          Lihat Materi
+        </a>
+
+      </div>
+
+
+
+      <div class="learning-card">
+
+        <div class="learning-icon">
+          🎧
+        </div>
+
+        <h3>
+          Audio Pembelajaran
+        </h3>
+
+        <p>
+          Dengarkan materi audio pilihan.
+        </p>
+
+        <a href="audio.html">
+          Lihat Audio
+        </a>
+
+      </div>
+
+
+
+      <div class="learning-card">
+
+        <div class="learning-icon">
+          📄
+        </div>
+
+        <h3>
+          Materi PDF
+        </h3>
+
+        <p>
+          Download modul pembelajaran.
+        </p>
+
+        <a href="pdf.html">
+          Lihat PDF
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- UPGRADE -->
+
+  <section
+    class="upgrade-card"
+    id="upgradeCard"
+  >
+
+    <div>
+
+      <h2>
+        🔒 Buka Semua Materi
+      </h2>
+
+      <p>
+        Upgrade menjadi member NgajiPlus
+        untuk mendapatkan akses penuh.
+      </p>
+
+    </div>
+
+
+    <button
+      onclick="upgradeMember()"
+    >
+      💳 Upgrade Member
+    </button>
+
+  </section>
+
+
+</div>
+
+
+
+<script>
+
+
+async function loadDashboard() {
+
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth
+    .getSession();
+
+
+  // Belum login
+
+  if (!session) {
+
+    window.location.href =
+      "login.html";
+
+    return;
+
+  }
+
+
+  const {
+    data: profile,
+    error
+  } =
+  await supabaseClient
+    .from("profiles")
+    .select("*")
+    .eq("id", session.user.id)
+    .single();
+
+
+  if (error) {
+
+    console.error(error);
+
+    document
+      .getElementById("namaUser")
+      .textContent =
+      session.user.email;
+
+    document
+      .getElementById("statusUser")
+      .textContent =
+      "GRATIS";
+
+    return;
+
+  }
+
+
+  // Nama
+
+  document
+    .getElementById("namaUser")
+    .textContent =
+    profile.nama ||
+    session.user.email;
+
+
+  // Status
+
+  const status =
+    profile.status ||
+    "gratis";
+
+
+  document
+    .getElementById("statusUser")
+    .textContent =
+    status.toUpperCase();
+
+
+  // Paket
+
+  document
+    .getElementById("paketUser")
+    .textContent =
+    profile.paket ||
+    "-";
+
+
+  // Tanggal
+
+  if (
+    profile.berlaku_sampai
+  ) {
+
+    const tanggal =
+      new Date(
+        profile.berlaku_sampai
+      );
+
+
+    document
+      .getElementById("tanggalUser")
+      .textContent =
+      tanggal.toLocaleDateString(
+        "id-ID",
+        {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+  }
+
+
+  // Kalau member aktif
+
+  if (
+    status.toLowerCase() ===
+    "aktif"
+  ) {
+
+    document
+      .getElementById("upgradeCard")
+      .innerHTML = `
+
+        <div>
+
+          <h2>
+            ✅ Membership Aktif
+          </h2>
+
+          <p>
+            Anda sudah dapat mengakses
+            materi premium.
+          </p>
+
+        </div>
+
+      `;
+
+  }
+
+
+}
+
+
+// LOGOUT
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener(
+    "click",
+    async function() {
+
+      await supabaseClient.auth
+        .signOut();
+
+      window.location.href =
+        "index.html";
+
+    }
+  );
+
+
+
+// PEMBAYARAN
+
+function upgradeMember() {
+
+  alert(
+    "Sistem pembayaran akan segera tersedia."
+  );
+
+}
+
+
+loadDashboard();
+
+</script>
+
+
+</body>
+
+</html>
