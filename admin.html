@@ -1,1 +1,673 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Admin Akademi - NgajiPlus</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7f6;
+      color: #202a24;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      color: #238b57;
+      font-weight: bold;
+      font-size: 21px;
+    }
+
+    .logout {
+      border: 0;
+      background: #fff1f1;
+      color: #b42318;
+      padding: 9px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 35px 20px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .info {
+      background: #eef7f1;
+      color: #18794e;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    .message {
+      display: none;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .success {
+      background: #edf9f1;
+      color: #18794e;
+    }
+
+    .error {
+      background: #fff1f1;
+      color: #b42318;
+    }
+
+    #membersContainer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .member-card {
+      background: white;
+      border: 1px solid #e1e6e3;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .member-card h3 {
+      margin: 0 0 7px;
+    }
+
+    .email {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .status-active {
+      background: #e5f7eb;
+      color: #18794e;
+    }
+
+    .status-free {
+      background: #eee;
+      color: #555;
+    }
+
+    .date {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    select,
+    button {
+      font-size: 14px;
+    }
+
+    select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      margin-bottom: 10px;
+    }
+
+    .activate-button {
+      width: 100%;
+      border: 0;
+      padding: 11px;
+      border-radius: 8px;
+      background: #238b57;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .activate-button:disabled {
+      opacity: .6;
+    }
+
+    .loading,
+    .empty {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 700px) {
+      #membersContainer {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      📖 NgajiPlus Admin
+    </div>
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      Keluar
+    </button>
+
+  </div>
+</header>
+
+<main>
+
+  <h1>🎓 Manajemen Member</h1>
+
+  <div class="info">
+    Di halaman ini admin dapat melihat member
+    dan mengaktifkan masa akses premium.
+  </div>
+
+  <div
+    id="successMessage"
+    class="message success"
+  ></div>
+
+  <div
+    id="errorMessage"
+    class="message error"
+  ></div>
+
+  <div id="membersContainer">
+
+    <div class="loading">
+      ⏳ Memeriksa akses admin...
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+
+async function getSession() {
+
+  const {
+    data: {
+      session
+    }
+  } = await supabaseClient.auth.getSession();
+
+  return session;
+}
+
+
+async function checkAdmin() {
+
+  const session = await getSession();
+
+  if (!session) {
+    window.location.href = "login.html";
+    return null;
+  }
+
+  const {
+    data: admin,
+    error
+  } = await supabaseClient
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", session.user.id)
+    .maybeSingle();
+
+  if (error) {
+    showError(error.message);
+    return null;
+  }
+
+  if (!admin) {
+
+    document.getElementById(
+      "membersContainer"
+    ).innerHTML = `
+      <div class="empty">
+        🔒 Anda bukan admin.
+        <br><br>
+        Halaman ini hanya dapat digunakan
+        oleh administrator.
+      </div>
+    `;
+
+    return null;
+  }
+
+  return session;
+}
+
+
+async function loadMembers() {
+
+  const session = await checkAdmin();
+
+  if (!session) return;
+
+  const container =
+    document.getElementById(
+      "membersContainer"
+    );
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("profiles")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
+
+  if (error) {
+
+    container.innerHTML = `
+      <div class="empty">
+        ❌ Gagal mengambil member.
+        <br><br>
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+    return;
+  }
+
+  if (!data || data.length === 0) {
+
+    container.innerHTML = `
+      <div class="empty">
+        👥 Belum ada member.
+      </div>
+    `;
+
+    return;
+  }
+
+  /*
+    Karena tabel profiles mungkin belum
+    mempunyai kolom email, kita tampilkan
+    ID terlebih dahulu.
+  */
+
+  container.innerHTML = data.map(
+    member => {
+
+      const active =
+        member.status === "aktif";
+
+      const date =
+        member.berlaku_sampai
+        ? formatDate(member.berlaku_sampai)
+        : "-";
+
+      return `
+
+        <div class="member-card">
+
+          <h3>
+            👤 ${escapeHtml(
+              member.nama || "Member"
+            )}
+          </h3>
+
+          <div class="email">
+            ID:
+            ${escapeHtml(member.id)}
+          </div>
+
+          <div class="
+            status
+            ${
+              active
+              ? "status-active"
+              : "status-free"
+            }
+          ">
+
+            ${
+              active
+              ? "✅ AKTIF"
+              : "🆓 GRATIS"
+            }
+
+          </div>
+
+          <div class="date">
+
+            Berlaku sampai:
+            <strong>${date}</strong>
+
+          </div>
+
+          ${
+            !active
+            ? `
+
+              <select
+                id="duration-${member.id}"
+              >
+
+                <option value="30">
+                  30 Hari
+                </option>
+
+                <option value="90">
+                  90 Hari
+                </option>
+
+                <option value="180">
+                  180 Hari
+                </option>
+
+                <option value="365">
+                  1 Tahun
+                </option>
+
+              </select>
+
+              <button
+                class="activate-button"
+                onclick="
+                  activateMember('${member.id}')
+                "
+              >
+
+                🔓 Aktifkan Member
+
+              </button>
+
+            `
+            : `
+
+              <button
+                class="activate-button"
+                onclick="
+                  extendMember('${member.id}')
+                "
+              >
+
+                🔄 Perpanjang Member
+
+              </button>
+
+            `
+          }
+
+        </div>
+
+      `;
+
+    }
+  ).join("");
+
+}
+
+
+async function activateMember(id) {
+
+  const select =
+    document.getElementById(
+      `duration-${id}`
+    );
+
+  const days =
+    Number(select.value);
+
+  const endDate =
+    new Date();
+
+  endDate.setDate(
+    endDate.getDate() + days
+  );
+
+  const {
+    error
+  } = await supabaseClient
+    .from("profiles")
+    .update({
+
+      status: "aktif",
+
+      berlaku_sampai:
+        endDate.toISOString()
+
+    })
+    .eq(
+      "id",
+      id
+    );
+
+  if (error) {
+
+    showError(error.message);
+
+    return;
+  }
+
+  showSuccess(
+    "Member berhasil diaktifkan."
+  );
+
+  loadMembers();
+
+}
+
+
+async function extendMember(id) {
+
+  const days = 30;
+
+  const {
+    data: member,
+    error: getError
+  } = await supabaseClient
+    .from("profiles")
+    .select("berlaku_sampai")
+    .eq("id", id)
+    .single();
+
+  if (getError) {
+
+    showError(getError.message);
+
+    return;
+  }
+
+  let startDate =
+    new Date();
+
+  if (
+    member.berlaku_sampai &&
+    new Date(member.berlaku_sampai) > startDate
+  ) {
+
+    startDate =
+      new Date(
+        member.berlaku_sampai
+      );
+
+  }
+
+  startDate.setDate(
+    startDate.getDate() + days
+  );
+
+  const {
+    error
+  } = await supabaseClient
+    .from("profiles")
+    .update({
+
+      status: "aktif",
+
+      berlaku_sampai:
+        startDate.toISOString()
+
+    })
+    .eq(
+      "id",
+      id
+    );
+
+  if (error) {
+
+    showError(error.message);
+
+    return;
+  }
+
+  showSuccess(
+    "Masa member diperpanjang 30 hari."
+  );
+
+  loadMembers();
+
+}
+
+
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href =
+    "login.html";
+
+}
+
+
+function formatDate(date) {
+
+  return new Date(date)
+    .toLocaleDateString(
+      "id-ID",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      }
+    );
+
+}
+
+
+function showSuccess(message) {
+
+  const element =
+    document.getElementById(
+      "successMessage"
+    );
+
+  element.textContent =
+    message;
+
+  element.style.display =
+    "block";
+
+  document.getElementById(
+    "errorMessage"
+  ).style.display =
+    "none";
+
+}
+
+
+function showError(message) {
+
+  const element =
+    document.getElementById(
+      "errorMessage"
+    );
+
+  element.textContent =
+    message;
+
+  element.style.display =
+    "block";
+
+  document.getElementById(
+    "successMessage"
+  ).style.display =
+    "none";
+
+}
+
+
+function escapeHtml(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+loadMembers();
+
+</script>
+
+</body>
+  </html>
