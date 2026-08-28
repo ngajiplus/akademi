@@ -151,6 +151,8 @@
     <div class="learning-grid">
 
 
+      <!-- VIDEO -->
+
       <div class="learning-card">
 
         <div class="learning-icon">
@@ -174,6 +176,8 @@
 
 
 
+      <!-- AUDIO -->
+
       <div class="learning-card">
 
         <div class="learning-icon">
@@ -195,6 +199,8 @@
       </div>
 
 
+
+      <!-- PDF -->
 
       <div class="learning-card">
 
@@ -260,8 +266,16 @@
 <script>
 
 
+// ======================================================
+// LOAD DASHBOARD
+// ======================================================
+
 async function loadDashboard() {
 
+
+  // --------------------------------------
+  // CEK LOGIN
+  // --------------------------------------
 
   const {
     data: {
@@ -272,8 +286,6 @@ async function loadDashboard() {
     .getSession();
 
 
-  // Belum login
-
   if (!session) {
 
     window.location.href =
@@ -283,6 +295,10 @@ async function loadDashboard() {
 
   }
 
+
+  // --------------------------------------
+  // AMBIL PROFILE
+  // --------------------------------------
 
   const {
     data: profile,
@@ -314,7 +330,9 @@ async function loadDashboard() {
   }
 
 
-  // Nama
+  // --------------------------------------
+  // NAMA
+  // --------------------------------------
 
   document
     .getElementById("namaUser")
@@ -323,29 +341,101 @@ async function loadDashboard() {
     session.user.email;
 
 
-  // Status
+  // --------------------------------------
+  // CEK STATUS + TANGGAL
+  // --------------------------------------
 
-  const status =
-    profile.status ||
-    "gratis";
+  let statusAktif = false;
+
+  let statusDatabase =
+    String(
+      profile.status || "gratis"
+    ).toLowerCase();
 
 
-  document
-    .getElementById("statusUser")
-    .textContent =
-    status.toUpperCase();
+  if (
+    statusDatabase === "aktif"
+  ) {
+
+    // Kalau tidak ada tanggal,
+    // tetap dianggap aktif.
+
+    if (
+      !profile.berlaku_sampai
+    ) {
+
+      statusAktif = true;
+
+    } else {
+
+      const tanggalAkhir =
+        new Date(
+          profile.berlaku_sampai
+        );
+
+      const sekarang =
+        new Date();
+
+      if (
+        tanggalAkhir > sekarang
+      ) {
+
+        statusAktif = true;
+
+      }
+
+    }
+
+  }
 
 
-  // Paket
+  // --------------------------------------
+  // TAMPILKAN STATUS
+  // --------------------------------------
+
+  const statusElement =
+    document.getElementById(
+      "statusUser"
+    );
+
+
+  if (statusAktif) {
+
+    statusElement.textContent =
+      "AKTIF";
+
+  } else {
+
+    statusElement.textContent =
+      "GRATIS";
+
+  }
+
+
+  // --------------------------------------
+  // PAKET
+  // --------------------------------------
 
   document
     .getElementById("paketUser")
     .textContent =
     profile.paket ||
-    "-";
+    (
+      statusAktif
+      ? "Member"
+      : "-"
+    );
 
 
-  // Tanggal
+  // --------------------------------------
+  // TANGGAL
+  // --------------------------------------
+
+  const tanggalElement =
+    document.getElementById(
+      "tanggalUser"
+    );
+
 
   if (
     profile.berlaku_sampai
@@ -357,9 +447,7 @@ async function loadDashboard() {
       );
 
 
-    document
-      .getElementById("tanggalUser")
-      .textContent =
+    tanggalElement.textContent =
       tanggal.toLocaleDateString(
         "id-ID",
         {
@@ -369,18 +457,24 @@ async function loadDashboard() {
         }
       );
 
+  } else {
+
+    tanggalElement.textContent =
+      "-";
+
   }
 
 
-  // Kalau member aktif
+  // --------------------------------------
+  // MEMBER AKTIF
+  // --------------------------------------
 
-  if (
-    status.toLowerCase() ===
-    "aktif"
-  ) {
+  if (statusAktif) {
 
     document
-      .getElementById("upgradeCard")
+      .getElementById(
+        "upgradeCard"
+      )
       .innerHTML = `
 
         <div>
@@ -390,8 +484,9 @@ async function loadDashboard() {
           </h2>
 
           <p>
-            Anda sudah dapat mengakses
-            materi premium.
+            Anda dapat mengakses
+            materi premium selama
+            masa membership berlaku.
           </p>
 
         </div>
@@ -404,7 +499,9 @@ async function loadDashboard() {
 }
 
 
+// ======================================================
 // LOGOUT
+// ======================================================
 
 document
   .getElementById("logoutBtn")
@@ -423,7 +520,9 @@ document
 
 
 
+// ======================================================
 // PEMBAYARAN
+// ======================================================
 
 function upgradeMember() {
 
@@ -433,6 +532,10 @@ function upgradeMember() {
 
 }
 
+
+// ======================================================
+// JALANKAN
+// ======================================================
 
 loadDashboard();
 
