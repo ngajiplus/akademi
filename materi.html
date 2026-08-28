@@ -17,9 +17,13 @@
 
   <title>Video Pembelajaran - NgajiPlus</title>
 
+
+  <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="supabase-config.js"></script>
+
 
   <style>
 
@@ -27,277 +31,706 @@
       box-sizing: border-box;
     }
 
+
     body {
+
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f6f8f7;
-      color: #202a24;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        #f6f8f7;
+
+      color:
+        #202a24;
+
     }
+
 
     a {
       text-decoration: none;
     }
 
+
+    /* ==============================
+       HEADER
+    ============================== */
+
     header {
+
       background: white;
-      border-bottom: 1px solid #e5e9e6;
-      position: sticky;
+
+      border-bottom:
+        1px solid #e5e9e6;
+
+      position:
+        sticky;
+
       top: 0;
+
       z-index: 100;
+
     }
+
 
     .header-inner {
-      max-width: 1100px;
-      margin: auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+      max-width:
+        1100px;
+
+      margin:
+        auto;
+
+      padding:
+        15px 20px;
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
     }
+
 
     .logo {
-      color: #238b57;
-      font-weight: bold;
-      font-size: 21px;
+
+      color:
+        #238b57;
+
+      font-weight:
+        bold;
+
+      font-size:
+        21px;
+
     }
+
 
     nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+
+      display:
+        flex;
+
+      gap:
+        8px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     nav a {
-      color: #555;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
+
+      color:
+        #555;
+
+      padding:
+        8px 12px;
+
+      border-radius:
+        8px;
+
+      font-size:
+        14px;
+
     }
+
 
     nav a:hover {
-      background: #eef7f1;
-      color: #238b57;
+
+      background:
+        #eef7f1;
+
+      color:
+        #238b57;
+
     }
+
+
+    /* ==============================
+       MAIN
+    ============================== */
 
     main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 45px 20px;
+
+      max-width:
+        1100px;
+
+      margin:
+        auto;
+
+      padding:
+        45px 20px;
+
     }
+
 
     .page-title {
-      text-align: center;
-      margin-bottom: 35px;
+
+      text-align:
+        center;
+
+      margin-bottom:
+        35px;
+
     }
+
 
     .page-title h1 {
-      margin: 0 0 8px;
-      font-size: 35px;
+
+      margin:
+        0 0 8px;
+
+      font-size:
+        35px;
+
     }
+
 
     .page-title p {
-      margin: 0;
-      color: #737b76;
+
+      margin:
+        0;
+
+      color:
+        #737b76;
+
     }
 
+
+    /* ==============================
+       FILTER
+    ============================== */
+
     .filter-box {
-      background: white;
-      padding: 18px;
-      border-radius: 15px;
-      border: 1px solid #e5e9e6;
-      margin-bottom: 25px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+
+      background:
+        white;
+
+      padding:
+        18px;
+
+      border-radius:
+        15px;
+
+      border:
+        1px solid #e5e9e6;
+
+      margin-bottom:
+        25px;
+
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      flex-wrap:
+        wrap;
+
     }
+
 
     .filter-box input,
     .filter-box select {
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      outline: none;
-      background: white;
+
+      padding:
+        12px;
+
+      border:
+        1px solid #ddd;
+
+      border-radius:
+        9px;
+
+      outline:
+        none;
+
+      background:
+        white;
+
     }
+
 
     .filter-box input {
-      flex: 1;
-      min-width: 200px;
+
+      flex:
+        1;
+
+      min-width:
+        200px;
+
     }
+
+
+    /* ==============================
+       MATERIAL GRID
+    ============================== */
 
     #materialsContainer {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap:
+        20px;
+
     }
+
+
+    /* ==============================
+       CARD
+    ============================== */
 
     .material-card {
-      background: white;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid #e3e8e5;
-      transition: .2s;
+
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      overflow:
+        hidden;
+
+      border:
+        1px solid #e3e8e5;
+
+      transition:
+        .2s;
+
     }
+
 
     .material-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.07);
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.07);
+
     }
+
+
+    /* PREMIUM */
 
     .material-card.premium {
-      background: #202a24;
-      color: white;
+
+      background:
+        #202a24;
+
+      color:
+        white;
+
     }
+
+
+    /* ==============================
+       THUMBNAIL
+    ============================== */
 
     .thumbnail {
-      height: 170px;
-      background: #e5f2e9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      overflow: hidden;
+
+      height:
+        170px;
+
+      background:
+        #e5f2e9;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        50px;
+
+      overflow:
+        hidden;
+
     }
+
 
     .premium .thumbnail {
-      background: #35463c;
+
+      background:
+        #35463c;
+
     }
+
 
     .thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+
+      width:
+        100%;
+
+      height:
+        100%;
+
+      object-fit:
+        cover;
+
     }
+
+
+    /* ==============================
+       BODY
+    ============================== */
 
     .material-body {
-      padding: 20px;
+
+      padding:
+        20px;
+
     }
+
 
     .material-type {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 50px;
-      background: #eef7f1;
-      color: #238b57;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 10px;
+
+      display:
+        inline-block;
+
+      padding:
+        5px 9px;
+
+      border-radius:
+        50px;
+
+      background:
+        #eef7f1;
+
+      color:
+        #238b57;
+
+      font-size:
+        11px;
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        10px;
+
     }
+
 
     .premium .material-type {
-      background: #35463c;
-      color: #b9e4c8;
+
+      background:
+        #35463c;
+
+      color:
+        #b9e4c8;
+
     }
+
 
     .material-body h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+
+      margin:
+        0 0 8px;
+
+      font-size:
+        18px;
+
     }
+
 
     .material-description {
-      color: #737b76;
-      font-size: 14px;
-      line-height: 1.6;
-      min-height: 45px;
+
+      color:
+        #737b76;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+
+      min-height:
+        45px;
+
     }
+
 
     .premium .material-description {
-      color: #c6cec9;
+
+      color:
+        #c6cec9;
+
     }
+
+
+    /* ==============================
+       BUTTON
+    ============================== */
 
     .material-button {
-      display: block;
-      text-align: center;
-      margin-top: 15px;
-      padding: 11px;
-      border-radius: 9px;
-      background: #238b57;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
+
+      display:
+        block;
+
+      text-align:
+        center;
+
+      margin-top:
+        15px;
+
+      padding:
+        11px;
+
+      border-radius:
+        9px;
+
+      background:
+        #238b57;
+
+      color:
+        white;
+
+      font-weight:
+        bold;
+
+      font-size:
+        14px;
+
     }
+
+
+    .material-button:hover {
+
+      opacity:
+        .9;
+
+    }
+
 
     .premium-button {
-      background: white;
-      color: #202a24;
+
+      background:
+        white;
+
+      color:
+        #202a24;
+
     }
 
-    .loading {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 50px;
-      color: #777;
-    }
 
-    .empty {
-      grid-column: 1 / -1;
-      background: white;
-      padding: 50px;
-      text-align: center;
-      border-radius: 15px;
-      color: #777;
-    }
-
-    .error {
-      grid-column: 1 / -1;
-      background: #fff1f1;
-      color: #b42318;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .info {
-      grid-column: 1 / -1;
-      background: #eef7f1;
-      color: #238b57;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-    }
+    /* ==============================
+       LABEL
+    ============================== */
 
     .premium-label {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #b9e4c8;
+
+      margin-top:
+        8px;
+
+      font-size:
+        12px;
+
+      color:
+        #b9e4c8;
+
     }
 
+
     .free-label {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #238b57;
+
+      margin-top:
+        8px;
+
+      font-size:
+        12px;
+
+      color:
+        #238b57;
+
     }
+
+
+    /* ==============================
+       INFO
+    ============================== */
+
+    .info {
+
+      grid-column:
+        1 / -1;
+
+      background:
+        #eef7f1;
+
+      color:
+        #238b57;
+
+      padding:
+        15px;
+
+      border-radius:
+        12px;
+
+      text-align:
+        center;
+
+      font-size:
+        14px;
+
+    }
+
+
+    /* ==============================
+       LOADING
+    ============================== */
+
+    .loading {
+
+      grid-column:
+        1 / -1;
+
+      text-align:
+        center;
+
+      padding:
+        50px;
+
+      color:
+        #777;
+
+    }
+
+
+    /* ==============================
+       EMPTY
+    ============================== */
+
+    .empty {
+
+      grid-column:
+        1 / -1;
+
+      background:
+        white;
+
+      padding:
+        50px;
+
+      text-align:
+        center;
+
+      border-radius:
+        15px;
+
+      color:
+        #777;
+
+    }
+
+
+    /* ==============================
+       ERROR
+    ============================== */
+
+    .error {
+
+      grid-column:
+        1 / -1;
+
+      background:
+        #fff1f1;
+
+      color:
+        #b42318;
+
+      padding:
+        20px;
+
+      border-radius:
+        12px;
+
+      text-align:
+        center;
+
+    }
+
+
+    /* ==============================
+       MOBILE
+    ============================== */
 
     @media (max-width: 800px) {
 
       #materialsContainer {
-        grid-template-columns: repeat(2, 1fr);
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
       }
 
     }
 
+
     @media (max-width: 550px) {
 
       .header-inner {
-        flex-direction: column;
-        gap: 10px;
+
+        flex-direction:
+          column;
+
+        gap:
+          10px;
+
       }
+
 
       nav {
-        width: 100%;
-        justify-content: center;
+
+        width:
+          100%;
+
+        justify-content:
+          center;
+
       }
+
 
       main {
-        padding: 30px 15px;
+
+        padding:
+          30px 15px;
+
       }
+
 
       #materialsContainer {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
 
+
       .page-title h1 {
-        font-size: 28px;
+
+        font-size:
+          28px;
+
       }
 
     }
@@ -310,35 +743,59 @@
 <body>
 
 
+<!-- ==========================================
+     HEADER
+========================================== -->
+
 <header>
 
   <div class="header-inner">
+
 
     <a
       href="index.html"
       class="logo"
     >
+
       📖 NgajiPlus
+
     </a>
+
 
     <nav>
 
-      <a href="index.html">Beranda</a>
+      <a href="index.html">
+        Beranda
+      </a>
 
-      <a href="materi.html">Video</a>
+      <a href="materi.html">
+        Video
+      </a>
 
-      <a href="audio.html">Audio</a>
+      <a href="audio.html">
+        Audio
+      </a>
 
-      <a href="pdf.html">PDF</a>
+      <a href="pdf.html">
+        PDF
+      </a>
 
-      <a href="dashboard.html">Dashboard</a>
+      <a href="dashboard.html">
+        Dashboard
+      </a>
 
     </nav>
+
 
   </div>
 
 </header>
 
+
+
+<!-- ==========================================
+     MAIN
+========================================== -->
 
 <main>
 
@@ -357,13 +814,18 @@
   </div>
 
 
+
+  <!-- FILTER -->
+
   <div class="filter-box">
+
 
     <input
       type="search"
       id="searchInput"
       placeholder="🔎 Cari materi..."
     >
+
 
     <select id="categoryFilter">
 
@@ -405,13 +867,19 @@
 
     </select>
 
+
   </div>
 
+
+
+  <!-- MATERIAL -->
 
   <div id="materialsContainer">
 
     <div class="loading">
+
       ⏳ Memuat materi...
+
     </div>
 
   </div>
@@ -420,14 +888,20 @@
 </main>
 
 
+
 <script>
 
+
+// =====================================================
+// DATA
+// =====================================================
 
 let catalogMaterials = [];
 
 let availableMaterials = [];
 
 let currentSession = null;
+
 
 
 // =====================================================
@@ -443,84 +917,11 @@ async function getSession() {
   } =
   await supabaseClient.auth.getSession();
 
+
   return session;
 
 }
 
-
-// =====================================================
-// CEK MEMBER AKTIF
-// =====================================================
-
-async function checkMembership(session) {
-
-  if (!session) {
-
-    return false;
-
-  }
-
-
-  const {
-    data: profile,
-    error
-  } =
-  await supabaseClient
-    .from("profiles")
-    .select(
-      "status, berlaku_sampai"
-    )
-    .eq(
-      "id",
-      session.user.id
-    )
-    .single();
-
-
-  if (error || !profile) {
-
-    return false;
-
-  }
-
-
-  const status =
-    String(
-      profile.status || ""
-    ).toLowerCase();
-
-
-  if (
-    status !== "aktif"
-  ) {
-
-    return false;
-
-  }
-
-
-  if (
-    profile.berlaku_sampai
-  ) {
-
-    const expired =
-      new Date(
-        profile.berlaku_sampai
-      ) <= new Date();
-
-
-    if (expired) {
-
-      return false;
-
-    }
-
-  }
-
-
-  return true;
-
-}
 
 
 // =====================================================
@@ -528,6 +929,7 @@ async function checkMembership(session) {
 // =====================================================
 
 async function loadCatalog() {
+
 
   const container =
     document.getElementById(
@@ -538,19 +940,24 @@ async function loadCatalog() {
   container.innerHTML = `
 
     <div class="loading">
+
       ⏳ Memuat materi...
+
     </div>
 
   `;
 
 
+  // CEK SESSION
+
   currentSession =
     await getSession();
 
 
-  // ---------------------------------------------------
-  // SEMUA ORANG BOLEH MELIHAT KATALOG
-  // ---------------------------------------------------
+
+  // =================================================
+  // KATALOG PUBLIK
+  // =================================================
 
   const {
     data,
@@ -570,7 +977,7 @@ async function loadCatalog() {
 
       <div class="error">
 
-        ❌ Gagal mengambil katalog materi.
+        ❌ Gagal mengambil materi.
 
         <br><br>
 
@@ -591,11 +998,16 @@ async function loadCatalog() {
     data || [];
 
 
-  // ---------------------------------------------------
-  // JIKA LOGIN, AMBIL MATERI YANG BOLEH DIAKSES
-  // ---------------------------------------------------
+
+  // =================================================
+  // MATERI YANG BOLEH DIAKSES
+  // =================================================
+
+  availableMaterials = [];
+
 
   if (currentSession) {
+
 
     const {
       data: available,
@@ -606,16 +1018,7 @@ async function loadCatalog() {
     );
 
 
-    if (accessError) {
-
-      console.error(
-        accessError
-      );
-
-      availableMaterials = [];
-
-    }
-    else {
+    if (!accessError) {
 
       availableMaterials =
         available || [];
@@ -623,12 +1026,10 @@ async function loadCatalog() {
     }
 
   }
-  else {
 
-    availableMaterials = [];
 
-  }
 
+  // TAMPILKAN
 
   displayMaterials(
     catalogMaterials
@@ -637,15 +1038,19 @@ async function loadCatalog() {
 }
 
 
+
 // =====================================================
-// CEK APAKAH MATERI BOLEH DIAKSES
+// CEK AKSES MATERI
 // =====================================================
 
 function canAccessMaterial(
   material
 ) {
 
-  // Materi gratis
+
+  // ==========================================
+  // MATERI GRATIS
+  // ==========================================
 
   if (
     material.premium !== true
@@ -656,30 +1061,59 @@ function canAccessMaterial(
   }
 
 
-  // Materi premium
+
+  // ==========================================
+  // MATERI PREMIUM
+  // ==========================================
 
   return availableMaterials.some(
+
     item =>
+
       String(item.id) ===
       String(material.id)
+
   );
 
 }
 
 
+
 // =====================================================
-// CARI URL MATERI
+// AMBIL URL MATERI
 // =====================================================
 
 function getMaterialUrl(
   material
 ) {
 
+
+  // ==========================================
+  // GRATIS
+  // ==========================================
+
+  if (
+    material.premium !== true
+  ) {
+
+    return material.url || "";
+
+  }
+
+
+
+  // ==========================================
+  // PREMIUM
+  // ==========================================
+
   const found =
     availableMaterials.find(
+
       item =>
+
         String(item.id) ===
         String(material.id)
+
     );
 
 
@@ -695,6 +1129,7 @@ function getMaterialUrl(
 }
 
 
+
 // =====================================================
 // TAMPILKAN MATERI
 // =====================================================
@@ -702,6 +1137,7 @@ function getMaterialUrl(
 function displayMaterials(
   materials
 ) {
+
 
   const container =
     document.getElementById(
@@ -726,18 +1162,28 @@ function displayMaterials(
   }
 
 
+
+  // =================================================
+  // STATUS USER
+  // =================================================
+
   const isLoggedIn =
     !!currentSession;
 
 
-  const hasActiveMembership =
+  const hasPremiumAccess =
     availableMaterials.some(
+
       material =>
+
         material.premium === true
+
     );
 
 
+
   let info = "";
+
 
 
   if (!isLoggedIn) {
@@ -746,28 +1192,31 @@ function displayMaterials(
 
       <div class="info">
 
-        🔐 Login untuk mendapatkan
-        akses materi premium.
+        🔐 Silakan login untuk
+        mengakses materi premium.
 
       </div>
 
     `;
 
   }
-  else if (!hasActiveMembership) {
+
+  else if (!hasPremiumAccess) {
 
     info = `
 
       <div class="info">
 
-        🔒 Anda menggunakan akses GRATIS.
-        Upgrade untuk membuka materi premium.
+        🔒 Akun Anda masih GRATIS.
+        Upgrade member untuk membuka
+        materi premium.
 
       </div>
 
     `;
 
   }
+
   else {
 
     info = `
@@ -784,9 +1233,17 @@ function displayMaterials(
   }
 
 
+
+  // =================================================
+  // BUAT CARD
+  // =================================================
+
   const cards =
+
     materials
+
       .map(
+
         material => {
 
 
@@ -806,12 +1263,16 @@ function displayMaterials(
             );
 
 
-          // ------------------------------------------------
-          // TOMBOL
-          // ------------------------------------------------
+
+          // ========================================
+          // BUTTON
+          // ========================================
 
           let button;
 
+
+
+          // PREMIUM TIDAK BOLEH DIAKSES
 
           if (
             premium &&
@@ -821,11 +1282,14 @@ function displayMaterials(
             button = `
 
               <a
+
                 href="dashboard.html"
+
                 class="
                   material-button
                   premium-button
                 "
+
               >
 
                 🔒 Upgrade Member
@@ -835,15 +1299,30 @@ function displayMaterials(
             `;
 
           }
+
+
+
+          // MATERI BOLEH DIAKSES
+
           else if (url) {
 
             button = `
 
               <a
-                href="${escapeHtml(url)}"
+
+                href="${escapeHtml(
+                  url
+                )}"
+
                 target="_blank"
-                rel="noopener noreferrer"
+
+                rel="
+                  noopener
+                  noreferrer
+                "
+
                 class="material-button"
+
               >
 
                 ▶️ Mulai Belajar
@@ -853,16 +1332,24 @@ function displayMaterials(
             `;
 
           }
+
+
+
+          // URL KOSONG
+
           else {
 
             button = `
 
               <div
+
                 class="material-button"
+
                 style="
                   background:#ddd;
                   color:#555;
                 "
+
               >
 
                 Materi belum tersedia
@@ -874,48 +1361,65 @@ function displayMaterials(
           }
 
 
-          // ------------------------------------------------
+
+          // ========================================
           // THUMBNAIL
-          // ------------------------------------------------
+          // ========================================
 
-          const thumbnail =
+          let thumbnail;
+
+
+
+          if (
             material.thumbnail
+          ) {
 
-            ?
-
-            `
+            thumbnail = `
 
               <img
+
                 src="${escapeHtml(
                   material.thumbnail
                 )}"
+
                 alt="${escapeHtml(
                   material.judul
                 )}"
+
               >
 
-            `
+            `;
 
-            :
+          }
 
-            (
+          else {
+
+            thumbnail =
               premium
               ? "🔒"
-              : "🎥"
-            );
+              : "🎥";
 
+          }
+
+
+
+          // ========================================
+          // CARD
+          // ========================================
 
           return `
 
             <article
+
               class="
                 material-card
                 ${
                   premium
-                    ? "premium"
-                    : ""
+                  ? "premium"
+                  : ""
                 }
               "
+
             >
 
 
@@ -924,6 +1428,7 @@ function displayMaterials(
                 ${thumbnail}
 
               </div>
+
 
 
               <div class="material-body">
@@ -939,6 +1444,7 @@ function displayMaterials(
                 </span>
 
 
+
                 <h3>
 
                   ${escapeHtml(
@@ -947,6 +1453,7 @@ function displayMaterials(
                   )}
 
                 </h3>
+
 
 
                 <p
@@ -961,6 +1468,7 @@ function displayMaterials(
                 </p>
 
 
+
                 ${
                   premium
 
@@ -968,7 +1476,9 @@ function displayMaterials(
 
                   `
 
-                    <div class="premium-label">
+                    <div
+                      class="premium-label"
+                    >
 
                       🔐 Materi Premium
 
@@ -980,7 +1490,9 @@ function displayMaterials(
 
                   `
 
-                    <div class="free-label">
+                    <div
+                      class="free-label"
+                    >
 
                       🟢 Materi Gratis
 
@@ -989,6 +1501,7 @@ function displayMaterials(
                   `
 
                 }
+
 
 
                 ${button}
@@ -1002,8 +1515,11 @@ function displayMaterials(
           `;
 
         }
+
       )
+
       .join("");
+
 
 
   container.innerHTML =
@@ -1012,76 +1528,114 @@ function displayMaterials(
 }
 
 
+
 // =====================================================
 // FILTER
 // =====================================================
 
 function filterMaterials() {
 
+
   const keyword =
+
     document
+
       .getElementById(
         "searchInput"
       )
+
       .value
+
       .toLowerCase()
+
       .trim();
 
 
+
   const category =
+
     document
+
       .getElementById(
         "categoryFilter"
       )
+
       .value
+
       .toLowerCase();
 
 
+
   const filtered =
+
     catalogMaterials.filter(
+
       material => {
 
 
         const judul =
+
           String(
             material.judul || ""
           )
           .toLowerCase();
 
 
+
         const deskripsi =
+
           String(
             material.deskripsi || ""
           )
           .toLowerCase();
 
 
+
         const kategori =
+
           String(
             material.kategori || ""
           )
           .toLowerCase();
 
 
+
         const matchKeyword =
+
           !keyword ||
-          judul.includes(keyword) ||
-          deskripsi.includes(keyword);
+
+          judul.includes(
+            keyword
+          ) ||
+
+          deskripsi.includes(
+            keyword
+          );
+
 
 
         const matchCategory =
+
           !category ||
-          kategori === category ||
-          kategori.includes(category);
+
+          kategori.includes(
+            category
+          );
+
 
 
         return (
+
           matchKeyword &&
+
           matchCategory
+
         );
 
       }
+
     );
+
 
 
   displayMaterials(
@@ -1091,81 +1645,15 @@ function filterMaterials() {
 }
 
 
+
+// =====================================================
+// SEARCH
+// =====================================================
+
 document
+
   .getElementById(
     "searchInput"
   )
-  .addEventListener(
-    "input",
-    filterMaterials
-  );
 
-
-document
-  .getElementById(
-    "categoryFilter"
-  )
-  .addEventListener(
-    "change",
-    filterMaterials
-  );
-
-
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
-function escapeHtml(value) {
-
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
-    return "";
-
-  }
-
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-// =====================================================
-// MULAI
-// =====================================================
-
-loadCatalog();
-
-</script>
-
-
-</body>
-
-  </html>
+  .addEve
