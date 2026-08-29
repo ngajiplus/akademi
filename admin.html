@@ -1,777 +1,1043 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Admin - NgajiPlus</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Admin NgajiPlus</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <script src="supabase-config.js"></script>
+
+
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
+
       margin: 0;
+
       font-family: Arial, sans-serif;
-      background: #f4f8f6;
-      color: #1f2937;
+
+      background: #f5f7f6;
+
+      color: #202a24;
+
     }
+
 
     header {
+
       background: white;
-      padding: 18px 20px;
+
       border-bottom: 1px solid #ddd;
+
+      padding: 18px 20px;
+
+    }
+
+
+    .header-inner {
+
+      max-width: 1000px;
+
+      margin: auto;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
     }
 
-    header h2 {
-      margin: 0;
-      color: #008f5a;
-    }
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      cursor: pointer;
+    .logo {
+
+      color: #238b57;
+
+      font-size: 22px;
+
       font-weight: bold;
+
     }
+
 
     .logout {
+
+      border: none;
+
       background: #eee;
+
+      padding: 9px 15px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
     }
+
 
     main {
-      max-width: 1100px;
+
+      max-width: 1000px;
+
       margin: auto;
-      padding: 20px;
+
+      padding: 30px 20px;
+
     }
 
-    .box {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.05);
-    }
 
-    h3 {
+    h1 {
+
       margin-top: 0;
+
     }
+
+
+    .card {
+
+      background: white;
+
+      border: 1px solid #e1e6e3;
+
+      border-radius: 15px;
+
+      padding: 25px;
+
+      margin-bottom: 25px;
+
+    }
+
 
     label {
+
       display: block;
-      margin-top: 14px;
-      margin-bottom: 6px;
+
       font-weight: bold;
+
+      margin-top: 15px;
+
+      margin-bottom: 7px;
+
     }
+
 
     input,
     textarea,
     select {
+
       width: 100%;
+
       padding: 12px;
-      border: 1px solid #ddd;
+
+      border: 1px solid #d5dbd7;
+
       border-radius: 8px;
-      font-size: 15px;
+
+      font-size: 14px;
+
     }
+
 
     textarea {
-      min-height: 90px;
+
+      min-height: 100px;
+
       resize: vertical;
+
     }
 
-    .save {
-      margin-top: 18px;
-      background: #008f5a;
+
+    .checkbox {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-top: 15px;
+
+    }
+
+
+    .checkbox input {
+
+      width: auto;
+
+    }
+
+
+    button {
+
+      cursor: pointer;
+
+    }
+
+
+    .save-btn {
+
+      margin-top: 20px;
+
+      width: 100%;
+
+      padding: 13px;
+
+      border: none;
+
+      border-radius: 9px;
+
+      background: #238b57;
+
       color: white;
-      width: 100%;
-      font-size: 16px;
+
+      font-weight: bold;
+
+      font-size: 15px;
+
     }
 
-    .cancel {
-      margin-top: 10px;
-      background: #eee;
-      width: 100%;
-      display: none;
+
+    .save-btn:hover {
+
+      background: #197344;
+
     }
+
 
     .message {
+
       margin-top: 15px;
+
       padding: 12px;
+
       border-radius: 8px;
+
       display: none;
+
     }
 
-    .material {
-      border: 1px solid #ddd;
+
+    .success {
+
+      display: block;
+
+      background: #e8f7ee;
+
+      color: #187a46;
+
+    }
+
+
+    .error {
+
+      display: block;
+
+      background: #fff0f0;
+
+      color: #b42318;
+
+    }
+
+
+    .material-item {
+
+      border: 1px solid #e2e6e3;
+
       border-radius: 12px;
+
       padding: 15px;
+
       margin-top: 12px;
+
     }
 
-    .material h4 {
-      margin: 0 0 8px;
+
+    .material-item h3 {
+
+      margin: 0 0 7px;
+
     }
 
-    .badge {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      margin-right: 5px;
+
+    .material-info {
+
+      color: #68716c;
+
+      font-size: 13px;
+
     }
 
-    .gratis {
-      background: #dcfce7;
-      color: #166534;
+
+    .delete-btn {
+
+      margin-top: 10px;
+
+      border: none;
+
+      background: #ffe5e5;
+
+      color: #b42318;
+
+      padding: 8px 12px;
+
+      border-radius: 7px;
+
     }
 
-    .premium {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .edit {
-      background: #e0f2fe;
-      color: #0369a1;
-    }
-
-    .delete {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
-
-    .type {
-      background: #f1f5f9;
-      color: #475569;
-    }
 
     .loading {
+
       text-align: center;
+
+      color: #777;
+
       padding: 20px;
+
     }
 
-    @media(max-width:600px) {
+
+    @media (max-width: 600px) {
+
       main {
-        padding: 12px;
+
+        padding: 20px 15px;
+
       }
 
-      header {
-        padding: 15px;
+      .header-inner {
+
+        gap: 10px;
+
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-  <div>
-    <h2>🎓 NgajiPlus Admin</h2>
-    <small>Manajemen Materi Pembelajaran</small>
+
+  <div class="header-inner">
+
+    <div class="logo">
+      📖 NgajiPlus Admin
+    </div>
+
+    <button
+      class="logout"
+      id="logoutBtn"
+    >
+      Keluar
+    </button>
+
   </div>
 
-  <button class="logout" onclick="logout()">
-    Keluar
-  </button>
 </header>
+
 
 <main>
 
+
+  <h1>
+    🎬 Kelola Materi Video
+  </h1>
+
+
   <!-- TAMBAH MATERI -->
-  <div class="box">
 
-    <h3 id="formTitle">➕ Tambah Materi</h3>
+  <section class="card">
 
-    <label>Judul Materi</label>
-    <input
-      type="text"
-      id="judul"
-      placeholder="Contoh: Belajar Fiqih Shalat"
-    >
+    <h2>
+      ➕ Tambah Materi
+    </h2>
 
-    <label>Kategori</label>
-    <select id="kategori">
-      <option value="Al-Qur'an & Tahsin">📖 Al-Qur'an & Tahsin</option>
-      <option value="Fiqih">🕌 Fiqih</option>
-      <option value="Aqidah">💎 Aqidah</option>
-      <option value="Akhlak & Adab">🌿 Akhlak & Adab</option>
-      <option value="Bahasa Arab">🇸🇦 Bahasa Arab</option>
-      <option value="Hadits">📚 Hadits</option>
-      <option value="Tafsir">📖 Tafsir</option>
-      <option value="Sejarah Islam">🕌 Sejarah Islam</option>
-      <option value="Hafalan">🎧 Hafalan</option>
-      <option value="Lainnya">📦 Lainnya</option>
-    </select>
 
-    <label>Jenis Materi</label>
-    <select id="tipe">
-      <option value="video">🎥 Video</option>
-      <option value="audio">🎧 Audio</option>
-      <option value="pdf">📄 PDF</option>
-    </select>
+    <form id="materialForm">
 
-    <label>URL Materi</label>
-    <input
-      type="url"
-      id="url"
-      placeholder="https://..."
-    >
 
-    <label>Thumbnail URL</label>
-    <input
-      type="url"
-      id="thumbnail"
-      placeholder="https://..."
-    >
+      <label>
+        Judul Materi
+      </label>
 
-    <label>Deskripsi</label>
-    <textarea
-      id="deskripsi"
-      placeholder="Tuliskan deskripsi materi..."
-    ></textarea>
-
-    <label>
       <input
-        type="checkbox"
-        id="premium"
-        style="width:auto"
+        type="text"
+        id="judul"
+        placeholder="Contoh: Belajar Membaca Al-Qur'an"
+        required
       >
-      🔒 Materi Premium
-    </label>
 
-    <button class="save" onclick="simpanMateri()">
-      💾 Simpan Materi
-    </button>
 
-    <button
-      class="cancel"
-      id="cancelBtn"
-      onclick="batalEdit()"
-    >
-      Batal Edit
-    </button>
 
-    <div id="message" class="message"></div>
+      <label>
+        Deskripsi
+      </label>
 
-  </div>
+      <textarea
+        id="deskripsi"
+        placeholder="Deskripsi materi..."
+      ></textarea>
+
+
+
+      <label>
+        Kategori
+      </label>
+
+      <select
+        id="kategori"
+        required
+      >
+
+        <option value="">
+          Pilih kategori
+        </option>
+
+        <option value="Al-Qur'an & Tahsin">
+          Al-Qur'an & Tahsin
+        </option>
+
+        <option value="Fiqih">
+          Fiqih
+        </option>
+
+        <option value="Aqidah">
+          Aqidah
+        </option>
+
+        <option value="Akhlak & Adab">
+          Akhlak & Adab
+        </option>
+
+        <option value="Bahasa Arab">
+          Bahasa Arab
+        </option>
+
+        <option value="Hadits">
+          Hadits
+        </option>
+
+        <option value="Tafsir">
+          Tafsir
+        </option>
+
+        <option value="Sejarah Islam">
+          Sejarah Islam
+        </option>
+
+      </select>
+
+
+
+      <label>
+        URL Video
+      </label>
+
+      <input
+        type="url"
+        id="url"
+        placeholder="https://www.youtube.com/watch?v=..."
+        required
+      >
+
+
+
+      <label>
+        URL Thumbnail
+      </label>
+
+      <input
+        type="url"
+        id="thumbnail"
+        placeholder="https://..."
+      >
+
+
+
+      <div class="checkbox">
+
+        <input
+          type="checkbox"
+          id="premium"
+        >
+
+        <span>
+          🔐 Jadikan Materi Premium
+        </span>
+
+      </div>
+
+
+
+      <button
+        type="submit"
+        class="save-btn"
+      >
+        💾 Simpan Materi
+      </button>
+
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+
+    </form>
+
+  </section>
+
 
 
   <!-- DAFTAR MATERI -->
-  <div class="box">
 
-    <h3>📚 Daftar Materi</h3>
+  <section class="card">
 
-    <div id="materialList">
+    <h2>
+      📚 Daftar Materi
+    </h2>
+
+
+    <div
+      id="materialsList"
+    >
+
       <div class="loading">
-        Memuat materi...
+        ⏳ Memuat materi...
       </div>
+
     </div>
 
-  </div>
+  </section>
+
 
 </main>
 
 
+
 <script>
 
-  // =====================================================
-  // SUPABASE
-  // =====================================================
 
-  const SUPABASE_URL = "https://ksgywgdrfskqsufchbcm.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+// =================================================
+// CEK ADMIN
+// =================================================
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
+async function checkAdmin() {
+
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
+
+  if (!session) {
+
+    window.location.href =
+      "login.html";
+
+    return null;
+
+  }
+
+
+  return session;
+
+}
+
+
+
+// =================================================
+// TAMPIL PESAN
+// =================================================
+
+function showMessage(
+  text,
+  type
+) {
+
+  const message =
+    document.getElementById(
+      "message"
     );
 
 
-  // =====================================================
-  // VARIABEL EDIT
-  // =====================================================
-
-  let editId = null;
+  message.textContent =
+    text;
 
 
-  // =====================================================
-  // CEK LOGIN DAN ADMIN
-  // =====================================================
+  message.className =
+    "message " + type;
 
-  async function cekAdmin() {
-
-    const {
-      data: { user },
-      error
-    } = await supabaseClient.auth.getUser();
-
-    if (error || !user) {
-
-      alert("Silakan login terlebih dahulu.");
-
-      window.location.href = "login.html";
-
-      return false;
-    }
-
-    const { data: admin, error: adminError } =
-      await supabaseClient
-        .from("admin_users")
-        .select("user_id")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-    if (adminError || !admin) {
-
-      alert("Anda bukan admin.");
-
-      window.location.href = "dashboard.html";
-
-      return false;
-    }
-
-    return true;
-  }
+}
 
 
-  // =====================================================
-  // LOAD MATERI
-  // =====================================================
 
-  async function loadMateri() {
+// =================================================
+// TAMBAH MATERI
+// =================================================
 
-    const list =
-      document.getElementById("materialList");
+document
+  .getElementById(
+    "materialForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event) {
 
-    const { data, error } =
+
+      event.preventDefault();
+
+
+      const judul =
+        document
+          .getElementById(
+            "judul"
+          )
+          .value
+          .trim();
+
+
+      const deskripsi =
+        document
+          .getElementById(
+            "deskripsi"
+          )
+          .value
+          .trim();
+
+
+      const kategori =
+        document
+          .getElementById(
+            "kategori"
+          )
+          .value;
+
+
+      const url =
+        document
+          .getElementById(
+            "url"
+          )
+          .value
+          .trim();
+
+
+      const thumbnail =
+        document
+          .getElementById(
+            "thumbnail"
+          )
+          .value
+          .trim();
+
+
+      const premium =
+        document
+          .getElementById(
+            "premium"
+          )
+          .checked;
+
+
+
+      const {
+        error
+      } =
       await supabaseClient
         .from("materials")
-        .select("*")
-        .order("id", { ascending: false });
+        .insert([
 
-    if (error) {
+          {
 
-      list.innerHTML =
-        `<p>❌ Gagal memuat materi: ${error.message}</p>`;
+            judul:
+              judul,
 
-      return;
-    }
+            deskripsi:
+              deskripsi,
 
-    if (!data || data.length === 0) {
+            kategori:
+              kategori,
 
-      list.innerHTML =
-        "<p>Belum ada materi.</p>";
+            url:
+              url,
 
-      return;
-    }
+            thumbnail:
+              thumbnail || null,
 
-    list.innerHTML = "";
+            premium:
+              premium
 
-    data.forEach(material => {
+          }
 
-      const premiumBadge =
-        material.premium
-          ? `<span class="badge premium">🔒 PREMIUM</span>`
-          : `<span class="badge gratis">🟢 GRATIS</span>`;
-
-      const typeBadge =
-        `<span class="badge type">${material.tipe || "-"}</span>`;
-
-      const item =
-        document.createElement("div");
-
-      item.className = "material";
-
-      item.innerHTML = `
-
-        <h4>
-          ${escapeHTML(material.judul || "Tanpa Judul")}
-        </h4>
-
-        <div>
-          ${premiumBadge}
-          ${typeBadge}
-
-          <span class="badge type">
-            ${escapeHTML(material.kategori || "-")}
-          </span>
-        </div>
-
-        <p>
-          ${escapeHTML(material.deskripsi || "")}
-        </p>
-
-        <small>
-          ${escapeHTML(material.url || "")}
-        </small>
-
-        <div class="actions">
-
-          <button
-            class="edit"
-            onclick="editMateri(${material.id})"
-          >
-            ✏️ Edit
-          </button>
-
-          <button
-            class="delete"
-            onclick="hapusMateri(${material.id})"
-          >
-            🗑️ Hapus
-          </button>
-
-        </div>
-      `;
-
-      list.appendChild(item);
-
-    });
-  }
+        ]);
 
 
-  // =====================================================
-  // SIMPAN / UPDATE MATERI
-  // =====================================================
 
-  async function simpanMateri() {
+      if (error) {
 
-    const judul =
-      document.getElementById("judul").value.trim();
-
-    const kategori =
-      document.getElementById("kategori").value;
-
-    const tipe =
-      document.getElementById("tipe").value;
-
-    const url =
-      document.getElementById("url").value.trim();
-
-    const thumbnail =
-      document.getElementById("thumbnail").value.trim();
-
-    const deskripsi =
-      document.getElementById("deskripsi").value.trim();
-
-    const premium =
-      document.getElementById("premium").checked;
+        console.error(error);
 
 
-    if (!judul) {
+        showMessage(
+          "❌ Gagal menyimpan: " +
+          error.message,
+          "error"
+        );
 
-      tampilkanPesan(
-        "Judul materi wajib diisi.",
-        true
+        return;
+
+      }
+
+
+
+      showMessage(
+        "✅ Materi berhasil ditambahkan!",
+        "success"
       );
 
-      return;
-    }
 
-    if (!url) {
-
-      tampilkanPesan(
-        "URL materi wajib diisi.",
-        true
-      );
-
-      return;
-    }
+      document
+        .getElementById(
+          "materialForm"
+        )
+        .reset();
 
 
-    const dataMateri = {
-
-      judul,
-      kategori,
-      tipe,
-      url,
-      thumbnail,
-      deskripsi,
-      premium
-
-    };
-
-
-    let result;
-
-
-    if (editId) {
-
-      result =
-        await supabaseClient
-          .from("materials")
-          .update(dataMateri)
-          .eq("id", editId);
-
-    } else {
-
-      result =
-        await supabaseClient
-          .from("materials")
-          .insert([dataMateri]);
+      loadMaterials();
 
     }
+  );
 
 
-    if (result.error) {
 
-      tampilkanPesan(
-        "❌ Gagal: " + result.error.message,
-        true
-      );
+// =================================================
+// AMBIL DAFTAR MATERI
+// =================================================
 
-      return;
-    }
+async function loadMaterials() {
 
 
-    tampilkanPesan(
-      editId
-        ? "✅ Materi berhasil diperbarui."
-        : "✅ Materi berhasil ditambahkan.",
-      false
+  const container =
+    document.getElementById(
+      "materialsList"
     );
 
 
-    bersihkanForm();
+  container.innerHTML = `
 
-    await loadMateri();
+    <div class="loading">
+      ⏳ Memuat materi...
+    </div>
+
+  `;
+
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+
+    .from("materials")
+
+    .select("*")
+
+    .order(
+      "id",
+      {
+        ascending: false
+      }
+    );
+
+
+
+  if (error) {
+
+    container.innerHTML = `
+
+      <div class="message error">
+
+        ❌ ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+    return;
 
   }
 
 
-  // =====================================================
-  // EDIT
-  // =====================================================
 
-  async function editMateri(id) {
+  if (!data.length) {
 
-    const { data, error } =
+    container.innerHTML = `
+
+      <div class="loading">
+
+        📚 Belum ada materi.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+
+  container.innerHTML =
+
+    data
+      .map(
+        material => `
+
+          <div
+            class="material-item"
+          >
+
+            <h3>
+
+              ${escapeHtml(
+                material.judul
+              )}
+
+            </h3>
+
+
+            <div
+              class="material-info"
+            >
+
+              Kategori:
+              ${escapeHtml(
+                material.kategori ||
+                "-"
+              )}
+
+              <br>
+
+              Status:
+              ${
+                material.premium
+                ?
+                "🔐 Premium"
+                :
+                "🟢 Gratis"
+              }
+
+            </div>
+
+
+            <button
+              class="delete-btn"
+              onclick="deleteMaterial(${material.id})"
+            >
+
+              🗑️ Hapus
+
+            </button>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+
+// =================================================
+// HAPUS MATERI
+// =================================================
+
+async function deleteMaterial(
+  id
+) {
+
+
+  const yakin =
+    confirm(
+      "Yakin ingin menghapus materi ini?"
+    );
+
+
+  if (!yakin) {
+
+    return;
+
+  }
+
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+
+    .from("materials")
+
+    .delete()
+
+    .eq(
+      "id",
+      id
+    );
+
+
+
+  if (error) {
+
+    alert(
+      "❌ Gagal menghapus: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+
+  alert(
+    "✅ Materi berhasil dihapus."
+  );
+
+
+  loadMaterials();
+
+}
+
+
+
+// =================================================
+// ESCAPE HTML
+// =================================================
+
+function escapeHtml(
+  value
+) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+// =================================================
+// LOGOUT
+// =================================================
+
+document
+  .getElementById(
+    "logoutBtn"
+  )
+  .addEventListener(
+    "click",
+    async function() {
+
+
       await supabaseClient
-        .from("materials")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-    if (error) {
-
-      alert(error.message);
-
-      return;
-    }
+        .auth
+        .signOut();
 
 
-    editId = id;
-
-
-    document.getElementById("judul").value =
-      data.judul || "";
-
-    document.getElementById("kategori").value =
-      data.kategori || "Lainnya";
-
-    document.getElementById("tipe").value =
-      data.tipe || "video";
-
-    document.getElementById("url").value =
-      data.url || "";
-
-    document.getElementById("thumbnail").value =
-      data.thumbnail || "";
-
-    document.getElementById("deskripsi").value =
-      data.deskripsi || "";
-
-    document.getElementById("premium").checked =
-      data.premium === true;
-
-
-    document.getElementById("formTitle").innerText =
-      "✏️ Edit Materi";
-
-    document.getElementById("cancelBtn").style.display =
-      "block";
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-
-  // =====================================================
-  // HAPUS
-  // =====================================================
-
-  async function hapusMateri(id) {
-
-    const yakin =
-      confirm(
-        "Yakin ingin menghapus materi ini?"
-      );
-
-    if (!yakin) return;
-
-
-    const { error } =
-      await supabaseClient
-        .from("materials")
-        .delete()
-        .eq("id", id);
-
-
-    if (error) {
-
-      alert(
-        "❌ Gagal menghapus: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    alert("✅ Materi berhasil dihapus.");
-
-    await loadMateri();
-
-  }
-
-
-  // =====================================================
-  // BATAL EDIT
-  // =====================================================
-
-  function batalEdit() {
-
-    editId = null;
-
-    bersihkanForm();
-
-    document.getElementById("formTitle").innerText =
-      "➕ Tambah Materi";
-
-    document.getElementById("cancelBtn").style.display =
-      "none";
-
-  }
-
-
-  // =====================================================
-  // BERSIHKAN FORM
-  // =====================================================
-
-  function bersihkanForm() {
-
-    editId = null;
-
-    document.getElementById("judul").value = "";
-    document.getElementById("url").value = "";
-    document.getElementById("thumbnail").value = "";
-    document.getElementById("deskripsi").value = "";
-    document.getElementById("premium").checked = false;
-
-  }
-
-
-  // =====================================================
-  // PESAN
-  // =====================================================
-
-  function tampilkanPesan(text, error) {
-
-    const box =
-      document.getElementById("message");
-
-    box.style.display = "block";
-
-    box.innerText = text;
-
-    if (error) {
-
-      box.style.background = "#fee2e2";
-      box.style.color = "#991b1b";
-
-    } else {
-
-      box.style.background = "#dcfce7";
-      box.style.color = "#166534";
+      window.location.href =
+        "index.html";
 
     }
+  );
 
 
-    setTimeout(() => {
 
-      box.style.display = "none";
+// =================================================
+// MULAI
+// =================================================
 
-    }, 4000);
+async function start() {
 
-  }
+  const session =
+    await checkAdmin();
 
 
-  // =====================================================
-  // ESCAPE HTML
-  // =====================================================
+  if (!session) {
 
-  function escapeHTML(text) {
-
-    return String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+    return;
 
   }
 
 
-  // =====================================================
-  // LOGOUT
-  // =====================================================
+  loadMaterials();
 
-  async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href = "login.html";
-
-  }
+}
 
 
-  // =====================================================
-  // MULAI
-  // =====================================================
-
-  async function mulai() {
-
-    const isAdmin = await cekAdmin();
-
-    if (!isAdmin) return;
-
-    await loadMateri();
-
-  }
-
-
-  mulai();
+start();
 
 </script>
 
+
 </body>
+
   </html>
