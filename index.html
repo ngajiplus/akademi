@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -16,8 +16,13 @@
 
 <title>NgajiPlus - Perpustakaan Pembelajaran</title>
 
-<!-- SUPABASE -->
+
+<!-- ==================================================
+     SUPABASE
+================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <style>
 
@@ -61,27 +66,37 @@ select{
     position:sticky;
     top:0;
     z-index:1000;
-    background:rgba(255,255,255,.96);
+
+    background:rgba(255,255,255,.97);
+
     backdrop-filter:blur(10px);
+
     border-bottom:1px solid #e6ebe8;
 }
 
 .nav-container{
     max-width:1150px;
     margin:auto;
+
     padding:12px 18px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 }
 
 .logo{
     display:flex;
     align-items:center;
+
     gap:8px;
+
     color:#238b57;
+
     font-weight:bold;
+
     font-size:18px;
 }
 
@@ -92,13 +107,17 @@ select{
 .nav-menu{
     display:flex;
     align-items:center;
+
     gap:6px;
 }
 
 .nav-menu a{
     padding:8px 11px;
+
     color:#4b5563;
+
     font-size:12px;
+
     border-radius:8px;
 }
 
@@ -124,30 +143,43 @@ select{
 
 .hero{
     max-width:1150px;
+
     margin:auto;
+
     padding:55px 20px 50px;
 
     display:grid;
+
     grid-template-columns:1.1fr .9fr;
 
     gap:45px;
+
     align-items:center;
 }
 
 .hero-badge{
     display:inline-block;
+
     padding:6px 11px;
+
     background:#eaf6ef;
+
     color:#238b57;
+
     border-radius:50px;
+
     font-size:11px;
+
     font-weight:bold;
+
     margin-bottom:12px;
 }
 
 .hero h1{
     margin:0 0 16px;
+
     font-size:clamp(38px,6vw,62px);
+
     line-height:1.08;
 }
 
@@ -157,24 +189,35 @@ select{
 
 .hero-description{
     max-width:620px;
+
     color:#667085;
+
     font-size:15px;
+
     margin-bottom:24px;
 }
 
 .hero-buttons{
     display:flex;
+
     gap:10px;
+
     flex-wrap:wrap;
 }
 
 .btn{
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
+
     padding:11px 16px;
+
     border-radius:9px;
+
     font-weight:bold;
+
     font-size:13px;
 }
 
@@ -185,7 +228,9 @@ select{
 
 .btn-secondary{
     background:white;
+
     color:#238b57;
+
     border:1px solid #238b57;
 }
 
@@ -196,22 +241,33 @@ select{
 
 .hero-card{
     background:white;
+
     border:1px solid #e5ebe7;
+
     border-radius:25px;
+
     padding:20px;
-    box-shadow:0 20px 50px rgba(35,139,87,.10);
+
+    box-shadow:
+        0 20px 50px
+        rgba(35,139,87,.10);
 }
 
 .hero-screen{
     background:#f1f7f3;
+
     border-radius:18px;
+
     padding:18px;
 }
 
 .hero-screen-top{
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:16px;
 }
 
@@ -223,40 +279,52 @@ select{
 .mini-avatar{
     width:30px;
     height:30px;
+
     border-radius:50%;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     background:white;
 }
 
 .featured-video{
     height:150px;
+
     border-radius:15px;
 
     background:
-    linear-gradient(
-        135deg,
-        #238b57,
-        #72b98f
-    );
+        linear-gradient(
+            135deg,
+            #238b57,
+            #72b98f
+        );
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     color:white;
+
     font-size:42px;
 }
 
 .mini-title{
     font-weight:bold;
+
     margin:12px 0 3px;
+
     font-size:14px;
 }
 
 .mini-text{
     color:#7a8580;
+
     font-size:11px;
 }
 
@@ -267,34 +335,45 @@ select{
 
 .features{
     max-width:1150px;
+
     margin:auto;
+
     padding:10px 20px 55px;
 
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
+
     gap:12px;
 }
 
 .feature{
     background:white;
+
     border:1px solid #e7ece9;
+
     padding:18px;
+
     border-radius:15px;
 }
 
 .feature-icon{
     font-size:24px;
+
     margin-bottom:5px;
 }
 
 .feature h3{
     margin:0 0 3px;
+
     font-size:14px;
 }
 
 .feature p{
     margin:0;
+
     color:#7a8580;
+
     font-size:11px;
 }
 
@@ -305,7 +384,9 @@ select{
 
 .section{
     max-width:1150px;
+
     margin:auto;
+
     padding:55px 20px;
 }
 
@@ -315,12 +396,15 @@ select{
 
 .section-header h2{
     margin:0;
+
     font-size:25px;
 }
 
 .section-header p{
     margin:4px 0 0;
+
     color:#7a8580;
+
     font-size:13px;
 }
 
@@ -331,37 +415,54 @@ select{
 
 .category-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:12px;
 }
 
 .category-card{
     min-height:135px;
+
     padding:18px;
+
     border-radius:16px;
+
     background:white;
+
     border:1px solid #e7ece9;
+
     transition:.2s;
+
+    cursor:pointer;
 }
 
 .category-card:hover{
     transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.05);
 }
 
 .category-icon{
     font-size:28px;
+
     margin-bottom:7px;
 }
 
 .category-card h3{
     margin:0 0 3px;
+
     font-size:14px;
 }
 
 .category-card p{
     margin:0;
+
     color:#7a8580;
+
     font-size:11px;
 }
 
@@ -372,12 +473,15 @@ select{
 
 .material-section{
     background:#eef7f1;
+
     padding:5px 0 60px;
 }
 
 .material-inner{
     max-width:1150px;
+
     margin:auto;
+
     padding:45px 20px;
 }
 
@@ -388,19 +492,29 @@ select{
 
 .material-tools{
     display:grid;
-    grid-template-columns:1fr 180px;
+
+    grid-template-columns:
+        1fr 180px;
+
     gap:10px;
+
     margin-bottom:22px;
 }
 
 .search-box,
 .category-select{
     width:100%;
+
     padding:12px 14px;
+
     border:1px solid #dfe7e2;
+
     border-radius:9px;
+
     background:white;
+
     outline:none;
+
     font-size:12px;
 }
 
@@ -416,21 +530,31 @@ select{
 
 .material-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:16px;
 }
 
 .material-card{
     background:white;
+
     border-radius:16px;
+
     overflow:hidden;
+
     border:1px solid #e1e9e4;
+
     transition:.2s;
 }
 
 .material-card:hover{
     transform:translateY(-2px);
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.06);
 }
 
 
@@ -440,49 +564,80 @@ select{
 
 .material-image{
     height:175px;
+
     background:#dff1e6;
+
     position:relative;
+
     overflow:hidden;
 }
 
 .material-image img{
     width:100%;
+
     height:100%;
+
     object-fit:cover;
+
     display:block;
 }
 
 .thumbnail-fallback{
     width:100%;
+
     height:100%;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    font-size:55px;
-    background:#dff1e6;
+    flex-direction:column;
+
+    gap:5px;
+
+    font-size:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff1e6,
+            #eef8f2
+        );
+
+    color:#238b57;
+}
+
+.thumbnail-fallback span{
+    font-size:12px;
+
+    font-weight:bold;
 }
 
 
 /* ==================================================
-   PREMIUM IMAGE
+   PREMIUM
 ================================================== */
 
-.premium .material-image{
+.material-card.premium .material-image{
     background:#203b2e;
 }
 
-.premium .material-image img{
+.material-card.premium
+.material-image img{
     filter:brightness(.35);
 }
 
 .lock-overlay{
     position:absolute;
+
     inset:0;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     font-size:55px;
@@ -501,11 +656,13 @@ select{
     display:inline-block;
 
     font-size:10px;
+
     padding:4px 8px;
 
     border-radius:50px;
 
     background:#eef7f1;
+
     color:#238b57;
 
     font-weight:bold;
@@ -515,11 +672,15 @@ select{
 
 .material-card h3{
     margin:0 0 5px;
+
     font-size:15px;
 
     display:-webkit-box;
+
     -webkit-line-clamp:2;
+
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
@@ -535,36 +696,47 @@ select{
 
 .material-info{
     display:flex;
+
     flex-wrap:wrap;
+
     gap:5px;
+
     margin-bottom:12px;
 }
 
 .info{
     font-size:10px;
+
     color:#667085;
 }
 
 .status{
     display:inline-block;
+
     padding:3px 7px;
+
     border-radius:50px;
+
     font-size:9px;
+
     font-weight:bold;
 }
 
 .status-free{
     background:#dff7e6;
+
     color:#168447;
 }
 
 .status-premium{
     background:#fff1b8;
+
     color:#8a6500;
 }
 
 .material-button{
     display:block;
+
     width:100%;
 
     text-align:center;
@@ -584,52 +756,65 @@ select{
 
 .button-free{
     background:#009b59;
+
     color:white;
 }
 
 .button-premium{
     background:#f0f0f0;
+
     color:#777;
 }
 
 
 /* ==================================================
-   EMPTY / LOADING
+   LOADING
 ================================================== */
 
 .loading,
 .empty,
 .error-box{
     background:white;
+
     border-radius:15px;
+
     padding:35px 20px;
+
     text-align:center;
+
     color:#7a8580;
+
     font-size:13px;
 }
 
 .error-box{
     color:#b42318;
+
     border:1px solid #f1c5c0;
 }
 
 
 /* ==================================================
-   MEMBER BOX
+   MEMBER
 ================================================== */
 
 .member-box{
     max-width:1150px;
+
     margin:45px auto;
+
     padding:35px;
 
     border-radius:22px;
 
     background:#17231c;
+
     color:white;
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     gap:25px;
@@ -637,17 +822,21 @@ select{
 
 .member-box h2{
     margin:0 0 5px;
+
     font-size:25px;
 }
 
 .member-box p{
     margin:0;
+
     color:#c8d2cc;
+
     font-size:13px;
 }
 
 .member-button{
     background:white;
+
     color:#17231c;
 
     padding:11px 17px;
@@ -666,45 +855,62 @@ select{
 
 footer{
     background:#111814;
+
     color:white;
+
     margin-top:60px;
 }
 
 .footer-container{
     max-width:1150px;
+
     margin:auto;
+
     padding:40px 20px 20px;
 }
 
 .footer-grid{
     display:grid;
-    grid-template-columns:2fr 1fr 1fr;
+
+    grid-template-columns:
+        2fr 1fr 1fr;
+
     gap:30px;
 }
 
 .footer-brand{
     color:#a8b5ad;
+
     font-size:13px;
+
     max-width:450px;
 }
 
 .footer-title{
     font-weight:bold;
+
     margin-bottom:10px;
 }
 
 .footer-links a{
     display:block;
+
     color:#a8b5ad;
+
     margin-bottom:7px;
+
     font-size:12px;
 }
 
 .footer-bottom{
     border-top:1px solid #2a332e;
+
     margin-top:25px;
+
     padding-top:15px;
+
     color:#849088;
+
     font-size:11px;
 }
 
@@ -717,25 +923,31 @@ footer{
 
     .hero{
         grid-template-columns:1fr;
+
         padding-top:40px;
     }
 
     .features{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .category-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .material-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .member-box{
         margin-left:20px;
         margin-right:20px;
+
         flex-direction:column;
+
         align-items:flex-start;
     }
 
@@ -757,6 +969,7 @@ footer{
 
     .nav-menu a{
         padding:7px;
+
         font-size:10px;
     }
 
@@ -773,7 +986,9 @@ footer{
     }
 
     .features{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
+
         padding-left:15px;
         padding-right:15px;
     }
@@ -783,7 +998,8 @@ footer{
     }
 
     .category-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .section{
@@ -808,6 +1024,7 @@ footer{
 
     .member-button{
         width:100%;
+
         text-align:center;
     }
 }
@@ -828,11 +1045,16 @@ footer{
 
 <div class="nav-container">
 
-<a href="index.html" class="logo">
+<a href="index.html"
+   class="logo">
 
-<span class="logo-icon">📖</span>
+<span class="logo-icon">
+📖
+</span>
 
-<span>NgajiPlus</span>
+<span>
+NgajiPlus
+</span>
 
 </a>
 
@@ -870,14 +1092,18 @@ Daftar
 
 
 <!-- ==================================================
-     HERO
+     MAIN
 ================================================== -->
 
 <main>
 
+
+<!-- ==================================================
+     HERO
+================================================== -->
+
 <section class="hero"
          id="beranda">
-
 
 <div>
 
@@ -931,6 +1157,8 @@ dan mudah dipelajari kapan saja.
 
 
 
+<!-- HERO VISUAL -->
+
 <div class="hero-card">
 
 <div class="hero-screen">
@@ -962,8 +1190,10 @@ Kajian & Pembelajaran Islam
 
 🎥 Video
 &nbsp; • &nbsp;
+
 🎧 Audio
 &nbsp; • &nbsp;
+
 📄 PDF
 
 </div>
@@ -1062,7 +1292,6 @@ Akses materi premium khusus member.
 
 <section class="section"
          id="kategori">
-
 
 <div class="section-header">
 
@@ -1245,7 +1474,6 @@ Mempelajari perjalanan sejarah Islam.
 <section class="material-section"
          id="materi">
 
-
 <div class="material-inner">
 
 
@@ -1275,8 +1503,7 @@ Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
 
 <select
     id="categoryFilter"
-    class="category-select"
->
+    class="category-select">
 
 <option value="">
 Semua Kategori
@@ -1343,7 +1570,6 @@ Sejarah Islam
 
 <section class="member-box">
 
-
 <div>
 
 <h2>
@@ -1363,7 +1589,6 @@ Daftar menjadi member NgajiPlus untuk membuka materi premium.
 🚀 Daftar Member
 
 </a>
-
 
 </section>
 
@@ -1474,31 +1699,602 @@ Daftar
    SUPABASE CONFIG
 ================================================== */
 
-/*
-   GANTI DUA NILAI DI BAWAH DENGAN
-   URL DAN PUBLISHABLE/ANON KEY ANDA.
-
-   JANGAN gunakan service_role key.
-*/
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
 const SUPABASE_URL =
-  "https://ksgywgdrfskqsufchbcm.supabase.co";
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
 
 const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
 
-async function testSupabase() {
 
-  const result =
-    await supabaseClient
-      .from("materials")
-      .selec
+/* ==================================================
+   VARIABLE
+================================================== */
+
+let allMaterials = [];
+
+
+/* ==================================================
+   ELEMENT
+================================================== */
+
+const materialContainer =
+    document.getElementById(
+        "materialContainer"
+    );
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
+
+
+/* ==================================================
+   ESCAPE HTML
+================================================== */
+
+function escapeHTML(value){
+
+    if(value === null ||
+       value === undefined){
+
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* ==================================================
+   ICON TIPE
+================================================== */
+
+function getTypeIcon(type){
+
+    const t =
+        String(type || "")
+        .toLowerCase();
+
+    if(t === "audio"){
+        return "🎧";
+    }
+
+    if(t === "pdf"){
+        return "📄";
+    }
+
+    return "🎥";
+}
+
+
+/* ==================================================
+   THUMBNAIL
+================================================== */
+
+function thumbnailHTML(material){
+
+    const thumbnail =
+        material.thumbnail;
+
+    const title =
+        escapeHTML(
+            material.judul
+        );
+
+    if(
+        thumbnail &&
+        String(thumbnail).trim() !== ""
+    ){
+
+        return `
+            <img
+                src="${escapeHTML(thumbnail)}"
+                alt="${title}"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+
+            <div
+                class="thumbnail-fallback"
+                style="display:none;"
+            >
+                ${getTypeIcon(material.tipe)}
+
+                <span>
+                    ${title}
+                </span>
+            </div>
+        `;
+    }
+
+
+    return `
+        <div class="thumbnail-fallback">
+
+            ${getTypeIcon(material.tipe)}
+
+            <span>
+                ${title}
+            </span>
+
+        </div>
+    `;
+}
+
+
+/* ==================================================
+   BUAT CARD
+================================================== */
+
+function createMaterialCard(material){
+
+    const id =
+        material.id;
+
+    const judul =
+        escapeHTML(
+            material.judul
+        );
+
+    const deskripsi =
+        escapeHTML(
+            material.deskripsi ||
+            ""
+        );
+
+    const kategori =
+        escapeHTML(
+            material.kategori ||
+            ""
+        );
+
+    const tipe =
+        String(
+            material.tipe ||
+            "video"
+        )
+        .toLowerCase();
+
+    const url =
+        material.url ||
+        "";
+
+    const premium =
+        Boolean(
+            material.premium
+        );
+
+
+    const cardClass =
+        premium
+        ? "material-card premium"
+        : "material-card";
+
+
+    let buttonHTML = "";
+
+
+    /* ==========================
+       FREE
+    ========================== */
+
+    if(!premium){
+
+        if(url){
+
+            buttonHTML = `
+                <a
+                    class="material-button button-free"
+                    href="${escapeHTML(url)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    ▶️ Mulai Belajar
+                </a>
+            `;
+
+        }else{
+
+            buttonHTML = `
+                <button
+                    class="material-button button-premium"
+                    disabled
+                >
+                    ⚠️ Materi belum tersedia
+                </button>
+            `;
+        }
+
+    }
+
+
+    /* ==========================
+       PREMIUM
+    ========================== */
+
+    else{
+
+        buttonHTML = `
+            <a
+                class="material-button button-premium"
+                href="login.html"
+            >
+                🔐 Login / Upgrade
+            </a>
+        `;
+    }
+
+
+    return `
+
+        <article
+            class="${cardClass}"
+            data-id="${escapeHTML(id)}"
+        >
+
+
+            <div class="material-image">
+
+                ${thumbnailHTML(material)}
+
+                ${
+                    premium
+                    ? `
+                        <div class="lock-overlay">
+                            🔒
+                        </div>
+                    `
+                    : ""
+                }
+
+            </div>
+
+
+            <div class="material-content">
+
+
+                <span class="material-type">
+
+                    ${getTypeIcon(tipe)}
+
+                    ${kategori}
+
+                </span>
+
+
+                <h3>
+                    ${judul}
+                </h3>
+
+
+                <p>
+                    ${deskripsi}
+                </p>
+
+
+                <div class="material-info">
+
+                    <span class="info">
+                        ${getTypeIcon(tipe)}
+                        ${escapeHTML(tipe)}
+                    </span>
+
+
+                    ${
+                        premium
+                        ? `
+                            <span
+                                class="status status-premium"
+                            >
+                                🔐 Premium
+                            </span>
+                        `
+                        : `
+                            <span
+                                class="status status-free"
+                            >
+                                🟢 Gratis
+                            </span>
+                        `
+                    }
+
+                </div>
+
+
+                ${buttonHTML}
+
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+
+/* ==================================================
+   RENDER
+================================================== */
+
+function renderMaterials(){
+
+    const search =
+        String(
+            searchInput.value || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const category =
+        categoryFilter.value;
+
+
+    const filtered =
+        allMaterials.filter(
+            material => {
+
+                const title =
+                    String(
+                        material.judul || ""
+                    )
+                    .toLowerCase();
+
+                const description =
+                    String(
+                        material.deskripsi || ""
+                    )
+                    .toLowerCase();
+
+                const materialCategory =
+                    String(
+                        material.kategori || ""
+                    );
+
+
+                const matchesSearch =
+                    !search ||
+                    title.includes(search) ||
+                    description.includes(search);
+
+
+                const matchesCategory =
+                    !category ||
+                    materialCategory === category;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+            }
+        );
+
+
+    if(filtered.length === 0){
+
+        materialContainer.innerHTML = `
+
+            <div class="empty">
+
+                📚
+
+                <br><br>
+
+                Tidak ada materi yang ditemukan.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    materialContainer.innerHTML = `
+
+        <div class="material-grid">
+
+            ${
+
+                filtered
+                .map(
+                    createMaterialCard
+                )
+                .join("")
+
+            }
+
+        </div>
+
+    `;
+}
+
+
+/* ==================================================
+   LOAD MATERIAL
+================================================== */
+
+async function loadMaterials(){
+
+    materialContainer.innerHTML = `
+
+        <div class="loading">
+
+            ⏳ Mengambil materi...
+
+        </div>
+
+    `;
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("materials")
+                .select(`
+                    id,
+                    judul,
+                    deskripsi,
+                    kategori,
+                    tipe,
+                    url,
+                    thumbnail,
+                    premium
+                `)
+                .order(
+                    "id",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(error){
+
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            throw error;
+        }
+
+
+        allMaterials =
+            data || [];
+
+
+        renderMaterials();
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        materialContainer.innerHTML = `
+
+            <div class="error-box">
+
+                ❌
+
+                <br>
+
+                Gagal mengambil data materi.
+
+                <br><br>
+
+                <small>
+                    ${escapeHTML(
+                        error.message ||
+                        "Terjadi kesalahan."
+                    )}
+                </small>
+
+            </div>
+
+        `;
+    }
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderMaterials
+);
+
+
+/* ==================================================
+   FILTER
+================================================== */
+
+categoryFilter.addEventListener(
+    "change",
+    renderMaterials
+);
+
+
+/* ==================================================
+   KLIK KATEGORI
+================================================== */
+
+document
+    .querySelectorAll(
+        ".category-card"
+    )
+    .forEach(card => {
+
+        card.addEventListener(
+            "click",
+            function(){
+
+                const category =
+                    this.dataset.category;
+
+
+                categoryFilter.value =
+                    category;
+
+
+                renderMaterials();
+
+
+                setTimeout(
+                    () => {
+
+                        document
+                            .getElementById(
+                                "materi"
+                            )
+                            .scrollIntoView({
+                                behavior:"smooth"
+                            });
+
+                    },
+                    100
+                );
+
+            }
+        );
+
+    });
+
+
+/* ==================================================
+   JALANKAN
+================================================== */
+
+loadMaterials();
+
+</script>
+
+
+</body>
+
+</html>
