@@ -1,1403 +1,1509 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="NgajiPlus - Platform pembelajaran Islam berupa video, audio dan materi PDF.">
-<meta name="theme-color" content="#238b57">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="NgajiPlus - Perpustakaan Pembelajaran Islam">
+
+<meta name="theme-color"
+      content="#238b57">
 
 <title>NgajiPlus - Perpustakaan Pembelajaran</title>
 
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
+
+/* ==================================================
+   RESET
+================================================== */
+
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f7faf8;
-  color:#1f2933;
-  line-height:1.6;
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7faf8;
+    color:#1f2933;
+    line-height:1.6;
 }
 
 a{
-  text-decoration:none;
-  color:inherit;
+    text-decoration:none;
+    color:inherit;
 }
 
 button,
 input,
 select{
-  font:inherit;
+    font-family:inherit;
 }
 
-/* =========================
+
+/* ==================================================
    HEADER
-========================= */
+================================================== */
 
 .site-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.97);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #e8ece9;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #e6ebe8;
 }
 
 .nav-container{
-  max-width:1150px;
-  margin:auto;
-  padding:10px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+    max-width:1150px;
+    margin:auto;
+    padding:12px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  color:#238b57;
-  font-weight:bold;
-  font-size:19px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#238b57;
+    font-weight:bold;
+    font-size:18px;
 }
 
 .logo-icon{
-  width:36px;
-  height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#eaf6ef;
-  border-radius:10px;
-  font-size:20px;
+    font-size:22px;
 }
 
 .nav-menu{
-  display:flex;
-  align-items:center;
-  gap:5px;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
 .nav-menu a{
-  padding:8px 11px;
-  color:#4b5563;
-  border-radius:8px;
-  font-size:13px;
+    padding:8px 11px;
+    color:#4b5563;
+    font-size:12px;
+    border-radius:8px;
 }
 
 .nav-menu a:hover{
-  background:#eef7f1;
-  color:#238b57;
+    background:#eef7f1;
+    color:#238b57;
 }
 
 .nav-login{
-  border:1px solid #238b57;
-  color:#238b57!important;
+    border:1px solid #238b57;
+    color:#238b57!important;
 }
 
 .nav-register{
-  background:#238b57;
-  color:#fff!important;
+    background:#238b57;
+    color:white!important;
 }
 
-/* =========================
+
+/* ==================================================
    HERO
-========================= */
+================================================== */
 
 .hero{
-  max-width:1150px;
-  margin:auto;
-  padding:65px 20px 55px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:45px;
-  align-items:center;
+    max-width:1150px;
+    margin:auto;
+    padding:55px 20px 50px;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    gap:45px;
+    align-items:center;
 }
 
 .hero-badge{
-  display:inline-block;
-  padding:6px 11px;
-  background:#eaf6ef;
-  color:#238b57;
-  border-radius:50px;
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:13px;
+    display:inline-block;
+    padding:6px 11px;
+    background:#eaf6ef;
+    color:#238b57;
+    border-radius:50px;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
 .hero h1{
-  margin:0 0 15px;
-  font-size:clamp(36px,6vw,60px);
-  line-height:1.08;
+    margin:0 0 16px;
+    font-size:clamp(38px,6vw,62px);
+    line-height:1.08;
 }
 
 .hero h1 span{
-  color:#238b57;
+    color:#238b57;
 }
 
 .hero-description{
-  max-width:620px;
-  color:#667085;
-  font-size:16px;
-  margin:0 0 25px;
+    max-width:620px;
+    color:#667085;
+    font-size:15px;
+    margin-bottom:24px;
 }
 
 .hero-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:11px 17px;
-  border-radius:10px;
-  font-weight:bold;
-  border:none;
-  cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 16px;
+    border-radius:9px;
+    font-weight:bold;
+    font-size:13px;
 }
 
 .btn-primary{
-  background:#238b57;
-  color:white;
+    background:#238b57;
+    color:white;
 }
 
 .btn-secondary{
-  background:white;
-  color:#238b57;
-  border:1px solid #238b57;
+    background:white;
+    color:#238b57;
+    border:1px solid #238b57;
 }
 
-/* =========================
+
+/* ==================================================
    HERO VISUAL
-========================= */
+================================================== */
 
 .hero-card{
-  background:#fff;
-  border:1px solid #e5ebe7;
-  border-radius:25px;
-  padding:23px;
-  box-shadow:0 18px 50px rgba(35,139,87,.10);
+    background:white;
+    border:1px solid #e5ebe7;
+    border-radius:25px;
+    padding:20px;
+    box-shadow:0 20px 50px rgba(35,139,87,.10);
 }
 
 .hero-screen{
-  background:#f1f7f3;
-  border-radius:18px;
-  padding:18px;
+    background:#f1f7f3;
+    border-radius:18px;
+    padding:18px;
 }
 
 .hero-screen-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
 }
 
 .mini-logo{
-  color:#238b57;
-  font-weight:bold;
+    color:#238b57;
+    font-weight:bold;
 }
 
 .mini-avatar{
-  width:33px;
-  height:33px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:white;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
 }
 
 .featured-video{
-  height:170px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#238b57,#75b893);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:48px;
+    height:150px;
+    border-radius:15px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #238b57,
+        #72b98f
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-size:42px;
 }
 
 .mini-title{
-  font-weight:bold;
-  margin:13px 0 3px;
+    font-weight:bold;
+    margin:12px 0 3px;
+    font-size:14px;
 }
 
 .mini-text{
-  color:#7a8580;
-  font-size:12px;
+    color:#7a8580;
+    font-size:11px;
 }
 
-/* =========================
+
+/* ==================================================
    FEATURES
-========================= */
+================================================== */
 
 .features{
-  max-width:1150px;
-  margin:auto;
-  padding:10px 20px 60px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
+    max-width:1150px;
+    margin:auto;
+    padding:10px 20px 55px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
 .feature{
-  background:white;
-  border:1px solid #e7ece9;
-  padding:18px;
-  border-radius:16px;
+    background:white;
+    border:1px solid #e7ece9;
+    padding:18px;
+    border-radius:15px;
 }
 
 .feature-icon{
-  font-size:26px;
-  margin-bottom:5px;
+    font-size:24px;
+    margin-bottom:5px;
 }
 
 .feature h3{
-  margin:0 0 4px;
-  font-size:15px;
+    margin:0 0 3px;
+    font-size:14px;
 }
 
 .feature p{
-  margin:0;
-  color:#7a8580;
-  font-size:12px;
+    margin:0;
+    color:#7a8580;
+    font-size:11px;
 }
 
-/* =========================
+
+/* ==================================================
    SECTION
-========================= */
+================================================== */
 
 .section{
-  max-width:1150px;
-  margin:auto;
-  padding:55px 20px;
+    max-width:1150px;
+    margin:auto;
+    padding:55px 20px;
 }
 
 .section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:20px;
-  margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 .section-header h2{
-  margin:0;
-  font-size:29px;
+    margin:0;
+    font-size:25px;
 }
 
 .section-header p{
-  margin:5px 0 0;
-  color:#7a8580;
-  font-size:14px;
+    margin:4px 0 0;
+    color:#7a8580;
+    font-size:13px;
 }
 
-/* =========================
+
+/* ==================================================
    CATEGORY
-========================= */
+================================================== */
 
 .category-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
 .category-card{
-  min-height:145px;
-  padding:20px;
-  border-radius:17px;
-  background:white;
-  border:1px solid #e7ece9;
-  transition:.2s;
+    min-height:135px;
+    padding:18px;
+    border-radius:16px;
+    background:white;
+    border:1px solid #e7ece9;
+    transition:.2s;
 }
 
 .category-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 12px 30px rgba(0,0,0,.06);
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
 
 .category-icon{
-  font-size:30px;
-  margin-bottom:7px;
+    font-size:28px;
+    margin-bottom:7px;
 }
 
 .category-card h3{
-  margin:0 0 3px;
-  font-size:16px;
+    margin:0 0 3px;
+    font-size:14px;
 }
 
 .category-card p{
-  margin:0;
-  color:#7a8580;
-  font-size:12px;
+    margin:0;
+    color:#7a8580;
+    font-size:11px;
 }
 
-/* =========================
-   MATERIAL
-========================= */
+
+/* ==================================================
+   MATERIAL SECTION
+================================================== */
 
 .material-section{
-  background:#eef7f1;
-  max-width:none;
+    background:#eef7f1;
+    padding:5px 0 60px;
 }
 
 .material-inner{
-  max-width:1150px;
-  margin:auto;
-  padding:55px 20px;
+    max-width:1150px;
+    margin:auto;
+    padding:45px 20px;
 }
 
+
+/* ==================================================
+   SEARCH
+================================================== */
+
 .material-tools{
-  display:grid;
-  grid-template-columns:1fr 190px;
-  gap:10px;
-  margin-bottom:25px;
+    display:grid;
+    grid-template-columns:1fr 180px;
+    gap:10px;
+    margin-bottom:22px;
 }
 
 .search-box,
 .category-select{
-  width:100%;
-  border:1px solid #dce5df;
-  background:white;
-  border-radius:10px;
-  padding:11px 13px;
-  outline:none;
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #dfe7e2;
+    border-radius:9px;
+    background:white;
+    outline:none;
+    font-size:12px;
 }
 
 .search-box:focus,
 .category-select:focus{
-  border-color:#238b57;
+    border-color:#238b57;
 }
 
+
+/* ==================================================
+   MATERIAL GRID
+================================================== */
+
 .material-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
 }
 
 .material-card{
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid #e0e9e3;
-  display:flex;
-  flex-direction:column;
-  min-width:0;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid #e1e9e4;
+    transition:.2s;
 }
 
+.material-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+
+/* ==================================================
+   THUMBNAIL
+================================================== */
+
 .material-image{
-  height:175px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#dff1e6;
-  overflow:hidden;
+    height:175px;
+    background:#dff1e6;
+    position:relative;
+    overflow:hidden;
 }
 
 .material-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
-.image-placeholder{
-  font-size:48px;
+.thumbnail-fallback{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+    background:#dff1e6;
 }
 
-.premium-lock{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(23,35,28,.88);
-  font-size:45px;
-  color:white;
+
+/* ==================================================
+   PREMIUM IMAGE
+================================================== */
+
+.premium .material-image{
+    background:#203b2e;
 }
 
-.premium-label{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:#202a24;
-  color:white;
-  padding:4px 8px;
-  border-radius:50px;
-  font-size:10px;
-  font-weight:bold;
-  z-index:2;
+.premium .material-image img{
+    filter:brightness(.35);
 }
+
+.lock-overlay{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+}
+
+
+/* ==================================================
+   MATERIAL CONTENT
+================================================== */
 
 .material-content{
-  padding:17px;
-  display:flex;
-  flex-direction:column;
-  flex:1;
+    padding:15px;
 }
 
 .material-type{
-  display:inline-block;
-  align-self:flex-start;
-  font-size:10px;
-  padding:4px 8px;
-  border-radius:50px;
-  background:#eef7f1;
-  color:#238b57;
-  font-weight:bold;
-  margin-bottom:7px;
+    display:inline-block;
+
+    font-size:10px;
+    padding:4px 8px;
+
+    border-radius:50px;
+
+    background:#eef7f1;
+    color:#238b57;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
 }
 
 .material-card h3{
-  margin:0 0 5px;
-  font-size:16px;
+    margin:0 0 5px;
+    font-size:15px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
 }
 
 .material-card p{
-  margin:0 0 12px;
-  color:#7a8580;
-  font-size:12px;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+    margin:0 0 12px;
+
+    color:#7a8580;
+
+    font-size:11px;
+
+    min-height:35px;
 }
 
-.material-meta{
-  font-size:11px;
-  color:#7a8580;
-  margin-top:auto;
-  margin-bottom:10px;
+.material-info{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-bottom:12px;
 }
 
-.material-status{
-  font-size:11px;
-  margin-bottom:10px;
-  font-weight:bold;
+.info{
+    font-size:10px;
+    color:#667085;
 }
 
-.free-status{
-  color:#238b57;
+.status{
+    display:inline-block;
+    padding:3px 7px;
+    border-radius:50px;
+    font-size:9px;
+    font-weight:bold;
 }
 
-.premium-status{
-  color:#a67c00;
+.status-free{
+    background:#dff7e6;
+    color:#168447;
+}
+
+.status-premium{
+    background:#fff1b8;
+    color:#8a6500;
 }
 
 .material-button{
-  display:block;
-  text-align:center;
-  padding:10px;
-  background:#238b57;
-  color:white;
-  border-radius:9px;
-  font-weight:bold;
-  font-size:13px;
+    display:block;
+    width:100%;
+
+    text-align:center;
+
+    padding:9px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    font-size:12px;
+
+    border:none;
+
+    cursor:pointer;
 }
 
-.material-button.disabled{
-  background:#f0f0f0;
-  color:#777;
+.button-free{
+    background:#009b59;
+    color:white;
 }
 
-.empty-material,
-.loading{
-  grid-column:1/-1;
-  text-align:center;
-  padding:45px 15px;
-  color:#7a8580;
-  background:rgba(255,255,255,.65);
-  border-radius:15px;
+.button-premium{
+    background:#f0f0f0;
+    color:#777;
+}
+
+
+/* ==================================================
+   EMPTY / LOADING
+================================================== */
+
+.loading,
+.empty,
+.error-box{
+    background:white;
+    border-radius:15px;
+    padding:35px 20px;
+    text-align:center;
+    color:#7a8580;
+    font-size:13px;
 }
 
 .error-box{
-  grid-column:1/-1;
-  padding:20px;
-  background:#fff1f1;
-  border:1px solid #ffd0d0;
-  border-radius:12px;
-  color:#a33;
+    color:#b42318;
+    border:1px solid #f1c5c0;
 }
 
-/* =========================
-   MEMBER
-========================= */
+
+/* ==================================================
+   MEMBER BOX
+================================================== */
 
 .member-box{
-  max-width:1110px;
-  margin:55px auto;
-  padding:38px;
-  border-radius:23px;
-  background:#17231c;
-  color:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:25px;
+    max-width:1150px;
+    margin:45px auto;
+    padding:35px;
+
+    border-radius:22px;
+
+    background:#17231c;
+    color:white;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:25px;
 }
 
 .member-box h2{
-  margin:0 0 7px;
-  font-size:27px;
+    margin:0 0 5px;
+    font-size:25px;
 }
 
 .member-box p{
-  margin:0;
-  color:#c8d2cc;
+    margin:0;
+    color:#c8d2cc;
+    font-size:13px;
 }
 
 .member-button{
-  background:white;
-  color:#17231c;
-  padding:12px 18px;
-  border-radius:10px;
-  font-weight:bold;
-  white-space:nowrap;
+    background:white;
+    color:#17231c;
+
+    padding:11px 17px;
+
+    border-radius:9px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
 }
 
-/* =========================
+
+/* ==================================================
    FOOTER
-========================= */
+================================================== */
 
 footer{
-  background:#111814;
-  color:white;
-  margin-top:60px;
+    background:#111814;
+    color:white;
+    margin-top:60px;
 }
 
 .footer-container{
-  max-width:1150px;
-  margin:auto;
-  padding:40px 20px 22px;
+    max-width:1150px;
+    margin:auto;
+    padding:40px 20px 20px;
 }
 
 .footer-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:30px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:30px;
 }
 
 .footer-brand{
-  color:#a8b5ad;
-  max-width:450px;
+    color:#a8b5ad;
+    font-size:13px;
+    max-width:450px;
 }
 
 .footer-title{
-  font-weight:bold;
-  margin-bottom:10px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .footer-links a{
-  display:block;
-  color:#a8b5ad;
-  margin-bottom:7px;
-  font-size:13px;
+    display:block;
+    color:#a8b5ad;
+    margin-bottom:7px;
+    font-size:12px;
 }
 
 .footer-bottom{
-  border-top:1px solid #2a332e;
-  margin-top:25px;
-  padding-top:17px;
-  color:#849088;
-  font-size:12px;
+    border-top:1px solid #2a332e;
+    margin-top:25px;
+    padding-top:15px;
+    color:#849088;
+    font-size:11px;
 }
 
-/* =========================
-   TABLET
-========================= */
+
+/* ==================================================
+   MOBILE
+================================================== */
 
 @media(max-width:850px){
 
-  .hero{
-    grid-template-columns:1fr;
-    padding-top:45px;
-  }
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:40px;
+    }
 
-  .features{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .features{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .category-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .material-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .material-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .member-box{
-    margin-left:20px;
-    margin-right:20px;
-    padding:30px;
-    flex-direction:column;
-    align-items:flex-start;
-  }
+    .member-box{
+        margin-left:20px;
+        margin-right:20px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
 }
 
-/* =========================
-   MOBILE
-========================= */
 
-@media(max-width:600px){
+@media(max-width:550px){
 
-  .nav-container{
-    padding:8px 14px;
-  }
+    .nav-container{
+        padding:9px 14px;
+    }
 
-  .logo{
-    font-size:17px;
-  }
+    .logo{
+        font-size:16px;
+    }
 
-  .nav-menu a{
-    padding:7px 8px;
-    font-size:11px;
-  }
+    .nav-menu a{
+        padding:7px;
+        font-size:10px;
+    }
 
-  .nav-menu a[href="#kategori"]{
-    display:none;
-  }
+    .hero{
+        padding:35px 15px;
+    }
 
-  .hero{
-    padding:35px 15px;
-  }
+    .hero h1{
+        font-size:39px;
+    }
 
-  .hero h1{
-    font-size:38px;
-  }
+    .hero-description{
+        font-size:13px;
+    }
 
-  .features{
-    grid-template-columns:1fr;
-    padding-left:15px;
-    padding-right:15px;
-  }
+    .features{
+        grid-template-columns:repeat(2,1fr);
+        padding-left:15px;
+        padding-right:15px;
+    }
 
-  .category-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
+    .feature{
+        padding:14px;
+    }
 
-  .category-card{
-    padding:15px;
-    min-height:130px;
-  }
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .section{
-    padding:40px 15px;
-  }
+    .section{
+        padding:40px 15px;
+    }
 
-  .material-inner{
-    padding:40px 15px;
-  }
+    .material-inner{
+        padding:40px 15px;
+    }
 
-  .material-grid{
-    grid-template-columns:1fr;
-  }
+    .material-tools{
+        grid-template-columns:1fr;
+    }
 
-  .material-tools{
-    grid-template-columns:1fr;
-  }
+    .material-grid{
+        grid-template-columns:1fr;
+    }
 
-  .section-header{
-    align-items:flex-start;
-    flex-direction:column;
-  }
+    .member-box{
+        padding:28px;
+    }
 
-  .hero-buttons{
-    flex-direction:column;
-  }
-
-  .btn{
-    width:100%;
-  }
-
-  .member-button{
-    width:100%;
-    text-align:center;
-  }
+    .member-button{
+        width:100%;
+        text-align:center;
+    }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================
+
+<!-- ==================================================
      HEADER
-========================= -->
+================================================== -->
 
 <header class="site-header">
 
-  <div class="nav-container">
+<div class="nav-container">
 
-    <a href="index.html" class="logo">
+<a href="index.html" class="logo">
 
-      <span class="logo-icon">
-        📖
-      </span>
+<span class="logo-icon">📖</span>
 
-      <span>
-        NgajiPlus
-      </span>
+<span>NgajiPlus</span>
 
-    </a>
+</a>
 
-    <nav class="nav-menu">
 
-      <a href="#beranda">
-        Beranda
-      </a>
+<nav class="nav-menu">
 
-      <a href="#kategori">
-        Kategori
-      </a>
+<a href="index.html">
+Beranda
+</a>
 
-      <a href="#materi">
-        Materi
-      </a>
+<a href="#kategori">
+Kategori
+</a>
 
-      <a href="login.html" class="nav-login">
-        Login
-      </a>
+<a href="#materi">
+Materi
+</a>
 
-      <a href="daftar.html" class="nav-register">
-        Daftar
-      </a>
+<a href="login.html"
+   class="nav-login">
+Login
+</a>
 
-    </nav>
+<a href="daftar.html"
+   class="nav-register">
+Daftar
+</a>
 
-  </div>
+</nav>
+
+</div>
 
 </header>
 
 
+
+<!-- ==================================================
+     HERO
+================================================== -->
+
 <main>
 
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero" id="beranda">
-
-  <div>
-
-    <span class="hero-badge">
-      📚 Perpustakaan Pembelajaran Islam
-    </span>
-
-    <h1>
-      Belajar Lebih Mudah,
-      <span>
-        Ngaji Lebih Menyenangkan.
-      </span>
-    </h1>
-
-    <p class="hero-description">
-      NgajiPlus menyediakan kumpulan video,
-      audio dan materi PDF pembelajaran Islam
-      dalam berbagai tema yang tersusun rapi
-      dan mudah dipelajari kapan saja.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a
-        href="daftar.html"
-        class="btn btn-primary"
-      >
-        🚀 Mulai Belajar
-      </a>
-
-      <a
-        href="#materi"
-        class="btn btn-secondary"
-      >
-        📚 Lihat Materi
-      </a>
-
-    </div>
-
-  </div>
+<section class="hero"
+         id="beranda">
 
 
-  <div class="hero-card">
+<div>
 
-    <div class="hero-screen">
+<span class="hero-badge">
 
-      <div class="hero-screen-top">
+📚 Perpustakaan Pembelajaran Islam
 
-        <div class="mini-logo">
-          NgajiPlus
-        </div>
+</span>
 
-        <div class="mini-avatar">
-          👤
-        </div>
 
-      </div>
+<h1>
 
-      <div class="featured-video">
-        ▶
-      </div>
+Belajar Lebih Mudah,
+<span>
+Ngaji Lebih Menyenangkan.
+</span>
 
-      <div class="mini-title">
-        Kajian & Pembelajaran Islam
-      </div>
+</h1>
 
-      <div class="mini-text">
-        🎥 Video &nbsp;•&nbsp;
-        🎧 Audio &nbsp;•&nbsp;
-        📄 PDF
-      </div>
 
-    </div>
+<p class="hero-description">
 
-  </div>
+NgajiPlus menyediakan kumpulan video,
+audio dan materi PDF pembelajaran Islam
+dalam berbagai tema yang tersusun rapi
+dan mudah dipelajari kapan saja.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a href="daftar.html"
+   class="btn btn-primary">
+
+🚀 Mulai Belajar
+
+</a>
+
+
+<a href="#materi"
+   class="btn btn-secondary">
+
+📚 Lihat Materi
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="hero-card">
+
+<div class="hero-screen">
+
+<div class="hero-screen-top">
+
+<div class="mini-logo">
+NgajiPlus
+</div>
+
+<div class="mini-avatar">
+👤
+</div>
+
+</div>
+
+
+<div class="featured-video">
+▶
+</div>
+
+
+<div class="mini-title">
+Kajian & Pembelajaran Islam
+</div>
+
+
+<div class="mini-text">
+
+🎥 Video
+&nbsp; • &nbsp;
+🎧 Audio
+&nbsp; • &nbsp;
+📄 PDF
+
+</div>
+
+</div>
+
+</div>
+
 
 </section>
 
 
-<!-- =========================
+
+<!-- ==================================================
      FEATURES
-========================= -->
+================================================== -->
 
 <section class="features">
 
-  <div class="feature">
 
-    <div class="feature-icon">
-      🎥
-    </div>
+<div class="feature">
 
-    <h3>
-      Video Pembelajaran
-    </h3>
+<div class="feature-icon">
+🎥
+</div>
 
-    <p>
-      Belajar melalui video yang mudah dipahami.
-    </p>
+<h3>
+Video Pembelajaran
+</h3>
 
-  </div>
+<p>
+Belajar melalui video yang mudah dipahami.
+</p>
 
-
-  <div class="feature">
-
-    <div class="feature-icon">
-      🎧
-    </div>
-
-    <h3>
-      Audio Pembelajaran
-    </h3>
-
-    <p>
-      Dengarkan materi kapan saja dan di mana saja.
-    </p>
-
-  </div>
+</div>
 
 
-  <div class="feature">
+<div class="feature">
 
-    <div class="feature-icon">
-      📄
-    </div>
+<div class="feature-icon">
+🎧
+</div>
 
-    <h3>
-      Materi PDF
-    </h3>
+<h3>
+Audio Pembelajaran
+</h3>
 
-    <p>
-      Download modul untuk dipelajari kembali.
-    </p>
+<p>
+Dengarkan materi kapan saja.
+</p>
 
-  </div>
+</div>
 
 
-  <div class="feature">
+<div class="feature">
 
-    <div class="feature-icon">
-      🔐
-    </div>
+<div class="feature-icon">
+📄
+</div>
 
-    <h3>
-      Member Premium
-    </h3>
+<h3>
+Materi PDF
+</h3>
 
-    <p>
-      Akses materi premium khusus untuk member.
-    </p>
+<p>
+Download modul pembelajaran.
+</p>
 
-  </div>
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+🔐
+</div>
+
+<h3>
+Member Premium
+</h3>
+
+<p>
+Akses materi premium khusus member.
+</p>
+
+</div>
+
 
 </section>
 
 
-<!-- =========================
+
+<!-- ==================================================
      KATEGORI
-========================= -->
+================================================== -->
 
-<section class="section" id="kategori">
-
-  <div class="section-header">
-
-    <div>
-
-      <h2>
-        Jelajahi Kategori
-      </h2>
-
-      <p>
-        Pilih tema pembelajaran yang ingin Anda pelajari.
-      </p>
-
-    </div>
-
-  </div>
+<section class="section"
+         id="kategori">
 
 
-  <div class="category-grid">
+<div class="section-header">
 
-    <a
-      href="#materi"
-      data-category-link="Al-Qur'an & Tahsin"
-      class="category-card"
-    >
+<h2>
+Jelajahi Kategori
+</h2>
 
-      <div class="category-icon">
-        📖
-      </div>
+<p>
+Pilih tema pembelajaran yang ingin Anda pelajari.
+</p>
 
-      <h3>
-        Al-Qur'an & Tahsin
-      </h3>
-
-      <p>
-        Membaca dan memahami Al-Qur'an.
-      </p>
-
-    </a>
+</div>
 
 
-    <a
-      href="#materi"
-      data-category-link="Fiqih"
-      class="category-card"
-    >
-
-      <div class="category-icon">
-        🕌
-      </div>
-
-      <h3>
-        Fiqih
-      </h3>
-
-      <p>
-        Belajar hukum-hukum dalam kehidupan.
-      </p>
-
-    </a>
+<div class="category-grid">
 
 
-    <a
-      href="#materi"
-      data-category-link="Aqidah"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Al-Qur'an & Tahsin">
 
-      <div class="category-icon">
-        💎
-      </div>
+<div class="category-icon">
+📖
+</div>
 
-      <h3>
-        Aqidah
-      </h3>
+<h3>
+Al-Qur'an & Tahsin
+</h3>
 
-      <p>
-        Memperkuat dasar keimanan.
-      </p>
+<p>
+Membaca dan memahami Al-Qur'an.
+</p>
 
-    </a>
+</a>
 
 
-    <a
-      href="#materi"
-      data-category-link="Akhlak & Adab"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Fiqih">
 
-      <div class="category-icon">
-        🌿
-      </div>
+<div class="category-icon">
+🕌
+</div>
 
-      <h3>
-        Akhlak & Adab
-      </h3>
+<h3>
+Fiqih
+</h3>
 
-      <p>
-        Membentuk pribadi yang baik.
-      </p>
+<p>
+Belajar hukum-hukum dalam kehidupan.
+</p>
 
-    </a>
+</a>
 
 
-    <a
-      href="#materi"
-      data-category-link="Bahasa Arab"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Aqidah">
 
-      <div class="category-icon">
-        🇸🇦
-      </div>
+<div class="category-icon">
+💎
+</div>
 
-      <h3>
-        Bahasa Arab
-      </h3>
+<h3>
+Aqidah
+</h3>
 
-      <p>
-        Belajar bahasa Arab secara bertahap.
-      </p>
+<p>
+Memperkuat dasar keimanan.
+</p>
 
-    </a>
+</a>
 
 
-    <a
-      href="#materi"
-      data-category-link="Hadits"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Akhlak & Adab">
 
-      <div class="category-icon">
-        📜
-      </div>
+<div class="category-icon">
+🌿
+</div>
 
-      <h3>
-        Hadits
-      </h3>
+<h3>
+Akhlak & Adab
+</h3>
 
-      <p>
-        Mengenal dan mempelajari hadits Nabi ﷺ.
-      </p>
+<p>
+Membentuk pribadi yang baik.
+</p>
 
-    </a>
+</a>
 
 
-    <a
-      href="#materi"
-      data-category-link="Tafsir"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Bahasa Arab">
 
-      <div class="category-icon">
-        📚
-      </div>
+<div class="category-icon">
+🇸🇦
+</div>
 
-      <h3>
-        Tafsir
-      </h3>
+<h3>
+Bahasa Arab
+</h3>
 
-      <p>
-        Memahami kandungan Al-Qur'an.
-      </p>
+<p>
+Belajar bahasa Arab secara bertahap.
+</p>
 
-    </a>
+</a>
 
 
-    <a
-      href="#materi"
-      data-category-link="Sejarah Islam"
-      class="category-card"
-    >
+<a href="#materi"
+   class="category-card"
+   data-category="Hadits">
 
-      <div class="category-icon">
-        🏛️
-      </div>
+<div class="category-icon">
+📜
+</div>
 
-      <h3>
-        Sejarah Islam
-      </h3>
+<h3>
+Hadits
+</h3>
 
-      <p>
-        Mempelajari perjalanan sejarah Islam.
-      </p>
+<p>
+Mengenal dan mempelajari hadits Nabi ﷺ.
+</p>
 
-    </a>
+</a>
 
-  </div>
+
+<a href="#materi"
+   class="category-card"
+   data-category="Tafsir">
+
+<div class="category-icon">
+📚
+</div>
+
+<h3>
+Tafsir
+</h3>
+
+<p>
+Memahami kandungan Al-Qur'an.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Sejarah Islam">
+
+<div class="category-icon">
+🏛️
+</div>
+
+<h3>
+Sejarah Islam
+</h3>
+
+<p>
+Mempelajari perjalanan sejarah Islam.
+</p>
+
+</a>
+
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     MATERI
-========================= -->
 
-<section
-  class="material-section"
-  id="materi"
+<!-- ==================================================
+     MATERIAL
+================================================== -->
+
+<section class="material-section"
+         id="materi">
+
+
+<div class="material-inner">
+
+
+<div class="section-header">
+
+<h2>
+📚 Materi Terbaru
+</h2>
+
+<p>
+Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
+</p>
+
+</div>
+
+
+
+<div class="material-tools">
+
+<input
+    type="search"
+    id="searchInput"
+    class="search-box"
+    placeholder="🔎 Cari materi..."
 >
 
-  <div class="material-inner">
 
-    <div class="section-header">
+<select
+    id="categoryFilter"
+    class="category-select"
+>
 
-      <div>
+<option value="">
+Semua Kategori
+</option>
 
-        <h2>
-          📚 Materi Terbaru
-        </h2>
+<option value="Al-Qur'an & Tahsin">
+Al-Qur'an & Tahsin
+</option>
 
-        <p>
-          Temukan berbagai materi pembelajaran
-          yang tersedia di NgajiPlus.
-        </p>
+<option value="Fiqih">
+Fiqih
+</option>
 
-      </div>
+<option value="Aqidah">
+Aqidah
+</option>
 
-    </div>
+<option value="Akhlak & Adab">
+Akhlak & Adab
+</option>
 
+<option value="Bahasa Arab">
+Bahasa Arab
+</option>
 
-    <div class="material-tools">
+<option value="Hadits">
+Hadits
+</option>
 
-      <input
-        id="searchInput"
-        class="search-box"
-        type="search"
-        placeholder="🔎 Cari materi..."
-      >
+<option value="Tafsir">
+Tafsir
+</option>
 
-      <select
-        id="categoryFilter"
-        class="category-select"
-      >
+<option value="Sejarah Islam">
+Sejarah Islam
+</option>
 
-        <option value="">
-          Semua Kategori
-        </option>
+</select>
 
-        <option>
-          Al-Qur'an & Tahsin
-        </option>
-
-        <option>
-          Fiqih
-        </option>
-
-        <option>
-          Aqidah
-        </option>
-
-        <option>
-          Akhlak & Adab
-        </option>
-
-        <option>
-          Bahasa Arab
-        </option>
-
-        <option>
-          Hadits
-        </option>
-
-        <option>
-          Tafsir
-        </option>
-
-        <option>
-          Sejarah Islam
-        </option>
-
-      </select>
-
-    </div>
+</div>
 
 
-    <div
-      id="materialsGrid"
-      class="material-grid"
-    >
 
-      <div class="loading">
-        ⏳ Mengambil materi...
-      </div>
+<div id="materialContainer">
 
-    </div>
+<div class="loading">
 
-  </div>
+⏳ Mengambil materi...
+
+</div>
+
+</div>
+
+
+</div>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ==================================================
      MEMBER
-========================= -->
+================================================== -->
 
 <section class="member-box">
 
-  <div>
 
-    <h2>
-      🔐 Ingin mengakses semua materi?
-    </h2>
+<div>
 
-    <p>
-      Daftar sebagai member untuk membuka materi premium NgajiPlus.
-    </p>
+<h2>
+🔐 Ingin mengakses semua materi?
+</h2>
 
-  </div>
+<p>
+Daftar menjadi member NgajiPlus untuk membuka materi premium.
+</p>
 
-  <a
-    href="daftar.html"
-    class="member-button"
-  >
-    🚀 Daftar Member
-  </a>
+</div>
+
+
+<a href="daftar.html"
+   class="member-button">
+
+🚀 Daftar Member
+
+</a>
+
 
 </section>
+
 
 </main>
 
 
-<!-- =========================
+
+<!-- ==================================================
      FOOTER
-========================= -->
+================================================== -->
 
 <footer>
 
-  <div class="footer-container">
-
-    <div class="footer-grid">
-
-      <div>
-
-        <div class="logo">
-          📖 NgajiPlus
-        </div>
-
-        <p class="footer-brand">
-          Platform pembelajaran Islam untuk membantu
-          belajar Al-Qur'an, Fiqih, Aqidah, Akhlak,
-          Bahasa Arab, Hadits, Tafsir dan Sejarah Islam.
-        </p>
-
-      </div>
+<div class="footer-container">
 
 
-      <div>
-
-        <div class="footer-title">
-          Menu
-        </div>
-
-        <div class="footer-links">
-
-          <a href="#beranda">
-            Beranda
-          </a>
-
-          <a href="#kategori">
-            Kategori
-          </a>
-
-          <a href="#materi">
-            Materi
-          </a>
-
-        </div>
-
-      </div>
+<div class="footer-grid">
 
 
-      <div>
+<div>
 
-        <div class="footer-title">
-          Akun
-        </div>
+<div class="logo">
+📖 NgajiPlus
+</div>
 
-        <div class="footer-links">
+<p class="footer-brand">
 
-          <a href="login.html">
-            Login
-          </a>
+Platform pembelajaran Islam
+berupa video, audio dan PDF
+untuk membantu belajar secara
+mudah dan terstruktur.
 
-          <a href="daftar.html">
-            Daftar
-          </a>
+</p>
 
-        </div>
-
-      </div>
-
-    </div>
+</div>
 
 
-    <div class="footer-bottom">
-      © 2026 NgajiPlus. Semua hak dilindungi.
-    </div>
+<div>
 
-  </div>
+<div class="footer-title">
+Menu
+</div>
+
+<div class="footer-links">
+
+<a href="index.html">
+Beranda
+</a>
+
+<a href="#kategori">
+Kategori
+</a>
+
+<a href="#materi">
+Materi
+</a>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+Akun
+</div>
+
+<div class="footer-links">
+
+<a href="login.html">
+Login
+</a>
+
+<a href="daftar.html">
+Daftar
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="footer-bottom">
+
+© 2026 NgajiPlus. Semua hak dilindungi.
+
+</div>
+
+
+</div>
 
 </footer>
 
 
-<!-- =========================
-     SUPABASE
-========================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
 
-/* =========================================================
-   SUPABASE
-   GANTI DUA BAGIAN INI DENGAN DATA SUPABASE ANDA
-========================================================= */
+/* ==================================================
+   SUPABASE CONFIG
+================================================== */
+
+/*
+   GANTI DUA NILAI DI BAWAH DENGAN
+   URL DAN PUBLISHABLE/ANON KEY ANDA.
+
+   JANGAN gunakan service_role key.
+*/
 
 const SUPABASE_URL =
-  "https://ksgywgdrfskqsufchbcm.supabase.co";
+"https://ksgywgdrfskqsufchbcm.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+"sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
 
 const supabaseClient =
-  window.supabase.createClient(
+window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
-  );
+);
 
 
-/* =========================================================
-   DATA
-========================================================= */
+
+/* ==================================================
+   GLOBAL
+================================================== */
 
 let allMaterials = [];
 
 
-/* =========================================================
-   SECURITY / ESCAPE HTML
-========================================================= */
 
-function escapeHtml(value){
-
-  return String(value ?? "")
-
-    .replace(/&/g,"&amp;")
-    .rep
+/* ==================================================
+   LOAD
