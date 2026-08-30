@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NgajiPlus Akademi</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f8f6;
+  color:#202a24;
+}
+
+header{
+  background:white;
+  border-bottom:1px solid #e5e9e6;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:#008f58;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+.hero{
+  background:white;
+  border:1px solid #e2e8e4;
+  border-radius:16px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  margin:0 0 8px;
+  font-size:28px;
+}
+
+.hero p{
+  margin:0;
+  color:#777;
+  line-height:1.6;
+}
+
+.search{
+  margin-top:20px;
+}
+
+.search input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:14px;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  margin-bottom:20px;
+}
+
+.category-button{
+  white-space:nowrap;
+  border:1px solid #ddd;
+  background:white;
+  padding:9px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.category-button.active{
+  background:#008f58;
+  color:white;
+  border-color:#008f58;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card{
+  background:white;
+  border:1px solid #e2e8e4;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.thumbnail{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#eef3f0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.thumbnail img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.thumbnail-icon{
+  font-size:42px;
+}
+
+.card-content{
+  padding:15px;
+}
+
+.card h3{
+  margin:0 0 8px;
+  font-size:17px;
+}
+
+.description{
+  color:#777;
+  font-size:13px;
+  line-height:1.5;
+  min-height:40px;
+}
+
+.info{
+  margin-top:10px;
+  color:#666;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.badges{
+  margin-top:10px;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.free{
+  background:#ddf7e7;
+  color:#087a47;
+}
+
+.premium{
+  background:#fff0b8;
+  color:#8a6200;
+}
+
+.open-button{
+  display:block;
+  width:100%;
+  margin-top:12px;
+  padding:10px;
+  text-align:center;
+  border:0;
+  border-radius:9px;
+  background:#008f58;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.lock-button{
+  display:block;
+  width:100%;
+  margin-top:12px;
+  padding:10px;
+  text-align:center;
+  border-radius:9px;
+  background:#f1f1f1;
+  color:#777;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+.empty{
+  text-align:center;
+  padding:40px;
+  background:white;
+  border-radius:14px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+.error{
+  background:#ffe9e9;
+  color:#b42318;
+  padding:15px;
+  border-radius:10px;
+  grid-column:1/-1;
+}
+
+@media(max-width:800px){
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:550px){
+
+  .header-inner{
+    padding:12px 15px;
+  }
+
+  .container{
+    padding:18px 12px;
+  }
+
+  .hero h1{
+    font-size:23px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+📖 NgajiPlus Akademi
+</div>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="hero">
+
+<h1>
+🎓 Selamat Datang di NgajiPlus Akademi
+</h1>
+
+<p>
+Belajar Al-Qur'an, Fiqih, Aqidah, Akhlak, Bahasa Arab,
+Hadits, Tafsir, dan Sejarah Islam.
+</p>
+
+
+<div class="search">
+
+<input
+  type="search"
+  id="searchInput"
+  placeholder="🔎 Cari materi..."
+>
+
+</div>
+
+</section>
+
+
+<div
+  class="categories"
+  id="categories"
+>
+
+<button
+  class="category-button active"
+  onclick="filterCategory('Semua',this)"
+>
+Semua
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Al-Qur\\'an & Tahsin',this)"
+>
+Al-Qur'an & Tahsin
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Fiqih',this)"
+>
+Fiqih
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Aqidah',this)"
+>
+Aqidah
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Akhlak & Adab',this)"
+>
+Akhlak & Adab
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Bahasa Arab',this)"
+>
+Bahasa Arab
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Hadits',this)"
+>
+Hadits
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Tafsir',this)"
+>
+Tafsir
+</button>
+
+<button
+  class="category-button"
+  onclick="filterCategory('Sejarah Islam',this)"
+>
+Sejarah Islam
+</button>
+
+</div>
+
+
+<section>
+
+<div
+  id="materialsList"
+  class="grid"
+>
+
+<div class="loading">
+⏳ Mengambil materi...
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<script>
+
+
+let allMaterials = [];
+
+let currentCategory = "Semua";
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   LOAD MATERIALS
+========================================= */
+
+async function loadMaterials(){
+
+  const list =
+    document.getElementById(
+      "materialsList"
+    );
+
+  list.innerHTML = `
+    <div class="loading">
+      ⏳ Mengambil materi...
+    </div>
+  `;
+
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("materials")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    allMaterials =
+      result.data || [];
+
+
+    renderMaterials();
+
+  }
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+    list.innerHTML = `
+
+      <div class="error">
+
+        ❌ Gagal mengambil materi.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   FILTER CATEGORY
+========================================= */
+
+function filterCategory(
+  category,
+  button
+){
+
+  currentCategory =
+    category;
+
+
+  document
+    .querySelectorAll(
+      ".category-button"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  renderMaterials();
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document
+  .getElementById(
+    "searchInput"
+  )
+  .addEventListener(
+    "input",
+    renderMaterials
+  );
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderMaterials(){
+
+  const list =
+    document.getElementById(
+      "materialsList"
+    );
+
+
+  const keyword =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    allMaterials.filter(
+      material => {
+
+        const matchCategory =
+          currentCategory === "Semua" ||
+          material.kategori === currentCategory;
+
+
+        const matchSearch =
+          !keyword ||
+          String(
+            material.judul || ""
+          )
+          .toLowerCase()
+          .includes(keyword)
+          ||
+          String(
+            material.deskripsi || ""
+          )
+          .toLowerCase()
+          .includes(keyword);
+
+
+        return (
+          matchCategory &&
+          matchSearch
+        );
+
+      }
+    );
+
+
+  if(!filtered.length){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        📚
+
+        <br><br>
+
+        Belum ada materi yang ditemukan.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    filtered
+      .map(
+        createCard
+      )
+      .join("");
+
+}
+
+
+/* =========================================
+   CREATE CARD
+========================================= */
+
+function createCard(
+  material
+){
+
+  const type =
+    material.type ||
+    material.tipe ||
+    "video";
+
+
+  let icon = "🎥";
+
+
+  if(type === "audio"){
+    icon = "🎧";
+  }
+
+
+  if(type === "pdf"){
+    icon = "📄";
+  }
+
+
+  const isPremium =
+    material.premium === true;
+
+
+  const thumbnail =
+    material.thumbnail;
+
+
+  let thumbnailHTML;
+
+
+  if(thumbnail){
+
+    thumbnailHTML = `
+
+      <img
+        src="${escapeHtml(thumbnail)}"
+        alt="${escapeHtml(material.judul)}"
+        loading="lazy"
+      >
+
+    `;
+
+  }
+
+  else{
+
+    thumbnailHTML = `
+
+      <div class="thumbnail-icon">
+        ${icon}
+      </div>
+
+    `;
+
+  }
+
+
+  let actionHTML = "";
+
+
+  /*
+    Untuk sementara:
+    materi premium ditampilkan sebagai terkunci.
+    Sistem pembayaran/member kita sambungkan
+    pada tahap berikutnya.
+  */
+
+  if(isPremium){
+
+    actionHTML = `
+
+      <div class="lock-button">
+
+        🔐 Materi Premium
+
+      </div>
+
+    `;
+
+  }
+
+  else if(material.url){
+
+    actionHTML = `
+
+      <a
+        href="${escapeHtml(material.url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="open-button"
+      >
+
+        ${icon} Buka Materi
+
+      </a>
+
+    `;
+
+  }
+
+
+  const badge =
+    isPremium
+
+    ?
+
+    `
+      <span class="badge premium">
+        🔐 Premium
+      </span>
+    `
+
+    :
+
+    `
+      <span class="badge free">
+        🟢 Gratis
+      </span>
+    `;
+
+
+  return `
+
+    <article class="card">
+
+      <div class="thumbnail">
+
+        ${thumbnailHTML}
+
+      </div>
+
+
+      <div class="card-content">
+
+        <h3>
+
+          ${icon}
+
+          ${escapeHtml(
+            material.judul ||
+            "Tanpa Judul"
+          )}
+
+        </h3>
+
+
+        <div class="description">
+
+          ${escapeHtml(
+            material.deskripsi ||
+            ""
+          )}
+
+        </div>
+
+
+        <div class="info">
+
+          📁
+          ${escapeHtml(
+            material.kategori ||
+            "-"
+          )}
+
+          <br>
+
+          ${icon}
+          ${escapeHtml(type)}
+
+        </div>
+
+
+        <div class="badges">
+
+          ${badge}
+
+        </div>
+
+
+        ${actionHTML}
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================
+   MULAI
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    if(
+      typeof supabaseClient ===
+      "undefined"
+    ){
+
+      document.getElementById(
+        "materialsList"
+      ).innerHTML = `
+
+        <div class="error">
+
+          ❌ Supabase belum terhubung.
+
+          <br><br>
+
+          Periksa file
+          <b>supabase-config.js</b>.
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    loadMaterials();
+
+  }
+
+);
+
+</script>
+
+
+</body>
+
+  </html>
