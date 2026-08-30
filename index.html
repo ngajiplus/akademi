@@ -1481,20 +1481,38 @@ Daftar
    JANGAN gunakan service_role key.
 */
 
-const SUPABASE_URL =
-"https://ksgywgdrfskqsufchbcm.supabase.co";
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL =
+  "https://ksgywgdrfskqsufchbcm.supabase.co";
 
 const SUPABASE_ANON_KEY =
-"sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
+  "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
 const supabaseClient =
-window.supabase.createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
-);
+  );
 
+async function testSupabase() {
+
+  const result =
+    await supabaseClient
+      .from("materials")
+      .select("*")
+      .order("id", {
+        ascending: false
+      });
+
+  console.log("HASIL SUPABASE:");
+  console.log(result);
+
+}
+
+testSupabase();
+</script>
 
 
 /* ==================================================
