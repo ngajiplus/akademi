@@ -42,7 +42,9 @@ html{
 }
 
 body{
+
   margin:0;
+
   font-family:
     Arial,
     Helvetica,
@@ -51,6 +53,7 @@ body{
   background:#f5f8f6;
 
   color:#202a24;
+
 }
 
 
@@ -59,6 +62,7 @@ body{
 ===================================================== */
 
 header{
+
   background:#ffffff;
 
   border-bottom:
@@ -69,9 +73,12 @@ header{
   top:0;
 
   z-index:100;
+
 }
 
+
 .header-inner{
+
   max-width:1100px;
 
   margin:auto;
@@ -85,20 +92,28 @@ header{
     space-between;
 
   align-items:center;
+
 }
 
+
 .logo{
+
   color:#168b57;
 
   font-weight:bold;
 
   font-size:15px;
+
 }
 
+
 .logout{
+
   border:0;
 
   background:#f1f1f1;
+
+  color:#333;
 
   padding:
     8px 14px;
@@ -108,10 +123,14 @@ header{
   cursor:pointer;
 
   font-size:13px;
+
 }
 
+
 .logout:hover{
-  background:#e5e5e5;
+
+  background:#e2e2e2;
+
 }
 
 
@@ -120,27 +139,95 @@ header{
 ===================================================== */
 
 main{
+
   max-width:1100px;
 
   margin:auto;
 
   padding:
     30px 15px 50px;
+
 }
 
+
 h1{
+
   margin:
     0 0 5px;
 
   font-size:28px;
+
 }
 
+
 .subtitle{
+
   color:#777;
 
   margin-bottom:25px;
 
   font-size:14px;
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-container{
+
+  max-width:450px;
+
+  margin:
+    50px auto;
+
+}
+
+
+.login-box{
+
+  background:#ffffff;
+
+  border:
+    1px solid #e2e8e4;
+
+  border-radius:15px;
+
+  padding:25px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0,0,0,.05);
+
+}
+
+
+.login-title{
+
+  text-align:center;
+
+  color:#168b57;
+
+  font-size:22px;
+
+  font-weight:bold;
+
+  margin-bottom:5px;
+
+}
+
+
+.login-subtitle{
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:13px;
+
+  margin-bottom:20px;
+
 }
 
 
@@ -149,6 +236,7 @@ h1{
 ===================================================== */
 
 .box{
+
   background:#ffffff;
 
   border:
@@ -163,13 +251,17 @@ h1{
   box-shadow:
     0 2px 8px
     rgba(0,0,0,.02);
+
 }
 
+
 .box h2{
+
   margin:
     0 0 15px;
 
   font-size:20px;
+
 }
 
 
@@ -178,6 +270,7 @@ h1{
 ===================================================== */
 
 label{
+
   display:block;
 
   font-weight:bold;
@@ -186,11 +279,14 @@ label{
 
   margin:
     15px 0 7px;
+
 }
+
 
 input,
 textarea,
 select{
+
   width:100%;
 
   padding:12px;
@@ -207,22 +303,29 @@ select{
   color:#202a24;
 
   outline:none;
+
 }
+
 
 input:focus,
 textarea:focus,
 select:focus{
+
   border-color:#008f58;
 
   box-shadow:
     0 0 0 2px
     rgba(0,143,88,.08);
+
 }
 
+
 textarea{
+
   min-height:100px;
 
   resize:vertical;
+
 }
 
 
@@ -231,15 +334,19 @@ textarea{
 ===================================================== */
 
 .type-grid{
+
   display:grid;
 
   grid-template-columns:
     repeat(3,1fr);
 
   gap:10px;
+
 }
 
+
 .type-option{
+
   border:
     1px solid #ddd;
 
@@ -251,21 +358,26 @@ textarea{
 
   cursor:pointer;
 
-  background:#fff;
+  background:#ffffff;
 
-  transition:.2s;
 }
+
 
 .type-option:hover{
+
   background:#f3faf6;
 
-  border-color:#a9d8c0;
+  border-color:#9ed3b9;
+
 }
 
+
 .type-option input{
+
   width:auto;
 
   margin-right:5px;
+
 }
 
 
@@ -274,6 +386,7 @@ textarea{
 ===================================================== */
 
 .file-box{
+
   padding:12px;
 
   border:
@@ -282,9 +395,12 @@ textarea{
   border-radius:10px;
 
   background:#fafafa;
+
 }
 
+
 .help{
+
   color:#888;
 
   font-size:12px;
@@ -292,6 +408,7 @@ textarea{
   margin-top:5px;
 
   line-height:1.5;
+
 }
 
 
@@ -300,6 +417,7 @@ textarea{
 ===================================================== */
 
 .premium-box{
+
   margin-top:15px;
 
   padding:12px;
@@ -307,18 +425,25 @@ textarea{
   background:#fff8df;
 
   border-radius:10px;
+
 }
 
+
 .premium-box label{
+
   margin:0;
 
   font-weight:normal;
+
 }
 
+
 .premium-box input{
+
   width:auto;
 
   margin-right:5px;
+
 }
 
 
@@ -327,12 +452,16 @@ textarea{
 ===================================================== */
 
 button{
+
   border:0;
 
   cursor:pointer;
+
 }
 
+
 .save-button{
+
   margin-top:18px;
 
   background:#008f58;
@@ -347,16 +476,58 @@ button{
   font-weight:bold;
 
   font-size:14px;
+
 }
+
 
 .save-button:hover{
+
   background:#007a4c;
+
 }
 
+
 .save-button:disabled{
+
   opacity:.6;
 
   cursor:not-allowed;
+
+}
+
+
+.login-button{
+
+  width:100%;
+
+  margin-top:18px;
+
+  background:#008f58;
+
+  color:#ffffff;
+
+  padding:13px;
+
+  border-radius:9px;
+
+  font-weight:bold;
+
+  font-size:14px;
+
+}
+
+
+.login-button:hover{
+
+  background:#007a4c;
+
+}
+
+
+.login-button:disabled{
+
+  opacity:.6;
+
 }
 
 
@@ -365,6 +536,7 @@ button{
 ===================================================== */
 
 .message{
+
   margin-top:15px;
 
   padding:12px;
@@ -376,22 +548,40 @@ button{
   font-size:13px;
 
   line-height:1.5;
+
 }
 
+
 .message.success{
+
   display:block;
 
   background:#e4f8ed;
 
   color:#087a47;
+
 }
 
+
 .message.error{
+
   display:block;
 
   background:#ffe9e9;
 
   color:#b42318;
+
+}
+
+
+.message.info{
+
+  display:block;
+
+  background:#eaf4ff;
+
+  color:#1769aa;
+
 }
 
 
@@ -400,6 +590,7 @@ button{
 ===================================================== */
 
 .loading{
+
   text-align:center;
 
   padding:30px;
@@ -407,6 +598,7 @@ button{
   color:#777;
 
   font-size:14px;
+
 }
 
 
@@ -415,6 +607,7 @@ button{
 ===================================================== */
 
 .material{
+
   border:
     1px solid #e1e5e2;
 
@@ -425,29 +618,39 @@ button{
   margin-bottom:12px;
 
   background:#ffffff;
+
 }
 
+
 .material h3{
+
   margin:
     0 0 8px;
 
   font-size:17px;
 
   line-height:1.4;
+
 }
 
+
 .material-info{
+
   font-size:13px;
 
   color:#666;
 
   line-height:1.7;
+
 }
 
+
 .material-url{
+
   word-break:break-all;
 
   color:#168b57;
+
 }
 
 
@@ -456,6 +659,7 @@ button{
 ===================================================== */
 
 .badge{
+
   display:inline-block;
 
   padding:
@@ -466,26 +670,34 @@ button{
   font-size:11px;
 
   font-weight:bold;
+
 }
 
+
 .badge-free{
+
   background:#ddf7e7;
 
   color:#087a47;
+
 }
 
+
 .badge-premium{
+
   background:#fff0b8;
 
   color:#8a6200;
+
 }
 
 
 /* =====================================================
-   BUTTON MATERIAL
+   MATERIAL BUTTONS
 ===================================================== */
 
 .material-buttons{
+
   margin-top:12px;
 
   display:flex;
@@ -493,9 +705,14 @@ button{
   gap:8px;
 
   flex-wrap:wrap;
+
 }
 
+
 .open-button{
+
+  display:inline-block;
+
   background:#fff0d5;
 
   color:#b65f00;
@@ -508,13 +725,19 @@ button{
   text-decoration:none;
 
   font-size:13px;
+
 }
+
 
 .open-button:hover{
-  background:#ffe7bc;
+
+  background:#ffe5b9;
+
 }
 
+
 .delete-button{
+
   background:#ffe3e3;
 
   color:#b42318;
@@ -525,18 +748,23 @@ button{
   border-radius:8px;
 
   font-size:13px;
+
 }
 
+
 .delete-button:hover{
-  background:#ffd3d3;
+
+  background:#ffd4d4;
+
 }
 
 
 /* =====================================================
-   REFRESH
+   LIST HEADER
 ===================================================== */
 
 .list-header{
+
   display:flex;
 
   justify-content:
@@ -545,9 +773,12 @@ button{
   align-items:center;
 
   gap:10px;
+
 }
 
+
 .refresh-button{
+
   background:#eef8f3;
 
   color:#087a47;
@@ -561,6 +792,35 @@ button{
   border-radius:7px;
 
   font-size:12px;
+
+}
+
+
+.refresh-button:hover{
+
+  background:#ddf3e8;
+
+}
+
+
+/* =====================================================
+   USER INFO
+===================================================== */
+
+.user-info{
+
+  margin-bottom:20px;
+
+  padding:12px;
+
+  background:#eef8f3;
+
+  border-radius:9px;
+
+  font-size:13px;
+
+  color:#087a47;
+
 }
 
 
@@ -569,11 +829,13 @@ button{
 ===================================================== */
 
 .empty{
+
   text-align:center;
 
   padding:30px;
 
   color:#777;
+
 }
 
 
@@ -582,7 +844,9 @@ button{
 ===================================================== */
 
 .hidden{
+
   display:none !important;
+
 }
 
 
@@ -593,30 +857,56 @@ button{
 @media(max-width:600px){
 
   .header-inner{
+
     padding:
       10px 15px;
+
   }
+
 
   main{
+
     padding:
       20px 12px 40px;
+
   }
+
 
   h1{
+
     font-size:24px;
+
   }
+
 
   .type-grid{
+
     grid-template-columns:
       1fr;
+
   }
+
 
   .box{
+
     padding:15px;
+
   }
 
+
+  .login-container{
+
+    margin:
+      30px auto;
+
+  }
+
+
   .list-header{
-    align-items:flex-start;
+
+    align-items:
+      flex-start;
+
   }
 
 }
@@ -635,60 +925,177 @@ button{
 
 <header>
 
-  <div class="header-inner">
+<div class="header-inner">
 
-    <div class="logo">
-      📖 NgajiPlus Admin
-    </div>
+<div class="logo">
 
-    <button
-      class="logout"
-      type="button"
-      onclick="logout()"
-    >
-      Keluar
-    </button>
+📖 NgajiPlus Admin
 
-  </div>
+</div>
+
+
+<button
+  id="logoutButton"
+  class="logout hidden"
+  type="button"
+  onclick="logout()"
+>
+
+  Keluar
+
+</button>
+
+</div>
 
 </header>
 
 
 
 <!-- =====================================================
-     MAIN
+     LOGIN AREA
 ===================================================== -->
 
-<main>
+<div
+  id="loginArea"
+  class="login-container"
+>
 
 
-<h1>
-  🎬 Kelola Materi
-</h1>
+<div class="login-box">
 
-<div class="subtitle">
-  Tambahkan dan kelola materi Video, Audio, dan PDF
-  NgajiPlus Akademi.
+
+<div class="login-title">
+
+  📖 NgajiPlus Akademi
+
+</div>
+
+
+<div class="login-subtitle">
+
+  Login Admin
+
+</div>
+
+
+<label for="loginEmail">
+
+  Email
+
+</label>
+
+
+<input
+  type="email"
+  id="loginEmail"
+  placeholder="Masukkan email"
+  autocomplete="email"
+>
+
+
+<label for="loginPassword">
+
+  Password
+
+</label>
+
+
+<input
+  type="password"
+  id="loginPassword"
+  placeholder="Masukkan password"
+  autocomplete="current-password"
+>
+
+
+<button
+  id="loginButton"
+  class="login-button"
+  type="button"
+  onclick="login()"
+>
+
+  🔐 Masuk
+
+</button>
+
+
+<div
+  id="loginMessage"
+  class="message"
+></div>
+
+
+</div>
+
 </div>
 
 
 
 <!-- =====================================================
-     FORM
+     ADMIN AREA
+===================================================== -->
+
+<main
+  id="adminArea"
+  class="hidden"
+>
+
+
+<h1>
+
+  🎬 Kelola Materi
+
+</h1>
+
+
+<div class="subtitle">
+
+  Tambahkan dan kelola materi Video, Audio,
+  dan PDF NgajiPlus Akademi.
+
+</div>
+
+
+
+<!-- =====================================================
+     USER
+===================================================== -->
+
+<div
+  id="userInfo"
+  class="user-info"
+>
+
+  👤 Memeriksa akun...
+
+</div>
+
+
+
+<!-- =====================================================
+     FORM TAMBAH MATERI
 ===================================================== -->
 
 <div class="box">
 
+
 <h2>
+
   ➕ Tambah Materi
+
 </h2>
+
 
 
 <!-- JUDUL -->
 
 <label for="judul">
+
   Judul Materi
+
 </label>
+
 
 <input
   type="text"
@@ -702,8 +1109,11 @@ button{
 <!-- DESKRIPSI -->
 
 <label for="deskripsi">
+
   Deskripsi
+
 </label>
+
 
 <textarea
   id="deskripsi"
@@ -715,42 +1125,70 @@ button{
 <!-- KATEGORI -->
 
 <label for="kategori">
+
   Kategori
+
 </label>
+
 
 <select id="kategori">
 
-  <option value="Al-Qur'an & Tahsin">
-    Al-Qur'an & Tahsin
-  </option>
 
-  <option value="Fiqih">
-    Fiqih
-  </option>
+<option value="Al-Qur'an & Tahsin">
 
-  <option value="Aqidah">
-    Aqidah
-  </option>
+  Al-Qur'an & Tahsin
 
-  <option value="Akhlak & Adab">
-    Akhlak & Adab
-  </option>
+</option>
 
-  <option value="Bahasa Arab">
-    Bahasa Arab
-  </option>
 
-  <option value="Hadits">
-    Hadits
-  </option>
+<option value="Fiqih">
 
-  <option value="Tafsir">
-    Tafsir
-  </option>
+  Fiqih
 
-  <option value="Sejarah Islam">
-    Sejarah Islam
-  </option>
+</option>
+
+
+<option value="Aqidah">
+
+  Aqidah
+
+</option>
+
+
+<option value="Akhlak & Adab">
+
+  Akhlak & Adab
+
+</option>
+
+
+<option value="Bahasa Arab">
+
+  Bahasa Arab
+
+</option>
+
+
+<option value="Hadits">
+
+  Hadits
+
+</option>
+
+
+<option value="Tafsir">
+
+  Tafsir
+
+</option>
+
+
+<option value="Sejarah Islam">
+
+  Sejarah Islam
+
+</option>
+
 
 </select>
 
@@ -761,7 +1199,9 @@ button{
 ===================================================== -->
 
 <label>
+
   Tipe Materi
+
 </label>
 
 
@@ -770,43 +1210,45 @@ button{
 
 <label class="type-option">
 
-  <input
-    type="radio"
-    name="tipeMateri"
-    value="video"
-    checked
-    onchange="changeType()"
-  >
+<input
+  type="radio"
+  name="tipeMateri"
+  value="video"
+  checked
+  onchange="changeType()"
+>
 
-  🎥 Video
-
-</label>
-
-
-<label class="type-option">
-
-  <input
-    type="radio"
-    name="tipeMateri"
-    value="audio"
-    onchange="changeType()"
-  >
-
-  🎧 Audio
+🎥 Video
 
 </label>
 
 
+
 <label class="type-option">
 
-  <input
-    type="radio"
-    name="tipeMateri"
-    value="pdf"
-    onchange="changeType()"
-  >
+<input
+  type="radio"
+  name="tipeMateri"
+  value="audio"
+  onchange="changeType()"
+>
 
-  📄 PDF
+🎧 Audio
+
+</label>
+
+
+
+<label class="type-option">
+
+<input
+  type="radio"
+  name="tipeMateri"
+  value="pdf"
+  onchange="changeType()"
+>
+
+📄 PDF
 
 </label>
 
@@ -821,9 +1263,13 @@ button{
 
 <div id="videoFields">
 
+
 <label for="videoUrl">
+
   🎥 URL Video YouTube
+
 </label>
+
 
 <input
   type="url"
@@ -831,9 +1277,13 @@ button{
   placeholder="https://www.youtube.com/watch?v=..."
 >
 
+
 <div class="help">
+
   Masukkan URL video YouTube.
+
 </div>
+
 
 </div>
 
@@ -848,11 +1298,16 @@ button{
   class="hidden"
 >
 
+
 <label for="audioFile">
+
   🎧 Upload File Audio MP3
+
 </label>
 
+
 <div class="file-box">
+
 
 <input
   type="file"
@@ -860,19 +1315,27 @@ button{
   accept=".mp3,audio/mpeg"
 >
 
+
 </div>
+
 
 <div
   id="uploadStatus"
   class="help"
 >
+
   Pilih file MP3 dari HP Anda.
+
 </div>
 
 
+
 <label for="audioUrl">
+
   🔗 Atau URL Audio Manual
+
 </label>
+
 
 <input
   type="url"
@@ -880,9 +1343,13 @@ button{
   placeholder="https://contoh.com/audio.mp3"
 >
 
+
 <div class="help">
+
   Boleh upload MP3 ATAU memasukkan URL manual.
+
 </div>
+
 
 </div>
 
@@ -897,9 +1364,13 @@ button{
   class="hidden"
 >
 
+
 <label for="pdfUrl">
+
   📄 URL File PDF
+
 </label>
+
 
 <input
   type="url"
@@ -907,9 +1378,13 @@ button{
   placeholder="https://contoh.com/materi.pdf"
 >
 
+
 <div class="help">
+
   Masukkan URL file PDF.
+
 </div>
+
 
 </div>
 
@@ -920,8 +1395,11 @@ button{
 ===================================================== -->
 
 <label for="thumbnail">
+
   🖼️ URL Thumbnail
+
 </label>
+
 
 <input
   type="url"
@@ -929,8 +1407,11 @@ button{
   placeholder="https://..."
 >
 
+
 <div class="help">
+
   Opsional. Kosongkan jika tidak memiliki thumbnail.
+
 </div>
 
 
@@ -941,16 +1422,18 @@ button{
 
 <div class="premium-box">
 
+
 <label>
 
-  <input
-    type="checkbox"
-    id="premium"
-  >
+<input
+  type="checkbox"
+  id="premium"
+>
 
-  🔐 Jadikan Materi Premium
+🔐 Jadikan Materi Premium
 
 </label>
+
 
 </div>
 
@@ -961,13 +1444,13 @@ button{
 ===================================================== -->
 
 <button
-  class="save-button"
   id="saveButton"
+  class="save-button"
   type="button"
   onclick="saveMaterial()"
 >
 
-  💾 Simpan Materi
+💾 Simpan Materi
 
 </button>
 
@@ -991,26 +1474,38 @@ button{
 
 <div class="list-header">
 
-  <h2>
-    📚 Daftar Materi
-  </h2>
 
-  <button
-    type="button"
-    class="refresh-button"
-    onclick="loadMaterials()"
-  >
-    🔄 Refresh
-  </button>
+<h2>
+
+  📚 Daftar Materi
+
+</h2>
+
+
+<button
+  type="button"
+  class="refresh-button"
+  onclick="loadMaterials()"
+>
+
+  🔄 Refresh
+
+</button>
+
 
 </div>
 
 
+
 <div id="materialsList">
 
-  <div class="loading">
-    ⏳ Mengambil data materi...
-  </div>
+
+<div class="loading">
+
+  ⏳ Mengambil data materi...
+
+</div>
+
 
 </div>
 
@@ -1051,6 +1546,7 @@ function escapeHtml(value){
 
   }
 
+
   return String(value)
 
     .replace(/&/g,"&amp;")
@@ -1066,6 +1562,7 @@ function escapeHtml(value){
 }
 
 
+
 /* =====================================================
    CEK SUPABASE
 ===================================================== */
@@ -1077,284 +1574,150 @@ function checkSupabase(){
     !supabaseClient
   ){
 
-    console.error(
-      "supabaseClient tidak ditemukan."
-    );
-
     return false;
 
   }
+
 
   return true;
 
 }
 
 
+
 /* =====================================================
-   GANTI TIPE
+   TAMPILKAN ADMIN
 ===================================================== */
 
-function changeType(){
+function showAdmin(session){
 
-  const selected =
-    document.querySelector(
-      'input[name="tipeMateri"]:checked'
+  document
+    .getElementById("loginArea")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("adminArea")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("logoutButton")
+    .classList
+    .remove("hidden");
+
+
+  const userInfo =
+    document.getElementById(
+      "userInfo"
     );
 
 
-  if(!selected){
+  if(
+    session &&
+    session.user
+  ){
+
+    userInfo.innerHTML =
+      "👤 Login sebagai: <b>"
+      +
+      escapeHtml(
+        session.user.email ||
+        "User"
+      )
+      +
+      "</b>";
+
+  }
+
+
+  changeType();
+
+
+  loadMaterials();
+
+}
+
+
+
+/* =====================================================
+   TAMPILKAN LOGIN
+===================================================== */
+
+function showLogin(){
+
+  document
+    .getElementById("loginArea")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("adminArea")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("logoutButton")
+    .classList
+    .add("hidden");
+
+}
+
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(){
+
+  if(
+    !checkSupabase()
+  ){
+
+    showLoginMessage(
+      "❌ Supabase tidak ditemukan. Periksa supabase-config.js",
+      "error"
+    );
 
     return;
 
   }
 
 
-  selectedType =
-    selected.value;
-
-
-  document
-    .getElementById("videoFields")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("audioFields")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("pdfFields")
-    .classList
-    .add("hidden");
-
-
-  if(
-    selectedType === "video"
-  ){
-
+  const email =
     document
-      .getElementById("videoFields")
-      .classList
-      .remove("hidden");
-
-  }
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
 
-  if(
-    selectedType === "audio"
-  ){
-
+  const password =
     document
-      .getElementById("audioFields")
-      .classList
-      .remove("hidden");
-
-  }
+      .getElementById("loginPassword")
+      .value;
 
 
-  if(
-    selectedType === "pdf"
-  ){
+  if(!email){
 
-    document
-      .getElementById("pdfFields")
-      .classList
-      .remove("hidden");
-
-  }
-
-}
-
-
-/* =====================================================
-   PESAN
-===================================================== */
-
-function showMessage(
-  text,
-  type
-){
-
-  const box =
-    document.getElementById(
-      "message"
+    showLoginMessage(
+      "Email wajib diisi.",
+      "error"
     );
 
-
-  box.className =
-    "message " + type;
-
-
-  box.innerHTML =
-    text;
-
-
-}
-
-
-/* =====================================================
-   HIDE MESSAGE
-===================================================== */
-
-function hideMessage(){
-
-  const box =
-    document.getElementById(
-      "message"
-    );
-
-
-  box.className =
-    "message";
-
-
-  box.innerHTML =
-    "";
-
-}
-
-
-/* =====================================================
-   UPLOAD AUDIO
-===================================================== */
-
-async function uploadAudio(){
-
-  const file =
-    document
-      .getElementById("audioFile")
-      .files[0];
-
-
-  if(!file){
-
-    return null;
+    return;
 
   }
 
 
-  if(
-    !file.name
-      .toLowerCase()
-      .endsWith(".mp3")
-  ){
+  if(!password){
 
-    throw new Error(
-      "File harus berformat MP3."
-    );
-
-  }
-
-
-  const status =
-    document.getElementById(
-      "uploadStatus"
-    );
-
-
-  status.innerHTML =
-    "⏳ Mengupload MP3...";
-
-
-  /*
-    Buat nama file aman.
-  */
-
-  const safeName =
-    file.name
-      .replace(
-        /[^a-zA-Z0-9._-]/g,
-        "-"
-      );
-
-
-  const fileName =
-    Date.now()
-    +
-    "-"
-    +
-    safeName;
-
-
-  const filePath =
-    fileName;
-
-
-  console.log(
-    "Upload audio:",
-    filePath
-  );
-
-
-  const uploadResult =
-    await supabaseClient
-
-      .storage
-
-      .from("audio")
-
-      .upload(
-        filePath,
-        file,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:"audio/mpeg"
-        }
-      );
-
-
-  if(
-    uploadResult.error
-  ){
-
-    throw uploadResult.error;
-
-  }
-
-
-  const publicResult =
-    supabaseClient
-
-      .storage
-
-      .from("audio")
-
-      .getPublicUrl(
-        filePath
-      );
-
-
-  const publicUrl =
-    publicResult
-      .data
-      .publicUrl;
-
-
-  status.innerHTML =
-    "✅ MP3 berhasil diupload.";
-
-
-  return publicUrl;
-
-}
-
-
-/* =====================================================
-   SIMPAN MATERI
-===================================================== */
-
-async function saveMaterial(){
-
-  if(
-    !checkSupabase()
-  ){
-
-    showMessage(
-      "❌ Supabase tidak ditemukan. Periksa supabase-config.js",
+    showLoginMessage(
+      "Password wajib diisi.",
       "error"
     );
 
@@ -1365,189 +1728,166 @@ async function saveMaterial(){
 
   const button =
     document.getElementById(
-      "saveButton"
+      "loginButton"
     );
 
 
   try{
 
-    button.disabled =
-      true;
+    button.disabled = true;
+
+    button.innerText =
+      "⏳ Memproses...";
 
 
-    showMessage(
-      "⏳ Menyimpan materi...",
+    showLoginMessage(
+      "⏳ Sedang login...",
+      "info"
+    );
+
+
+    const result =
+      await supabaseClient
+        .auth
+        .signInWithPassword({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    showLoginMessage(
+      "✅ Login berhasil.",
       "success"
     );
 
 
-    /* ---------------------------------------------
-       DATA DASAR
-    --------------------------------------------- */
-
-    const judul =
-      document
-        .getElementById("judul")
-        .value
-        .trim();
+    document
+      .getElementById("loginPassword")
+      .value = "";
 
 
-    const deskripsi =
-      document
-        .getElementById("deskripsi")
-        .value
-        .trim();
+    showAdmin(
+      result.data.session
+    );
 
 
-    const kategori =
-      document
-        .getElementById("kategori")
-        .value;
+  }
+
+  catch(error){
+
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
 
 
-    const thumbnail =
-      document
-        .getElementById("thumbnail")
-        .value
-        .trim();
+    showLoginMessage(
+
+      "❌ Login gagal:<br><br>"
+      +
+      escapeHtml(
+        error.message ||
+        "Email atau password salah."
+      ),
+
+      "error"
+
+    );
+
+  }
+
+  finally{
+
+    button.disabled = false;
+
+    button.innerText =
+      "🔐 Masuk";
+
+  }
+
+}
 
 
-    const premium =
-      document
-        .getElementById("premium")
-        .checked;
+
+/* =====================================================
+   LOGIN MESSAGE
+===================================================== */
+
+function showLoginMessage(
+  text,
+  type
+){
+
+  const box =
+    document.getElementById(
+      "loginMessage"
+    );
 
 
-    /* ---------------------------------------------
-       VALIDASI JUDUL
-    --------------------------------------------- */
-
-    if(!judul){
-
-      throw new Error(
-        "Judul materi wajib diisi."
-      );
-
-    }
+  box.className =
+    "message " + type;
 
 
-    /* ---------------------------------------------
-       URL AKHIR
-    --------------------------------------------- */
+  box.innerHTML =
+    text;
 
-    let finalUrl = "";
-
-
-    /* ---------------------------------------------
-       VIDEO
-    --------------------------------------------- */
-
-    if(
-      selectedType === "video"
-    ){
-
-      finalUrl =
-        document
-          .getElementById("videoUrl")
-          .value
-          .trim();
+}
 
 
-      if(!finalUrl){
 
-        throw new Error(
-          "URL Video YouTube wajib diisi."
-        );
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-      }
+async function logout(){
 
-    }
+  /*
+    Tombol Keluar dibuat sengaja
+    tidak bergantung pada proses signOut
+    untuk berpindah halaman.
+  */
 
-
-    /* ---------------------------------------------
-       AUDIO
-    --------------------------------------------- */
-
-    if(
-      selectedType === "audio"
-    ){
-
-      const manualUrl =
-        document
-          .getElementById("audioUrl")
-          .value
-          .trim();
-
-
-      const file =
-        document
-          .getElementById("audioFile")
-          .files[0];
-
-
-      if(file){
-
-        finalUrl =
-          await uploadAudio();
-
-      }
-
-      else if(manualUrl){
-
-        finalUrl =
-          manualUrl;
-
-      }
-
-      else{
-
-        throw new Error(
-          "Upload MP3 atau isi URL Audio Manual."
-        );
-
-      }
-
-    }
-
-
-    /* ---------------------------------------------
-       PDF
-    --------------------------------------------- */
+  try{
 
     if(
-      selectedType === "pdf"
+      checkSupabase()
     ){
 
-      finalUrl =
-        document
-          .getElementById("pdfUrl")
-          .value
-          .trim();
-
-
-      if(!finalUrl){
-
-        throw new Error(
-          "URL PDF wajib diisi."
-        );
-
-      }
+      await supabaseClient
+        .auth
+        .signOut();
 
     }
 
+  }
 
-    /* ---------------------------------------------
-       DATA INSERT
-       
-       TABEL ANDA MEMILIKI:
-       - tipe
-       - type
-    --------------------------------------------- */
+  catch(error){
 
-    const insertData = {
+    console.error(
+      "LOGOUT ERROR:",
+      error
+    );
 
-      judul:
-        judul,
+  }
 
-      deskripsi:
-      
+
+  /*
+    Bersihkan session lokal.
+  */
+
+  try{
+
+    localStorage.removeItem(
+      "supabase.auth
