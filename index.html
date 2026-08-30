@@ -3,1429 +3,1330 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <meta
-    name="description"
-    content="NgajiPlus - Platform pembelajaran Islam berupa video, audio dan materi PDF."
-  >
+<meta
+  name="description"
+  content="NgajiPlus - Platform pembelajaran Islam berupa video, audio dan materi PDF."
+>
 
-  <meta
-    name="theme-color"
-    content="#238b57"
-  >
+<meta
+  name="theme-color"
+  content="#238b57"
+>
 
-  <title>
-    NgajiPlus - Perpustakaan Pembelajaran
-  </title>
+<title>
+  NgajiPlus - Perpustakaan Pembelajaran
+</title>
 
 
-  <!-- =========================
-       CSS
-  ========================== -->
+<!-- SUPABASE -->
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="supabase-config.js"></script>
 
-  <style>
 
-    /* =========================
-       RESET
-    ========================== */
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+/* =====================================================
+   RESET
+===================================================== */
 
+*{
+  box-sizing:border-box;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
+body{
 
-    body {
+  margin:0;
 
-      margin: 0;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  background:#f7faf8;
 
-      background:
-        #f7faf8;
+  color:#1f2933;
 
-      color:
-        #1f2933;
+  line-height:1.6;
 
-      line-height:
-        1.6;
+}
 
-    }
+a{
+  text-decoration:none;
+}
 
 
-    a {
-      text-decoration: none;
-    }
+/* =====================================================
+   HEADER
+===================================================== */
 
+.site-header{
 
-    /* =========================
-       HEADER
-    ========================== */
+  position:sticky;
 
-    .site-header {
+  top:0;
 
-      position:
-        sticky;
+  z-index:1000;
 
-      top: 0;
+  background:
+    rgba(255,255,255,.96);
 
-      z-index: 1000;
+  backdrop-filter:blur(10px);
 
-      background:
-        rgba(255,255,255,.96);
+  border-bottom:
+    1px solid #e8ece9;
 
-      backdrop-filter:
-        blur(10px);
+}
 
-      border-bottom:
-        1px solid #e8ece9;
+.nav-container{
 
-    }
+  max-width:1150px;
 
+  margin:auto;
 
-    .nav-container {
+  padding:12px 20px;
 
-      max-width:
-        1150px;
+  display:flex;
 
-      margin:
-        auto;
+  align-items:center;
 
-      padding:
-        14px 20px;
+  justify-content:space-between;
 
-      display:
-        flex;
+  gap:20px;
 
-      align-items:
-        center;
+}
 
-      justify-content:
-        space-between;
+.logo{
 
-      gap:
-        20px;
+  display:flex;
 
-    }
+  align-items:center;
 
+  gap:8px;
 
-    .logo {
+  color:#238b57;
 
-      display:
-        flex;
+  font-weight:bold;
 
-      align-items:
-        center;
+  font-size:20px;
 
-      gap:
-        10px;
+}
 
-      color:
-        #238b57;
+.logo-icon{
 
-      font-weight:
-        bold;
+  width:38px;
 
-      font-size:
-        21px;
+  height:38px;
 
-    }
+  display:flex;
 
+  align-items:center;
 
-    .logo-icon {
+  justify-content:center;
 
-      width:
-        42px;
+  background:#eaf6ef;
 
-      height:
-        42px;
+  border-radius:10px;
 
-      display:
-        flex;
+  font-size:21px;
 
-      align-items:
-        center;
+}
 
-      justify-content:
-        center;
+.nav-menu{
 
-      background:
-        #eaf6ef;
+  display:flex;
 
-      border-radius:
-        12px;
+  align-items:center;
 
-      font-size:
-        23px;
+  gap:5px;
 
-    }
+}
 
+.nav-menu a{
 
-    .nav-menu {
+  padding:8px 12px;
 
-      display:
-        flex;
+  color:#4b5563;
 
-      align-items:
-        center;
+  border-radius:8px;
 
-      gap:
-        7px;
+  font-size:13px;
 
-    }
+}
 
+.nav-menu a:hover{
 
-    .nav-menu a {
+  background:#eef7f1;
 
-      padding:
-        9px 13px;
+  color:#238b57;
 
-      color:
-        #4b5563;
+}
 
-      border-radius:
-        9px;
+.nav-login{
 
-      font-size:
-        14px;
+  border:1px solid #238b57;
 
-    }
+  color:#238b57 !important;
 
+}
 
-    .nav-menu a:hover {
+.nav-register{
 
-      background:
-        #eef7f1;
+  background:#238b57;
 
-      color:
-        #238b57;
+  color:white !important;
 
-    }
+}
 
+.user-name{
 
-    .nav-login {
+  display:none;
 
-      border:
-        1px solid #238b57;
+  color:#238b57;
 
-      color:
-        #238b57 !important;
+  font-size:13px;
 
-    }
+  font-weight:bold;
 
+}
 
-    .nav-register {
 
-      background:
-        #238b57;
+/* =====================================================
+   HERO
+===================================================== */
 
-      color:
-        white !important;
+.hero{
 
-    }
+  max-width:1150px;
 
+  margin:auto;
 
-    /* =========================
-       HERO
-    ========================== */
+  padding:70px 20px 55px;
 
-    .hero {
+  display:grid;
 
-      max-width:
-        1150px;
+  grid-template-columns:
+    1.1fr .9fr;
 
-      margin:
-        auto;
+  gap:45px;
 
-      padding:
-        75px 20px 65px;
+  align-items:center;
 
-      display:
-        grid;
+}
 
-      grid-template-columns:
-        1.1fr .9fr;
+.hero-badge{
 
-      gap:
-        50px;
+  display:inline-block;
 
-      align-items:
-        center;
+  padding:7px 13px;
 
-    }
+  background:#eaf6ef;
 
+  color:#238b57;
 
-    .hero-badge {
+  border-radius:50px;
 
-      display:
-        inline-block;
+  font-size:13px;
 
-      padding:
-        7px 13px;
+  font-weight:bold;
 
-      background:
-        #eaf6ef;
+  margin-bottom:15px;
 
-      color:
-        #238b57;
+}
 
-      border-radius:
-        50px;
+.hero h1{
 
-      font-size:
-        13px;
+  margin:0 0 18px;
 
-      font-weight:
-        bold;
+  font-size:
+    clamp(36px,6vw,60px);
 
-      margin-bottom:
-        15px;
+  line-height:1.1;
 
-    }
+}
 
+.hero h1 span{
 
-    .hero h1 {
+  color:#238b57;
 
-      margin:
-        0 0 18px;
+}
 
-      font-size:
-        clamp(36px, 6vw, 62px);
+.hero-description{
 
-      line-height:
-        1.1;
+  max-width:620px;
 
-    }
+  color:#667085;
 
+  font-size:17px;
 
-    .hero h1 span {
+  margin-bottom:25px;
 
-      color:
-        #238b57;
+}
 
-    }
+.hero-buttons{
 
+  display:flex;
 
-    .hero-description {
+  gap:10px;
 
-      max-width:
-        620px;
+  flex-wrap:wrap;
 
-      color:
-        #667085;
+}
 
-      font-size:
-        17px;
+.btn{
 
-      margin-bottom:
-        27px;
+  display:inline-flex;
 
-    }
+  align-items:center;
 
+  justify-content:center;
 
-    .hero-buttons {
+  padding:12px 18px;
 
-      display:
-        flex;
+  border-radius:10px;
 
-      gap:
-        12px;
+  font-weight:bold;
 
-      flex-wrap:
-        wrap;
+}
 
-    }
+.btn-primary{
 
+  background:#238b57;
 
-    .btn {
+  color:white;
 
-      display:
-        inline-flex;
+}
 
-      align-items:
-        center;
+.btn-secondary{
 
-      justify-content:
-        center;
+  background:white;
 
-      padding:
-        13px 20px;
+  color:#238b57;
 
-      border-radius:
-        11px;
+  border:1px solid #238b57;
 
-      font-weight:
-        bold;
+}
 
-      border:
-        none;
 
-      cursor:
-        pointer;
+/* =====================================================
+   HERO VISUAL
+===================================================== */
 
-    }
+.hero-visual{
 
+  position:relative;
 
-    .btn-primary {
+}
 
-      background:
-        #238b57;
+.hero-card{
 
-      color:
-        white;
+  background:white;
 
-    }
+  border:1px solid #e5ebe7;
 
+  border-radius:25px;
 
-    .btn-secondary {
+  padding:20px;
 
-      background:
-        white;
+  box-shadow:
+    0 20px 60px
+    rgba(35,139,87,.10);
 
-      color:
-        #238b57;
+}
 
-      border:
-        1px solid #238b57;
+.hero-screen{
 
-    }
+  background:#f1f7f3;
 
+  border-radius:18px;
 
-    /* =========================
-       HERO VISUAL
-    ========================== */
+  padding:18px;
 
-    .hero-visual {
+}
 
-      position:
-        relative;
+.hero-screen-top{
 
-    }
+  display:flex;
 
+  justify-content:space-between;
 
-    .hero-card {
+  align-items:center;
 
-      background:
-        white;
+  margin-bottom:15px;
 
-      border:
-        1px solid #e5ebe7;
+}
 
-      border-radius:
-        28px;
+.mini-logo{
 
-      padding:
-        25px;
+  color:#238b57;
 
-      box-shadow:
-        0 20px 60px
-        rgba(35,139,87,.10);
+  font-weight:bold;
 
-    }
+}
 
+.mini-avatar{
 
-    .hero-screen {
+  width:35px;
 
-      background:
-        #f1f7f3;
+  height:35px;
 
-      border-radius:
-        20px;
+  border-radius:50%;
 
-      padding:
-        20px;
+  display:flex;
 
-    }
+  align-items:center;
 
+  justify-content:center;
 
-    .hero-screen-top {
+  background:white;
 
-      display:
-        flex;
+}
 
-      justify-content:
-        space-between;
+.featured-video{
 
-      align-items:
-        center;
+  height:180px;
 
-      margin-bottom:
-        20px;
+  border-radius:15px;
 
-    }
+  background:
+    linear-gradient(
+      135deg,
+      #238b57,
+      #75b893
+    );
 
+  display:flex;
 
-    .mini-logo {
+  align-items:center;
 
-      color:
-        #238b57;
+  justify-content:center;
 
-      font-weight:
-        bold;
+  color:white;
 
-    }
+  font-size:50px;
 
+}
 
-    .mini-avatar {
+.mini-title{
 
-      width:
-        35px;
+  font-weight:bold;
 
-      height:
-        35px;
+  margin:13px 0 4px;
 
-      border-radius:
-        50%;
+}
 
-      display:
-        flex;
+.mini-text{
 
-      align-items:
-        center;
+  color:#7a8580;
 
-      justify-content:
-        center;
+  font-size:13px;
 
-      background:
-        white;
+}
 
-    }
 
+/* =====================================================
+   FEATURES
+===================================================== */
 
-    .featured-video {
+.features{
 
-      height:
-        180px;
+  max-width:1150px;
 
-      border-radius:
-        18px;
+  margin:auto;
 
-      background:
-        linear-gradient(
-          135deg,
-          #238b57,
-          #75b893
-        );
+  padding:10px 20px 55px;
 
-      display:
-        flex;
+  display:grid;
 
-      align-items:
-        center;
+  grid-template-columns:
+    repeat(4,1fr);
 
-      justify-content:
-        center;
+  gap:15px;
 
-      color:
-        white;
+}
 
-      font-size:
-        50px;
+.feature{
 
-    }
+  background:white;
 
+  border:1px solid #e7ece9;
 
-    .mini-title {
+  padding:18px;
 
-      font-weight:
-        bold;
+  border-radius:15px;
 
-      margin:
-        14px 0 4px;
+}
 
-    }
+.feature-icon{
 
+  font-size:27px;
 
-    .mini-text {
+  margin-bottom:5px;
 
-      color:
-        #7a8580;
+}
 
-      font-size:
-        13px;
+.feature h3{
 
-    }
+  margin:0 0 5px;
 
+  font-size:16px;
 
-    /* =========================
-       FEATURES
-    ========================== */
+}
 
-    .features {
+.feature p{
 
-      max-width:
-        1150px;
+  margin:0;
 
-      margin:
-        auto;
+  color:#7a8580;
 
-      padding:
-        10px 20px 65px;
+  font-size:13px;
 
-      display:
-        grid;
+}
 
-      grid-template-columns:
-        repeat(4, 1fr);
 
-      gap:
-        15px;
+/* =====================================================
+   SECTION
+===================================================== */
 
-    }
+.section{
 
+  max-width:1150px;
 
-    .feature {
+  margin:auto;
 
-      background:
-        white;
+  padding:55px 20px;
 
-      border:
-        1px solid #e7ece9;
+}
 
-      padding:
-        20px;
+.section-header{
 
-      border-radius:
-        17px;
+  margin-bottom:22px;
 
-    }
+}
 
+.section-header h2{
 
-    .feature-icon {
+  margin:0;
 
-      font-size:
-        28px;
+  font-size:30px;
 
-      margin-bottom:
-        7px;
+}
 
-    }
+.section-header p{
 
+  margin:5px 0 0;
 
-    .feature h3 {
+  color:#7a8580;
 
-      margin:
-        0 0 5px;
+}
 
-      font-size:
-        16px;
 
-    }
+/* =====================================================
+   CATEGORY
+===================================================== */
 
+.category-grid{
 
-    .feature p {
+  display:grid;
 
-      margin:
-        0;
+  grid-template-columns:
+    repeat(4,1fr);
 
-      color:
-        #7a8580;
+  gap:15px;
 
-      font-size:
-        13px;
+}
 
-    }
+.category-card{
 
+  min-height:140px;
 
-    /* =========================
-       SECTION
-    ========================== */
+  padding:20px;
 
-    .section {
+  border-radius:17px;
 
-      max-width:
-        1150px;
+  background:white;
 
-      margin:
-        auto;
+  border:1px solid #e7ece9;
 
-      padding:
-        65px 20px;
+  transition:.2s;
 
-    }
+}
 
+.category-card:hover{
 
-    .section-header {
+  transform:translateY(-3px);
 
-      display:
-        flex;
+  box-shadow:
+    0 12px 30px
+    rgba(0,0,0,.06);
 
-      justify-content:
-        space-between;
+}
 
-      align-items:
-        flex-end;
+.category-icon{
 
-      gap:
-        20px;
+  font-size:32px;
 
-      margin-bottom:
-        25px;
+  margin-bottom:8px;
 
-    }
+}
 
+.category-card h3{
 
-    .section-header h2 {
+  margin:0 0 4px;
 
-      margin:
-        0;
+  font-size:16px;
 
-      font-size:
-        30px;
+}
 
-    }
+.category-card p{
 
+  margin:0;
 
-    .section-header p {
+  color:#7a8580;
 
-      margin:
-        5px 0 0;
+  font-size:12px;
 
-      color:
-        #7a8580;
+}
 
-    }
 
+/* =====================================================
+   MATERIAL SECTION
+===================================================== */
 
-    .view-all {
+.material-section{
 
-      color:
-        #238b57;
+  background:#eef7f1;
 
-      font-weight:
-        bold;
+}
 
-      font-size:
-        14px;
+.material-inner{
 
-      white-space:
-        nowrap;
+  max-width:1150px;
 
-    }
+  margin:auto;
 
+  padding:55px 20px;
 
-    /* =========================
-       CATEGORY
-    ========================== */
+}
 
-    .category-grid {
 
-      display:
-        grid;
+/* SEARCH */
 
-      grid-template-columns:
-        repeat(4, 1fr);
+.material-tools{
 
-      gap:
-        16px;
+  display:flex;
 
-    }
+  gap:10px;
 
+  margin-bottom:25px;
 
-    .category-card {
+}
 
-      min-height:
-        150px;
+.search-box{
 
-      padding:
-        22px;
+  flex:1;
 
-      border-radius:
-        19px;
+}
 
-      background:
-        white;
+.search-box input{
 
-      border:
-        1px solid #e7ece9;
+  width:100%;
 
-      transition:
-        .2s;
+  padding:13px 15px;
 
-    }
+  border:1px solid #dfe7e2;
 
+  border-radius:10px;
 
-    .category-card:hover {
+  outline:none;
 
-      transform:
-        translateY(-3px);
+  font-size:14px;
 
-      box-shadow:
-        0 12px 30px
-        rgba(0,0,0,.06);
+}
 
-    }
+.search-box input:focus{
 
+  border-color:#238b57;
 
-    .category-icon {
+}
 
-      font-size:
-        34px;
+.category-filter{
 
-      margin-bottom:
-        10px;
+  width:190px;
 
-    }
+  padding:13px;
 
+  border:1px solid #dfe7e2;
 
-    .category-card h3 {
+  border-radius:10px;
 
-      margin:
-        0 0 4px;
+  background:white;
 
-      font-size:
-        17px;
+}
 
-    }
 
+/* MATERIAL GRID */
 
-    .category-card p {
+.material-grid{
 
-      margin:
-        0;
+  display:grid;
 
-      color:
-        #7a8580;
+  grid-template-columns:
+    repeat(3,1fr);
 
-      font-size:
-        13px;
+  gap:18px;
 
-    }
+}
 
 
-    /* =========================
-       MATERIAL
-    ========================== */
+/* =====================================================
+   MATERIAL CARD
+===================================================== */
 
-    .material-section {
+.material-card{
 
-      background:
-        #eef7f1;
+  background:white;
 
-      max-width:
-        none;
+  border-radius:18px;
 
-    }
+  overflow:hidden;
 
+  border:1px solid #e0e9e3;
 
-    .material-inner {
+  box-shadow:
+    0 4px 15px
+    rgba(0,0,0,.03);
 
-      max-width:
-        1150px;
+}
 
-      margin:
-        auto;
 
-      padding:
-        65px 20px;
+/* =====================================================
+   THUMBNAIL
+===================================================== */
 
-    }
+.material-thumbnail{
 
+  height:180px;
 
-    .material-grid {
+  position:relative;
 
-      display:
-        grid;
+  background:#dff1e6;
 
-      grid-template-columns:
-        repeat(3, 1fr);
+  overflow:hidden;
 
-      gap:
-        20px;
+  display:flex;
 
-    }
+  align-items:center;
 
+  justify-content:center;
 
-    .material-card {
+}
 
-      background:
-        white;
+.material-thumbnail img{
 
-      border-radius:
-        19px;
+  width:100%;
 
-      overflow:
-        hidden;
+  height:100%;
 
-      border:
-        1px solid #e0e9e3;
+  object-fit:cover;
 
-    }
+  display:block;
 
+}
 
-    .material-image {
+.thumbnail-placeholder{
 
-      height:
-        160px;
+  width:100%;
 
-      display:
-        flex;
+  height:100%;
 
-      align-items:
-        center;
+  display:flex;
 
-      justify-content:
-        center;
+  align-items:center;
 
-      font-size:
-        52px;
+  justify-content:center;
 
-      background:
-        #dff1e6;
+  font-size:52px;
 
-    }
+  background:#e3f2e8;
 
+}
 
-    .material-content {
 
-      padding:
-        20px;
+/* TYPE ICON */
 
-    }
+.thumbnail-icon{
 
+  position:absolute;
 
-    .material-type {
+  font-size:55px;
 
-      display:
-        inline-block;
+  z-index:1;
 
-      font-size:
-        11px;
+}
 
-      padding:
-        5px 9px;
 
-      border-radius:
-        50px;
+/* PREMIUM OVERLAY */
 
-      background:
-        #eef7f1;
+.premium-overlay{
 
-      color:
-        #238b57;
+  position:absolute;
 
-      font-weight:
-        bold;
+  inset:0;
 
-      margin-bottom:
-        9px;
+  background:
+    rgba(16,43,31,.72);
 
-    }
+  display:flex;
 
+  align-items:center;
 
-    .material-card h3 {
+  justify-content:center;
 
-      margin:
-        0 0 7px;
+  flex-direction:column;
 
-      font-size:
-        18px;
+  color:white;
 
-    }
+  z-index:3;
 
+}
 
-    .material-card p {
+.lock-icon{
 
-      margin:
-        0 0 15px;
+  font-size:45px;
 
-      color:
-        #7a8580;
+  margin-bottom:5px;
 
-      font-size:
-        13px;
+}
 
-    }
+.lock-text{
 
+  font-size:13px;
 
-    .material-button {
+  font-weight:bold;
 
-      display:
-        block;
+}
 
-      text-align:
-        center;
 
-      padding:
-        10px;
+/* PREMIUM LABEL */
 
-      background:
-        #238b57;
+.premium-label{
 
-      color:
-        white;
+  position:absolute;
 
-      border-radius:
-        9px;
+  top:10px;
 
-      font-weight:
-        bold;
+  right:10px;
 
-      font-size:
-        14px;
+  z-index:5;
 
-    }
+  background:#202a24;
 
+  color:white;
 
-    .premium {
+  padding:5px 9px;
 
-      position:
-        relative;
+  border-radius:50px;
 
-    }
+  font-size:11px;
 
+  font-weight:bold;
 
-    .premium-label {
+}
 
-      position:
-        absolute;
 
-      top:
-        12px;
+/* CONTENT */
 
-      right:
-        12px;
+.material-content{
 
-      background:
-        #202a24;
+  padding:17px;
 
-      color:
-        white;
+}
 
-      padding:
-        5px 9px;
+.material-type{
 
-      border-radius:
-        50px;
+  display:inline-block;
 
-      font-size:
-        11px;
+  font-size:10px;
 
-      font-weight:
-        bold;
+  padding:4px 8px;
 
-    }
+  border-radius:50px;
 
+  background:#eef7f1;
 
-    /* =========================
-       MEMBER
-    ========================== */
+  color:#238b57;
 
-    .member-box {
+  font-weight:bold;
 
-      max-width:
-        1150px;
+  margin-bottom:7px;
 
-      margin:
-        65px auto;
+}
 
-      padding:
-        45px;
+.material-card h3{
 
-      border-radius:
-        25px;
+  margin:0 0 6px;
 
-      background:
-        #17231c;
+  font-size:17px;
 
-      color:
-        white;
+}
 
-      display:
-        flex;
+.material-card p{
 
-      justify-content:
-        space-between;
+  margin:0 0 13px;
 
-      align-items:
-        center;
+  color:#7a8580;
 
-      gap:
-        30px;
+  font-size:12px;
 
-    }
+  min-height:38px;
 
+}
 
-    .member-box h2 {
 
-      margin:
-        0 0 8px;
+/* INFO */
 
-      font-size:
-        30px;
+.material-meta{
 
-    }
+  color:#69756e;
 
+  font-size:11px;
 
-    .member-box p {
+  margin-bottom:10px;
 
-      margin:
-        0;
+}
 
-      color:
-        #c8d2cc;
+.free-label{
 
-    }
+  color:#168b57;
 
+  font-weight:bold;
 
-    .member-button {
+}
 
-      background:
-        white;
+.premium-label-small{
 
-      color:
-        #17231c;
+  color:#9a7100;
 
-      padding:
-        13px 20px;
+  font-weight:bold;
 
-      border-radius:
-        10px;
+}
 
-      font-weight:
-        bold;
 
-      white-space:
-        nowrap;
+/* BUTTON */
 
-    }
+.material-button{
 
+  display:block;
 
-    /* =========================
-       FOOTER
-    ========================== */
+  width:100%;
 
-    footer {
+  text-align:center;
 
-      background:
-        #111814;
+  padding:10px;
 
-      color:
-        white;
+  background:#238b57;
 
-      margin-top:
-        70px;
+  color:white;
 
-    }
+  border-radius:9px;
 
+  font-weight:bold;
 
-    .footer-container {
+  font-size:13px;
 
-      max-width:
-        1150px;
+  border:none;
 
-      margin:
-        auto;
+  cursor:pointer;
 
-      padding:
-        45px 20px 25px;
+}
 
-    }
+.material-button:hover{
 
+  background:#197448;
 
-    .footer-grid {
+}
 
-      display:
-        grid;
+.material-button.premium-button{
 
-      grid-template-columns:
-        2fr 1fr 1fr;
+  background:#f1f1f1;
 
-      gap:
-        35px;
+  color:#555;
 
-    }
+}
 
+.material-button.premium-button:hover{
 
-    .footer-brand {
+  background:#e6e6e6;
 
-      color:
-        #a8b5ad;
+}
 
-      max-width:
-        450px;
 
-    }
+/* EMPTY */
 
+.empty-material{
 
-    .footer-title {
+  grid-column:1/-1;
 
-      font-weight:
-        bold;
+  text-align:center;
 
-      margin-bottom:
-        12px;
+  padding:50px 20px;
 
-    }
+  color:#777;
 
+  background:white;
 
-    .footer-links a {
+  border-radius:15px;
 
-      display:
-        block;
+}
 
-      color:
-        #a8b5ad;
 
-      margin-bottom:
-        8px;
+/* =====================================================
+   MEMBER BOX
+===================================================== */
 
-      font-size:
-        14px;
+.member-box{
 
-    }
+  max-width:1100px;
 
+  margin:55px auto;
 
-    .footer-bottom {
+  padding:40px;
 
-      border-top:
-        1px solid #2a332e;
+  border-radius:23px;
 
-      margin-top:
-        30px;
+  background:#17231c;
 
-      padding-top:
-        20px;
+  color:white;
 
-      color:
-        #849088;
+  display:flex;
 
-      font-size:
-        13px;
+  justify-content:space-between;
 
-    }
+  align-items:center;
 
+  gap:25px;
 
-    /* =========================
-       MOBILE
-    ========================== */
+}
 
-    @media (max-width: 850px) {
+.member-box h2{
 
-      .nav-menu a:not(.nav-login):not(.nav-register) {
-        display:
-          none;
-      }
+  margin:0 0 8px;
 
+}
 
-      .hero {
+.member-box p{
 
-        grid-template-columns:
-          1fr;
+  margin:0;
 
-        padding-top:
-          45px;
+  color:#c8d2cc;
 
-      }
+}
 
+.member-button{
 
-      .features {
+  background:white;
 
-        grid-template-columns:
-          repeat(2, 1fr);
+  color:#17231c;
 
-      }
+  padding:12px 18px;
 
+  border-radius:10px;
 
-      .category-grid {
+  font-weight:bold;
 
-        grid-template-columns:
-          repeat(2, 1fr);
+  white-space:nowrap;
 
-      }
+}
 
 
-      .material-grid {
+/* =====================================================
+   FOOTER
+===================================================== */
 
-        grid-template-columns:
-          1fr;
+footer{
 
-      }
+  background:#111814;
 
+  color:white;
 
-      .member-box {
+  margin-top:60px;
 
-        margin-left:
-          20px;
+}
 
-        margin-right:
-          20px;
+.footer-container{
 
-        padding:
-          30px;
+  max-width:1150px;
 
-        flex-direction:
-          column;
+  margin:auto;
 
-        align-items:
-          flex-start;
+  padding:40px 20px 20px;
 
-      }
+}
 
+.footer-grid{
 
-      .footer-grid {
+  display:grid;
 
-        grid-template-columns:
-          1fr;
+  grid-template-columns:
+    2fr 1fr 1fr;
 
-      }
+  gap:30px;
 
-    }
+}
 
+.footer-brand{
 
-    @media (max-width: 500px) {
+  color:#a8b5ad;
 
-      .nav-container {
+  max-width:450px;
 
-        padding:
-          10px 14px;
+  font-size:13px;
 
-      }
+}
 
+.footer-title{
 
-      .logo {
+  font-weight:bold;
 
-        font-size:
-          18px;
+  margin-bottom:10px;
 
-      }
+}
 
+.footer-links a{
 
-      .logo-icon {
+  display:block;
 
-        width:
-          37px;
+  color:#a8b5ad;
 
-        height:
-          37px;
+  margin-bottom:7px;
 
-      }
+  font-size:13px;
 
+}
 
-      .nav-menu {
+.footer-bottom{
 
-        gap:
-          4px;
+  border-top:1px solid #2a332e;
 
-      }
+  margin-top:25px;
 
+  padding-top:18px;
 
-      .nav-menu a {
+  color:#849088;
 
-        padding:
-          8px;
+  font-size:12px;
 
-        font-size:
-          12px;
+}
 
-      }
 
+/* =====================================================
+   LOADING
+===================================================== */
 
-      .hero {
+.loading{
 
-        padding:
-          40px 15px;
+  grid-column:1/-1;
 
-      }
+  text-align:center;
 
+  padding:50px;
 
-      .features {
+  color:#777;
 
-        grid-template-columns:
-          1fr;
+}
 
-        padding-left:
-          15px;
 
-        padding-right:
-          15px;
+/* =====================================================
+   MOBILE
+===================================================== */
 
-      }
+@media(max-width:850px){
 
+  .nav-menu a:not(.nav-login):not(.nav-register){
 
-      .category-grid {
+    display:none;
 
-        grid-template-columns:
-          1fr;
+  }
 
-      }
+  .hero{
 
+    grid-template-columns:1fr;
 
-      .section {
+    padding-top:45px;
 
-        padding:
-          45px 15px;
+  }
 
-      }
+  .features{
 
+    grid-template-columns:
+      repeat(2,1fr);
 
-      .material-inner {
+  }
 
-        padding:
-          45px 15px;
+  .category-grid{
 
-      }
+    grid-template-columns:
+      repeat(2,1fr);
 
+  }
 
-      .section-header {
+  .material-grid{
 
-        align-items:
-          flex-start;
+    grid-template-columns:
+      repeat(2,1fr);
 
-        flex-direction:
-          column;
+  }
 
-      }
+  .member-box{
 
+    margin-left:15px;
 
-      .hero-buttons {
+    margin-right:15px;
 
-        flex-direction:
-          column;
+    flex-direction:column;
 
-      }
+    align-items:flex-start;
 
+  }
 
-      .btn {
+  .footer-grid{
 
-        width:
-          100%;
+    grid-template-columns:1fr;
 
-      }
+  }
 
+}
 
-      .member-button {
 
-        width:
-          100%;
+@media(max-width:600px){
 
-        text-align:
-          center;
+  .nav-container{
 
-      }
+    padding:9px 12px;
 
-    }
+  }
 
-  </style>
+  .logo{
+
+    font-size:17px;
+
+  }
+
+  .logo-icon{
+
+    width:34px;
+
+    height:34px;
+
+    font-size:18px;
+
+  }
+
+  .nav-menu a{
+
+    padding:7px 9px;
+
+    font-size:11px;
+
+  }
+
+  .hero{
+
+    padding:
+      40px 15px;
+
+  }
+
+  .hero h1{
+
+    font-size:35px;
+
+  }
+
+  .features{
+
+    grid-template-columns:1fr;
+
+    padding-left:15px;
+
+    padding-right:15px;
+
+  }
+
+  .section{
+
+    padding:
+      45px 15px;
+
+  }
+
+  .category-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .material-inner{
+
+    padding:
+      45px 15px;
+
+  }
+
+  .material-tools{
+
+    flex-direction:column;
+
+  }
+
+  .category-filter{
+
+    width:100%;
+
+  }
+
+  .material-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .material-thumbnail{
+
+    height:190px;
+
+  }
+
+  .member-box{
+
+    padding:28px;
+
+  }
+
+  .member-button{
+
+    width:100%;
+
+    text-align:center;
+
+  }
+
+}
+
+</style>
 
 </head>
 
@@ -1433,835 +1334,714 @@
 <body>
 
 
-<!-- ==================================================
-     HEADER
-================================================== -->
+<!-- =====================================================
+HEADER
+===================================================== -->
 
 <header class="site-header">
 
-  <div class="nav-container">
+<div class="nav-container">
+
+<a
+  href="index.html"
+  class="logo"
+>
+
+<span class="logo-icon">
+📖
+</span>
+
+<span>
+NgajiPlus
+</span>
+
+</a>
 
 
-    <a
-      href="index.html"
-      class="logo"
-    >
+<nav class="nav-menu">
 
-      <span class="logo-icon">
-        📖
-      </span>
+<a href="#beranda">
+Beranda
+</a>
 
-      <span>
-        NgajiPlus
-      </span>
+<a href="#kategori">
+Kategori
+</a>
 
-    </a>
+<a href="#materi">
+Materi
+</a>
 
+<span
+  id="userName"
+  class="user-name"
+></span>
 
-    <nav class="nav-menu">
+<a
+  href="login.html"
+  class="nav-login"
+  id="loginButton"
+>
+Login
+</a>
 
-      <a href="#beranda">
-        Beranda
-      </a>
+<a
+  href="daftar.html"
+  class="nav-register"
+  id="registerButton"
+>
+Daftar
+</a>
 
-      <a href="#kategori">
-        Kategori
-      </a>
+</nav>
 
-      <a href="#materi">
-        Materi
-      </a>
-
-      <a
-        href="login.html"
-        class="nav-login"
-      >
-        Login
-      </a>
-
-      <a
-        href="daftar.html"
-        class="nav-register"
-      >
-        Daftar
-      </a>
-
-    </nav>
-
-
-  </div>
+</div>
 
 </header>
 
 
 
-<!-- ==================================================
-     HERO
-================================================== -->
+<!-- =====================================================
+HERO
+===================================================== -->
 
 <main>
-
 
 <section
   class="hero"
   id="beranda"
 >
 
+<div>
 
-  <div>
+<span class="hero-badge">
 
+📚 Perpustakaan Pembelajaran Islam
 
-    <span class="hero-badge">
-
-      📚 Perpustakaan Pembelajaran Islam
-
-    </span>
+</span>
 
 
-    <h1>
+<h1>
 
-      Belajar Lebih Mudah,
-      <span>
-        Ngaji Lebih Menyenangkan.
-      </span>
+Belajar Lebih Mudah,
+<span>
+Ngaji Lebih Menyenangkan.
+</span>
 
-    </h1>
-
-
-    <p class="hero-description">
-
-      NgajiPlus menyediakan kumpulan video,
-      audio dan materi PDF pembelajaran Islam
-      dalam berbagai tema yang tersusun rapi
-      dan mudah dipelajari kapan saja.
-
-    </p>
+</h1>
 
 
-    <div class="hero-buttons">
+<p class="hero-description">
+
+NgajiPlus menyediakan kumpulan video,
+audio dan materi PDF pembelajaran Islam
+dalam berbagai tema yang tersusun rapi
+dan mudah dipelajari kapan saja.
+
+</p>
 
 
-      <a
-        href="daftar.html"
-        class="btn btn-primary"
-      >
+<div class="hero-buttons">
 
-        🚀 Mulai Belajar
+<a
+  href="daftar.html"
+  class="btn btn-primary"
+>
 
-      </a>
+🚀 Mulai Belajar
 
-
-      <a
-        href="#materi"
-        class="btn btn-secondary"
-      >
-
-        📚 Lihat Materi
-
-      </a>
+</a>
 
 
-    </div>
+<a
+  href="#materi"
+  class="btn btn-secondary"
+>
+
+📚 Lihat Materi
+
+</a>
+
+</div>
+
+</div>
 
 
-  </div>
+<div class="hero-visual">
+
+<div class="hero-card">
+
+<div class="hero-screen">
+
+<div class="hero-screen-top">
+
+<div class="mini-logo">
+NgajiPlus
+</div>
+
+<div class="mini-avatar">
+👤
+</div>
+
+</div>
 
 
-
-  <!-- VISUAL -->
-
-  <div class="hero-visual">
-
-
-    <div class="hero-card">
+<div class="featured-video">
+▶
+</div>
 
 
-      <div class="hero-screen">
+<div class="mini-title">
+
+Kajian & Pembelajaran Islam
+
+</div>
 
 
-        <div class="hero-screen-top">
+<div class="mini-text">
 
-          <div class="mini-logo">
-            NgajiPlus
-          </div>
+🎥 Video
+&nbsp; • &nbsp;
+🎧 Audio
+&nbsp; • &nbsp;
+📄 PDF
 
-          <div class="mini-avatar">
-            👤
-          </div>
+</div>
 
-        </div>
+</div>
 
+</div>
 
-        <div class="featured-video">
-
-          ▶
-
-        </div>
-
-
-        <div class="mini-title">
-
-          Kajian & Pembelajaran Islam
-
-        </div>
-
-
-        <div class="mini-text">
-
-          🎥 Video &nbsp; • &nbsp;
-          🎧 Audio &nbsp; • &nbsp;
-          📄 PDF
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
+</div>
 
 </section>
 
 
 
-<!-- ==================================================
-     FEATURES
-================================================== -->
+<!-- =====================================================
+FEATURES
+===================================================== -->
 
 <section class="features">
 
+<div class="feature">
 
-  <div class="feature">
+<div class="feature-icon">
+🎥
+</div>
 
-    <div class="feature-icon">
-      🎥
-    </div>
+<h3>
+Video Pembelajaran
+</h3>
 
-    <h3>
-      Video Pembelajaran
-    </h3>
+<p>
+Belajar melalui video yang
+mudah dipahami.
+</p>
 
-    <p>
-      Belajar melalui video yang
-      mudah dipahami.
-    </p>
-
-  </div>
-
+</div>
 
 
-  <div class="feature">
+<div class="feature">
 
-    <div class="feature-icon">
-      🎧
-    </div>
+<div class="feature-icon">
+🎧
+</div>
 
-    <h3>
-      Audio Pembelajaran
-    </h3>
+<h3>
+Audio Pembelajaran
+</h3>
 
-    <p>
-      Dengarkan materi kapan saja
-      dan di mana saja.
-    </p>
+<p>
+Dengarkan materi kapan saja
+dan di mana saja.
+</p>
 
-  </div>
-
-
-
-  <div class="feature">
-
-    <div class="feature-icon">
-      📄
-    </div>
-
-    <h3>
-      Materi PDF
-    </h3>
-
-    <p>
-      Download modul untuk dipelajari
-      kembali.
-    </p>
-
-  </div>
+</div>
 
 
+<div class="feature">
 
-  <div class="feature">
+<div class="feature-icon">
+📄
+</div>
 
-    <div class="feature-icon">
-      🔐
-    </div>
+<h3>
+Materi PDF
+</h3>
 
-    <h3>
-      Member Premium
-    </h3>
+<p>
+Download modul untuk dipelajari
+kembali.
+</p>
 
-    <p>
-      Akses materi premium khusus
-      untuk member.
-    </p>
+</div>
 
-  </div>
 
+<div class="feature">
+
+<div class="feature-icon">
+🔐
+</div>
+
+<h3>
+Member Premium
+</h3>
+
+<p>
+Akses materi premium khusus
+untuk member.
+</p>
+
+</div>
 
 </section>
 
 
 
-<!-- ==================================================
-     KATEGORI
-================================================== -->
+<!-- =====================================================
+KATEGORI
+===================================================== -->
 
 <section
   class="section"
   id="kategori"
 >
 
+<div class="section-header">
 
-  <div class="section-header">
+<h2>
+Jelajahi Kategori
+</h2>
 
+<p>
+Pilih tema pembelajaran yang
+ingin Anda pelajari.
+</p>
 
-    <div>
+</div>
 
-      <h2>
-        Jelajahi Kategori
-      </h2>
 
-      <p>
-        Pilih tema pembelajaran yang
-        ingin Anda pelajari.
-      </p>
+<div class="category-grid">
 
-    </div>
 
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Al-Qur\\'an & Tahsin')"
+>
 
-  </div>
+<div class="category-icon">
+📖
+</div>
 
+<h3>
+Al-Qur'an & Tahsin
+</h3>
 
+<p>
+Membaca dan memahami Al-Qur'an.
+</p>
 
-  <div class="category-grid">
+</a>
 
 
-    <a
-      href="materi.html?kategori=quran"
-      class="category-card"
-    >
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Fiqih')"
+>
 
-      <div class="category-icon">
-        📖
-      </div>
+<div class="category-icon">
+🕌
+</div>
 
-      <h3>
-        Al-Qur'an & Tahsin
-      </h3>
+<h3>
+Fiqih
+</h3>
 
-      <p>
-        Membaca dan memahami
-        Al-Qur'an.
-      </p>
+<p>
+Belajar hukum-hukum dalam kehidupan.
+</p>
 
-    </a>
+</a>
 
 
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Aqidah')"
+>
 
-    <a
-      href="materi.html?kategori=fiqih"
-      class="category-card"
-    >
+<div class="category-icon">
+💎
+</div>
 
-      <div class="category-icon">
-        🕌
-      </div>
+<h3>
+Aqidah
+</h3>
 
-      <h3>
-        Fiqih
-      </h3>
+<p>
+Memperkuat dasar keimanan.
+</p>
 
-      <p>
-        Belajar hukum-hukum
-        dalam kehidupan.
-      </p>
+</a>
 
-    </a>
 
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Akhlak & Adab')"
+>
 
+<div class="category-icon">
+🌿
+</div>
 
-    <a
-      href="materi.html?kategori=aqidah"
-      class="category-card"
-    >
+<h3>
+Akhlak & Adab
+</h3>
 
-      <div class="category-icon">
-        💎
-      </div>
+<p>
+Membentuk pribadi yang baik.
+</p>
 
-      <h3>
-        Aqidah
-      </h3>
+</a>
 
-      <p>
-        Memperkuat dasar
-        keimanan.
-      </p>
 
-    </a>
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Bahasa Arab')"
+>
 
+<div class="category-icon">
+🇸🇦
+</div>
 
+<h3>
+Bahasa Arab
+</h3>
 
-    <a
-      href="materi.html?kategori=akhlak"
-      class="category-card"
-    >
+<p>
+Belajar bahasa Arab bertahap.
+</p>
 
-      <div class="category-icon">
-        🌿
-      </div>
+</a>
 
-      <h3>
-        Akhlak & Adab
-      </h3>
 
-      <p>
-        Membentuk pribadi
-        yang baik.
-      </p>
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Hadits')"
+>
 
-    </a>
+<div class="category-icon">
+📜
+</div>
 
+<h3>
+Hadits
+</h3>
 
+<p>
+Mengenal hadits Nabi ﷺ.
+</p>
 
-    <a
-      href="materi.html?kategori=arab"
-      class="category-card"
-    >
+</a>
 
-      <div class="category-icon">
-        🇸🇦
-      </div>
 
-      <h3>
-        Bahasa Arab
-      </h3>
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Tafsir')"
+>
 
-      <p>
-        Belajar bahasa Arab
-        secara bertahap.
-      </p>
+<div class="category-icon">
+📚
+</div>
 
-    </a>
+<h3>
+Tafsir
+</h3>
 
+<p>
+Memahami kandungan Al-Qur'an.
+</p>
 
+</a>
 
-    <a
-      href="materi.html?kategori=hadits"
-      class="category-card"
-    >
 
-      <div class="category-icon">
-        📜
-      </div>
+<a
+  href="#materi"
+  class="category-card"
+  onclick="filterCategory('Sejarah Islam')"
+>
 
-      <h3>
-        Hadits
-      </h3>
+<div class="category-icon">
+🏛️
+</div>
 
-      <p>
-        Mengenal dan mempelajari
-        hadits Nabi ﷺ.
-      </p>
+<h3>
+Sejarah Islam
+</h3>
 
-    </a>
+<p>
+Mempelajari perjalanan sejarah Islam.
+</p>
 
+</a>
 
-
-    <a
-      href="materi.html?kategori=tafsir"
-      class="category-card"
-    >
-
-      <div class="category-icon">
-        🔎
-      </div>
-
-      <h3>
-        Tafsir
-      </h3>
-
-      <p>
-        Memahami kandungan
-        ayat Al-Qur'an.
-      </p>
-
-    </a>
-
-
-
-    <a
-      href="materi.html?kategori=sejarah"
-      class="category-card"
-    >
-
-      <div class="category-icon">
-        🏛️
-      </div>
-
-      <h3>
-        Sejarah Islam
-      </h3>
-
-      <p>
-        Kisah Nabi, Sahabat
-        dan ulama.
-      </p>
-
-    </a>
-
-
-  </div>
-
+</div>
 
 </section>
 
 
 
-<!-- ==================================================
-     MATERI
-================================================== -->
+<!-- =====================================================
+MATERI
+===================================================== -->
 
 <section
   class="material-section"
   id="materi"
 >
 
+<div class="material-inner">
 
-  <div class="material-inner">
+<div class="section-header">
 
+<h2>
+📚 Materi Terbaru
+</h2>
 
-    <div class="section-header">
+<p>
+Temukan berbagai materi pembelajaran
+yang tersedia di NgajiPlus.
+</p>
 
-
-      <div>
-
-        <h2>
-          Materi Pilihan
-        </h2>
-
-        <p>
-          Beberapa contoh materi
-          pembelajaran NgajiPlus.
-        </p>
-
-      </div>
+</div>
 
 
-      <a
-        href="materi.html"
-        class="view-all"
-      >
-        Lihat semua →
-      </a>
+<!-- SEARCH -->
+
+<div class="material-tools">
+
+<div class="search-box">
+
+<input
+  type="search"
+  id="searchInput"
+  placeholder="🔎 Cari materi..."
+  oninput="renderMaterials()"
+>
+
+</div>
 
 
-    </div>
+<select
+  id="categoryFilter"
+  class="category-filter"
+  onchange="renderMaterials()"
+>
+
+<option value="">
+Semua Kategori
+</option>
+
+<option value="Al-Qur'an & Tahsin">
+Al-Qur'an & Tahsin
+</option>
+
+<option value="Fiqih">
+Fiqih
+</option>
+
+<option value="Aqidah">
+Aqidah
+</option>
+
+<option value="Akhlak & Adab">
+Akhlak & Adab
+</option>
+
+<option value="Bahasa Arab">
+Bahasa Arab
+</option>
+
+<option value="Hadits">
+Hadits
+</option>
+
+<option value="Tafsir">
+Tafsir
+</option>
+
+<option value="Sejarah Islam">
+Sejarah Islam
+</option>
+
+</select>
+
+</div>
 
 
+<!-- MATERIAL GRID -->
 
-    <div class="material-grid">
+<div
+  id="materialsGrid"
+  class="material-grid"
+>
 
+<div class="loading">
 
-      <!-- VIDEO -->
+⏳ Mengambil materi...
 
-      <article class="material-card">
+</div>
 
-        <div class="material-image">
-          🎥
-        </div>
+</div>
 
-        <div class="material-content">
-
-          <span class="material-type">
-            VIDEO
-          </span>
-
-          <h3>
-            Belajar Membaca Al-Qur'an
-          </h3>
-
-          <p>
-            Materi dasar untuk meningkatkan
-            kemampuan membaca Al-Qur'an.
-          </p>
-
-          <a
-            href="materi.html"
-            class="material-button"
-          >
-            Lihat Video
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- AUDIO -->
-
-      <article class="material-card">
-
-        <div class="material-image">
-          🎧
-        </div>
-
-        <div class="material-content">
-
-          <span class="material-type">
-            AUDIO
-          </span>
-
-          <h3>
-            Audio Pembelajaran
-          </h3>
-
-          <p>
-            Dengarkan materi pembelajaran
-            kapan pun Anda membutuhkan.
-          </p>
-
-          <a
-            href="audio.html"
-            class="material-button"
-          >
-            Dengarkan Audio
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- PDF PREMIUM -->
-
-      <article class="material-card premium">
-
-        <span class="premium-label">
-          🔒 PREMIUM
-        </span>
-
-
-        <div class="material-image">
-          📄
-        </div>
-
-
-        <div class="material-content">
-
-          <span class="material-type">
-            PDF
-          </span>
-
-          <h3>
-            Modul Pembelajaran
-          </h3>
-
-          <p>
-            Kumpulan materi PDF untuk
-            pembelajaran lebih mendalam.
-          </p>
-
-          <a
-            href="login.html"
-            class="material-button"
-          >
-            🔐 Login untuk Akses
-          </a>
-
-        </div>
-
-      </article>
-
-
-    </div>
-
-
-  </div>
-
+</div>
 
 </section>
 
 
 
-<!-- ==================================================
-     MEMBER CTA
-================================================== -->
+<!-- =====================================================
+MEMBER
+===================================================== -->
 
-<section class="section">
+<section
+  class="member-box"
+>
 
+<div>
 
-  <div class="member-box">
+<h2>
+🔐 Bergabung sebagai Member
+</h2>
 
+<p>
+Dapatkan akses ke materi premium
+NgajiPlus Akademi.
+</p>
 
-    <div>
-
-      <h2>
-        🔐 Jadilah Member NgajiPlus
-      </h2>
-
-      <p>
-
-        Dapatkan akses ke koleksi
-        video, audio dan PDF premium
-        yang terus bertambah.
-
-      </p>
-
-    </div>
+</div>
 
 
-    <a
-      href="daftar.html"
-      class="member-button"
-    >
+<a
+  href="daftar.html"
+  class="member-button"
+>
 
-      🚀 Daftar Sekarang
+🚀 Daftar Member
 
-    </a>
-
-
-  </div>
-
+</a>
 
 </section>
-
 
 </main>
 
 
 
-<!-- ==================================================
-     FOOTER
-================================================== -->
+<!-- =====================================================
+FOOTER
+===================================================== -->
 
 <footer>
 
+<div class="footer-container">
 
-  <div class="footer-container">
+<div class="footer-grid">
 
+<div>
 
-    <div class="footer-grid">
+<div class="logo">
+📖 NgajiPlus
+</div>
 
+<p class="footer-brand">
 
-      <div>
+Platform pembelajaran Islam untuk
+membantu Anda belajar Al-Qur'an,
+Fiqih, Aqidah, Akhlak, Bahasa Arab,
+Hadits, Tafsir dan Sejarah Islam.
 
-        <div class="logo">
+</p>
 
-          <span class="logo-icon">
-            📖
-          </span>
-
-          <span>
-            NgajiPlus
-          </span>
-
-        </div>
-
-
-        <p class="footer-brand">
-
-          Platform pembelajaran Islam yang
-          menyediakan video, audio dan materi
-          PDF dalam berbagai tema untuk
-          membantu Anda belajar dengan lebih
-          mudah.
-
-        </p>
-
-      </div>
+</div>
 
 
+<div>
 
-      <div>
+<div class="footer-title">
+Menu
+</div>
 
-        <div class="footer-title">
-          Menu
-        </div>
+<div class="footer-links">
 
+<a href="#beranda">
+Beranda
+</a>
 
-        <div class="footer-links">
+<a href="#kategori">
+Kategori
+</a>
 
-          <a href="index.html">
-            Beranda
-          </a>
+<a href="#materi">
+Materi
+</a>
 
-          <a href="materi.html">
-            Video
-          </a>
+</div>
 
-          <a href="audio.html">
-            Audio
-          </a>
-
-          <a href="pdf.html">
-            PDF
-          </a>
-
-        </div>
-
-      </div>
+</div>
 
 
+<div>
 
-      <div>
+<div class="footer-title">
+Akun
+</div>
 
-        <div class="footer-title">
-          Akun
-        </div>
+<div class="footer-links">
 
+<a href="login.html">
+Login
+</a>
 
-        <div class="footer-links">
+<a href="daftar.html">
+Daftar
+</a>
 
-          <a href="login.html">
-            Login
-          </a>
+</div>
 
-          <a href="daftar.html">
-            Daftar
-          </a>
+</div>
 
-          <a href="dashboard.html">
-            Dashboard
-          </a>
-
-        </div>
-
-      </div>
+</div>
 
 
-    </div>
+<div class="footer-bottom">
 
+© 2026 NgajiPlus. Semua hak dilindungi.
 
+</div>
 
-    <div class="footer-bottom">
-
-      © 2026 NgajiPlus.
-      Semua hak dilindungi.
-
-    </div>
-
-
-  </div>
-
+</div>
 
 </footer>
 
 
-</body>
 
-</html>
+<!-- =====================================================
+JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let allMaterials = [];
+
+let currentSe
