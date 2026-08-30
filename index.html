@@ -1,1448 +1,818 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="id">
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="NgajiPlus - Perpustakaan Pembelajaran Islam">
+
+<meta name="theme-color"
+      content="#238b57">
+
+<title>NgajiPlus - Perpustakaan Pembelajaran</title>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* ==================================================
+   RESET
+================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7faf8;
+    color:#1f2933;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #e6ebe8;
+}
+
+.nav-container{
+    max-width:1150px;
+    margin:auto;
+    padding:12px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#238b57;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.logo-icon{
+    font-size:22px;
+}
+
+.nav-menu{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.nav-menu a{
+    padding:8px 11px;
+    color:#4b5563;
+    font-size:12px;
+    border-radius:8px;
+}
+
+.nav-menu a:hover{
+    background:#eef7f1;
+    color:#238b57;
+}
+
+.nav-login{
+    border:1px solid #238b57;
+    color:#238b57!important;
+}
+
+.nav-register{
+    background:#238b57;
+    color:white!important;
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+.hero{
+    max-width:1150px;
+    margin:auto;
+    padding:55px 20px 50px;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    gap:45px;
+    align-items:center;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:6px 11px;
+    background:#eaf6ef;
+    color:#238b57;
+    border-radius:50px;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.hero h1{
+    margin:0 0 16px;
+    font-size:clamp(38px,6vw,62px);
+    line-height:1.08;
+}
+
+.hero h1 span{
+    color:#238b57;
+}
+
+.hero-description{
+    max-width:620px;
+    color:#667085;
+    font-size:15px;
+    margin-bottom:24px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 16px;
+    border-radius:9px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.btn-primary{
+    background:#238b57;
+    color:white;
+}
+
+.btn-secondary{
+    background:white;
+    color:#238b57;
+    border:1px solid #238b57;
+}
+
+
+/* ==================================================
+   HERO VISUAL
+================================================== */
+
+.hero-card{
+    background:white;
+    border:1px solid #e5ebe7;
+    border-radius:25px;
+    padding:20px;
+    box-shadow:0 20px 50px rgba(35,139,87,.10);
+}
+
+.hero-screen{
+    background:#f1f7f3;
+    border-radius:18px;
+    padding:18px;
+}
+
+.hero-screen-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.mini-logo{
+    color:#238b57;
+    font-weight:bold;
+}
+
+.mini-avatar{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+}
+
+.featured-video{
+    height:150px;
+    border-radius:15px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #238b57,
+        #72b98f
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-size:42px;
+}
+
+.mini-title{
+    font-weight:bold;
+    margin:12px 0 3px;
+    font-size:14px;
+}
+
+.mini-text{
+    color:#7a8580;
+    font-size:11px;
+}
+
+
+/* ==================================================
+   FEATURES
+================================================== */
+
+.features{
+    max-width:1150px;
+    margin:auto;
+    padding:10px 20px 55px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.feature{
+    background:white;
+    border:1px solid #e7ece9;
+    padding:18px;
+    border-radius:15px;
+}
+
+.feature-icon{
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+.feature h3{
+    margin:0 0 3px;
+    font-size:14px;
+}
+
+.feature p{
+    margin:0;
+    color:#7a8580;
+    font-size:11px;
+}
+
+
+/* ==================================================
+   SECTION
+================================================== */
+
+.section{
+    max-width:1150px;
+    margin:auto;
+    padding:55px 20px;
+}
+
+.section-header{
+    margin-bottom:20px;
+}
+
+.section-header h2{
+    margin:0;
+    font-size:25px;
+}
+
+.section-header p{
+    margin:4px 0 0;
+    color:#7a8580;
+    font-size:13px;
+}
+
+
+/* ==================================================
+   CATEGORY
+================================================== */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.category-card{
+    min-height:135px;
+    padding:18px;
+    border-radius:16px;
+    background:white;
+    border:1px solid #e7ece9;
+    transition:.2s;
+}
+
+.category-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.category-icon{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.category-card h3{
+    margin:0 0 3px;
+    font-size:14px;
+}
+
+.category-card p{
+    margin:0;
+    color:#7a8580;
+    font-size:11px;
+}
+
+
+/* ==================================================
+   MATERIAL SECTION
+================================================== */
+
+.material-section{
+    background:#eef7f1;
+    padding:5px 0 60px;
+}
+
+.material-inner{
+    max-width:1150px;
+    margin:auto;
+    padding:45px 20px;
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+.material-tools{
+    display:grid;
+    grid-template-columns:1fr 180px;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.search-box,
+.category-select{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #dfe7e2;
+    border-radius:9px;
+    background:white;
+    outline:none;
+    font-size:12px;
+}
+
+.search-box:focus,
+.category-select:focus{
+    border-color:#238b57;
+}
+
+
+/* ==================================================
+   MATERIAL GRID
+================================================== */
+
+.material-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.material-card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid #e1e9e4;
+    transition:.2s;
+}
+
+.material-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+
+/* ==================================================
+   THUMBNAIL
+================================================== */
+
+.material-image{
+    height:175px;
+    background:#dff1e6;
+    position:relative;
+    overflow:hidden;
+}
+
+.material-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.thumbnail-fallback{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+    background:#dff1e6;
+}
+
+
+/* ==================================================
+   PREMIUM IMAGE
+================================================== */
+
+.premium .material-image{
+    background:#203b2e;
+}
+
+.premium .material-image img{
+    filter:brightness(.35);
+}
+
+.lock-overlay{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+}
+
+
+/* ==================================================
+   MATERIAL CONTENT
+================================================== */
+
+.material-content{
+    padding:15px;
+}
+
+.material-type{
+    display:inline-block;
+
+    font-size:10px;
+    padding:4px 8px;
+
+    border-radius:50px;
+
+    background:#eef7f1;
+    color:#238b57;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+.material-card h3{
+    margin:0 0 5px;
+    font-size:15px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.material-card p{
+    margin:0 0 12px;
+
+    color:#7a8580;
+
+    font-size:11px;
+
+    min-height:35px;
+}
+
+.material-info{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-bottom:12px;
+}
+
+.info{
+    font-size:10px;
+    color:#667085;
+}
+
+.status{
+    display:inline-block;
+    padding:3px 7px;
+    border-radius:50px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.status-free{
+    background:#dff7e6;
+    color:#168447;
+}
+
+.status-premium{
+    background:#fff1b8;
+    color:#8a6500;
+}
+
+.material-button{
+    display:block;
+    width:100%;
+
+    text-align:center;
+
+    padding:9px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    font-size:12px;
+
+    border:none;
+
+    cursor:pointer;
+}
+
+.button-free{
+    background:#009b59;
+    color:white;
+}
+
+.button-premium{
+    background:#f0f0f0;
+    color:#777;
+}
+
+
+/* ==================================================
+   EMPTY / LOADING
+================================================== */
+
+.loading,
+.empty,
+.error-box{
+    background:white;
+    border-radius:15px;
+    padding:35px 20px;
+    text-align:center;
+    color:#7a8580;
+    font-size:13px;
+}
+
+.error-box{
+    color:#b42318;
+    border:1px solid #f1c5c0;
+}
+
+
+/* ==================================================
+   MEMBER BOX
+================================================== */
+
+.member-box{
+    max-width:1150px;
+    margin:45px auto;
+    padding:35px;
+
+    border-radius:22px;
+
+    background:#17231c;
+    color:white;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:25px;
+}
+
+.member-box h2{
+    margin:0 0 5px;
+    font-size:25px;
+}
+
+.member-box p{
+    margin:0;
+    color:#c8d2cc;
+    font-size:13px;
+}
+
+.member-button{
+    background:white;
+    color:#17231c;
+
+    padding:11px 17px;
+
+    border-radius:9px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+footer{
+    background:#111814;
+    color:white;
+    margin-top:60px;
+}
+
+.footer-container{
+    max-width:1150px;
+    margin:auto;
+    padding:40px 20px 20px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:30px;
+}
+
+.footer-brand{
+    color:#a8b5ad;
+    font-size:13px;
+    max-width:450px;
+}
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+.footer-title{
+    font-weight:bold;
+    margin-bottom:10px;
+}
 
-  <meta
-    name="description"
-    content="NgajiPlus - Platform pembelajaran Islam berupa video, audio dan materi PDF."
-  >
+.footer-links a{
+    display:block;
+    color:#a8b5ad;
+    margin-bottom:7px;
+    font-size:12px;
+}
 
-  <meta
-    name="theme-color"
-    content="#008f5a"
-  >
+.footer-bottom{
+    border-top:1px solid #2a332e;
+    margin-top:25px;
+    padding-top:15px;
+    color:#849088;
+    font-size:11px;
+}
 
-  <title>
-    NgajiPlus - Perpustakaan Pembelajaran Islam
-  </title>
 
+/* ==================================================
+   MOBILE
+================================================== */
 
-  <!-- ==================================================
-       SUPABASE
-  ================================================== -->
+@media(max-width:850px){
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-  <style>
-
-    /* ==================================================
-       RESET
-    ================================================== */
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-      background: #f7faf8;
-      color: #1f2933;
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button,
-    input,
-    select {
-      font-family: inherit;
-    }
-
-
-    /* ==================================================
-       HEADER
-    ================================================== */
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-
-      background:
-        rgba(255,255,255,.97);
-
-      backdrop-filter: blur(10px);
-
-      border-bottom:
-        1px solid #e6ece8;
-    }
-
-    .nav-container {
-      max-width: 1150px;
-      margin: auto;
-
-      padding:
-        12px 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-
-      color: #008f5a;
-
-      font-weight: bold;
-      font-size: 20px;
-    }
-
-    .logo-icon {
-      width: 38px;
-      height: 38px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #e8f6ef;
-      border-radius: 11px;
-
-      font-size: 21px;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-menu a {
-      padding:
-        8px 12px;
-
-      border-radius: 8px;
-
-      color: #59645f;
-
-      font-size: 13px;
-    }
-
-    .nav-menu a:hover {
-      background: #eef8f2;
-      color: #008f5a;
-    }
-
-    .nav-login {
-      border:
-        1px solid #008f5a;
-
-      color:
-        #008f5a !important;
-    }
-
-    .nav-register {
-      background:
-        #008f5a;
-
-      color:
-        white !important;
-    }
-
-
-    /* ==================================================
-       HERO
-    ================================================== */
-
-    .hero {
-      max-width: 1150px;
-      margin: auto;
-
-      padding:
-        70px 20px 55px;
-
-      display: grid;
-
-      grid-template-columns:
-        1.05fr .95fr;
-
-      gap: 50px;
-
-      align-items: center;
-    }
-
-    .hero-badge {
-      display: inline-block;
-
-      padding:
-        6px 11px;
-
-      background:
-        #e8f6ef;
-
-      color:
-        #008f5a;
-
-      border-radius:
-        50px;
-
-      font-size:
-        11px;
-
-      font-weight:
-        bold;
-
-      margin-bottom:
-        12px;
-    }
-
-    .hero h1 {
-      margin:
-        0 0 17px;
-
-      font-size:
-        clamp(38px, 6vw, 60px);
-
-      line-height:
-        1.08;
-
-      letter-spacing:
-        -1.5px;
-    }
-
-    .hero h1 span {
-      color:
-        #008f5a;
-    }
-
-    .hero-description {
-      max-width:
-        620px;
-
-      color:
-        #6c7772;
-
-      font-size:
-        15px;
-
-      margin:
-        0 0 24px;
-    }
-
-    .hero-buttons {
-      display:
-        flex;
-
-      gap:
-        10px;
-
-      flex-wrap:
-        wrap;
-    }
-
-    .btn {
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      padding:
-        11px 17px;
-
-      border-radius:
-        9px;
-
-      font-size:
-        13px;
-
-      font-weight:
-        bold;
-    }
-
-    .btn-primary {
-      background:
-        #008f5a;
-
-      color:
-        white;
-    }
-
-    .btn-secondary {
-      background:
-        white;
-
-      color:
-        #008f5a;
-
-      border:
-        1px solid #008f5a;
-    }
-
-
-    /* ==================================================
-       HERO VISUAL
-    ================================================== */
-
-    .hero-card {
-      background:
-        white;
-
-      border:
-        1px solid #e4ebe7;
-
-      border-radius:
-        25px;
-
-      padding:
-        20px;
-
-      box-shadow:
-        0 18px 50px
-        rgba(0,143,90,.10);
-    }
-
-    .hero-screen {
-      background:
-        #eef7f2;
-
-      border-radius:
-        18px;
-
-      padding:
-        18px;
-    }
-
-    .hero-screen-top {
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-
-      margin-bottom:
-        15px;
-    }
-
-    .mini-logo {
-      color:
-        #008f5a;
-
-      font-weight:
-        bold;
-
-      font-size:
-        13px;
-    }
-
-    .mini-avatar {
-      width:
-        30px;
-
-      height:
-        30px;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      background:
-        white;
-
-      border-radius:
-        50%;
-    }
-
-    .featured-video {
-      height:
-        160px;
-
-      border-radius:
-        14px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #008f5a,
-          #62b990
-        );
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      color:
-        white;
-
-      font-size:
-        42px;
-    }
-
-    .mini-title {
-      margin-top:
-        12px;
-
-      font-weight:
-        bold;
-
-      font-size:
-        13px;
-    }
-
-    .mini-text {
-      color:
-        #7b8581;
-
-      font-size:
-        11px;
-    }
-
-
-    /* ==================================================
-       FEATURES
-    ================================================== */
-
-    .features {
-      max-width:
-        1150px;
-
-      margin:
-        auto;
-
-      padding:
-        5px 20px 65px;
-
-      display:
-        grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap:
-        14px;
-    }
-
-    .feature {
-      background:
-        white;
-
-      border:
-        1px solid #e5ebe8;
-
-      padding:
-        18px;
-
-      border-radius:
-        15px;
-    }
-
-    .feature-icon {
-      font-size:
-        25px;
-
-      margin-bottom:
-        5px;
-    }
-
-    .feature h3 {
-      margin:
-        0 0 3px;
-
-      font-size:
-        14px;
-    }
-
-    .feature p {
-      margin:
-        0;
-
-      color:
-        #7a8580;
-
-      font-size:
-        11px;
-    }
-
-
-    /* ==================================================
-       CATEGORY
-    ================================================== */
-
-    .section {
-      max-width:
-        1150px;
-
-      margin:
-        auto;
-
-      padding:
-        55px 20px;
-    }
-
-    .section-header {
-      margin-bottom:
-        22px;
-    }
-
-    .section-header h2 {
-      margin:
-        0;
-
-      font-size:
-        27px;
-    }
-
-    .section-header p {
-      margin:
-        4px 0 0;
-
-      color:
-        #7a8580;
-
-      font-size:
-        12px;
-    }
-
-    .category-grid {
-      display:
-        grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap:
-        14px;
-    }
-
-    .category-card {
-      min-height:
-        135px;
-
-      padding:
-        18px;
-
-      border-radius:
-        16px;
-
-      background:
-        white;
-
-      border:
-        1px solid #e5ebe8;
-
-      transition:
-        .2s;
-    }
-
-    .category-card:hover {
-      transform:
-        translateY(-3px);
-
-      box-shadow:
-        0 10px 25px
-        rgba(0,0,0,.06);
-    }
-
-    .category-icon {
-      font-size:
-        29px;
-
-      margin-bottom:
-        7px;
-    }
-
-    .category-card h3 {
-      margin:
-        0 0 4px;
-
-      font-size:
-        14px;
-    }
-
-    .category-card p {
-      margin:
-        0;
-
-      color:
-        #7a8580;
-
-      font-size:
-        10px;
-    }
-
-
-    /* ==================================================
-       MATERIAL SECTION
-    ================================================== */
-
-    .material-section {
-      background:
-        #edf8f2;
-
-      max-width:
-        none;
-    }
-
-    .material-inner {
-      max-width:
-        1150px;
-
-      margin:
-        auto;
-
-      padding:
-        55px 20px 65px;
-    }
-
-    .material-heading {
-      margin-bottom:
-        18px;
-    }
-
-    .material-heading h2 {
-      margin:
-        0;
-
-      font-size:
-        27px;
-    }
-
-    .material-heading p {
-      margin:
-        4px 0 0;
-
-      color:
-        #7a8580;
-
-      font-size:
-        12px;
-    }
-
-
-    /* ==================================================
-       SEARCH
-    ================================================== */
-
-    .material-tools {
-      display:
-        grid;
-
-      grid-template-columns:
-        1fr 180px;
-
-      gap:
-        10px;
-
-      margin-bottom:
-        18px;
-    }
-
-    .search-box,
-    .category-filter {
-      width:
-        100%;
-
-      height:
-        43px;
-
-      border:
-        1px solid #dfe8e3;
-
-      border-radius:
-        9px;
-
-      background:
-        white;
-
-      padding:
-        0 13px;
-
-      outline:
-        none;
-
-      font-size:
-        12px;
-    }
-
-    .search-box:focus,
-    .category-filter:focus {
-      border-color:
-        #008f5a;
-
-      box-shadow:
-        0 0 0 3px
-        rgba(0,143,90,.08);
-    }
-
-
-    /* ==================================================
-       MATERIAL GRID
-    ================================================== */
-
-    .material-grid {
-      display:
-        grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap:
-        18px;
-    }
-
-    .material-card {
-      background:
-        white;
-
-      border:
-        1px solid #e1e9e4;
-
-      border-radius:
-        17px;
-
-      overflow:
-        hidden;
-
-      transition:
-        .2s;
-    }
-
-    .material-card:hover {
-      transform:
-        translateY(-3px);
-
-      box-shadow:
-        0 12px 30px
-        rgba(0,0,0,.07);
-    }
-
-
-    /* ==================================================
-       THUMBNAIL
-    ================================================== */
-
-    .material-image {
-      position:
-        relative;
-
-      width:
-        100%;
-
-      height:
-        175px;
-
-      background:
-        #e5f4eb;
-
-      overflow:
-        hidden;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-    }
-
-    .material-thumbnail {
-      width:
-        100%;
-
-      height:
-        100%;
-
-      object-fit:
-        cover;
-
-      display:
-        block;
-    }
-
-    .thumbnail-fallback {
-      width:
-        100%;
-
-      height:
-        100%;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      font-size:
-        48px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #e9f7ef,
-          #d5eee0
-        );
-    }
-
-    .premium-overlay {
-      position:
-        absolute;
-
-      inset:
-        0;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      background:
-        rgba(16,39,29,.72);
-
-      color:
-        white;
-
-      font-size:
-        38px;
-    }
-
-    .premium-label {
-      position:
-        absolute;
-
-      top:
-        10px;
-
-      right:
-        10px;
-
-      padding:
-        5px 8px;
-
-      border-radius:
-        50px;
-
-      background:
-        #17231c;
-
-      color:
-        white;
-
-      font-size:
-        10px;
-
-      font-weight:
-        bold;
-    }
-
-
-    /* ==================================================
-       MATERIAL CONTENT
-    ================================================== */
-
-    .material-content {
-      padding:
-        17px;
-    }
-
-    .material-type {
-      display:
-        inline-block;
-
-      padding:
-        4px 8px;
-
-      border-radius:
-        50px;
-
-      background:
-        #eef8f2;
-
-      color:
-        #008f5a;
-
-      font-size:
-        10px;
-
-      font-weight:
-        bold;
-
-      margin-bottom:
-        7px;
-    }
-
-    .material-card h3 {
-      margin:
-        0 0 5px;
-
-      font-size:
-        15px;
-
-      line-height:
-        1.4;
-    }
-
-    .material-card p {
-      margin:
-        0 0 11px;
-
-      color:
-        #7a8580;
-
-      font-size:
-        11px;
-
-      min-height:
-        34px;
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:40px;
     }
-
-    .material-meta {
-      display:
-        flex;
-
-      justify-content:
-        space-between;
 
-      align-items:
-        center;
-
-      gap:
-        8px;
-
-      margin-bottom:
-        12px;
-
-      font-size:
-        10px;
-
-      color:
-        #69746f;
+    .features{
+        grid-template-columns:repeat(2,1fr);
     }
-
-    .free-text {
-      color:
-        #2c9a54;
 
-      font-weight:
-        bold;
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .premium-text {
-      color:
-        #b78300;
-
-      font-weight:
-        bold;
+    .material-grid{
+        grid-template-columns:repeat(2,1fr);
     }
-
-    .material-button {
-      display:
-        block;
 
-      width:
-        100%;
-
-      text-align:
-        center;
-
-      padding:
-        9px;
-
-      border-radius:
-        8px;
-
-      background:
-        #008f5a;
-
-      color:
-        white;
-
-      font-size:
-        12px;
-
-      font-weight:
-        bold;
+    .member-box{
+        margin-left:20px;
+        margin-right:20px;
+        flex-direction:column;
+        align-items:flex-start;
     }
-
-    .premium-button {
-      background:
-        #f1f1f1;
-
-      color:
-        #333;
 
-      border:
-        1px solid #ddd;
+    .footer-grid{
+        grid-template-columns:1fr;
     }
-
-
-    /* ==================================================
-       LOADING / ERROR
-    ================================================== */
-
-    .loading-material,
-    .empty-material,
-    .error-material {
-      grid-column:
-        1 / -1;
-
-      background:
-        white;
+}
 
-      border-radius:
-        14px;
 
-      padding:
-        35px 20px;
+@media(max-width:550px){
 
-      text-align:
-        center;
-
-      color:
-        #7a8580;
-
-      font-size:
-        13px;
-    }
-
-    .error-material {
-      color:
-        #b42318;
+    .nav-container{
+        padding:9px 14px;
     }
-
-    .error-material small {
-      display:
-        block;
-
-      margin-top:
-        7px;
 
-      color:
-        #777;
-
-      word-break:
-        break-word;
+    .logo{
+        font-size:16px;
     }
-
-
-    /* ==================================================
-       MEMBER BOX
-    ================================================== */
-
-    .member-box {
-      max-width:
-        1150px;
-
-      margin:
-        55px auto;
-
-      padding:
-        35px;
-
-      border-radius:
-        22px;
 
-      background:
-        #12251c;
-
-      color:
-        white;
-
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-
-      gap:
-        25px;
+    .nav-menu a{
+        padding:7px;
+        font-size:10px;
     }
-
-    .member-box h2 {
-      margin:
-        0 0 5px;
 
-      font-size:
-        23px;
+    .hero{
+        padding:35px 15px;
     }
 
-    .member-box p {
-      margin:
-        0;
-
-      color:
-        #c3d0c9;
-
-      font-size:
-        12px;
+    .hero h1{
+        font-size:39px;
     }
-
-    .member-button {
-      background:
-        white;
-
-      color:
-        #12251c;
-
-      padding:
-        11px 17px;
-
-      border-radius:
-        9px;
 
-      font-size:
-        12px;
-
-      font-weight:
-        bold;
-
-      white-space:
-        nowrap;
+    .hero-description{
+        font-size:13px;
     }
-
-
-    /* ==================================================
-       FOOTER
-    ================================================== */
-
-    footer {
-      background:
-        #111814;
-
-      color:
-        white;
 
-      margin-top:
-        50px;
+    .features{
+        grid-template-columns:repeat(2,1fr);
+        padding-left:15px;
+        padding-right:15px;
     }
 
-    .footer-container {
-      max-width:
-        1150px;
-
-      margin:
-        auto;
-
-      padding:
-        40px 20px 22px;
+    .feature{
+        padding:14px;
     }
-
-    .footer-grid {
-      display:
-        grid;
 
-      grid-template-columns:
-        2fr 1fr 1fr;
-
-      gap:
-        30px;
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
     }
-
-    .footer-brand {
-      color:
-        #a8b5ad;
 
-      font-size:
-        12px;
-
-      max-width:
-        430px;
+    .section{
+        padding:40px 15px;
     }
-
-    .footer-title {
-      font-weight:
-        bold;
 
-      margin-bottom:
-        10px;
+    .material-inner{
+        padding:40px 15px;
     }
 
-    .footer-links a {
-      display:
-        block;
-
-      color:
-        #a8b5ad;
-
-      margin-bottom:
-        6px;
-
-      font-size:
-        12px;
+    .material-tools{
+        grid-template-columns:1fr;
     }
-
-    .footer-bottom {
-      border-top:
-        1px solid #2a332e;
-
-      margin-top:
-        25px;
-
-      padding-top:
-        15px;
 
-      color:
-        #849088;
-
-      font-size:
-        11px;
+    .material-grid{
+        grid-template-columns:1fr;
     }
-
-
-    /* ==================================================
-       MOBILE
-    ================================================== */
-
-    @media (max-width: 850px) {
-
-      .hero {
-        grid-template-columns:
-          1fr;
-
-        padding:
-          50px 15px 40px;
-
-        gap:
-          35px;
-      }
 
-      .features {
-        grid-template-columns:
-          repeat(2, 1fr);
-
-        padding:
-          5px 15px 45px;
-      }
-
-      .category-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-      .material-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-      .section {
-        padding:
-          45px 15px;
-      }
-
-      .material-inner {
-        padding:
-          45px 15px;
-      }
-
-      .member-box {
-        margin:
-          45px 15px;
-
-        padding:
-          28px;
-
-        flex-direction:
-          column;
-
-        align-items:
-          flex-start;
-      }
-
-      .footer-grid {
-        grid-template-columns:
-          1fr;
-      }
-
+    .member-box{
+        padding:28px;
     }
-
-
-    @media (max-width: 600px) {
-
-      .nav-container {
-        padding:
-          9px 12px;
-      }
-
-      .logo {
-        font-size:
-          16px;
-      }
-
-      .logo-icon {
-        width:
-          34px;
-
-        height:
-          34px;
-
-        font-size:
-          18px;
-      }
-
-      .nav-menu a {
-        padding:
-          7px 8px;
-
-        font-size:
-          10px;
-      }
-
-      .nav-menu a:nth-child(2),
-      .nav-menu a:nth-child(3) {
-        display:
-          none;
-      }
-
-      .hero {
-        padding:
-          42px 15px 35px;
-      }
-
-      .hero h1 {
-        font-size:
-          39px;
-      }
-
-      .hero-description {
-        font-size:
-          12px;
-      }
-
-      .hero-buttons {
-        flex-direction:
-          row;
-      }
-
-      .btn {
-        font-size:
-          11px;
-
-        padding:
-          10px 13px;
-      }
-
-      .features {
-        grid-template-columns:
-          repeat(2, 1fr);
-
-        gap:
-          8px;
-      }
-
-      .feature {
-        padding:
-          13px;
-      }
-
-      .feature h3 {
-        font-size:
-          12px;
-      }
-
-      .feature p {
-        font-size:
-          9px;
-      }
-
-      .category-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
-
-        gap:
-          8px;
-      }
-
-      .category-card {
-        min-height:
-          120px;
-
-        padding:
-          14px;
-      }
-
-      .category-card h3 {
-        font-size:
-          12px;
-      }
-
-      .category-card p {
-        font-size:
-          9px;
-      }
-
-      .material-tools {
-        grid-template-columns:
-          1fr;
-      }
-
-      .material-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-      .material-image {
-        height:
-          190px;
-      }
-
-      .material-card h3 {
-        font-size:
-          14px;
-      }
-
-      .member-button {
-        width:
-          100%;
-
-        text-align:
-          center;
-      }
 
+    .member-button{
+        width:100%;
+        text-align:center;
     }
+}
 
-  </style>
+</style>
 
 </head>
 
@@ -1456,55 +826,44 @@
 
 <header class="site-header">
 
-  <div class="nav-container">
+<div class="nav-container">
 
-    <a
-      href="index.html"
-      class="logo"
-    >
+<a href="index.html" class="logo">
 
-      <span class="logo-icon">
-        📖
-      </span>
+<span class="logo-icon">📖</span>
 
-      <span>
-        NgajiPlus
-      </span>
+<span>NgajiPlus</span>
 
-    </a>
+</a>
 
 
-    <nav class="nav-menu">
+<nav class="nav-menu">
 
-      <a href="#beranda">
-        Beranda
-      </a>
+<a href="index.html">
+Beranda
+</a>
 
-      <a href="#kategori">
-        Kategori
-      </a>
+<a href="#kategori">
+Kategori
+</a>
 
-      <a href="#materi">
-        Materi
-      </a>
+<a href="#materi">
+Materi
+</a>
 
-      <a
-        href="login.html"
-        class="nav-login"
-      >
-        Login
-      </a>
+<a href="login.html"
+   class="nav-login">
+Login
+</a>
 
-      <a
-        href="daftar.html"
-        class="nav-register"
-      >
-        Daftar
-      </a>
+<a href="daftar.html"
+   class="nav-register">
+Daftar
+</a>
 
-    </nav>
+</nav>
 
-  </div>
+</div>
 
 </header>
 
@@ -1516,10 +875,630 @@
 
 <main>
 
-<section
-  class="hero"
-  id="beranda"
+<section class="hero"
+         id="beranda">
+
+
+<div>
+
+<span class="hero-badge">
+
+📚 Perpustakaan Pembelajaran Islam
+
+</span>
+
+
+<h1>
+
+Belajar Lebih Mudah,
+<span>
+Ngaji Lebih Menyenangkan.
+</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+NgajiPlus menyediakan kumpulan video,
+audio dan materi PDF pembelajaran Islam
+dalam berbagai tema yang tersusun rapi
+dan mudah dipelajari kapan saja.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a href="daftar.html"
+   class="btn btn-primary">
+
+🚀 Mulai Belajar
+
+</a>
+
+
+<a href="#materi"
+   class="btn btn-secondary">
+
+📚 Lihat Materi
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="hero-card">
+
+<div class="hero-screen">
+
+<div class="hero-screen-top">
+
+<div class="mini-logo">
+NgajiPlus
+</div>
+
+<div class="mini-avatar">
+👤
+</div>
+
+</div>
+
+
+<div class="featured-video">
+▶
+</div>
+
+
+<div class="mini-title">
+Kajian & Pembelajaran Islam
+</div>
+
+
+<div class="mini-text">
+
+🎥 Video
+&nbsp; • &nbsp;
+🎧 Audio
+&nbsp; • &nbsp;
+📄 PDF
+
+</div>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     FEATURES
+================================================== -->
+
+<section class="features">
+
+
+<div class="feature">
+
+<div class="feature-icon">
+🎥
+</div>
+
+<h3>
+Video Pembelajaran
+</h3>
+
+<p>
+Belajar melalui video yang mudah dipahami.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+🎧
+</div>
+
+<h3>
+Audio Pembelajaran
+</h3>
+
+<p>
+Dengarkan materi kapan saja.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+📄
+</div>
+
+<h3>
+Materi PDF
+</h3>
+
+<p>
+Download modul pembelajaran.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+🔐
+</div>
+
+<h3>
+Member Premium
+</h3>
+
+<p>
+Akses materi premium khusus member.
+</p>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     KATEGORI
+================================================== -->
+
+<section class="section"
+         id="kategori">
+
+
+<div class="section-header">
+
+<h2>
+Jelajahi Kategori
+</h2>
+
+<p>
+Pilih tema pembelajaran yang ingin Anda pelajari.
+</p>
+
+</div>
+
+
+<div class="category-grid">
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Al-Qur'an & Tahsin">
+
+<div class="category-icon">
+📖
+</div>
+
+<h3>
+Al-Qur'an & Tahsin
+</h3>
+
+<p>
+Membaca dan memahami Al-Qur'an.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Fiqih">
+
+<div class="category-icon">
+🕌
+</div>
+
+<h3>
+Fiqih
+</h3>
+
+<p>
+Belajar hukum-hukum dalam kehidupan.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Aqidah">
+
+<div class="category-icon">
+💎
+</div>
+
+<h3>
+Aqidah
+</h3>
+
+<p>
+Memperkuat dasar keimanan.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Akhlak & Adab">
+
+<div class="category-icon">
+🌿
+</div>
+
+<h3>
+Akhlak & Adab
+</h3>
+
+<p>
+Membentuk pribadi yang baik.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Bahasa Arab">
+
+<div class="category-icon">
+🇸🇦
+</div>
+
+<h3>
+Bahasa Arab
+</h3>
+
+<p>
+Belajar bahasa Arab secara bertahap.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Hadits">
+
+<div class="category-icon">
+📜
+</div>
+
+<h3>
+Hadits
+</h3>
+
+<p>
+Mengenal dan mempelajari hadits Nabi ﷺ.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Tafsir">
+
+<div class="category-icon">
+📚
+</div>
+
+<h3>
+Tafsir
+</h3>
+
+<p>
+Memahami kandungan Al-Qur'an.
+</p>
+
+</a>
+
+
+<a href="#materi"
+   class="category-card"
+   data-category="Sejarah Islam">
+
+<div class="category-icon">
+🏛️
+</div>
+
+<h3>
+Sejarah Islam
+</h3>
+
+<p>
+Mempelajari perjalanan sejarah Islam.
+</p>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MATERIAL
+================================================== -->
+
+<section class="material-section"
+         id="materi">
+
+
+<div class="material-inner">
+
+
+<div class="section-header">
+
+<h2>
+📚 Materi Terbaru
+</h2>
+
+<p>
+Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
+</p>
+
+</div>
+
+
+
+<div class="material-tools">
+
+<input
+    type="search"
+    id="searchInput"
+    class="search-box"
+    placeholder="🔎 Cari materi..."
 >
 
-  <div>
-      
+
+<select
+    id="categoryFilter"
+    class="category-select"
+>
+
+<option value="">
+Semua Kategori
+</option>
+
+<option value="Al-Qur'an & Tahsin">
+Al-Qur'an & Tahsin
+</option>
+
+<option value="Fiqih">
+Fiqih
+</option>
+
+<option value="Aqidah">
+Aqidah
+</option>
+
+<option value="Akhlak & Adab">
+Akhlak & Adab
+</option>
+
+<option value="Bahasa Arab">
+Bahasa Arab
+</option>
+
+<option value="Hadits">
+Hadits
+</option>
+
+<option value="Tafsir">
+Tafsir
+</option>
+
+<option value="Sejarah Islam">
+Sejarah Islam
+</option>
+
+</select>
+
+</div>
+
+
+
+<div id="materialContainer">
+
+<div class="loading">
+
+⏳ Mengambil materi...
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================================
+     MEMBER
+================================================== -->
+
+<section class="member-box">
+
+
+<div>
+
+<h2>
+🔐 Ingin mengakses semua materi?
+</h2>
+
+<p>
+Daftar menjadi member NgajiPlus untuk membuka materi premium.
+</p>
+
+</div>
+
+
+<a href="daftar.html"
+   class="member-button">
+
+🚀 Daftar Member
+
+</a>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer>
+
+<div class="footer-container">
+
+
+<div class="footer-grid">
+
+
+<div>
+
+<div class="logo">
+📖 NgajiPlus
+</div>
+
+<p class="footer-brand">
+
+Platform pembelajaran Islam
+berupa video, audio dan PDF
+untuk membantu belajar secara
+mudah dan terstruktur.
+
+</p>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+Menu
+</div>
+
+<div class="footer-links">
+
+<a href="index.html">
+Beranda
+</a>
+
+<a href="#kategori">
+Kategori
+</a>
+
+<a href="#materi">
+Materi
+</a>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+Akun
+</div>
+
+<div class="footer-links">
+
+<a href="login.html">
+Login
+</a>
+
+<a href="daftar.html">
+Daftar
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="footer-bottom">
+
+© 2026 NgajiPlus. Semua hak dilindungi.
+
+</div>
+
+
+</div>
+
+</footer>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+/* ==================================================
+   SUPABASE CONFIG
+================================================== */
+
+/*
+   GANTI DUA NILAI DI BAWAH DENGAN
+   URL DAN PUBLISHABLE/ANON KEY ANDA.
+
+   JANGAN gunakan service_role key.
+*/
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+  "https://ksgywgdrfskqsufchbcm.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+async function testSupabase() {
+
+  const result =
+    await supabaseClient
+      .from("materials")
+      .selec
