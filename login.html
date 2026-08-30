@@ -5,162 +5,394 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="description"
-      content="Login Member NgajiPlus">
+<meta
+  name="theme-color"
+  content="#238b57"
+>
 
-<meta name="theme-color"
-      content="#238b57">
+<title>Login - NgajiPlus</title>
 
-<title>Login Member - NgajiPlus</title>
-
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- CONFIG SUPABASE -->
+<script src="supabase-config.js"></script>
 
 <style>
 
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  background:#f4f8f6;
+  color:#1f2933;
 }
 
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4f8f6;
-    color:#1f2933;
+  display:flex;
+  flex-direction:column;
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 .header{
-    background:white;
-    border-bottom:1px solid #e5ebe7;
-    padding:14px 20px;
+
+  height:64px;
+
+  background:white;
+
+  border-bottom:
+    1px solid #e5ebe7;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:
+    0 20px;
 }
 
 .logo{
-    color:#238b57;
-    font-weight:bold;
-    font-size:20px;
-    text-decoration:none;
-}
 
-.container{
-    min-height:calc(100vh - 65px);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px 15px;
-}
+  display:flex;
 
-.card{
-    width:100%;
-    max-width:430px;
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    border:1px solid #e2e9e5;
-    box-shadow:0 15px 40px rgba(0,0,0,.06);
-}
+  align-items:center;
 
-.logo-box{
-    text-align:center;
-    margin-bottom:25px;
+  gap:8px;
+
+  color:#238b57;
+
+  font-weight:bold;
+
+  font-size:20px;
 }
 
 .logo-icon{
-    font-size:40px;
-}
-
-h1{
-    margin:8px 0 5px;
-    font-size:25px;
-}
-
-.subtitle{
-    color:#7a8580;
-    font-size:13px;
-}
-
-.form-group{
-    margin-bottom:16px;
-}
-
-label{
-    display:block;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    border:1px solid #dbe4df;
-    border-radius:9px;
-    outline:none;
-    font-size:14px;
-}
-
-input:focus{
-    border-color:#238b57;
-}
-
-button{
-    width:100%;
-    border:none;
-    padding:13px;
-    border-radius:9px;
-    background:#238b57;
-    color:white;
-    font-weight:bold;
-    font-size:14px;
-    cursor:pointer;
-}
-
-button:disabled{
-    opacity:.6;
-}
-
-.message{
-    margin-top:15px;
-    padding:12px;
-    border-radius:9px;
-    display:none;
-    font-size:13px;
-}
-
-.success{
-    background:#e5f7eb;
-    color:#16733f;
-}
-
-.error{
-    background:#fdecea;
-    color:#b42318;
-}
-
-.register-link{
-    text-align:center;
-    margin-top:20px;
-    font-size:13px;
-    color:#667085;
-}
-
-.register-link a{
-    color:#238b57;
-    font-weight:bold;
-    text-decoration:none;
+  font-size:23px;
 }
 
 .back{
-    text-align:center;
-    margin-top:15px;
+
+  color:#238b57;
+
+  text-decoration:none;
+
+  font-size:13px;
+
+  font-weight:bold;
 }
 
-.back a{
-    color:#667085;
-    font-size:12px;
-    text-decoration:none;
+
+/* =========================
+   LOGIN AREA
+========================= */
+
+.login-area{
+
+  flex:1;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:40px 15px;
+}
+
+.login-card{
+
+  width:100%;
+
+  max-width:400px;
+
+  background:white;
+
+  border:
+    1px solid #e3ebe6;
+
+  border-radius:20px;
+
+  padding:32px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(35,139,87,.08);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.login-icon{
+
+  text-align:center;
+
+  font-size:45px;
+
+  margin-bottom:8px;
+}
+
+h1{
+
+  text-align:center;
+
+  margin:
+    0 0 7px;
+
+  font-size:27px;
+}
+
+.subtitle{
+
+  text-align:center;
+
+  color:#7a8580;
+
+  font-size:13px;
+
+  margin:
+    0 0 25px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+
+  margin-bottom:16px;
+}
+
+label{
+
+  display:block;
+
+  font-size:13px;
+
+  font-weight:bold;
+
+  margin-bottom:7px;
+}
+
+input{
+
+  width:100%;
+
+  padding:
+    12px 13px;
+
+  border:
+    1px solid #dfe7e2;
+
+  border-radius:9px;
+
+  outline:none;
+
+  font-size:13px;
+
+  background:white;
+}
+
+input:focus{
+
+  border-color:#238b57;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(35,139,87,.08);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.login-button{
+
+  width:100%;
+
+  border:none;
+
+  background:#238b57;
+
+  color:white;
+
+  padding:13px;
+
+  border-radius:9px;
+
+  font-weight:bold;
+
+  font-size:14px;
+
+  cursor:pointer;
+
+  margin-top:5px;
+}
+
+.login-button:hover{
+
+  background:#197547;
+}
+
+.login-button:disabled{
+
+  opacity:.6;
+
+  cursor:not-allowed;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+  display:none;
+
+  padding:11px 12px;
+
+  border-radius:9px;
+
+  margin-bottom:15px;
+
+  font-size:12px;
+
+  line-height:1.5;
+}
+
+.message.error{
+
+  display:block;
+
+  background:#fff1f0;
+
+  color:#b42318;
+
+  border:
+    1px solid #f3c5c0;
+}
+
+.message.success{
+
+  display:block;
+
+  background:#eaf8ef;
+
+  color:#167a45;
+
+  border:
+    1px solid #c5e8d1;
+}
+
+
+/* =========================
+   BOTTOM
+========================= */
+
+.register{
+
+  text-align:center;
+
+  margin-top:20px;
+
+  font-size:13px;
+
+  color:#7a8580;
+}
+
+.register a{
+
+  color:#238b57;
+
+  font-weight:bold;
+
+  text-decoration:none;
+}
+
+.forgot{
+
+  text-align:right;
+
+  margin-top:8px;
+}
+
+.forgot a{
+
+  color:#238b57;
+
+  font-size:11px;
+
+  text-decoration:none;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+  text-align:center;
+
+  padding:
+    18px;
+
+  color:#8a958f;
+
+  font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+  .header{
+
+    padding:
+      0 14px;
+  }
+
+  .logo{
+
+    font-size:17px;
+  }
+
+  .login-card{
+
+    padding:25px 20px;
+  }
+
+  h1{
+
+    font-size:24px;
+  }
+
 }
 
 </style>
@@ -171,39 +403,70 @@ button:disabled{
 <body>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
 
-<a href="index.html"
-   class="logo">
+  <a
+    href="index.html"
+    class="logo"
+  >
 
-📖 NgajiPlus
+    <span class="logo-icon">
+      📖
+    </span>
 
-</a>
+    <span>
+      NgajiPlus
+    </span>
+
+  </a>
+
+
+  <a
+    href="index.html"
+    class="back"
+  >
+
+    ← Kembali
+
+  </a>
 
 </header>
 
 
 
-<div class="container">
+<!-- =========================
+     LOGIN
+========================= -->
 
-<div class="card">
+<main class="login-area">
+
+<div class="login-card">
 
 
-<div class="logo-box">
-
-<div class="logo-icon">
-🔐
+<div class="login-icon">
+  📚
 </div>
+
 
 <h1>
-Login Member
+  Login Member
 </h1>
 
-<div class="subtitle">
-Masuk untuk melanjutkan belajar
-</div>
 
-</div>
+<p class="subtitle">
+  Masuk untuk mengakses pembelajaran NgajiPlus
+</p>
+
+
+
+<div
+  id="message"
+  class="message"
+></div>
 
 
 
@@ -212,15 +475,16 @@ Masuk untuk melanjutkan belajar
 
 <div class="form-group">
 
-<label>
-Email
+<label for="email">
+  Email
 </label>
 
 <input
-    type="email"
-    id="email"
-    placeholder="nama@email.com"
-    required
+  type="email"
+  id="email"
+  placeholder="nama@email.com"
+  autocomplete="email"
+  required
 >
 
 </div>
@@ -229,26 +493,40 @@ Email
 
 <div class="form-group">
 
-<label>
-Password
+<label for="password">
+  Password
 </label>
 
 <input
-    type="password"
-    id="password"
-    placeholder="Masukkan password"
-    required
+  type="password"
+  id="password"
+  placeholder="Masukkan password"
+  autocomplete="current-password"
+  required
 >
+
+<div class="forgot">
+
+<a href="#"
+   id="forgotPassword">
+
+  Lupa password?
+
+</a>
+
+</div>
 
 </div>
 
 
 
 <button
-    type="submit"
-    id="loginButton">
+  type="submit"
+  class="login-button"
+  id="loginButton"
+>
 
-🔐 Masuk
+  🔐 Login
 
 </button>
 
@@ -257,239 +535,378 @@ Password
 
 
 
-<div
-    id="message"
-    class="message">
-</div>
+<div class="register">
 
+  Belum punya akun?
 
-
-<div class="register-link">
-
-Belum punya akun?
-
-<a href="daftar.html">
-Daftar sekarang
-</a>
-
-</div>
-
-
-
-<div class="back">
-
-<a href="index.html">
-← Kembali ke NgajiPlus
-</a>
+  <a href="daftar.html">
+    Daftar sekarang
+  </a>
 
 </div>
 
 
 </div>
 
-</div>
+</main>
+
+
+
+<footer class="footer">
+
+  © 2026 NgajiPlus
+
+</footer>
 
 
 
 <script>
 
-/* ==========================================
-   SUPABASE CONFIG
-========================================== */
+/* ==================================================
+   LOGIN
+================================================== */
 
-const SUPABASE_URL =
-"https://ksgywgdrfskqsufchbcm.supabase.co";
+const loginForm =
+  document.getElementById("loginForm");
 
-
-const SUPABASE_ANON_KEY =
-"sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
-
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-
-
-
-/* ==========================================
-   ELEMENT
-========================================== */
-
-const form =
-document.getElementById("loginForm");
-
-const button =
-document.getElementById("loginButton");
+const loginButton =
+  document.getElementById("loginButton");
 
 const message =
-document.getElementById("message");
+  document.getElementById("message");
 
 
+function showMessage(
+  text,
+  type = "error"
+){
 
-/* ==========================================
-   MESSAGE
-========================================== */
+  message.textContent = text;
 
-function showMessage(text,type){
-
-    message.textContent = text;
-
-    message.className =
-        "message " + type;
-
-    message.style.display =
-        "block";
+  message.className =
+    "message " + type;
 
 }
 
 
-
-/* ==========================================
-   LOGIN
-========================================== */
-
-form.addEventListener(
-"submit",
-async function(event){
+loginForm.addEventListener(
+  "submit",
+  async function(event){
 
     event.preventDefault();
 
 
     const email =
-        document
+      document
         .getElementById("email")
         .value
         .trim();
 
-
     const password =
-        document
+      document
         .getElementById("password")
         .value;
 
 
-    button.disabled = true;
+    if(!email || !password){
 
-    button.textContent =
-        "⏳ Memeriksa...";
+      showMessage(
+        "Email dan password wajib diisi."
+      );
+
+      return;
+    }
 
 
-    message.style.display =
-        "none";
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+      "⏳ Memproses...";
+
+    message.className =
+      "message";
 
 
     try{
 
-        const {
-            data,
-            error
-        } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient.auth.signInWithPassword({
 
-            email:email,
+          email:
+            email,
 
-            password:password
+          password:
+            password
 
         });
 
 
-        if(error){
+      if(error){
 
-            throw error;
-
-        }
-
+        console.error(
+          "LOGIN ERROR:",
+          error
+        );
 
         showMessage(
-            "✅ Login berhasil! Mengalihkan...",
-            "success"
+          getLoginErrorMessage(
+            error
+          )
         );
 
+        loginButton.disabled = false;
 
-        setTimeout(
-            function(){
+        loginButton.textContent =
+          "🔐 Login";
 
-                window.location.href =
-                    "akademi.html";
+        return;
+      }
 
-            },
-            1000
+
+      if(!data || !data.user){
+
+        showMessage(
+          "Login gagal. Pengguna tidak ditemukan."
         );
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+          "🔐 Login";
+
+        return;
+      }
+
+
+      showMessage(
+        "Login berhasil. Mengarahkan ke dashboard...",
+        "success"
+      );
+
+
+      setTimeout(
+        function(){
+
+          window.location.href =
+            "dashboard.html";
+
+        },
+        700
+      );
 
 
     }catch(error){
 
-        console.error(error);
+      console.error(
+        "SYSTEM ERROR:",
+        error
+      );
 
+      showMessage(
+        "Terjadi kesalahan koneksi. Silakan coba lagi."
+      );
 
-        let text =
-            error.message ||
-            "Login gagal.";
+      loginButton.disabled = false;
 
-
-        if(
-            text
-            .toLowerCase()
-            .includes("invalid login")
-        ){
-
-            text =
-            "❌ Email atau password salah.";
-
-        }
-
-
-        showMessage(
-            text,
-            "error"
-        );
-
-
-    }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-            "🔐 Masuk";
-
+      loginButton.textContent =
+        "🔐 Login";
     }
 
-});
+  }
+);
 
 
+/* ==================================================
+   ERROR MESSAGE
+================================================== */
 
-/* ==========================================
-   CEK LOGIN
-========================================== */
+function getLoginErrorMessage(error){
 
-async function checkAlreadyLogin(){
-
-    const {
-        data
-    } =
-    await supabaseClient
-    .auth
-    .getSession();
+  const msg =
+    String(
+      error?.message || ""
+    ).toLowerCase();
 
 
-    if(
-        data &&
-        data.session
-    ){
+  if(
+    msg.includes(
+      "invalid login credentials"
+    )
+  ){
 
-        window.location.href =
-            "akademi.html";
+    return "Email atau password salah.";
 
-    }
+  }
+
+
+  if(
+    msg.includes(
+      "email not confirmed"
+    )
+  ){
+
+    return "Email Anda belum dikonfirmasi. Silakan cek email dari Supabase.";
+
+  }
+
+
+  if(
+    msg.includes(
+      "user not found"
+    )
+  ){
+
+    return "Akun dengan email tersebut belum terdaftar.";
+
+  }
+
+
+  if(
+    msg.includes(
+      "network"
+    )
+  ){
+
+    return "Koneksi internet bermasalah.";
+
+  }
+
+
+  return (
+    "Login gagal: " +
+    (
+      error?.message ||
+      "silakan coba lagi."
+    )
+  );
 
 }
 
 
-checkAlreadyLogin();
+/* ==================================================
+   LUPA PASSWORD
+================================================== */
+
+document
+  .getElementById("forgotPassword")
+  .addEventListener(
+    "click",
+    async function(event){
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim();
+
+
+      if(!email){
+
+        showMessage(
+          "Masukkan email terlebih dahulu."
+        );
+
+        return;
+      }
+
+
+      try{
+
+        const {
+          error
+        } =
+          await supabaseClient.auth
+            .resetPasswordForEmail(
+              email,
+              {
+                redirectTo:
+                  window.location.origin +
+                  "/reset-password.html"
+              }
+            );
+
+
+        if(error){
+
+          showMessage(
+            error.message
+          );
+
+          return;
+        }
+
+
+        showMessage(
+          "Link reset password telah dikirim ke email Anda.",
+          "success"
+        );
+
+
+      }catch(error){
+
+        showMessage(
+          "Gagal mengirim link reset password."
+        );
+
+      }
+
+    }
+  );
+
+
+/* ==================================================
+   CEK SESSION
+================================================== */
+
+async function checkSession(){
+
+  try{
+
+    const {
+      data
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+
+    if(
+      data &&
+      data.session
+    ){
+
+      /*
+        Kalau sudah login,
+        langsung ke dashboard.
+      */
+
+      window.location.href =
+        "dashboard.html";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "SESSION CHECK ERROR:",
+      error
+    );
+
+  }
+
+}
+
+
+checkSession();
 
 </script>
+
 
 </body>
 
