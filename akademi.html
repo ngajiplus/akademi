@@ -5,13 +5,17 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>NgajiPlus Akademi</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
+
 
 <style>
 
@@ -25,6 +29,11 @@ body{
   background:#f5f8f6;
   color:#202a24;
 }
+
+
+/* ================================
+HEADER
+================================ */
 
 header{
   background:white;
@@ -49,18 +58,28 @@ header{
   font-weight:bold;
 }
 
+
+/* ================================
+CONTAINER
+================================ */
+
 .container{
   max-width:1100px;
   margin:auto;
   padding:25px 15px;
 }
 
+
+/* ================================
+HERO
+================================ */
+
 .hero{
   background:white;
   border:1px solid #e2e8e4;
   border-radius:16px;
   padding:25px;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
 .hero h1{
@@ -74,6 +93,11 @@ header{
   line-height:1.6;
 }
 
+
+/* ================================
+SEARCH
+================================ */
+
 .search{
   margin-top:20px;
 }
@@ -84,14 +108,24 @@ header{
   border:1px solid #ddd;
   border-radius:10px;
   font-size:14px;
+  outline:none;
 }
+
+.search input:focus{
+  border-color:#008f58;
+}
+
+
+/* ================================
+CATEGORY
+================================ */
 
 .categories{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding-bottom:5px;
-  margin-bottom:20px;
+  padding:5px 0 15px;
+  margin-bottom:5px;
 }
 
 .category-button{
@@ -101,6 +135,7 @@ header{
   padding:9px 14px;
   border-radius:20px;
   cursor:pointer;
+  font-size:12px;
 }
 
 .category-button.active{
@@ -109,11 +144,21 @@ header{
   border-color:#008f58;
 }
 
+
+/* ================================
+GRID
+================================ */
+
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:15px;
 }
+
+
+/* ================================
+CARD
+================================ */
 
 .card{
   background:white;
@@ -121,6 +166,11 @@ header{
   border-radius:14px;
   overflow:hidden;
 }
+
+
+/* ================================
+THUMBNAIL
+================================ */
 
 .thumbnail{
   width:100%;
@@ -136,11 +186,17 @@ header{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
 }
 
 .thumbnail-icon{
   font-size:42px;
 }
+
+
+/* ================================
+CARD CONTENT
+================================ */
 
 .card-content{
   padding:15px;
@@ -149,6 +205,7 @@ header{
 .card h3{
   margin:0 0 8px;
   font-size:17px;
+  line-height:1.35;
 }
 
 .description{
@@ -164,6 +221,11 @@ header{
   font-size:12px;
   line-height:1.8;
 }
+
+
+/* ================================
+BADGES
+================================ */
 
 .badges{
   margin-top:10px;
@@ -186,6 +248,11 @@ header{
   background:#fff0b8;
   color:#8a6200;
 }
+
+
+/* ================================
+BUTTON
+================================ */
 
 .open-button{
   display:block;
@@ -213,6 +280,11 @@ header{
   color:#777;
 }
 
+
+/* ================================
+STATUS
+================================ */
+
 .loading{
   text-align:center;
   padding:40px;
@@ -237,6 +309,11 @@ header{
   grid-column:1/-1;
 }
 
+
+/* ================================
+RESPONSIVE
+================================ */
+
 @media(max-width:800px){
 
   .grid{
@@ -245,6 +322,7 @@ header{
 
 }
 
+
 @media(max-width:550px){
 
   .header-inner{
@@ -252,7 +330,11 @@ header{
   }
 
   .container{
-    padding:18px 12px;
+    padding:18px 10px;
+  }
+
+  .hero{
+    padding:20px;
   }
 
   .hero h1{
@@ -289,6 +371,10 @@ header{
 <main class="container">
 
 
+<!-- ================================
+HERO
+================================ -->
+
 <section class="hero">
 
 <h1>
@@ -296,8 +382,8 @@ header{
 </h1>
 
 <p>
-Belajar Al-Qur'an, Fiqih, Aqidah, Akhlak, Bahasa Arab,
-Hadits, Tafsir, dan Sejarah Islam.
+Belajar Al-Qur'an, Fiqih, Aqidah, Akhlak,
+Bahasa Arab, Hadits, Tafsir, dan Sejarah Islam.
 </p>
 
 
@@ -314,6 +400,10 @@ Hadits, Tafsir, dan Sejarah Islam.
 </section>
 
 
+<!-- ================================
+CATEGORY
+================================ -->
+
 <div
   class="categories"
   id="categories"
@@ -326,12 +416,14 @@ Hadits, Tafsir, dan Sejarah Islam.
 Semua
 </button>
 
+
 <button
   class="category-button"
   onclick="filterCategory('Al-Qur\\'an & Tahsin',this)"
 >
 Al-Qur'an & Tahsin
 </button>
+
 
 <button
   class="category-button"
@@ -340,12 +432,14 @@ Al-Qur'an & Tahsin
 Fiqih
 </button>
 
+
 <button
   class="category-button"
   onclick="filterCategory('Aqidah',this)"
 >
 Aqidah
 </button>
+
 
 <button
   class="category-button"
@@ -354,12 +448,14 @@ Aqidah
 Akhlak & Adab
 </button>
 
+
 <button
   class="category-button"
   onclick="filterCategory('Bahasa Arab',this)"
 >
 Bahasa Arab
 </button>
+
 
 <button
   class="category-button"
@@ -368,12 +464,14 @@ Bahasa Arab
 Hadits
 </button>
 
+
 <button
   class="category-button"
   onclick="filterCategory('Tafsir',this)"
 >
 Tafsir
 </button>
+
 
 <button
   class="category-button"
@@ -384,6 +482,10 @@ Sejarah Islam
 
 </div>
 
+
+<!-- ================================
+MATERIALS
+================================ -->
 
 <section>
 
@@ -407,14 +509,18 @@ Sejarah Islam
 <script>
 
 
+/* ========================================
+VARIABLE
+======================================== */
+
 let allMaterials = [];
 
 let currentCategory = "Semua";
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+/* ========================================
+ESCAPE HTML
+======================================== */
 
 function escapeHtml(value){
 
@@ -422,22 +528,177 @@ function escapeHtml(value){
     value === null ||
     value === undefined
   ){
+
     return "";
+
   }
 
+
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-/* =========================================
-   LOAD MATERIALS
-========================================= */
+/* ========================================
+YOUTUBE ID
+======================================== */
+
+function getYouTubeId(url){
+
+  if(!url){
+
+    return null;
+
+  }
+
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+
+    /*
+      youtube.com/watch?v=XXXXX
+    */
+
+    if(
+      parsed.hostname
+        .includes("youtube.com")
+      &&
+      parsed.searchParams.get("v")
+    ){
+
+      return parsed
+        .searchParams
+        .get("v");
+
+    }
+
+
+    /*
+      youtu.be/XXXXX
+    */
+
+    if(
+      parsed.hostname
+        .includes("youtu.be")
+    ){
+
+      return parsed
+        .pathname
+        .split("/")
+        .filter(Boolean)[0] || null;
+
+    }
+
+
+    /*
+      youtube.com/shorts/XXXXX
+    */
+
+    if(
+      parsed.pathname
+        .startsWith("/shorts/")
+    ){
+
+      return parsed
+        .pathname
+        .split("/")
+        .filter(Boolean)[1] || null;
+
+    }
+
+
+    /*
+      youtube.com/embed/XXXXX
+    */
+
+    if(
+      parsed.pathname
+        .startsWith("/embed/")
+    ){
+
+      return parsed
+        .pathname
+        .split("/")
+        .filter(Boolean)[1] || null;
+
+    }
+
+  }
+
+  catch(error){
+
+    console.log(
+      "URL YouTube tidak valid:",
+      url
+    );
+
+  }
+
+
+  return null;
+
+}
+
+
+/* ========================================
+YOUTUBE THUMBNAIL
+======================================== */
+
+function getYouTubeThumbnail(url){
+
+  const id =
+    getYouTubeId(url);
+
+
+  if(!id){
+
+    return null;
+
+  }
+
+
+  return (
+    "https://img.youtube.com/vi/"
+    +
+    id
+    +
+    "/hqdefault.jpg"
+  );
+
+}
+
+
+/* ========================================
+LOAD MATERIALS
+======================================== */
 
 async function loadMaterials(){
 
@@ -446,10 +707,15 @@ async function loadMaterials(){
       "materialsList"
     );
 
+
   list.innerHTML = `
+
     <div class="loading">
+
       ⏳ Mengambil materi...
+
     </div>
+
   `;
 
 
@@ -457,8 +723,11 @@ async function loadMaterials(){
 
     const result =
       await supabaseClient
+
         .from("materials")
+
         .select("*")
+
         .order(
           "created_at",
           {
@@ -485,8 +754,10 @@ async function loadMaterials(){
   catch(error){
 
     console.error(
+      "LOAD ERROR:",
       error
     );
+
 
     list.innerHTML = `
 
@@ -509,9 +780,9 @@ async function loadMaterials(){
 }
 
 
-/* =========================================
-   FILTER CATEGORY
-========================================= */
+/* ========================================
+FILTER CATEGORY
+======================================== */
 
 function filterCategory(
   category,
@@ -527,10 +798,13 @@ function filterCategory(
       ".category-button"
     )
     .forEach(
-      item =>
+      item => {
+
         item.classList.remove(
           "active"
-        )
+        );
+
+      }
     );
 
 
@@ -544,9 +818,9 @@ function filterCategory(
 }
 
 
-/* =========================================
-   SEARCH
-========================================= */
+/* ========================================
+SEARCH
+======================================== */
 
 document
   .getElementById(
@@ -558,9 +832,9 @@ document
   );
 
 
-/* =========================================
-   RENDER
-========================================= */
+/* ========================================
+RENDER
+======================================== */
 
 function renderMaterials(){
 
@@ -584,24 +858,46 @@ function renderMaterials(){
     allMaterials.filter(
       material => {
 
+
         const matchCategory =
-          currentCategory === "Semua" ||
-          material.kategori === currentCategory;
+
+          currentCategory === "Semua"
+
+          ||
+
+          material.kategori ===
+            currentCategory;
 
 
-        const matchSearch =
-          !keyword ||
+        const title =
           String(
             material.judul || ""
           )
-          .toLowerCase()
-          .includes(keyword)
-          ||
+          .toLowerCase();
+
+
+        const description =
           String(
             material.deskripsi || ""
           )
-          .toLowerCase()
-          .includes(keyword);
+          .toLowerCase();
+
+
+        const matchSearch =
+
+          !keyword
+
+          ||
+
+          title.includes(
+            keyword
+          )
+
+          ||
+
+          description.includes(
+            keyword
+          );
 
 
         return (
@@ -623,7 +919,8 @@ function renderMaterials(){
 
         <br><br>
 
-        Belum ada materi yang ditemukan.
+        Belum ada materi
+        yang ditemukan.
 
       </div>
 
@@ -644,13 +941,18 @@ function renderMaterials(){
 }
 
 
-/* =========================================
-   CREATE CARD
-========================================= */
+/* ========================================
+CREATE CARD
+======================================== */
 
 function createCard(
   material
 ){
+
+  /*
+    Gunakan type terlebih dahulu.
+    Jika tidak ada, gunakan tipe.
+  */
 
   const type =
     material.type ||
@@ -658,16 +960,23 @@ function createCard(
     "video";
 
 
-  let icon = "🎥";
+  let icon =
+    "🎥";
 
 
   if(type === "audio"){
-    icon = "🎧";
+
+    icon =
+      "🎧";
+
   }
 
 
   if(type === "pdf"){
-    icon = "📄";
+
+    icon =
+      "📄";
+
   }
 
 
@@ -675,21 +984,58 @@ function createCard(
     material.premium === true;
 
 
-  const thumbnail =
-    material.thumbnail;
+  /*
+    ========================================
+    THUMBNAIL
+    ========================================
+  */
+
+
+  let thumbnailUrl =
+    material.thumbnail || null;
+
+
+  /*
+    Kalau tidak ada thumbnail manual
+    dan materinya video,
+    otomatis ambil thumbnail YouTube.
+  */
+
+  if(
+    !thumbnailUrl &&
+    type === "video"
+  ){
+
+    thumbnailUrl =
+      getYouTubeThumbnail(
+        material.url
+      );
+
+  }
 
 
   let thumbnailHTML;
 
 
-  if(thumbnail){
+  if(thumbnailUrl){
 
     thumbnailHTML = `
 
       <img
-        src="${escapeHtml(thumbnail)}"
-        alt="${escapeHtml(material.judul)}"
+
+        src="${escapeHtml(
+          thumbnailUrl
+        )}"
+
+        alt="${escapeHtml(
+          material.judul ||
+          "Thumbnail"
+        )}"
+
         loading="lazy"
+
+        onerror="this.onerror=null;this.src='';this.style.display='none';this.parentElement.innerHTML='<div class=&quot;thumbnail-icon&quot;>${icon}</div>'"
+
       >
 
     `;
@@ -701,7 +1047,9 @@ function createCard(
     thumbnailHTML = `
 
       <div class="thumbnail-icon">
+
         ${icon}
+
       </div>
 
     `;
@@ -709,13 +1057,55 @@ function createCard(
   }
 
 
+  /*
+    ========================================
+    BADGE
+    ========================================
+  */
+
+  const badge =
+
+    isPremium
+
+    ?
+
+    `
+
+      <span class="badge premium">
+
+        🔐 Premium
+
+      </span>
+
+    `
+
+    :
+
+    `
+
+      <span class="badge free">
+
+        🟢 Gratis
+
+      </span>
+
+    `;
+
+
+  /*
+    ========================================
+    ACTION
+    ========================================
+  */
+
   let actionHTML = "";
 
 
   /*
-    Untuk sementara:
-    materi premium ditampilkan sebagai terkunci.
-    Sistem pembayaran/member kita sambungkan
+    PREMIUM
+
+    Untuk sekarang masih terkunci.
+    Sistem login member kita buat
     pada tahap berikutnya.
   */
 
@@ -733,18 +1123,32 @@ function createCard(
 
   }
 
+
+  /*
+    GRATIS
+  */
+
   else if(material.url){
 
     actionHTML = `
 
       <a
-        href="${escapeHtml(material.url)}"
+
+        href="${escapeHtml(
+          material.url
+        )}"
+
         target="_blank"
+
         rel="noopener noreferrer"
+
         class="open-button"
+
       >
 
-        ${icon} Buka Materi
+        ${icon}
+
+        Buka Materi
 
       </a>
 
@@ -753,29 +1157,16 @@ function createCard(
   }
 
 
-  const badge =
-    isPremium
-
-    ?
-
-    `
-      <span class="badge premium">
-        🔐 Premium
-      </span>
-    `
-
-    :
-
-    `
-      <span class="badge free">
-        🟢 Gratis
-      </span>
-    `;
-
+  /*
+    ========================================
+    RETURN CARD
+    ========================================
+  */
 
   return `
 
     <article class="card">
+
 
       <div class="thumbnail">
 
@@ -785,6 +1176,7 @@ function createCard(
 
 
       <div class="card-content">
+
 
         <h3>
 
@@ -811,6 +1203,7 @@ function createCard(
         <div class="info">
 
           📁
+
           ${escapeHtml(
             material.kategori ||
             "-"
@@ -819,7 +1212,10 @@ function createCard(
           <br>
 
           ${icon}
-          ${escapeHtml(type)}
+
+          ${escapeHtml(
+            type
+          )}
 
         </div>
 
@@ -833,7 +1229,9 @@ function createCard(
 
         ${actionHTML}
 
+
       </div>
+
 
     </article>
 
@@ -842,9 +1240,9 @@ function createCard(
 }
 
 
-/* =========================================
-   MULAI
-========================================= */
+/* ========================================
+START
+======================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -865,8 +1263,11 @@ document.addEventListener(
 
           <br><br>
 
-          Periksa file
-          <b>supabase-config.js</b>.
+          Periksa file:
+
+          <b>
+            supabase-config.js
+          </b>
 
         </div>
 
@@ -888,4 +1289,4 @@ document.addEventListener(
 
 </body>
 
-  </html>
+</html>
