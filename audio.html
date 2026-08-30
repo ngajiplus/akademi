@@ -3,527 +3,1298 @@
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Audio pembelajaran NgajiPlus"
-  >
-
-  <title>
-    Audio Pembelajaran - NgajiPlus
-  </title>
-
-
-  <!-- Supabase -->
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-  </script>
-
-  <script src="supabase-config.js"></script>
-
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f6f8f7;
-      color: #202a24;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-
-    /* HEADER */
-
-    header {
-      background: white;
-      border-bottom: 1px solid #e5e9e6;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-      padding: 15px 20px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      color: #238b57;
-      font-weight: bold;
-      font-size: 21px;
-    }
-
-    nav {
-      display: flex;
-      gap: 8px;
-    }
-
-    nav a {
-      color: #555;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      background: #eef7f1;
-      color: #238b57;
-    }
-
-
-    /* MAIN */
-
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 45px 20px;
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .page-title h1 {
-      margin: 0 0 8px;
-      font-size: 35px;
-    }
-
-    .page-title p {
-      margin: 0;
-      color: #737b76;
-    }
-
-
-    /* FILTER */
-
-    .filter-box {
-      background: white;
-      padding: 18px;
-      border-radius: 15px;
-      border: 1px solid #e5e9e6;
-
-      margin-bottom: 25px;
-
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-box input,
-    .filter-box select {
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      outline: none;
-      background: white;
-    }
-
-    .filter-box input {
-      flex: 1;
-      min-width: 200px;
-    }
-
-
-    /* GRID */
-
-    #audioContainer {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-
-    /* CARD */
-
-    .audio-card {
-      background: white;
-      border-radius: 18px;
-      padding: 20px;
-
-      border: 1px solid #e3e8e5;
-
-      transition: .2s;
-    }
-
-    .audio-card:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 12px 30px rgba(0,0,0,.07);
-    }
-
-
-    .audio-icon {
-      width: 65px;
-      height: 65px;
-
-      border-radius: 16px;
-
-      background: #e5f2e9;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 32px;
-
-      margin-bottom: 15px;
-    }
-
-
-    .audio-type {
-      display: inline-block;
-
-      padding: 5px 9px;
-
-      border-radius: 50px;
-
-      background: #eef7f1;
-
-      color: #238b57;
-
-      font-size: 11px;
-
-      font-weight: bold;
-
-      margin-bottom: 10px;
-    }
-
-
-    .audio-card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-
-    .audio-description {
-      color: #737b76;
-
-      font-size: 14px;
-
-      line-height: 1.6;
-
-      min-height: 45px;
-    }
-
-
-    audio {
-      width: 100%;
-      margin-top: 15px;
-    }
-
-
-    .login-button {
-      display: block;
-
-      text-align: center;
-
-      margin-top: 15px;
-
-      padding: 11px;
-
-      border-radius: 9px;
-
-      background: #238b57;
-
-      color: white;
-
-      font-weight: bold;
-
-      font-size: 14px;
-    }
-
-
-    /* PREMIUM */
-
-    .premium {
-      background: #202a24;
-      color: white;
-    }
-
-    .premium .audio-description {
-      color: #c6cec9;
-    }
-
-    .premium .audio-type {
-      background: #35463c;
-      color: #b9e4c8;
-    }
-
-    .premium .login-button {
-      background: white;
-      color: #202a24;
-    }
-
-
-    /* LOADING */
-
-    .loading {
-      grid-column: 1 / -1;
-
-      text-align: center;
-
-      padding: 50px;
-
-      color: #777;
-    }
-
-
-    .empty {
-      grid-column: 1 / -1;
-
-      background: white;
-
-      padding: 50px;
-
-      text-align: center;
-
-      border-radius: 15px;
-
-      color: #777;
-    }
-
-
-    .error {
-      grid-column: 1 / -1;
-
-      background: #fff1f1;
-
-      color: #b42318;
-
-      padding: 20px;
-
-      border-radius: 12px;
-
-      text-align: center;
-    }
-
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      #audioContainer {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-    }
-
-
-    @media (max-width: 550px) {
-
-      .header-inner {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      nav {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      main {
-        padding: 30px 15px;
-      }
-
-      #audioContainer {
-        grid-template-columns: 1fr;
-      }
-
-      .page-title h1 {
-        font-size: 28px;
-      }
-
-    }
-
-  </style>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Audio Pembelajaran - NgajiPlus</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f6f8f7;
+  color:#202a24;
+}
+
+a{
+  text-decoration:none;
+}
+
+/* HEADER */
+
+header{
+  background:white;
+  border-bottom:1px solid #e5e9e6;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:#238b57;
+  font-weight:bold;
+  font-size:21px;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+nav a{
+  color:#555;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+nav a:hover{
+  background:#eef7f1;
+  color:#238b57;
+}
+
+/* MAIN */
+
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.page-title{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.page-title h1{
+  margin:0 0 8px;
+  font-size:34px;
+}
+
+.page-title p{
+  margin:0;
+  color:#737b76;
+}
+
+/* STATUS */
+
+#statusBox{
+  background:white;
+  border:1px solid #e5e9e6;
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  margin-bottom:20px;
+  color:#555;
+}
+
+.status-member{
+  background:#eaf8ef !important;
+  color:#16834d !important;
+}
+
+.status-free{
+  background:#fff8e8 !important;
+  color:#946200 !important;
+}
+
+/* FILTER */
+
+.filter-box{
+  background:white;
+  padding:18px;
+  border-radius:15px;
+  border:1px solid #e5e9e6;
+  margin-bottom:25px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.filter-box input,
+.filter-box select{
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  background:white;
+  font-size:14px;
+}
+
+.filter-box input{
+  flex:1;
+  min-width:200px;
+}
+
+/* GRID */
+
+#materialsContainer{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+/* CARD */
+
+.material-card{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid #e3e8e5;
+}
+
+.material-card.premium{
+  background:#202a24;
+  color:white;
+}
+
+/* THUMBNAIL */
+
+.thumbnail{
+  height:170px;
+  background:#e5f2e9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  overflow:hidden;
+}
+
+.premium .thumbnail{
+  background:#35463c;
+}
+
+/* BODY */
+
+.material-body{
+  padding:20px;
+}
+
+.material-type{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:50px;
+  background:#eef7f1;
+  color:#238b57;
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.premium .material-type{
+  background:#35463c;
+  color:#b9e4c8;
+}
+
+.material-body h3{
+  margin:0 0 8px;
+  font-size:18px;
+}
+
+.material-description{
+  color:#737b76;
+  font-size:14px;
+  line-height:1.6;
+  min-height:45px;
+}
+
+.premium .material-description{
+  color:#c6cec9;
+}
+
+/* LABEL */
+
+.free-label{
+  margin-top:10px;
+  font-size:12px;
+  color:#238b57;
+}
+
+.premium-label{
+  margin-top:10px;
+  font-size:12px;
+  color:#b9e4c8;
+}
+
+/* BUTTON */
+
+.material-button{
+  display:block;
+  text-align:center;
+  margin-top:15px;
+  padding:11px;
+  border-radius:9px;
+  background:#238b57;
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.premium-button{
+  background:white;
+  color:#202a24;
+}
+
+/* AUDIO PLAYER */
+
+.audio-player{
+  width:100%;
+  margin-top:15px;
+}
+
+/* LOADING */
+
+.loading{
+  grid-column:1/-1;
+  background:white;
+  padding:50px;
+  text-align:center;
+  border-radius:15px;
+  color:#777;
+}
+
+/* ERROR */
+
+.error{
+  grid-column:1/-1;
+  background:#fff1f1;
+  color:#b42318;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+}
+
+/* EMPTY */
+
+.empty{
+  grid-column:1/-1;
+  background:white;
+  padding:50px;
+  text-align:center;
+  border-radius:15px;
+  color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  #materialsContainer{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:550px){
+
+  .header-inner{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  nav{
+    width:100%;
+    justify-content:center;
+  }
+
+  main{
+    padding:30px 15px;
+  }
+
+  #materialsContainer{
+    grid-template-columns:1fr;
+  }
+
+  .page-title h1{
+    font-size:28px;
+  }
+
+}
+
+</style>
 
 </head>
 
-
 <body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header>
 
-  <div class="header-inner">
+<div class="header-inner">
 
-    <a
-      href="index.html"
-      class="logo"
-    >
+<a
+  href="index.html"
+  class="logo"
+>
+📖 NgajiPlus
+</a>
 
-      📖 NgajiPlus
+<nav>
 
-    </a>
+<a href="index.html">
+Beranda
+</a>
 
+<a href="materi.html">
+Video
+</a>
 
-    <nav>
+<a href="audio.html">
+Audio
+</a>
 
-      <a href="index.html">
-        Beranda
-      </a>
+<a href="pdf.html">
+PDF
+</a>
 
-      <a href="materi.html">
-        Video
-      </a>
+<a href="dashboard.html">
+Dashboard
+</a>
 
-      <a href="audio.html">
-        Audio
-      </a>
+</nav>
 
-      <a href="pdf.html">
-        PDF
-      </a>
-
-      <a href="dashboard.html">
-        Dashboard
-      </a>
-
-    </nav>
-
-  </div>
+</div>
 
 </header>
 
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
 <main>
 
+<div class="page-title">
 
-  <div class="page-title">
+<h1>
+🎧 Audio Pembelajaran
+</h1>
 
-    <h1>
-      🎧 Audio Pembelajaran
-    </h1>
+<p>
+Dengarkan berbagai materi audio pembelajaran
+yang tersedia di NgajiPlus.
+</p>
 
-    <p>
-      Dengarkan materi pembelajaran
-      NgajiPlus kapan saja.
-    </p>
+</div>
 
-  </div>
+<div id="statusBox">
+⏳ Memuat status akun...
+</div>
 
+<div class="filter-box">
 
+<input
+  type="search"
+  id="searchInput"
+  placeholder="🔎 Cari materi audio..."
+>
 
-  <!-- FILTER -->
+<select id="categoryFilter">
 
-  <div class="filter-box">
+<option value="">
+Semua Kategori
+</option>
 
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="🔎 Cari audio..."
-    >
+<option value="Al-Qur'an & Tahsin">
+Al-Qur'an & Tahsin
+</option>
 
+<option value="Fiqih">
+Fiqih
+</option>
 
-    <select id="categoryFilter">
+<option value="Aqidah">
+Aqidah
+</option>
 
-      <option value="">
-        Semua Kategori
-      </option>
+<option value="Akhlak & Adab">
+Akhlak & Adab
+</option>
 
-      <option value="quran">
-        Al-Qur'an & Tahsin
-      </option>
+<option value="Bahasa Arab">
+Bahasa Arab
+</option>
 
-      <option value="fiqih">
-        Fiqih
-      </option>
+<option value="Hadits">
+Hadits
+</option>
 
-      <option value="aqidah">
-        Aqidah
-      </option>
+<option value="Tafsir">
+Tafsir
+</option>
 
-      <option value="akhlak">
-        Akhlak & Adab
-      </option>
+<option value="Sejarah Islam">
+Sejarah Islam
+</option>
 
-      <option value="arab">
-        Bahasa Arab
-      </option>
+</select>
 
-      <option value="hadits">
-        Hadits
-      </option>
+</div>
 
-      <option value="tafsir">
-        Tafsir
-      </option>
+<div id="materialsContainer">
 
-      <option value="sejarah">
-        Sejarah Islam
-      </option>
+<div class="loading">
+⏳ Mengambil materi audio...
+</div>
 
-    </select>
-
-  </div>
-
-
-
-  <!-- AUDIO -->
-
-  <div id="audioContainer">
-
-    <div class="loading">
-
-      ⏳ Memuat audio...
-
-    </div>
-
-  </div>
-
+</div>
 
 </main>
 
-
-
 <script>
 
+/* ==================================================
+   VARIABEL
+================================================== */
 
-let allAudio = [];
+let allMaterials = [];
+
+let availableMaterials = [];
+
+let currentSession = null;
+
+let isMember = false;
 
 
+/* ==================================================
+   ESCAPE HTML
+================================================== */
 
-// ======================================
-// CEK LOGIN
-// ======================================
+function escapeHtml(value){
 
-async function getCurrentSession() {
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
 
-  const {
-    data: {
-      session
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==================================================
+   CEK LOGIN
+================================================== */
+
+async function checkLogin(){
+
+  try{
+
+    const result =
+      await supabaseClient.auth.getSession();
+
+    return result.data.session || null;
+
+  }
+
+  catch(error){
+
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* ==================================================
+   AMBIL AUDIO
+================================================== */
+
+async function loadMaterials(){
+
+  const container =
+    document.getElementById(
+      "materialsContainer"
+    );
+
+  container.innerHTML = `
+
+    <div class="loading">
+      ⏳ Mengambil materi audio...
+    </div>
+
+  `;
+
+
+  try{
+
+    /* ==============================================
+       AMBIL KATALOG AUDIO
+    ============================================== */
+
+    const catalogResult =
+      await supabaseClient.rpc(
+        "get_audio_catalog"
+      );
+
+
+    if(catalogResult.error){
+
+      throw catalogResult.error;
+
     }
-  } =
-  await supabaseClient.auth.getSession
+
+
+    allMaterials =
+      catalogResult.data || [];
+
+
+    console.log(
+      "AUDIO CATALOG:",
+      allMaterials
+    );
+
+
+    /* ==============================================
+       STATUS AWAL
+    ============================================== */
+
+    const statusBox =
+      document.getElementById(
+        "statusBox"
+      );
+
+
+    statusBox.innerHTML = `
+
+      🎧 ${allMaterials.length}
+      materi audio tersedia.
+
+    `;
+
+
+    displayMaterials(
+      allMaterials
+    );
+
+
+    /* ==============================================
+       CEK LOGIN
+    ============================================== */
+
+    currentSession =
+      await checkLogin();
+
+
+    if(!currentSession){
+
+      isMember = false;
+
+      statusBox.className =
+        "status-free";
+
+      statusBox.innerHTML = `
+
+        🔐 <strong>Belum Login</strong>
+
+        — Materi gratis dapat didengarkan.
+        Login untuk akses materi premium.
+
+      `;
+
+
+      displayMaterials(
+        allMaterials
+      );
+
+      return;
+
+    }
+
+
+    /* ==============================================
+       AMBIL PROFILE
+    ============================================== */
+
+    const profileResult =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "status, berlaku_sampai"
+        )
+        .eq(
+          "id",
+          currentSession.user.id
+        )
+        .maybeSingle();
+
+
+    if(profileResult.error){
+
+      console.error(
+        "PROFILE ERROR:",
+        profileResult.error
+      );
+
+      isMember = false;
+
+    }
+
+    else{
+
+      const profile =
+        profileResult.data;
+
+
+      if(profile){
+
+        const status =
+          String(
+            profile.status || ""
+          )
+          .toLowerCase()
+          .trim();
+
+
+        isMember =
+          status === "aktif";
+
+
+        if(
+          isMember &&
+          profile.berlaku_sampai
+        ){
+
+          const expired =
+            new Date(
+              profile.berlaku_sampai
+            ) <= new Date();
+
+
+          if(expired){
+
+            isMember = false;
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+    /* ==============================================
+       MEMBER AKTIF
+    ============================================== */
+
+    if(isMember){
+
+      statusBox.className =
+        "status-member";
+
+      statusBox.innerHTML = `
+
+        👑 <strong>Membership Aktif</strong>
+
+        — Anda dapat mengakses
+        materi audio premium.
+
+      `;
+
+
+      /* ============================================
+         AMBIL AUDIO PREMIUM
+      ============================================ */
+
+      const availableResult =
+        await supabaseClient.rpc(
+          "get_available_materials"
+        );
+
+
+      if(availableResult.error){
+
+        console.error(
+          "AVAILABLE MATERIAL ERROR:",
+          availableResult.error
+        );
+
+        availableMaterials = [];
+
+      }
+
+      else{
+
+        availableMaterials =
+          availableResult.data || [];
+
+
+        console.log(
+          "AVAILABLE MATERIALS:",
+          availableMaterials
+        );
+
+      }
+
+    }
+
+
+    /* ==============================================
+       TAMPILKAN
+    ============================================== */
+
+    displayMaterials(
+      allMaterials
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "LOAD AUDIO ERROR:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        ❌ Gagal mengambil materi audio.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message ||
+          "Terjadi kesalahan."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* ==================================================
+   CEK AKSES
+================================================== */
+
+function canAccess(material){
+
+  /* GRATIS */
+
+  if(
+    material.premium !== true
+  ){
+
+    return true;
+
+  }
+
+
+  /* PREMIUM */
+
+  if(!isMember){
+
+    return false;
+
+  }
+
+
+  return availableMaterials.some(
+
+    item =>
+
+      String(item.id) ===
+      String(material.id)
+
+  );
+
+}
+
+
+/* ==================================================
+   URL AUDIO
+================================================== */
+
+function getAudioUrl(material){
+
+  /* GRATIS */
+
+  if(
+    material.premium !== true
+  ){
+
+    return material.url || "";
+
+  }
+
+
+  /* PREMIUM */
+
+  if(!isMember){
+
+    return "";
+
+  }
+
+
+  const found =
+    availableMaterials.find(
+
+      item =>
+
+        String(item.id) ===
+        String(material.id)
+
+    );
+
+
+  if(!found){
+
+    return "";
+
+  }
+
+
+  return found.url || "";
+
+}
+
+
+/* ==================================================
+   TAMPILKAN MATERI
+================================================== */
+
+function displayMaterials(materials){
+
+  const container =
+    document.getElementById(
+      "materialsContainer"
+    );
+
+
+  if(!materials.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        🎧 Belum ada materi audio.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+
+    materials.map(
+
+      material => {
+
+
+        const premium =
+          material.premium === true;
+
+
+        const accessible =
+          canAccess(
+            material
+          );
+
+
+        const audioUrl =
+          getAudioUrl(
+            material
+          );
+
+
+        /* ==========================================
+           IKON
+        ========================================== */
+
+        let thumbnail;
+
+
+        if(premium && !accessible){
+
+          thumbnail = "🔒";
+
+        }
+
+        else{
+
+          thumbnail = "🎧";
+
+        }
+
+
+        /* ==========================================
+           LABEL
+        ========================================== */
+
+        const label =
+
+          premium
+
+          ?
+
+          `
+
+            <div class="premium-label">
+
+              🔐 Materi Premium
+
+            </div>
+
+          `
+
+          :
+
+          `
+
+            <div class="free-label">
+
+              🟢 Materi Gratis
+
+            </div>
+
+          `;
+
+
+        /* ==========================================
+           BUTTON / AUDIO
+        ========================================== */
+
+        let content;
+
+
+        /* PREMIUM TERKUNCI */
+
+        if(
+          premium &&
+          !accessible
+        ){
+
+          content = `
+
+            <a
+
+              href="login.html"
+
+              class="
+                material-button
+                premium-button
+              "
+
+            >
+
+              🔐 Login / Upgrade
+
+            </a>
+
+          `;
+
+        }
+
+
+        /* AUDIO TERSEDIA */
+
+        else if(
+          accessible &&
+          audioUrl
+        ){
+
+          content = `
+
+            <audio
+
+              class="audio-player"
+
+              controls
+
+              preload="none"
+
+            >
+
+              <source
+
+                src="${escapeHtml(
+                  audioUrl
+                )}"
+
+              >
+
+              Browser Anda tidak
+              mendukung audio.
+
+            </audio>
+
+          `;
+
+        }
+
+
+        /* URL BELUM ADA */
+
+        else{
+
+          content = `
+
+            <div
+
+              class="material-button"
+
+              style="
+                background:#ddd;
+                color:#555;
+              "
+
+            >
+
+              ⚠️ Audio belum tersedia
+
+            </div>
+
+          `;
+
+        }
+
+
+        /* ==========================================
+           CARD
+        ========================================== */
+
+        return `
+
+          <article
+
+            class="
+              material-card
+              ${premium ? "premium" : ""}
+            "
+
+          >
+
+            <div class="thumbnail">
+
+              ${thumbnail}
+
+            </div>
+
+
+            <div class="material-body">
+
+
+              <span class="material-type">
+
+                ${escapeHtml(
+                  material.kategori ||
+                  "Pembelajaran"
+                )}
+
+              </span>
+
+
+              <h3>
+
+                ${escapeHtml(
+                  material.judul ||
+                  "Tanpa Judul"
+                )}
+
+              </h3>
+
+
+              <p
+                class="material-description"
+              >
+
+                ${escapeHtml(
+                  material.deskripsi ||
+                  "Materi audio NgajiPlus."
+                )}
+
+              </p>
+
+
+              ${label}
+
+
+              ${content}
+
+
+            </div>
+
+          </article>
+
+        `;
+
+      }
+
+    ).join("");
+
+}
+
+
+/* ==================================================
+   FILTER
+================================================== */
+
+function filterMaterials(){
+
+  const keyword =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const category =
+    document
+      .getElementById(
+        "categoryFilter"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    allMaterials.filter(
+
+      material => {
+
+
+        const judul =
+          String(
+            material.judul || ""
+          )
+          .toLowerCase();
+
+
+        const deskripsi =
+          String(
+            material.deskripsi || ""
+          )
+          .toLowerCase();
+
+
+        const kategori =
+          String(
+            material.kategori || ""
+          )
+          .toLowerCase();
+
+
+        const matchKeyword =
+
+          !keyword ||
+
+          judul.includes(
+            keyword
+          ) ||
+
+          deskripsi.includes(
+            keyword
+          );
+
+
+        const matchCategory =
+
+          !category ||
+
+          kategori.includes(
+            category
+          );
+
+
+        return (
+
+          matchKeyword &&
+          matchCategory
+
+        );
+
+      }
+
+    );
+
+
+  displayMaterials(
+    filtered
+  );
+
+}
+
+
+/* ==================================================
+   EVENT
+================================================== */
+
+document
+
+  .getElementById(
+    "searchInput"
+  )
+
+  .addEventListener(
+    "input",
+    filterMaterials
+  );
+
+
+document
+
+  .getElementById(
+    "categoryFilter"
+  )
+
+  .addEventListener(
+    "change",
+    filterMaterials
+  );
+
+
+/* ==================================================
+   MULAI
+================================================== */
+
+loadMaterials();
+
+</script>
+
+</body>
+
+  </html>
