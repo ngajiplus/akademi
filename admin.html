@@ -18,6 +18,10 @@
 
 <style>
 
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
   box-sizing:border-box;
 }
@@ -29,6 +33,11 @@ body{
   color:#202a24;
 }
 
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header{
   background:white;
   border-bottom:1px solid #e5e9e6;
@@ -38,6 +47,7 @@ header{
   max-width:1100px;
   margin:auto;
   padding:12px 20px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -56,6 +66,11 @@ header{
   cursor:pointer;
 }
 
+
+/* =====================================================
+   MAIN
+===================================================== */
+
 main{
   max-width:1100px;
   margin:auto;
@@ -72,6 +87,11 @@ h1{
   margin-bottom:25px;
 }
 
+
+/* =====================================================
+   BOX
+===================================================== */
+
 .box{
   background:white;
   border:1px solid #e2e8e4;
@@ -84,6 +104,11 @@ h1{
   margin-top:0;
   font-size:20px;
 }
+
+
+/* =====================================================
+   FORM
+===================================================== */
 
 label{
   display:block;
@@ -108,6 +133,11 @@ textarea{
   resize:vertical;
 }
 
+
+/* =====================================================
+   TYPE
+===================================================== */
+
 .type-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -131,6 +161,11 @@ textarea{
   background:#f3faf6;
 }
 
+
+/* =====================================================
+   FILE
+===================================================== */
+
 .file-box{
   padding:12px;
   border:1px dashed #aaa;
@@ -144,6 +179,11 @@ textarea{
   margin-top:5px;
 }
 
+
+/* =====================================================
+   PREMIUM
+===================================================== */
+
 .premium-box{
   margin-top:15px;
   padding:12px;
@@ -154,6 +194,11 @@ textarea{
 .premium-box input{
   width:auto;
 }
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
 
 button{
   border:0;
@@ -174,6 +219,11 @@ button{
   cursor:not-allowed;
 }
 
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
 .message{
   margin-top:15px;
   padding:12px;
@@ -193,11 +243,21 @@ button{
   color:#b42318;
 }
 
+
+/* =====================================================
+   LOADING
+===================================================== */
+
 .loading{
   text-align:center;
   padding:30px;
   color:#777;
 }
+
+
+/* =====================================================
+   MATERIAL
+===================================================== */
 
 .material{
   border:1px solid #e1e5e2;
@@ -217,6 +277,11 @@ button{
   line-height:1.7;
 }
 
+
+/* =====================================================
+   BADGE
+===================================================== */
+
 .badge{
   display:inline-block;
   padding:4px 8px;
@@ -235,8 +300,14 @@ button{
   color:#8a6200;
 }
 
+
+/* =====================================================
+   MATERIAL BUTTONS
+===================================================== */
+
 .material-buttons{
   margin-top:10px;
+
   display:flex;
   gap:8px;
   flex-wrap:wrap;
@@ -258,9 +329,19 @@ button{
   border-radius:8px;
 }
 
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
 .hidden{
   display:none !important;
 }
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:600px){
 
@@ -272,8 +353,16 @@ button{
     padding:20px 12px;
   }
 
+  h1{
+    font-size:24px;
+  }
+
   .type-grid{
     grid-template-columns:1fr;
+  }
+
+  .box{
+    padding:15px;
   }
 
 }
@@ -282,36 +371,47 @@ button{
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+HEADER
+===================================================== -->
 
 <header>
 
-<div class="header-inner">
+  <div class="header-inner">
 
-<div class="logo">
-📖 NgajiPlus Admin
-</div>
+    <div class="logo">
+      📖 NgajiPlus Admin
+    </div>
 
-<button
-  class="logout"
-  onclick="logout()"
->
-Keluar
-</button>
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      Keluar
+    </button>
 
-</div>
+  </div>
 
 </header>
 
 
+<!-- =====================================================
+MAIN
+===================================================== -->
+
 <main>
 
+
 <h1>
-🎬 Kelola Materi
+  🎬 Kelola Materi
 </h1>
 
 <div class="subtitle">
-Tambahkan dan kelola materi Video, Audio, dan PDF NgajiPlus Akademi.
+  Tambahkan dan kelola materi Video, Audio, dan PDF NgajiPlus Akademi.
 </div>
 
 
@@ -322,12 +422,14 @@ FORM TAMBAH MATERI
 <div class="box">
 
 <h2>
-➕ Tambah Materi
+  ➕ Tambah Materi
 </h2>
 
 
+<!-- JUDUL -->
+
 <label>
-Judul Materi
+  Judul Materi
 </label>
 
 <input
@@ -337,8 +439,10 @@ Judul Materi
 >
 
 
+<!-- DESKRIPSI -->
+
 <label>
-Deskripsi
+  Deskripsi
 </label>
 
 <textarea
@@ -347,94 +451,102 @@ Deskripsi
 ></textarea>
 
 
+<!-- KATEGORI -->
+
 <label>
-Kategori
+  Kategori
 </label>
 
 <select id="kategori">
 
-<option value="Al-Qur'an & Tahsin">
-Al-Qur'an & Tahsin
-</option>
+  <option value="Al-Qur'an & Tahsin">
+    Al-Qur'an & Tahsin
+  </option>
 
-<option value="Fiqih">
-Fiqih
-</option>
+  <option value="Fiqih">
+    Fiqih
+  </option>
 
-<option value="Aqidah">
-Aqidah
-</option>
+  <option value="Aqidah">
+    Aqidah
+  </option>
 
-<option value="Akhlak & Adab">
-Akhlak & Adab
-</option>
+  <option value="Akhlak & Adab">
+    Akhlak & Adab
+  </option>
 
-<option value="Bahasa Arab">
-Bahasa Arab
-</option>
+  <option value="Bahasa Arab">
+    Bahasa Arab
+  </option>
 
-<option value="Hadits">
-Hadits
-</option>
+  <option value="Hadits">
+    Hadits
+  </option>
 
-<option value="Tafsir">
-Tafsir
-</option>
+  <option value="Tafsir">
+    Tafsir
+  </option>
 
-<option value="Sejarah Islam">
-Sejarah Islam
-</option>
+  <option value="Sejarah Islam">
+    Sejarah Islam
+  </option>
 
 </select>
 
 
+<!-- =====================================================
+TIPE MATERI
+===================================================== -->
+
 <label>
-Tipe Materi
+  Tipe Materi
 </label>
 
 <div class="type-grid">
 
+
 <label class="type-option">
 
-<input
-  type="radio"
-  name="tipeMateri"
-  value="video"
-  checked
-  onchange="changeType()"
->
+  <input
+    type="radio"
+    name="tipeMateri"
+    value="video"
+    checked
+    onchange="changeType()"
+  >
 
-🎥 Video
+  🎥 Video
 
 </label>
 
 
 <label class="type-option">
 
-<input
-  type="radio"
-  name="tipeMateri"
-  value="audio"
-  onchange="changeType()"
->
+  <input
+    type="radio"
+    name="tipeMateri"
+    value="audio"
+    onchange="changeType()"
+  >
 
-🎧 Audio
+  🎧 Audio
 
 </label>
 
 
 <label class="type-option">
 
-<input
-  type="radio"
-  name="tipeMateri"
-  value="pdf"
-  onchange="changeType()"
->
+  <input
+    type="radio"
+    name="tipeMateri"
+    value="pdf"
+    onchange="changeType()"
+  >
 
-📄 PDF
+  📄 PDF
 
 </label>
+
 
 </div>
 
@@ -446,7 +558,7 @@ VIDEO
 <div id="videoFields">
 
 <label>
-🎥 URL Video YouTube
+  🎥 URL Video YouTube
 </label>
 
 <input
@@ -456,7 +568,7 @@ VIDEO
 >
 
 <div class="help">
-Masukkan URL video YouTube.
+  Masukkan URL video YouTube.
 </div>
 
 </div>
@@ -466,11 +578,16 @@ Masukkan URL video YouTube.
 AUDIO
 ===================================================== -->
 
-<div id="audioFields" class="hidden">
+<div
+  id="audioFields"
+  class="hidden"
+>
+
 
 <label>
-🎧 Upload File Audio MP3
+  🎧 Upload File Audio MP3
 </label>
+
 
 <div class="file-box">
 
@@ -482,17 +599,19 @@ AUDIO
 
 </div>
 
+
 <div
   id="uploadStatus"
   class="help"
 >
-Pilih file MP3 dari HP Anda.
+  Pilih file MP3 dari HP Anda.
 </div>
 
 
 <label>
-🔗 Atau URL Audio Manual
+  🔗 Atau URL Audio Manual
 </label>
+
 
 <input
   type="url"
@@ -500,9 +619,11 @@ Pilih file MP3 dari HP Anda.
   placeholder="https://contoh.com/audio.mp3"
 >
 
+
 <div class="help">
-Boleh upload MP3 ATAU memasukkan URL manual.
+  Boleh upload MP3 ATAU memasukkan URL manual.
 </div>
+
 
 </div>
 
@@ -511,11 +632,16 @@ Boleh upload MP3 ATAU memasukkan URL manual.
 PDF
 ===================================================== -->
 
-<div id="pdfFields" class="hidden">
+<div
+  id="pdfFields"
+  class="hidden"
+>
+
 
 <label>
-📄 URL File PDF
+  📄 URL File PDF
 </label>
+
 
 <input
   type="url"
@@ -523,9 +649,11 @@ PDF
   placeholder="https://contoh.com/materi.pdf"
 >
 
+
 <div class="help">
-Masukkan URL file PDF.
+  Masukkan URL file PDF.
 </div>
+
 
 </div>
 
@@ -535,8 +663,9 @@ THUMBNAIL
 ===================================================== -->
 
 <label>
-🖼️ URL Thumbnail
+  🖼️ URL Thumbnail
 </label>
+
 
 <input
   type="url"
@@ -544,8 +673,9 @@ THUMBNAIL
   placeholder="https://..."
 >
 
+
 <div class="help">
-Opsional. Kosongkan jika tidak memiliki thumbnail.
+  Opsional. Kosongkan jika tidak memiliki thumbnail.
 </div>
 
 
@@ -569,14 +699,22 @@ PREMIUM
 </div>
 
 
+<!-- =====================================================
+SAVE
+===================================================== -->
+
 <button
   class="save-button"
   id="saveButton"
   onclick="saveMaterial()"
 >
+
 💾 Simpan Materi
+
 </button>
 
+
+<!-- MESSAGE -->
 
 <div
   id="message"
@@ -594,16 +732,18 @@ DAFTAR MATERI
 <div class="box">
 
 <h2>
-📚 Daftar Materi
+  📚 Daftar Materi
 </h2>
+
 
 <div id="materialsList">
 
-<div class="loading">
-⏳ Mengambil data materi...
-</div>
+  <div class="loading">
+    ⏳ Mengambil data materi...
+  </div>
 
 </div>
+
 
 </div>
 
@@ -614,16 +754,16 @@ DAFTAR MATERI
 <script>
 
 
-// =====================================================
-// VARIABEL
-// =====================================================
+/* =====================================================
+   VARIABEL
+===================================================== */
 
 let selectedType = "video";
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
@@ -631,37 +771,44 @@ function escapeHtml(value){
     value === null ||
     value === undefined
   ){
+
     return "";
+
   }
 
   return String(value)
+
     .replace(/&/g,"&amp;")
+
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;")
+
     .replace(/"/g,"&quot;")
+
     .replace(/'/g,"&#039;");
 
 }
 
 
-// =====================================================
-// CEK SUPABASE
-// =====================================================
+/* =====================================================
+   CEK SUPABASE
+===================================================== */
 
 if(
   typeof supabaseClient === "undefined"
 ){
 
   alert(
-    "supabaseClient tidak ditemukan. Periksa supabase-config.js"
+    "❌ supabaseClient tidak ditemukan.\n\nPeriksa file supabase-config.js"
   );
 
 }
 
 
-// =====================================================
-// GANTI TIPE
-// =====================================================
+/* =====================================================
+   GANTI TIPE
+===================================================== */
 
 function changeType(){
 
@@ -670,9 +817,13 @@ function changeType(){
       'input[name="tipeMateri"]:checked'
     );
 
+
   if(!selected){
+
     return;
+
   }
+
 
   selectedType =
     selected.value;
@@ -682,16 +833,20 @@ function changeType(){
     .getElementById("videoFields")
     .classList.add("hidden");
 
+
   document
     .getElementById("audioFields")
     .classList.add("hidden");
+
 
   document
     .getElementById("pdfFields")
     .classList.add("hidden");
 
 
-  if(selectedType === "video"){
+  if(
+    selectedType === "video"
+  ){
 
     document
       .getElementById("videoFields")
@@ -700,7 +855,9 @@ function changeType(){
   }
 
 
-  if(selectedType === "audio"){
+  if(
+    selectedType === "audio"
+  ){
 
     document
       .getElementById("audioFields")
@@ -709,7 +866,9 @@ function changeType(){
   }
 
 
-  if(selectedType === "pdf"){
+  if(
+    selectedType === "pdf"
+  ){
 
     document
       .getElementById("pdfFields")
@@ -720,9 +879,9 @@ function changeType(){
 }
 
 
-// =====================================================
-// PESAN
-// =====================================================
+/* =====================================================
+   PESAN
+===================================================== */
 
 function showMessage(
   text,
@@ -730,10 +889,14 @@ function showMessage(
 ){
 
   const box =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
+
 
   box.className =
     "message " + type;
+
 
   box.innerHTML =
     text;
@@ -741,16 +904,16 @@ function showMessage(
 }
 
 
-// =====================================================
-// UPLOAD AUDIO
-// =====================================================
+/* =====================================================
+   UPLOAD AUDIO
+===================================================== */
 
 async function uploadAudio(){
 
   const file =
-    document.getElementById(
-      "audioFile"
-    ).files[0];
+    document
+      .getElementById("audioFile")
+      .files[0];
 
 
   if(!file){
@@ -783,9 +946,9 @@ async function uploadAudio(){
     "⏳ Mengupload MP3...";
 
 
-  /*
-    Buat nama file yang aman.
-  */
+  /* -----------------------------------------------
+     NAMA FILE AMAN
+  ------------------------------------------------ */
 
   const safeName =
     file.name
@@ -805,10 +968,17 @@ async function uploadAudio(){
     fileName;
 
 
+  /* -----------------------------------------------
+     UPLOAD
+  ------------------------------------------------ */
+
   const uploadResult =
     await supabaseClient
+
       .storage
+
       .from("audio")
+
       .upload(
         filePath,
         file,
@@ -820,21 +990,26 @@ async function uploadAudio(){
       );
 
 
-  if(uploadResult.error){
+  if(
+    uploadResult.error
+  ){
 
     throw uploadResult.error;
 
   }
 
 
-  /*
-    Ambil URL publik
-  */
+  /* -----------------------------------------------
+     URL PUBLIK
+  ------------------------------------------------ */
 
   const publicResult =
     supabaseClient
+
       .storage
+
       .from("audio")
+
       .getPublicUrl(
         filePath
       );
@@ -855,9 +1030,9 @@ async function uploadAudio(){
 }
 
 
-// =====================================================
-// SIMPAN MATERI
-// =====================================================
+/* =====================================================
+   SIMPAN MATERI
+===================================================== */
 
 async function saveMaterial(){
 
@@ -869,7 +1044,9 @@ async function saveMaterial(){
 
   try{
 
-    button.disabled = true;
+    button.disabled =
+      true;
+
 
     showMessage(
       "⏳ Menyimpan materi...",
@@ -877,9 +1054,9 @@ async function saveMaterial(){
     );
 
 
-    // -------------------------------------------------
-    // DATA DASAR
-    // -------------------------------------------------
+    /* -----------------------------------------------
+       DATA DASAR
+    ------------------------------------------------ */
 
     const judul =
       document
@@ -914,6 +1091,10 @@ async function saveMaterial(){
         .checked;
 
 
+    /* -----------------------------------------------
+       VALIDASI JUDUL
+    ------------------------------------------------ */
+
     if(!judul){
 
       throw new Error(
@@ -923,16 +1104,16 @@ async function saveMaterial(){
     }
 
 
-    // -------------------------------------------------
-    // URL
-    // -------------------------------------------------
+    /* -----------------------------------------------
+       URL
+    ------------------------------------------------ */
 
     let finalUrl = "";
 
 
-    // -------------------------------------------------
-    // VIDEO
-    // -------------------------------------------------
+    /* -----------------------------------------------
+       VIDEO
+    ------------------------------------------------ */
 
     if(
       selectedType === "video"
@@ -956,9 +1137,9 @@ async function saveMaterial(){
     }
 
 
-    // -------------------------------------------------
-    // AUDIO
-    // -------------------------------------------------
+    /* -----------------------------------------------
+       AUDIO
+    ------------------------------------------------ */
 
     if(
       selectedType === "audio"
@@ -971,16 +1152,13 @@ async function saveMaterial(){
           .trim();
 
 
-      /*
-        Jika ada file MP3,
-        upload terlebih dahulu.
-      */
-
       const file =
         document
           .getElementById("audioFile")
           .files[0];
 
+
+      /* UPLOAD */
 
       if(file){
 
@@ -989,12 +1167,18 @@ async function saveMaterial(){
 
       }
 
+
+      /* URL MANUAL */
+
       else if(manualUrl){
 
         finalUrl =
           manualUrl;
 
       }
+
+
+      /* KOSONG */
 
       else{
 
@@ -1007,9 +1191,9 @@ async function saveMaterial(){
     }
 
 
-    // -------------------------------------------------
-    // PDF
-    // -------------------------------------------------
+    /* -----------------------------------------------
+       PDF
+    ------------------------------------------------ */
 
     if(
       selectedType === "pdf"
@@ -1033,22 +1217,23 @@ async function saveMaterial(){
     }
 
 
-    // -------------------------------------------------
-    // INSERT DATABASE
-    // -------------------------------------------------
+    /* =================================================
+       DATA DATABASE
+    ================================================= */
 
     /*
       PENTING:
 
-      Database kita mempunyai kolom:
-      - tipe
-      - type
+      Dari database Anda terlihat ada:
 
-      Maka keduanya kita isi.
+      tipe
+      type
 
-      Ini memperbaiki error:
-      null value in column "type"
+      Kolom "type" wajib diisi.
+
+      Karena itu kita isi KEDUANYA.
     */
+
 
     const insertData = {
 
@@ -1085,24 +1270,32 @@ async function saveMaterial(){
     );
 
 
+    /* =================================================
+       INSERT
+    ================================================= */
+
     const result =
       await supabaseClient
+
         .from("materials")
+
         .insert(
           insertData
         );
 
 
-    if(result.error){
+    if(
+      result.error
+    ){
 
       throw result.error;
 
     }
 
 
-    // -------------------------------------------------
-    // BERHASIL
-    // -------------------------------------------------
+    /* =================================================
+       BERHASIL
+    ================================================= */
 
     showMessage(
       "✅ Materi berhasil disimpan!",
@@ -1127,29 +1320,35 @@ async function saveMaterial(){
 
 
     showMessage(
-      "❌ Gagal menyimpan materi.<br><br>"
+
+      "❌ Gagal menyimpan materi."
+      +
+      "<br><br>"
       +
       escapeHtml(
         error.message ||
         "Terjadi kesalahan."
       ),
+
       "error"
+
     );
 
   }
 
   finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
   }
 
 }
 
 
-// =====================================================
-// RESET FORM
-// =====================================================
+/* =====================================================
+   RESET FORM
+===================================================== */
 
 function resetForm(){
 
@@ -1194,6 +1393,12 @@ function resetForm(){
 
 
   document
+    .getElementById("uploadStatus")
+    .innerHTML =
+      "Pilih file MP3 dari HP Anda.";
+
+
+  document
     .querySelector(
       'input[name="tipeMateri"][value="video"]'
     )
@@ -1209,9 +1414,9 @@ function resetForm(){
 }
 
 
-// =====================================================
-// LOAD MATERI
-// =====================================================
+/* =====================================================
+   LOAD MATERI
+===================================================== */
 
 async function loadMaterials(){
 
@@ -1234,331 +1439,4 @@ async function loadMaterials(){
 
         .select("*")
 
-        .order(
-          "created_at",
-          {
-            ascending:false
-          }
-        );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    const materials =
-      result.data || [];
-
-
-    if(!materials.length){
-
-      list.innerHTML =
-        '<div class="loading">📚 Belum ada materi.</div>';
-
-      return;
-
-    }
-
-
-    list.innerHTML =
-      materials
-        .map(
-          material =>
-            createMaterialCard(
-              material
-            )
-        )
-        .join("");
-
-
-  }
-
-  catch(error){
-
-    console.error(
-      "LOAD ERROR:",
-      error
-    );
-
-
-    list.innerHTML = `
-
-      <div class="message error">
-
-        ❌ Gagal mengambil materi.
-
-        <br><br>
-
-        ${escapeHtml(
-          error.message
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-// =====================================================
-// CARD MATERI
-// =====================================================
-
-function createMaterialCard(
-  material
-){
-
-  /*
-    Prioritaskan type.
-    Kalau kosong, gunakan tipe.
-  */
-
-  const materialType =
-    material.type ||
-    material.tipe ||
-    "video";
-
-
-  const premium =
-    material.premium === true;
-
-
-  let icon =
-    "🎥";
-
-
-  if(
-    materialType === "audio"
-  ){
-
-    icon =
-      "🎧";
-
-  }
-
-
-  if(
-    materialType === "pdf"
-  ){
-
-    icon =
-      "📄";
-
-  }
-
-
-  const badge =
-    premium
-
-    ?
-
-    `<span class="badge badge-premium">
-      🔐 Premium
-    </span>`
-
-    :
-
-    `<span class="badge badge-free">
-      🟢 Gratis
-    </span>`;
-
-
-  const url =
-    material.url || "";
-
-
-  let openButton =
-    "";
-
-
-  if(url){
-
-    openButton = `
-
-      <a
-
-        href="${escapeHtml(url)}"
-
-        target="_blank"
-
-        rel="noopener noreferrer"
-
-        class="open-button"
-
-      >
-
-        🔗 Buka
-
-      </a>
-
-    `;
-
-  }
-
-
-  return `
-
-    <div class="material">
-
-      <h3>
-
-        ${icon}
-
-        ${escapeHtml(
-          material.judul ||
-          "Tanpa Judul"
-        )}
-
-      </h3>
-
-
-      <div class="material-info">
-
-        ${escapeHtml(
-          material.deskripsi ||
-          ""
-        )}
-
-        <br>
-
-        📁 Kategori:
-        ${escapeHtml(
-          material.kategori ||
-          "-"
-        )}
-
-        <br>
-
-        ${icon}
-
-        Tipe:
-        ${escapeHtml(
-          materialType
-        )}
-
-        <br><br>
-
-        ${badge}
-
-      </div>
-
-
-      <div class="material-buttons">
-
-        ${openButton}
-
-        <button
-
-          class="delete-button"
-
-          onclick="deleteMaterial('${escapeHtml(
-            material.id
-          )}')"
-
-        >
-
-          🗑️ Hapus
-
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-// =====================================================
-// HAPUS MATERI
-// =====================================================
-
-async function deleteMaterial(
-  id
-){
-
-  if(
-    !confirm(
-      "Yakin ingin menghapus materi ini?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const result =
-      await supabaseClient
-
-        .from("materials")
-
-        .delete()
-
-        .eq(
-          "id",
-          id
-        );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    alert(
-      "✅ Materi berhasil dihapus."
-    );
-
-
-    await loadMaterials();
-
-
-  }
-
-  catch(error){
-
-    console.error(
-      "DELETE ERROR:",
-      error
-    );
-
-
-    alert(
-      "❌ Gagal menghapus materi:\n\n"
-      +
-      error.message
-    );
-
-  }
-
-}
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-async function logout(){
-
-  try{
-
-    await supabaseClient
-      .auth
-      .signOut();
-
-  }
-
-  finally{
-
-  
+     
