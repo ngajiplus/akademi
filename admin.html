@@ -1,35 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="description"
-  content="Admin NgajiPlus Akademi"
->
-
-<title>Admin NgajiPlus Akademi</title>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
+<title>NgajiPlus Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
-
-
-<!-- =====================================================
-     STYLE
-===================================================== -->
 
 <style>
 
@@ -37,876 +19,243 @@
   box-sizing:border-box;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
-
   margin:0;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  font-family:Arial,Helvetica,sans-serif;
   background:#f5f8f6;
-
   color:#202a24;
-
 }
-
-
-/* =====================================================
-   HEADER
-===================================================== */
 
 header{
-
-  background:#ffffff;
-
-  border-bottom:
-    1px solid #e5e9e6;
-
-  position:sticky;
-
-  top:0;
-
-  z-index:100;
-
+  background:white;
+  border-bottom:1px solid #e5e9e6;
 }
-
 
 .header-inner{
-
   max-width:1100px;
-
   margin:auto;
-
-  padding:
-    12px 20px;
-
+  padding:12px 20px;
   display:flex;
-
-  justify-content:
-    space-between;
-
+  justify-content:space-between;
   align-items:center;
-
 }
-
 
 .logo{
-
   color:#168b57;
-
   font-weight:bold;
-
-  font-size:15px;
-
 }
-
 
 .logout{
-
   border:0;
-
   background:#f1f1f1;
-
-  color:#333;
-
-  padding:
-    8px 14px;
-
+  padding:8px 14px;
   border-radius:8px;
-
   cursor:pointer;
-
-  font-size:13px;
-
 }
-
-
-.logout:hover{
-
-  background:#e2e2e2;
-
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
 
 main{
-
   max-width:1100px;
-
   margin:auto;
-
-  padding:
-    30px 15px 50px;
-
+  padding:30px 15px;
 }
-
 
 h1{
-
-  margin:
-    0 0 5px;
-
-  font-size:28px;
-
+  margin:0 0 5px;
 }
-
 
 .subtitle{
-
   color:#777;
-
   margin-bottom:25px;
-
-  font-size:14px;
-
 }
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-.login-container{
-
-  max-width:450px;
-
-  margin:
-    50px auto;
-
-}
-
-
-.login-box{
-
-  background:#ffffff;
-
-  border:
-    1px solid #e2e8e4;
-
-  border-radius:15px;
-
-  padding:25px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0,0,0,.05);
-
-}
-
-
-.login-title{
-
-  text-align:center;
-
-  color:#168b57;
-
-  font-size:22px;
-
-  font-weight:bold;
-
-  margin-bottom:5px;
-
-}
-
-
-.login-subtitle{
-
-  text-align:center;
-
-  color:#777;
-
-  font-size:13px;
-
-  margin-bottom:20px;
-
-}
-
-
-/* =====================================================
-   BOX
-===================================================== */
 
 .box{
-
-  background:#ffffff;
-
-  border:
-    1px solid #e2e8e4;
-
+  background:white;
+  border:1px solid #e2e8e4;
   border-radius:15px;
-
   padding:20px;
-
   margin-bottom:20px;
-
-  box-shadow:
-    0 2px 8px
-    rgba(0,0,0,.02);
-
 }
-
-
-.box h2{
-
-  margin:
-    0 0 15px;
-
-  font-size:20px;
-
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
 
 label{
-
   display:block;
-
   font-weight:bold;
-
   font-size:13px;
-
-  margin:
-    15px 0 7px;
-
+  margin:15px 0 7px;
 }
-
 
 input,
 textarea,
 select{
-
   width:100%;
-
   padding:12px;
-
-  border:
-    1px solid #ddd;
-
+  border:1px solid #ddd;
   border-radius:9px;
-
   font-size:14px;
-
-  background:#ffffff;
-
-  color:#202a24;
-
-  outline:none;
-
+  background:white;
 }
-
-
-input:focus,
-textarea:focus,
-select:focus{
-
-  border-color:#008f58;
-
-  box-shadow:
-    0 0 0 2px
-    rgba(0,143,88,.08);
-
-}
-
 
 textarea{
-
   min-height:100px;
-
-  resize:vertical;
-
 }
-
-
-/* =====================================================
-   TYPE
-===================================================== */
-
-.type-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:10px;
-
-}
-
-
-.type-option{
-
-  border:
-    1px solid #ddd;
-
-  border-radius:10px;
-
-  padding:13px;
-
-  text-align:center;
-
-  cursor:pointer;
-
-  background:#ffffff;
-
-}
-
-
-.type-option:hover{
-
-  background:#f3faf6;
-
-  border-color:#9ed3b9;
-
-}
-
-
-.type-option input{
-
-  width:auto;
-
-  margin-right:5px;
-
-}
-
-
-/* =====================================================
-   FILE
-===================================================== */
-
-.file-box{
-
-  padding:12px;
-
-  border:
-    1px dashed #aaa;
-
-  border-radius:10px;
-
-  background:#fafafa;
-
-}
-
-
-.help{
-
-  color:#888;
-
-  font-size:12px;
-
-  margin-top:5px;
-
-  line-height:1.5;
-
-}
-
-
-/* =====================================================
-   PREMIUM
-===================================================== */
-
-.premium-box{
-
-  margin-top:15px;
-
-  padding:12px;
-
-  background:#fff8df;
-
-  border-radius:10px;
-
-}
-
-
-.premium-box label{
-
-  margin:0;
-
-  font-weight:normal;
-
-}
-
-
-.premium-box input{
-
-  width:auto;
-
-  margin-right:5px;
-
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
 
 button{
-
   border:0;
-
   cursor:pointer;
-
 }
-
 
 .save-button{
-
   margin-top:18px;
-
   background:#008f58;
-
-  color:#ffffff;
-
-  padding:
-    12px 18px;
-
+  color:white;
+  padding:12px 18px;
   border-radius:9px;
-
   font-weight:bold;
-
-  font-size:14px;
-
 }
-
-
-.save-button:hover{
-
-  background:#007a4c;
-
-}
-
 
 .save-button:disabled{
-
   opacity:.6;
-
-  cursor:not-allowed;
-
 }
-
-
-.login-button{
-
-  width:100%;
-
-  margin-top:18px;
-
-  background:#008f58;
-
-  color:#ffffff;
-
-  padding:13px;
-
-  border-radius:9px;
-
-  font-weight:bold;
-
-  font-size:14px;
-
-}
-
-
-.login-button:hover{
-
-  background:#007a4c;
-
-}
-
-
-.login-button:disabled{
-
-  opacity:.6;
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
 
 .message{
-
   margin-top:15px;
-
   padding:12px;
-
   border-radius:9px;
-
   display:none;
-
-  font-size:13px;
-
   line-height:1.5;
-
 }
 
-
-.message.success{
-
+.success{
   display:block;
-
   background:#e4f8ed;
-
   color:#087a47;
-
 }
 
-
-.message.error{
-
+.error{
   display:block;
-
   background:#ffe9e9;
-
   color:#b42318;
-
 }
 
 
-.message.info{
+/* LOGIN */
 
-  display:block;
-
-  background:#eaf4ff;
-
-  color:#1769aa;
-
+.login-page{
+  min-height:calc(100vh - 55px);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:55px 15px;
 }
 
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
 
-/* =====================================================
-   LOADING
-===================================================== */
+.login-title{
+  text-align:center;
+  color:#168b57;
+  font-size:21px;
+  font-weight:bold;
+}
+
+.login-subtitle{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-top:5px;
+  margin-bottom:25px;
+}
+
+.login-button{
+  width:100%;
+  background:#008f58;
+  color:white;
+  padding:13px;
+  border-radius:9px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.login-button:disabled{
+  opacity:.6;
+}
 
 .loading{
-
   text-align:center;
-
   padding:30px;
-
   color:#777;
-
-  font-size:14px;
-
 }
-
-
-/* =====================================================
-   MATERIAL
-===================================================== */
 
 .material{
-
-  border:
-    1px solid #e1e5e2;
-
+  border:1px solid #e1e5e2;
   border-radius:12px;
-
   padding:15px;
-
   margin-bottom:12px;
-
-  background:#ffffff;
-
 }
-
 
 .material h3{
-
-  margin:
-    0 0 8px;
-
-  font-size:17px;
-
-  line-height:1.4;
-
+  margin-top:0;
 }
-
 
 .material-info{
-
   font-size:13px;
-
   color:#666;
-
   line-height:1.7;
-
 }
-
-
-.material-url{
-
-  word-break:break-all;
-
-  color:#168b57;
-
-}
-
-
-/* =====================================================
-   BADGE
-===================================================== */
 
 .badge{
-
   display:inline-block;
-
-  padding:
-    4px 8px;
-
+  padding:4px 8px;
   border-radius:20px;
-
   font-size:11px;
-
   font-weight:bold;
-
 }
-
 
 .badge-free{
-
   background:#ddf7e7;
-
   color:#087a47;
-
 }
-
 
 .badge-premium{
-
   background:#fff0b8;
-
   color:#8a6200;
-
 }
-
-
-/* =====================================================
-   MATERIAL BUTTONS
-===================================================== */
 
 .material-buttons{
-
-  margin-top:12px;
-
+  margin-top:10px;
   display:flex;
-
   gap:8px;
-
-  flex-wrap:wrap;
-
 }
-
 
 .open-button{
-
-  display:inline-block;
-
   background:#fff0d5;
-
   color:#b65f00;
-
-  padding:
-    8px 12px;
-
+  padding:8px 12px;
   border-radius:8px;
-
   text-decoration:none;
-
   font-size:13px;
-
 }
-
-
-.open-button:hover{
-
-  background:#ffe5b9;
-
-}
-
 
 .delete-button{
-
   background:#ffe3e3;
-
   color:#b42318;
-
-  padding:
-    8px 12px;
-
+  padding:8px 12px;
   border-radius:8px;
-
-  font-size:13px;
-
 }
-
-
-.delete-button:hover{
-
-  background:#ffd4d4;
-
-}
-
-
-/* =====================================================
-   LIST HEADER
-===================================================== */
-
-.list-header{
-
-  display:flex;
-
-  justify-content:
-    space-between;
-
-  align-items:center;
-
-  gap:10px;
-
-}
-
-
-.refresh-button{
-
-  background:#eef8f3;
-
-  color:#087a47;
-
-  border:
-    1px solid #c8e8d8;
-
-  padding:
-    7px 10px;
-
-  border-radius:7px;
-
-  font-size:12px;
-
-}
-
-
-.refresh-button:hover{
-
-  background:#ddf3e8;
-
-}
-
-
-/* =====================================================
-   USER INFO
-===================================================== */
-
-.user-info{
-
-  margin-bottom:20px;
-
-  padding:12px;
-
-  background:#eef8f3;
-
-  border-radius:9px;
-
-  font-size:13px;
-
-  color:#087a47;
-
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-
-  text-align:center;
-
-  padding:30px;
-
-  color:#777;
-
-}
-
-
-/* =====================================================
-   HIDDEN
-===================================================== */
 
 .hidden{
-
   display:none !important;
-
 }
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media(max-width:600px){
 
-  .header-inner{
-
-    padding:
-      10px 15px;
-
-  }
-
-
   main{
-
-    padding:
-      20px 12px 40px;
-
-  }
-
-
-  h1{
-
-    font-size:24px;
-
-  }
-
-
-  .type-grid{
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-
-  .box{
-
-    padding:15px;
-
-  }
-
-
-  .login-container{
-
-    margin:
-      30px auto;
-
-  }
-
-
-  .list-header{
-
-    align-items:
-      flex-start;
-
+    padding:20px 12px;
   }
 
 }
@@ -915,34 +264,23 @@ button{
 
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
 <div class="header-inner">
 
 <div class="logo">
-
 📖 NgajiPlus Admin
-
 </div>
-
 
 <button
   id="logoutButton"
   class="logout hidden"
-  type="button"
   onclick="logout()"
 >
-
-  Keluar
-
+Keluar
 </button>
 
 </div>
@@ -950,59 +288,42 @@ button{
 </header>
 
 
-
 <!-- =====================================================
-     LOGIN AREA
+LOGIN
 ===================================================== -->
 
-<div
-  id="loginArea"
-  class="login-container"
->
-
+<div id="loginPage" class="login-page">
 
 <div class="login-box">
 
-
 <div class="login-title">
-
-  📖 NgajiPlus Akademi
-
+📖 NgajiPlus Akademi
 </div>
-
 
 <div class="login-subtitle">
-
-  Login Admin
-
+Login Admin
 </div>
 
 
-<label for="loginEmail">
-
-  Email
-
+<label for="email">
+Email
 </label>
-
 
 <input
   type="email"
-  id="loginEmail"
-  placeholder="Masukkan email"
+  id="email"
+  placeholder="Masukkan email admin"
   autocomplete="email"
 >
 
 
-<label for="loginPassword">
-
-  Password
-
+<label for="password">
+Password
 </label>
-
 
 <input
   type="password"
-  id="loginPassword"
+  id="password"
   placeholder="Masukkan password"
   autocomplete="current-password"
 >
@@ -1011,12 +332,9 @@ button{
 <button
   id="loginButton"
   class="login-button"
-  type="button"
   onclick="login()"
 >
-
-  🔐 Masuk
-
+🔐 Masuk
 </button>
 
 
@@ -1025,95 +343,50 @@ button{
   class="message"
 ></div>
 
-
 </div>
 
 </div>
-
 
 
 <!-- =====================================================
-     ADMIN AREA
+ADMIN
 ===================================================== -->
 
 <main
-  id="adminArea"
+  id="adminPage"
   class="hidden"
 >
 
-
 <h1>
-
-  🎬 Kelola Materi
-
+🎬 Kelola Materi
 </h1>
 
-
 <div class="subtitle">
-
-  Tambahkan dan kelola materi Video, Audio,
-  dan PDF NgajiPlus Akademi.
-
+Tambahkan dan kelola materi Video, Audio, dan PDF NgajiPlus Akademi.
 </div>
 
-
-
-<!-- =====================================================
-     USER
-===================================================== -->
-
-<div
-  id="userInfo"
-  class="user-info"
->
-
-  👤 Memeriksa akun...
-
-</div>
-
-
-
-<!-- =====================================================
-     FORM TAMBAH MATERI
-===================================================== -->
 
 <div class="box">
 
-
 <h2>
-
-  ➕ Tambah Materi
-
+➕ Tambah Materi
 </h2>
 
 
-
-<!-- JUDUL -->
-
-<label for="judul">
-
-  Judul Materi
-
+<label>
+Judul Materi
 </label>
-
 
 <input
   type="text"
   id="judul"
   placeholder="Contoh: Belajar Fiqih Shalat"
-  autocomplete="off"
 >
 
 
-
-<!-- DESKRIPSI -->
-
-<label for="deskripsi">
-
-  Deskripsi
-
+<label>
+Deskripsi
 </label>
-
 
 <textarea
   id="deskripsi"
@@ -1121,285 +394,59 @@ button{
 ></textarea>
 
 
-
-<!-- KATEGORI -->
-
-<label for="kategori">
-
-  Kategori
-
+<label>
+Kategori
 </label>
-
 
 <select id="kategori">
 
-
-<option value="Al-Qur'an & Tahsin">
-
-  Al-Qur'an & Tahsin
-
-</option>
-
-
-<option value="Fiqih">
-
-  Fiqih
-
-</option>
-
-
-<option value="Aqidah">
-
-  Aqidah
-
-</option>
-
-
-<option value="Akhlak & Adab">
-
-  Akhlak & Adab
-
-</option>
-
-
-<option value="Bahasa Arab">
-
-  Bahasa Arab
-
-</option>
-
-
-<option value="Hadits">
-
-  Hadits
-
-</option>
-
-
-<option value="Tafsir">
-
-  Tafsir
-
-</option>
-
-
-<option value="Sejarah Islam">
-
-  Sejarah Islam
-
-</option>
-
+<option>Al-Qur'an & Tahsin</option>
+<option>Fiqih</option>
+<option>Aqidah</option>
+<option>Akhlak & Adab</option>
+<option>Bahasa Arab</option>
+<option>Hadits</option>
+<option>Tafsir</option>
+<option>Sejarah Islam</option>
 
 </select>
 
 
+<label>
+Tipe Materi
+</label>
 
-<!-- =====================================================
-     TIPE
-===================================================== -->
+<select id="tipe">
+
+<option value="video">
+🎥 Video
+</option>
+
+<option value="audio">
+🎧 Audio
+</option>
+
+<option value="pdf">
+📄 PDF
+</option>
+
+</select>
+
 
 <label>
-
-  Tipe Materi
-
+🔗 URL Materi
 </label>
-
-
-<div class="type-grid">
-
-
-<label class="type-option">
-
-<input
-  type="radio"
-  name="tipeMateri"
-  value="video"
-  checked
-  onchange="changeType()"
->
-
-🎥 Video
-
-</label>
-
-
-
-<label class="type-option">
-
-<input
-  type="radio"
-  name="tipeMateri"
-  value="audio"
-  onchange="changeType()"
->
-
-🎧 Audio
-
-</label>
-
-
-
-<label class="type-option">
-
-<input
-  type="radio"
-  name="tipeMateri"
-  value="pdf"
-  onchange="changeType()"
->
-
-📄 PDF
-
-</label>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     VIDEO
-===================================================== -->
-
-<div id="videoFields">
-
-
-<label for="videoUrl">
-
-  🎥 URL Video YouTube
-
-</label>
-
 
 <input
   type="url"
-  id="videoUrl"
-  placeholder="https://www.youtube.com/watch?v=..."
+  id="url"
+  placeholder="https://..."
 >
 
 
-<div class="help">
-
-  Masukkan URL video YouTube.
-
-</div>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     AUDIO
-===================================================== -->
-
-<div
-  id="audioFields"
-  class="hidden"
->
-
-
-<label for="audioFile">
-
-  🎧 Upload File Audio MP3
-
+<label>
+🖼️ URL Thumbnail
 </label>
-
-
-<div class="file-box">
-
-
-<input
-  type="file"
-  id="audioFile"
-  accept=".mp3,audio/mpeg"
->
-
-
-</div>
-
-
-<div
-  id="uploadStatus"
-  class="help"
->
-
-  Pilih file MP3 dari HP Anda.
-
-</div>
-
-
-
-<label for="audioUrl">
-
-  🔗 Atau URL Audio Manual
-
-</label>
-
-
-<input
-  type="url"
-  id="audioUrl"
-  placeholder="https://contoh.com/audio.mp3"
->
-
-
-<div class="help">
-
-  Boleh upload MP3 ATAU memasukkan URL manual.
-
-</div>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     PDF
-===================================================== -->
-
-<div
-  id="pdfFields"
-  class="hidden"
->
-
-
-<label for="pdfUrl">
-
-  📄 URL File PDF
-
-</label>
-
-
-<input
-  type="url"
-  id="pdfUrl"
-  placeholder="https://contoh.com/materi.pdf"
->
-
-
-<div class="help">
-
-  Masukkan URL file PDF.
-
-</div>
-
-
-</div>
-
-
-
-<!-- =====================================================
-     THUMBNAIL
-===================================================== -->
-
-<label for="thumbnail">
-
-  🖼️ URL Thumbnail
-
-</label>
-
 
 <input
   type="url"
@@ -1408,304 +455,165 @@ button{
 >
 
 
-<div class="help">
-
-  Opsional. Kosongkan jika tidak memiliki thumbnail.
-
-</div>
-
-
-
-<!-- =====================================================
-     PREMIUM
-===================================================== -->
-
-<div class="premium-box">
-
+<div
+  style="
+    margin-top:15px;
+    padding:12px;
+    background:#fff8df;
+    border-radius:10px;
+  "
+>
 
 <label>
 
 <input
   type="checkbox"
   id="premium"
+  style="width:auto"
 >
 
 🔐 Jadikan Materi Premium
 
 </label>
 
-
 </div>
 
-
-
-<!-- =====================================================
-     SAVE
-===================================================== -->
 
 <button
   id="saveButton"
   class="save-button"
-  type="button"
   onclick="saveMaterial()"
 >
-
 💾 Simpan Materi
-
 </button>
 
 
 <div
-  id="message"
+  id="saveMessage"
   class="message"
 ></div>
 
-
 </div>
 
 
-
-<!-- =====================================================
-     DAFTAR MATERI
-===================================================== -->
+<!-- DAFTAR -->
 
 <div class="box">
 
-
-<div class="list-header">
-
+<div style="
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+">
 
 <h2>
-
-  📚 Daftar Materi
-
+📚 Daftar Materi
 </h2>
 
-
 <button
-  type="button"
-  class="refresh-button"
   onclick="loadMaterials()"
+  style="
+    padding:8px 12px;
+    border-radius:8px;
+    background:#e8f5ef;
+  "
 >
-
-  🔄 Refresh
-
+🔄 Refresh
 </button>
 
-
 </div>
-
 
 
 <div id="materialsList">
 
-
 <div class="loading">
-
-  ⏳ Mengambil data materi...
+⏳ Mengambil data materi...
+</div>
 
 </div>
 
-
 </div>
-
-
-</div>
-
 
 </main>
 
 
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
 
-/* =====================================================
-   VARIABEL
-===================================================== */
+// =====================================================
+// CEK SUPABASE
+// =====================================================
 
-let selectedType = "video";
+console.log("ADMIN: JavaScript berjalan.");
 
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-
-    return "";
-
-  }
+console.log(
+  "ADMIN: supabaseClient =",
+  typeof supabaseClient
+);
 
 
-  return String(value)
+if(
+  typeof supabaseClient === "undefined"
+){
 
-    .replace(/&/g,"&amp;")
+  document.getElementById(
+    "loginMessage"
+  ).className =
+    "message error";
 
-    .replace(/</g,"&lt;")
+  document.getElementById(
+    "loginMessage"
+  ).style.display =
+    "block";
 
-    .replace(/>/g,"&gt;")
-
-    .replace(/"/g,"&quot;")
-
-    .replace(/'/g,"&#039;");
+  document.getElementById(
+    "loginMessage"
+  ).innerHTML =
+    "❌ supabaseClient tidak ditemukan.<br><br>" +
+    "Periksa file supabase-config.js";
 
 }
 
 
-
-/* =====================================================
-   CEK SUPABASE
-===================================================== */
-
-function checkSupabase(){
-
-  if(
-    typeof supabaseClient === "undefined" ||
-    !supabaseClient
-  ){
-
-    return false;
-
-  }
-
-
-  return true;
-
-}
-
-
-
-/* =====================================================
-   TAMPILKAN ADMIN
-===================================================== */
-
-function showAdmin(session){
-
-  document
-    .getElementById("loginArea")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("adminArea")
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("logoutButton")
-    .classList
-    .remove("hidden");
-
-
-  const userInfo =
-    document.getElementById(
-      "userInfo"
-    );
-
-
-  if(
-    session &&
-    session.user
-  ){
-
-    userInfo.innerHTML =
-      "👤 Login sebagai: <b>"
-      +
-      escapeHtml(
-        session.user.email ||
-        "User"
-      )
-      +
-      "</b>";
-
-  }
-
-
-  changeType();
-
-
-  loadMaterials();
-
-}
-
-
-
-/* =====================================================
-   TAMPILKAN LOGIN
-===================================================== */
-
-function showLogin(){
-
-  document
-    .getElementById("loginArea")
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("adminArea")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("logoutButton")
-    .classList
-    .add("hidden");
-
-}
-
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
+// =====================================================
+// LOGIN
+// =====================================================
 
 async function login(){
 
-  if(
-    !checkSupabase()
-  ){
-
-    showLoginMessage(
-      "❌ Supabase tidak ditemukan. Periksa supabase-config.js",
-      "error"
+  const button =
+    document.getElementById(
+      "loginButton"
     );
 
-    return;
-
-  }
-
+  const message =
+    document.getElementById(
+      "loginMessage"
+    );
 
   const email =
     document
-      .getElementById("loginEmail")
+      .getElementById("email")
       .value
       .trim();
 
-
   const password =
     document
-      .getElementById("loginPassword")
+      .getElementById("password")
       .value;
+
+
+  message.className =
+    "message";
+
+  message.style.display =
+    "none";
 
 
   if(!email){
 
     showLoginMessage(
-      "Email wajib diisi.",
+      "❌ Email wajib diisi.",
       "error"
     );
 
@@ -1717,7 +625,7 @@ async function login(){
   if(!password){
 
     showLoginMessage(
-      "Password wajib diisi.",
+      "❌ Password wajib diisi.",
       "error"
     );
 
@@ -1726,23 +634,17 @@ async function login(){
   }
 
 
-  const button =
-    document.getElementById(
-      "loginButton"
-    );
-
-
   try{
 
     button.disabled = true;
 
     button.innerText =
-      "⏳ Memproses...";
+      "⏳ Memeriksa...";
 
 
-    showLoginMessage(
-      "⏳ Sedang login...",
-      "info"
+    console.log(
+      "LOGIN: mencoba login",
+      email
     );
 
 
@@ -1760,6 +662,12 @@ async function login(){
         });
 
 
+    console.log(
+      "LOGIN RESULT:",
+      result
+    );
+
+
     if(result.error){
 
       throw result.error;
@@ -1767,19 +675,28 @@ async function login(){
     }
 
 
+    if(!result.data.session){
+
+      throw new Error(
+        "Login berhasil tetapi session tidak ditemukan."
+      );
+
+    }
+
+
     showLoginMessage(
-      "✅ Login berhasil.",
+      "✅ Login berhasil. Membuka Admin...",
       "success"
     );
 
 
-    document
-      .getElementById("loginPassword")
-      .value = "";
+    setTimeout(
+      function(){
 
+        showAdmin();
 
-    showAdmin(
-      result.data.session
+      },
+      500
     );
 
 
@@ -1793,18 +710,28 @@ async function login(){
     );
 
 
+    let text =
+      error.message ||
+      "Login gagal.";
+
+
+    if(
+      text.includes(
+        "Invalid login credentials"
+      )
+    ){
+
+      text =
+        "Email atau password salah.";
+
+    }
+
+
     showLoginMessage(
-
-      "❌ Login gagal:<br><br>"
-      +
-      escapeHtml(
-        error.message ||
-        "Email atau password salah."
-      ),
-
+      "❌ " + text,
       "error"
-
     );
+
 
   }
 
@@ -1820,54 +747,90 @@ async function login(){
 }
 
 
-
-/* =====================================================
-   LOGIN MESSAGE
-===================================================== */
+// =====================================================
+// PESAN LOGIN
+// =====================================================
 
 function showLoginMessage(
   text,
   type
 ){
 
-  const box =
+  const message =
     document.getElementById(
       "loginMessage"
     );
 
 
-  box.className =
+  message.className =
     "message " + type;
 
 
-  box.innerHTML =
+  message.style.display =
+    "block";
+
+
+  message.innerHTML =
     text;
 
 }
 
 
+// =====================================================
+// CEK SESSION
+// =====================================================
 
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  /*
-    Tombol Keluar dibuat sengaja
-    tidak bergantung pada proses signOut
-    untuk berpindah halaman.
-  */
+async function checkSession(){
 
   try{
 
-    if(
-      checkSupabase()
-    ){
+    console.log(
+      "SESSION: mengecek session..."
+    );
 
+
+    const result =
       await supabaseClient
         .auth
-        .signOut();
+        .getSession();
+
+
+    console.log(
+      "SESSION RESULT:",
+      result
+    );
+
+
+    if(result.error){
+
+      console.error(
+        result.error
+      );
+
+      return;
+
+    }
+
+
+    const session =
+      result.data.session;
+
+
+    if(session){
+
+      console.log(
+        "SESSION: ditemukan"
+      );
+
+      showAdmin();
+
+    }
+
+    else{
+
+      console.log(
+        "SESSION: belum login"
+      );
 
     }
 
@@ -1876,18 +839,653 @@ async function logout(){
   catch(error){
 
     console.error(
-      "LOGOUT ERROR:",
+      "SESSION ERROR:",
       error
     );
 
   }
 
+}
 
-  /*
-    Bersihkan session lokal.
-  */
+
+// =====================================================
+// TAMPILKAN ADMIN
+// =====================================================
+
+function showAdmin(){
+
+  document
+    .getElementById("loginPage")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("adminPage")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("logoutButton")
+    .classList
+    .remove("hidden");
+
+
+  loadMaterials();
+
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+async function logout(){
 
   try{
 
-    localStorage.removeItem(
-      "supabase.auth
+    const result =
+      await supabaseClient
+        .auth
+        .signOut();
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    document
+      .getElementById("adminPage")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("logoutButton")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("loginPage")
+      .classList
+      .remove("hidden");
+
+
+    document
+      .getElementById("password")
+      .value = "";
+
+
+    showLoginMessage(
+      "✅ Anda sudah keluar.",
+      "success"
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "❌ Gagal keluar:\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// SIMPAN MATERI
+// =====================================================
+
+async function saveMaterial(){
+
+  const button =
+    document.getElementById(
+      "saveButton"
+    );
+
+
+  const message =
+    document.getElementById(
+      "saveMessage"
+    );
+
+
+  try{
+
+    button.disabled = true;
+
+    message.className =
+      "message success";
+
+    message.style.display =
+      "block";
+
+    message.innerText =
+      "⏳ Menyimpan materi...";
+
+
+    const judul =
+      document
+        .getElementById("judul")
+        .value
+        .trim();
+
+
+    const deskripsi =
+      document
+        .getElementById("deskripsi")
+        .value
+        .trim();
+
+
+    const kategori =
+      document
+        .getElementById("kategori")
+        .value;
+
+
+    const tipe =
+      document
+        .getElementById("tipe")
+        .value;
+
+
+    const url =
+      document
+        .getElementById("url")
+        .value
+        .trim();
+
+
+    const thumbnail =
+      document
+        .getElementById("thumbnail")
+        .value
+        .trim();
+
+
+    const premium =
+      document
+        .getElementById("premium")
+        .checked;
+
+
+    if(!judul){
+
+      throw new Error(
+        "Judul materi wajib diisi."
+      );
+
+    }
+
+
+    if(!url){
+
+      throw new Error(
+        "URL materi wajib diisi."
+      );
+
+    }
+
+
+    const data = {
+
+      judul:
+        judul,
+
+      deskripsi:
+        deskripsi,
+
+      kategori:
+        kategori,
+
+      tipe:
+        tipe,
+
+      type:
+        tipe,
+
+      url:
+        url,
+
+      thumbnail:
+        thumbnail || null,
+
+      premium:
+        premium
+
+    };
+
+
+    console.log(
+      "INSERT DATA:",
+      data
+    );
+
+
+    const result =
+      await supabaseClient
+        .from("materials")
+        .insert(data);
+
+
+    console.log(
+      "INSERT RESULT:",
+      result
+    );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    message.className =
+      "message success";
+
+    message.style.display =
+      "block";
+
+    message.innerText =
+      "✅ Materi berhasil disimpan!";
+
+
+    document
+      .getElementById("judul")
+      .value = "";
+
+
+    document
+      .getElementById("deskripsi")
+      .value = "";
+
+
+    document
+      .getElementById("url")
+      .value = "";
+
+
+    document
+      .getElementById("thumbnail")
+      .value = "";
+
+
+    document
+      .getElementById("premium")
+      .checked = false;
+
+
+    loadMaterials();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "SAVE ERROR:",
+      error
+    );
+
+
+    message.className =
+      "message error";
+
+    message.style.display =
+      "block";
+
+    message.innerHTML =
+      "❌ Gagal menyimpan:<br><br>" +
+      escapeHtml(
+        error.message
+      );
+
+  }
+
+  finally{
+
+    button.disabled = false;
+
+  }
+
+}
+
+
+// =====================================================
+// LOAD MATERI
+// =====================================================
+
+async function loadMaterials(){
+
+  const list =
+    document.getElementById(
+      "materialsList"
+    );
+
+
+  list.innerHTML =
+    '<div class="loading">⏳ Mengambil data materi...</div>';
+
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("materials")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    const materials =
+      result.data || [];
+
+
+    if(materials.length === 0){
+
+      list.innerHTML =
+        '<div class="loading">📚 Belum ada materi.</div>';
+
+      return;
+
+    }
+
+
+    list.innerHTML =
+      materials
+        .map(
+          createMaterialCard
+        )
+        .join("");
+
+  }
+
+  catch(error){
+
+    console.error(
+      "LOAD ERROR:",
+      error
+    );
+
+
+    list.innerHTML =
+
+      '<div class="message error" style="display:block">' +
+
+      '❌ Gagal mengambil materi.<br><br>' +
+
+      escapeHtml(
+        error.message
+      ) +
+
+      '</div>';
+
+  }
+
+}
+
+
+// =====================================================
+// CARD
+// =====================================================
+
+function createMaterialCard(
+  material
+){
+
+  const tipe =
+    material.type ||
+    material.tipe ||
+    "video";
+
+
+  const icon =
+    tipe === "audio"
+      ? "🎧"
+      : tipe === "pdf"
+        ? "📄"
+        : "🎥";
+
+
+  const badge =
+    material.premium === true
+
+      ?
+
+      '<span class="badge badge-premium">🔐 Premium</span>'
+
+      :
+
+      '<span class="badge badge-free">🟢 Gratis</span>';
+
+
+  const url =
+    material.url || "";
+
+
+  return `
+
+    <div class="material">
+
+      <h3>
+        ${icon}
+        ${escapeHtml(
+          material.judul ||
+          "Tanpa Judul"
+        )}
+      </h3>
+
+      <div class="material-info">
+
+        ${escapeHtml(
+          material.deskripsi ||
+          ""
+        )}
+
+        <br>
+
+        📁 Kategori:
+        ${escapeHtml(
+          material.kategori ||
+          "-"
+        )}
+
+        <br>
+
+        ${icon}
+        Tipe:
+        ${escapeHtml(
+          tipe
+        )}
+
+        <br><br>
+
+        ${badge}
+
+      </div>
+
+
+      <div class="material-buttons">
+
+        ${
+          url
+          ?
+
+          `
+          <a
+            href="${escapeHtml(url)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="open-button"
+          >
+            🔗 Buka
+          </a>
+          `
+
+          :
+
+          ""
+        }
+
+
+        <button
+          class="delete-button"
+          onclick="deleteMaterial('${String(material.id)}')"
+        >
+          🗑️ Hapus
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+// =====================================================
+// HAPUS
+// =====================================================
+
+async function deleteMaterial(id){
+
+  if(
+    !confirm(
+      "Yakin ingin menghapus materi ini?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("materials")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    alert(
+      "✅ Materi berhasil dihapus."
+    );
+
+
+    loadMaterials();
+
+  }
+
+  catch(error){
+
+    alert(
+      "❌ Gagal menghapus:\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// ESCAPE
+// =====================================================
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+// =====================================================
+// MULAI
+// =====================================================
+
+window.addEventListener(
+  "load",
+  function(){
+
+    console.log(
+      "ADMIN: halaman selesai dimuat."
+    );
+
+
+    checkSession();
+
+  }
+);
+
+</script>
+
+</body>
+  </html>
