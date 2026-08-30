@@ -3,288 +3,167 @@
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Login - NgajiPlus</title>
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-  </script>
-
-  <script src="supabase-config.js"></script>
-
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-
-      margin: 0;
-
-      min-height: 100vh;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      background:
-        linear-gradient(
-          135deg,
-          #eef8f1,
-          #f8faf9
-        );
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-      color: #202a24;
-
-    }
-
-
-    .login-container {
-
-      width: 100%;
-
-      max-width: 420px;
-
-    }
-
-
-    .logo {
-
-      text-align: center;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    .logo a {
-
-      color: #238b57;
-
-      font-size: 28px;
-
-      font-weight: bold;
-
-      text-decoration: none;
-
-    }
-
-
-    .login-card {
-
-      background: white;
-
-      border-radius: 20px;
-
-      padding: 30px;
-
-      border:
-        1px solid #e2e8e4;
-
-      box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.08);
-
-    }
-
-
-    h1 {
-
-      margin:
-        0 0 8px;
-
-      text-align: center;
-
-      font-size: 27px;
-
-    }
-
-
-    .subtitle {
-
-      text-align: center;
-
-      color: #737b76;
-
-      font-size: 14px;
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .form-group {
-
-      margin-bottom: 17px;
-
-    }
-
-
-    label {
-
-      display: block;
-
-      margin-bottom: 7px;
-
-      font-size: 14px;
-
-      font-weight: bold;
-
-    }
-
-
-    input {
-
-      width: 100%;
-
-      padding: 13px;
-
-      border:
-        1px solid #d9dfdb;
-
-      border-radius: 10px;
-
-      font-size: 15px;
-
-      outline: none;
-
-    }
-
-
-    input:focus {
-
-      border-color:
-        #238b57;
-
-    }
-
-
-    button {
-
-      width: 100%;
-
-      border: 0;
-
-      padding: 13px;
-
-      border-radius: 10px;
-
-      background:
-        #238b57;
-
-      color: white;
-
-      font-size: 15px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-    }
-
-
-    button:disabled {
-
-      opacity: .6;
-
-      cursor: not-allowed;
-
-    }
-
-
-    .message {
-
-      display: none;
-
-      padding: 12px;
-
-      border-radius: 9px;
-
-      margin-bottom: 15px;
-
-      font-size: 14px;
-
-      line-height: 1.5;
-
-    }
-
-
-    .error {
-
-      background: #fff1f1;
-
-      color: #b42318;
-
-    }
-
-
-    .success {
-
-      background: #edf9f1;
-
-      color: #18794e;
-
-    }
-
-
-    .register {
-
-      text-align: center;
-
-      margin-top: 20px;
-
-      font-size: 14px;
-
-      color: #737b76;
-
-    }
-
-
-    .register a {
-
-      color: #238b57;
-
-      font-weight: bold;
-
-      text-decoration: none;
-
-    }
-
-
-    .back {
-
-      display: block;
-
-      text-align: center;
-
-      margin-top: 18px;
-
-      color: #737b76;
-
-      font-size: 13px;
-
-      text-decoration: none;
-
-    }
-
-  </style>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="Login Member NgajiPlus">
+
+<meta name="theme-color"
+      content="#238b57">
+
+<title>Login Member - NgajiPlus</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f8f6;
+    color:#1f2933;
+}
+
+.header{
+    background:white;
+    border-bottom:1px solid #e5ebe7;
+    padding:14px 20px;
+}
+
+.logo{
+    color:#238b57;
+    font-weight:bold;
+    font-size:20px;
+    text-decoration:none;
+}
+
+.container{
+    min-height:calc(100vh - 65px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px 15px;
+}
+
+.card{
+    width:100%;
+    max-width:430px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    border:1px solid #e2e9e5;
+    box-shadow:0 15px 40px rgba(0,0,0,.06);
+}
+
+.logo-box{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo-icon{
+    font-size:40px;
+}
+
+h1{
+    margin:8px 0 5px;
+    font-size:25px;
+}
+
+.subtitle{
+    color:#7a8580;
+    font-size:13px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #dbe4df;
+    border-radius:9px;
+    outline:none;
+    font-size:14px;
+}
+
+input:focus{
+    border-color:#238b57;
+}
+
+button{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:9px;
+    background:#238b57;
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.message{
+    margin-top:15px;
+    padding:12px;
+    border-radius:9px;
+    display:none;
+    font-size:13px;
+}
+
+.success{
+    background:#e5f7eb;
+    color:#16733f;
+}
+
+.error{
+    background:#fdecea;
+    color:#b42318;
+}
+
+.register-link{
+    text-align:center;
+    margin-top:20px;
+    font-size:13px;
+    color:#667085;
+}
+
+.register-link a{
+    color:#238b57;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.back{
+    text-align:center;
+    margin-top:15px;
+}
+
+.back a{
+    color:#667085;
+    font-size:12px;
+    text-decoration:none;
+}
+
+</style>
 
 </head>
 
@@ -292,129 +171,121 @@
 <body>
 
 
-<div class="login-container">
+<header class="header">
+
+<a href="index.html"
+   class="logo">
+
+📖 NgajiPlus
+
+</a>
+
+</header>
 
 
-  <div class="logo">
 
-    <a href="index.html">
+<div class="container">
 
-      📖 NgajiPlus
-
-    </a>
-
-  </div>
+<div class="card">
 
 
-  <div class="login-card">
+<div class="logo-box">
+
+<div class="logo-icon">
+🔐
+</div>
+
+<h1>
+Login Member
+</h1>
+
+<div class="subtitle">
+Masuk untuk melanjutkan belajar
+</div>
+
+</div>
 
 
-    <h1>
 
-      Selamat Datang
-
-    </h1>
+<form id="loginForm">
 
 
-    <div class="subtitle">
+<div class="form-group">
 
-      Login untuk mengakses
-      pembelajaran Anda.
+<label>
+Email
+</label>
 
-    </div>
+<input
+    type="email"
+    id="email"
+    placeholder="nama@email.com"
+    required
+>
 
-
-    <div
-      id="errorMessage"
-      class="message error"
-    ></div>
-
-
-    <div
-      id="successMessage"
-      class="message success"
-    ></div>
+</div>
 
 
-    <form id="loginForm">
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Masukkan password"
+    required
+>
+
+</div>
 
 
-      <div class="form-group">
 
-        <label for="email">
+<button
+    type="submit"
+    id="loginButton">
 
-          Email
+🔐 Masuk
 
-        </label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="nama@email.com"
-          autocomplete="email"
-          required
-        >
-
-      </div>
+</button>
 
 
-      <div class="form-group">
-
-        <label for="password">
-
-          Password
-
-        </label>
-
-        <input
-          type="password"
-          id="password"
-          placeholder="Masukkan password"
-          autocomplete="current-password"
-          required
-        >
-
-      </div>
+</form>
 
 
-      <button
-        type="submit"
-        id="loginButton"
-      >
 
-        🔐 Login
-
-      </button>
+<div
+    id="message"
+    class="message">
+</div>
 
 
-    </form>
+
+<div class="register-link">
+
+Belum punya akun?
+
+<a href="daftar.html">
+Daftar sekarang
+</a>
+
+</div>
 
 
-    <div class="register">
 
-      Belum punya akun?
+<div class="back">
 
-      <a href="daftar.html">
+<a href="index.html">
+← Kembali ke NgajiPlus
+</a>
 
-        Daftar sekarang
-
-      </a>
-
-    </div>
+</div>
 
 
-    <a
-      href="index.html"
-      class="back"
-    >
-
-      ← Kembali ke beranda
-
-    </a>
-
-
-  </div>
-
+</div>
 
 </div>
 
@@ -422,253 +293,196 @@
 
 <script>
 
+/* ==========================================
+   SUPABASE CONFIG
+========================================== */
 
-// ======================================
-// ELEMENT
-// ======================================
-
-const loginForm =
-  document.getElementById(
-    "loginForm"
-  );
+const SUPABASE_URL =
+"https://ksgywgdrfskqsufchbcm.supabase.co";
 
 
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
+const SUPABASE_ANON_KEY =
+"sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
 
-const errorMessage =
-  document.getElementById(
-    "errorMessage"
-  );
-
-
-const successMessage =
-  document.getElementById(
-    "successMessage"
-  );
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 
 
 
-// ======================================
-// MESSAGE
-// ======================================
+/* ==========================================
+   ELEMENT
+========================================== */
 
-function showError(message) {
+const form =
+document.getElementById("loginForm");
 
-  errorMessage.textContent =
-    message;
+const button =
+document.getElementById("loginButton");
 
-  errorMessage.style.display =
-    "block";
-
-  successMessage.style.display =
-    "none";
-
-}
+const message =
+document.getElementById("message");
 
 
-function showSuccess(message) {
 
-  successMessage.textContent =
-    message;
+/* ==========================================
+   MESSAGE
+========================================== */
 
-  successMessage.style.display =
-    "block";
+function showMessage(text,type){
 
-  errorMessage.style.display =
-    "none";
+    message.textContent = text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
 
 }
 
 
 
-// ======================================
-// LOGIN
-// ======================================
+/* ==========================================
+   LOGIN
+========================================== */
 
-loginForm.addEventListener(
-  "submit",
-  async function(event) {
+form.addEventListener(
+"submit",
+async function(event){
 
     event.preventDefault();
 
 
-    errorMessage.style.display =
-      "none";
-
-    successMessage.style.display =
-      "none";
-
-
     const email =
-      document
+        document
         .getElementById("email")
         .value
         .trim();
 
 
     const password =
-      document
+        document
         .getElementById("password")
         .value;
 
 
-    if (!email || !password) {
+    button.disabled = true;
 
-      showError(
-        "Email dan password wajib diisi."
-      );
-
-      return;
-
-    }
+    button.textContent =
+        "⏳ Memeriksa...";
 
 
-    loginButton.disabled =
-      true;
-
-    loginButton.textContent =
-      "⏳ Memproses...";
+    message.style.display =
+        "none";
 
 
-    try {
+    try{
 
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.signInWithPassword({
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth
-        .signInWithPassword({
+            email:email,
 
-          email:
-            email,
-
-          password:
-            password
+            password:password
 
         });
 
 
-      if (error) {
+        if(error){
 
-        throw error;
+            throw error;
 
-      }
+        }
 
 
-      if (!data.session) {
-
-        throw new Error(
-          "Login berhasil tetapi sesi tidak ditemukan."
+        showMessage(
+            "✅ Login berhasil! Mengalihkan...",
+            "success"
         );
 
-      }
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "akademi.html";
+
+            },
+            1000
+        );
 
 
-      showSuccess(
-        "Login berhasil. Mengalihkan..."
-      );
+    }catch(error){
+
+        console.error(error);
 
 
-      setTimeout(
-        function() {
-
-          window.location.href =
-            "dashboard.html";
-
-        },
-        700
-      );
+        let text =
+            error.message ||
+            "Login gagal.";
 
 
-    }
+        if(
+            text
+            .toLowerCase()
+            .includes("invalid login")
+        ){
 
-    catch (error) {
+            text =
+            "❌ Email atau password salah.";
 
-
-      console.error(error);
-
-
-      let message =
-        "Login gagal.";
-
-
-      if (
-        error.message
-          .toLowerCase()
-          .includes("invalid login")
-      ) {
-
-        message =
-          "Email atau password salah.";
-
-      }
+        }
 
 
-      else if (
-        error.message
-          .toLowerCase()
-          .includes("email not confirmed")
-      ) {
-
-        message =
-          "Email Anda belum dikonfirmasi. Silakan cek email.";
-
-      }
+        showMessage(
+            text,
+            "error"
+        );
 
 
-      else {
+    }finally{
 
-        message =
-          error.message;
+        button.disabled = false;
 
-      }
-
-
-      showError(
-        message
-      );
-
-
-      loginButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "🔐 Login";
+        button.textContent =
+            "🔐 Masuk";
 
     }
 
-  }
-);
+});
 
 
 
-// ======================================
-// CEK JIKA SUDAH LOGIN
-// ======================================
+/* ==========================================
+   CEK LOGIN
+========================================== */
 
-async function checkAlreadyLogin() {
+async function checkAlreadyLogin(){
 
-
-  const {
-    data: {
-      session
-    }
-  } =
-  await supabaseClient.auth
+    const {
+        data
+    } =
+    await supabaseClient
+    .auth
     .getSession();
 
 
-  if (session) {
+    if(
+        data &&
+        data.session
+    ){
 
-    window.location.href =
-      "dashboard.html";
+        window.location.href =
+            "akademi.html";
 
-  }
+    }
 
 }
 
@@ -676,7 +490,6 @@ async function checkAlreadyLogin() {
 checkAlreadyLogin();
 
 </script>
-
 
 </body>
 
