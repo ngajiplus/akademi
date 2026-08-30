@@ -24,7 +24,7 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: #f6f8f7;
       color: #202a24;
     }
@@ -77,12 +77,12 @@
     main {
       max-width: 1100px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 45px 20px;
     }
 
     .page-title {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     .page-title h1 {
@@ -111,8 +111,8 @@
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 9px;
+      outline: none;
       background: white;
-      font-size: 14px;
     }
 
     .filter-box input {
@@ -139,14 +139,23 @@
       box-shadow: 0 12px 30px rgba(0,0,0,.07);
     }
 
+    .material-card.premium {
+      background: #202a24;
+      color: white;
+    }
+
     .thumbnail {
       height: 170px;
       background: #e5f2e9;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 55px;
+      font-size: 50px;
       overflow: hidden;
+    }
+
+    .premium .thumbnail {
+      background: #35463c;
     }
 
     .thumbnail img {
@@ -170,6 +179,11 @@
       margin-bottom: 10px;
     }
 
+    .premium .material-type {
+      background: #35463c;
+      color: #b9e4c8;
+    }
+
     .material-body h3 {
       margin: 0 0 8px;
       font-size: 18px;
@@ -180,6 +194,10 @@
       font-size: 14px;
       line-height: 1.6;
       min-height: 45px;
+    }
+
+    .premium .material-description {
+      color: #c6cec9;
     }
 
     .material-button {
@@ -194,45 +212,56 @@
       font-size: 14px;
     }
 
-    .premium {
-      border: 2px solid #238b57;
+    .premium-button {
+      background: white;
+      color: #202a24;
     }
 
-    .premium-label {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #b7791f;
-      font-weight: bold;
+    .loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px;
+      color: #777;
     }
 
-    .free-label {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #238b57;
-      font-weight: bold;
-    }
-
-    .loading,
-    .empty,
-    .error {
+    .empty {
       grid-column: 1 / -1;
       background: white;
       padding: 50px;
       text-align: center;
       border-radius: 15px;
-    }
-
-    .loading {
-      color: #777;
-    }
-
-    .empty {
       color: #777;
     }
 
     .error {
+      grid-column: 1 / -1;
       background: #fff1f1;
       color: #b42318;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .info {
+      grid-column: 1 / -1;
+      background: #eef7f1;
+      color: #238b57;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .premium-label {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #b9e4c8;
+    }
+
+    .free-label {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #238b57;
     }
 
     @media (max-width: 800px) {
@@ -251,6 +280,7 @@
       }
 
       nav {
+        width: 100%;
         justify-content: center;
       }
 
@@ -280,21 +310,34 @@
 
   <div class="header-inner">
 
-    <a href="index.html" class="logo">
+    <a
+      href="index.html"
+      class="logo"
+    >
       📖 NgajiPlus
     </a>
 
     <nav>
 
-      <a href="index.html">Beranda</a>
+      <a href="index.html">
+        Beranda
+      </a>
 
-      <a href="materi.html">Video</a>
+      <a href="materi.html">
+        Video
+      </a>
 
-      <a href="audio.html">Audio</a>
+      <a href="audio.html">
+        Audio
+      </a>
 
-      <a href="pdf.html">PDF</a>
+      <a href="pdf.html">
+        PDF
+      </a>
 
-      <a href="dashboard.html">Dashboard</a>
+      <a href="dashboard.html">
+        Dashboard
+      </a>
 
     </nav>
 
@@ -303,13 +346,14 @@
 </header>
 
 
-
 <main>
 
 
   <div class="page-title">
 
-    <h1>🎥 Video Pembelajaran</h1>
+    <h1>
+      🎥 Video Pembelajaran
+    </h1>
 
     <p>
       Temukan berbagai materi pembelajaran
@@ -317,7 +361,6 @@
     </p>
 
   </div>
-
 
 
   <div class="filter-box">
@@ -371,7 +414,6 @@
   </div>
 
 
-
   <div id="materialsContainer">
 
     <div class="loading">
@@ -384,16 +426,17 @@
 </main>
 
 
-
 <script>
 
 
 let allMaterials = [];
 
+let isMemberActive = false;
 
-// ==================================================
+
+// =====================================================
 // ESCAPE HTML
-// ==================================================
+// =====================================================
 
 function escapeHtml(value) {
 
@@ -407,92 +450,148 @@ function escapeHtml(value) {
   }
 
   return String(value)
+
     .replace(/&/g, "&amp;")
+
     .replace(/</g, "&lt;")
+
     .replace(/>/g, "&gt;")
+
     .replace(/"/g, "&quot;")
+
     .replace(/'/g, "&#039;");
 
 }
 
 
-
-// ==================================================
+// =====================================================
 // CEK MEMBER
-// ==================================================
+// =====================================================
 
-async function checkMember() {
+async function checkMembership() {
 
-  const {
-    data: {
-      session
-    }
-  } = await supabaseClient.auth.getSession();
+  try {
 
-
-  if (!session) {
-
-    return false;
-
-  }
+    const {
+      data: {
+        session
+      }
+    } =
+    await supabaseClient.auth.getSession();
 
 
-  const {
-    data: profile
-  } =
-  await supabaseClient
-    .from("profiles")
-    .select("status, berlaku_sampai")
-    .eq("id", session.user.id)
-    .single();
+    // Belum login
 
+    if (!session) {
 
-  if (!profile) {
+      isMemberActive = false;
 
-    return false;
-
-  }
-
-
-  const status =
-    String(profile.status || "")
-      .toLowerCase();
-
-
-  if (status !== "aktif") {
-
-    return false;
-
-  }
-
-
-  if (profile.berlaku_sampai) {
-
-    const tanggal =
-      new Date(profile.berlaku_sampai);
-
-
-    if (tanggal <= new Date()) {
-
-      return false;
+      return;
 
     }
 
+
+    // Ambil profile
+
+    const {
+      data: profile,
+      error
+    } =
+    await supabaseClient
+
+      .from("profiles")
+
+      .select(
+        "status, berlaku_sampai"
+      )
+
+      .eq(
+        "id",
+        session.user.id
+      )
+
+      .single();
+
+
+    if (error || !profile) {
+
+      console.log(
+        "Profile tidak ditemukan",
+        error
+      );
+
+      isMemberActive = false;
+
+      return;
+
+    }
+
+
+    const status =
+      String(
+        profile.status || ""
+      )
+      .toLowerCase()
+      .trim();
+
+
+    // Status harus AKTIF
+
+    if (status !== "aktif") {
+
+      isMemberActive = false;
+
+      return;
+
+    }
+
+
+    // Jika ada tanggal berlaku
+
+    if (
+      profile.berlaku_sampai
+    ) {
+
+      const expired =
+        new Date(
+          profile.berlaku_sampai
+        ) <= new Date();
+
+
+      if (expired) {
+
+        isMemberActive = false;
+
+        return;
+
+      }
+
+    }
+
+
+    isMemberActive = true;
+
   }
 
+  catch (error) {
 
-  return true;
+    console.error(
+      "Gagal mengecek member:",
+      error
+    );
+
+    isMemberActive = false;
+
+  }
 
 }
 
 
-
-// ==================================================
-// AMBIL MATERIAL
-// ==================================================
+// =====================================================
+// AMBIL MATERI LANGSUNG DARI TABLE
+// =====================================================
 
 async function loadMaterials() {
-
 
   const container =
     document.getElementById(
@@ -503,21 +602,33 @@ async function loadMaterials() {
   container.innerHTML = `
 
     <div class="loading">
+
       ⏳ Memuat materi...
+
     </div>
 
   `;
 
+
+  // Cek member dahulu
+
+  await checkMembership();
+
+
+  // Ambil data materials
 
   const {
     data,
     error
   } =
   await supabaseClient
+
     .from("materials")
+
     .select("*")
+
     .order(
-      "id",
+      "created_at",
       {
         ascending: false
       }
@@ -537,7 +648,9 @@ async function loadMaterials() {
 
         <br><br>
 
-        ${escapeHtml(error.message)}
+        ${escapeHtml(
+          error.message
+        )}
 
       </div>
 
@@ -559,15 +672,13 @@ async function loadMaterials() {
 }
 
 
+// =====================================================
+// TAMPILKAN MATERI
+// =====================================================
 
-// ==================================================
-// TAMPILKAN MATERIAL
-// ==================================================
-
-async function displayMaterials(
+function displayMaterials(
   materials
 ) {
-
 
   const container =
     document.getElementById(
@@ -581,12 +692,7 @@ async function displayMaterials(
 
       <div class="empty">
 
-        📚 Belum ada materi di database.
-
-        <br><br>
-
-        Silakan tambahkan materi
-        melalui Supabase.
+        📚 Belum ada materi.
 
       </div>
 
@@ -597,226 +703,282 @@ async function displayMaterials(
   }
 
 
-  const member =
-    await checkMember();
+  // INFO STATUS
+
+  let info = "";
 
 
-  container.innerHTML =
-    materials.map(
-      material => {
+  if (isMemberActive) {
+
+    info = `
+
+      <div class="info">
+
+        ✅ Membership aktif.
+        Semua materi dapat diakses.
+
+      </div>
+
+    `;
+
+  }
+
+  else {
+
+    info = `
+
+      <div class="info">
+
+        🔒 Anda menggunakan akses GRATIS.
+        Materi premium terkunci.
+
+      </div>
+
+    `;
+
+  }
 
 
-        const premium =
-          material.premium === true;
+  // CARDS
+
+  const cards =
+    materials
+      .map(
+        material => {
 
 
-        const locked =
-          premium && !member;
+          const premium =
+            material.premium === true;
 
 
-        let button;
+          // Premium hanya bisa dibuka
+          // oleh member aktif
+
+          const locked =
+            premium &&
+            !isMemberActive;
 
 
-        // =====================================
-        // PREMIUM TERKUNCI
-        // =====================================
+          // ==========================================
+          // TOMBOL
+          // ==========================================
 
-        if (locked) {
-
-          button = `
-
-            <a
-              href="dashboard.html"
-              class="material-button"
-            >
-
-              🔒 Upgrade Member
-
-            </a>
-
-          `;
-
-        }
+          let button;
 
 
-        // =====================================
-        // MATERI TERBUKA
-        // =====================================
+          if (locked) {
 
-        else if (material.url) {
+            button = `
 
-          button = `
+              <a
+                href="dashboard.html"
+                class="material-button premium-button"
+              >
 
-            <a
-              href="${escapeHtml(material.url)}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="material-button"
-            >
+                🔒 Upgrade Member
 
-              ▶️ Mulai Belajar
+              </a>
 
-            </a>
+            `;
 
-          `;
+          }
 
-        }
+          else if (
+            material.url
+          ) {
+
+            button = `
+
+              <a
+                href="${escapeHtml(
+                  material.url
+                )}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="material-button"
+              >
+
+                ▶️ Mulai Belajar
+
+              </a>
+
+            `;
+
+          }
+
+          else {
+
+            button = `
+
+              <div
+                class="material-button"
+                style="
+                  background:#ddd;
+                  color:#555;
+                "
+              >
+
+                Materi belum tersedia
+
+              </div>
+
+            `;
+
+          }
 
 
-        // =====================================
-        // URL BELUM ADA
-        // =====================================
+          // ==========================================
+          // THUMBNAIL
+          // ==========================================
 
-        else {
+          const thumbnail =
+            material.thumbnail
 
-          button = `
+            ?
 
-            <div
-              class="material-button"
-              style="
-                background:#ddd;
-                color:#555;
+            `
+
+              <img
+                src="${escapeHtml(
+                  material.thumbnail
+                )}"
+                alt="${escapeHtml(
+                  material.judul
+                )}"
+              >
+
+            `
+
+            :
+
+            (
+              premium
+              ? "🔒"
+              : "🎥"
+            );
+
+
+          // ==========================================
+          // LABEL
+          // ==========================================
+
+          const premiumLabel =
+            premium
+
+            ?
+
+            `
+
+              <div class="premium-label">
+
+                🔐 Materi Premium
+
+              </div>
+
+            `
+
+            :
+
+            `
+
+              <div class="free-label">
+
+                🟢 Materi Gratis
+
+              </div>
+
+            `;
+
+
+          // ==========================================
+          // CARD
+          // ==========================================
+
+          return `
+
+            <article
+              class="
+                material-card
+                ${
+                  premium
+                  ? "premium"
+                  : ""
+                }
               "
             >
 
-              Materi belum tersedia
 
-            </div>
+              <div class="thumbnail">
+
+                ${thumbnail}
+
+              </div>
+
+
+              <div class="material-body">
+
+
+                <span class="material-type">
+
+                  ${escapeHtml(
+                    material.kategori ||
+                    "Pembelajaran"
+                  )}
+
+                </span>
+
+
+                <h3>
+
+                  ${escapeHtml(
+                    material.judul ||
+                    "Tanpa Judul"
+                  )}
+
+                </h3>
+
+
+                <p
+                  class="material-description"
+                >
+
+                  ${escapeHtml(
+                    material.deskripsi ||
+                    "Materi pembelajaran NgajiPlus."
+                  )}
+
+                </p>
+
+
+                ${premiumLabel}
+
+
+                ${button}
+
+
+              </div>
+
+
+            </article>
 
           `;
 
         }
+      )
+      .join("");
 
 
-        // =====================================
-        // THUMBNAIL
-        // =====================================
-
-        let thumbnail = "🎥";
-
-
-        if (material.thumbnail) {
-
-          thumbnail = `
-
-            <img
-              src="${escapeHtml(
-                material.thumbnail
-              )}"
-              alt="${escapeHtml(
-                material.judul
-              )}"
-            >
-
-          `;
-
-        }
-
-
-        return `
-
-          <article
-            class="
-              material-card
-              ${premium ? "premium" : ""}
-            "
-          >
-
-
-            <div class="thumbnail">
-
-              ${thumbnail}
-
-            </div>
-
-
-            <div class="material-body">
-
-
-              <span class="material-type">
-
-                ${escapeHtml(
-                  material.kategori ||
-                  "Pembelajaran"
-                )}
-
-              </span>
-
-
-              <h3>
-
-                ${escapeHtml(
-                  material.judul ||
-                  "Tanpa Judul"
-                )}
-
-              </h3>
-
-
-              <p class="material-description">
-
-                ${escapeHtml(
-                  material.deskripsi ||
-                  "Materi pembelajaran NgajiPlus."
-                )}
-
-              </p>
-
-
-              ${
-                premium
-
-                ?
-
-                `
-
-                  <div class="premium-label">
-
-                    🔐 Materi Premium
-
-                  </div>
-
-                `
-
-                :
-
-                `
-
-                  <div class="free-label">
-
-                    🟢 Materi Gratis
-
-                  </div>
-
-                `
-
-              }
-
-
-              ${button}
-
-
-            </div>
-
-
-          </article>
-
-        `;
-
-      }
-    )
-    .join("");
+  container.innerHTML =
+    info + cards;
 
 }
 
 
-
-// ==================================================
+// =====================================================
 // FILTER
-// ==================================================
+// =====================================================
 
 function filterMaterials() {
-
 
   const keyword =
     document
@@ -845,35 +1007,49 @@ function filterMaterials() {
         const judul =
           String(
             material.judul || ""
-          ).toLowerCase();
+          )
+          .toLowerCase();
 
 
         const deskripsi =
           String(
             material.deskripsi || ""
-          ).toLowerCase();
+          )
+          .toLowerCase();
 
 
         const kategori =
           String(
             material.kategori || ""
-          ).toLowerCase();
+          )
+          .toLowerCase();
 
 
-        const cocokKata =
+        const matchKeyword =
           !keyword ||
-          judul.includes(keyword) ||
-          deskripsi.includes(keyword);
+
+          judul.includes(
+            keyword
+          ) ||
+
+          deskripsi.includes(
+            keyword
+          );
 
 
-        const cocokKategori =
+        const matchCategory =
           !category ||
-          kategori.includes(category);
+
+          kategori === category ||
+
+          kategori.includes(
+            category
+          );
 
 
         return (
-          cocokKata &&
-          cocokKategori
+          matchKeyword &&
+          matchCategory
         );
 
       }
@@ -887,13 +1063,14 @@ function filterMaterials() {
 }
 
 
-
-// ==================================================
+// =====================================================
 // EVENT FILTER
-// ==================================================
+// =====================================================
 
 document
-  .getElementById("searchInput")
+  .getElementById(
+    "searchInput"
+  )
   .addEventListener(
     "input",
     filterMaterials
@@ -901,24 +1078,24 @@ document
 
 
 document
-  .getElementById("categoryFilter")
+  .getElementById(
+    "categoryFilter"
+  )
   .addEventListener(
     "change",
     filterMaterials
   );
 
 
-
-// ==================================================
-// JALANKAN
-// ==================================================
+// =====================================================
+// MULAI
+// =====================================================
 
 loadMaterials();
-
 
 </script>
 
 
 </body>
 
-    </html>
+  </html>
