@@ -1074,32 +1074,27 @@ function iconForType(type){
 
 function openMaterial(id){
 
-    const item =
-        materials.find(
-            material =>
-                Number(material.id) === Number(id)
-        );
-
+    const item = materials.find(
+        material => Number(material.id) === Number(id)
+    );
 
     if(!item){
         alert("Materi tidak ditemukan.");
         return;
     }
 
-
-    if(
-        item.premium === true &&
-        !membershipActive
-    ){
+    // Materi premium harus punya membership aktif
+    if(item.premium === true && !membershipActive){
 
         alert(
-            "🔐 Materi ini khusus member premium.\n\nSilakan aktifkan membership terlebih dahulu."
+            "🔐 Materi ini khusus member premium.\n\n" +
+            "Silakan aktifkan membership terlebih dahulu."
         );
 
         return;
     }
 
-
+    // Pastikan URL materi tersedia
     if(!item.url){
 
         alert(
@@ -1109,13 +1104,9 @@ function openMaterial(id){
         return;
     }
 
-
-    window.open(
-        item.url,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
+    // Buka halaman materi NgajiPlus Akademi
+    window.location.href =
+        "materi.html?id=" + encodeURIComponent(item.id);
 }
 
 
