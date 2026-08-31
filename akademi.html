@@ -5,20 +5,36 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="description"
-      content="NgajiPlus Akademi - Materi pembelajaran Islam">
+<meta
+    name="description"
+    content="NgajiPlus Akademi - Perpustakaan Pembelajaran Islam"
+>
 
-<meta name="theme-color"
-      content="#238b57">
+<meta
+    name="theme-color"
+    content="#008f50"
+>
 
 <title>NgajiPlus Akademi</title>
 
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -30,9 +46,15 @@ html{
 
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f6f9f7;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f7faf8;
     color:#1f2933;
+
+    line-height:1.6;
 }
 
 a{
@@ -47,209 +69,286 @@ select{
 }
 
 
-/* ================================
+/* =====================================================
    HEADER
-================================ */
+===================================================== */
 
-header{
+.header{
     position:sticky;
     top:0;
-    z-index:1000;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid #e5ebe7;
+    z-index:9999;
+
+    background:white;
+
+    border-bottom:
+        1px solid #e5ebe7;
 }
 
-.nav{
+.header-inner{
     max-width:1150px;
     margin:auto;
-    padding:12px 18px;
+
+    padding:
+        10px 18px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 }
 
 .logo{
-    color:#238b57;
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    color:#008f50;
+
     font-size:18px;
     font-weight:bold;
 }
 
-.nav-right{
-    display:flex;
+.logo-icon{
+    font-size:22px;
+}
+
+.login-button{
+    display:inline-flex;
+
     align-items:center;
-    gap:8px;
-}
+    justify-content:center;
 
-.user-name{
-    font-size:12px;
-    color:#667085;
-}
+    padding:
+        8px 14px;
 
-.btn{
-    border:none;
     border-radius:8px;
-    padding:8px 12px;
-    cursor:pointer;
+
+    background:#008f50;
+    color:white;
+
     font-size:12px;
     font-weight:bold;
+
+    border:none;
+
+    cursor:pointer;
+
+    position:relative;
+    z-index:10000;
 }
 
-.btn-login{
-    background:#238b57;
-    color:white;
-}
-
-.btn-dashboard{
-    background:#eef7f1;
-    color:#238b57;
-}
-
-.btn-logout{
-    background:#fff0ee;
-    color:#b42318;
+.login-button:hover{
+    background:#007944;
 }
 
 
-/* ================================
+/* =====================================================
    HERO
-================================ */
+===================================================== */
 
 .hero{
     max-width:1150px;
     margin:auto;
-    padding:45px 20px 25px;
+
+    padding:
+        45px 20px 25px;
 }
 
 .hero h1{
-    margin:0 0 8px;
-    font-size:32px;
+    margin:0 0 4px;
+
+    font-size:
+        clamp(28px,5vw,42px);
+
+    line-height:1.15;
 }
 
 .hero h1 span{
-    color:#238b57;
+    color:#008f50;
 }
 
 .hero p{
     margin:0;
-    color:#667085;
-    font-size:14px;
+
+    color:#748078;
+
+    font-size:13px;
 }
 
 
-/* ================================
-   LOGIN INFO
-================================ */
+/* =====================================================
+   NOTICE
+===================================================== */
 
-.login-info{
+.notice{
     max-width:1150px;
-    margin:0 auto 20px;
-    padding:0 20px;
+    margin:0 auto;
+
+    padding:
+        0 20px 18px;
 }
 
-.info-box{
-    background:#fff7df;
-    border:1px solid #f0df9c;
-    border-radius:12px;
-    padding:12px 15px;
-    color:#806500;
-    font-size:12px;
-}
+.notice-box{
+    background:#fff8d9;
 
+    border:
+        1px solid #f0df91;
 
-/* ================================
-   TOOLS
-================================ */
+    border-radius:10px;
 
-.tools{
-    max-width:1150px;
-    margin:auto;
-    padding:10px 20px 20px;
+    padding:
+        10px 14px;
 
-    display:grid;
-    grid-template-columns:1fr 190px;
-    gap:10px;
-}
+    color:#806c16;
 
-.search,
-.select{
-    width:100%;
-    padding:12px 14px;
-    border:1px solid #dce5df;
-    background:white;
-    border-radius:9px;
-    outline:none;
-    font-size:12px;
-}
-
-.search:focus,
-.select:focus{
-    border-color:#238b57;
+    font-size:11px;
 }
 
 
-/* ================================
+/* =====================================================
    MATERIAL AREA
-================================ */
+===================================================== */
 
 .material-section{
-    background:#eef7f1;
-    padding:25px 0 60px;
+    background:#eef8f2;
+
+    padding:
+        5px 0 50px;
 }
 
-.material-container{
+.material-inner{
     max-width:1150px;
     margin:auto;
-    padding:0 20px;
+
+    padding:
+        15px 20px 0;
 }
 
-.material-count{
-    color:#667085;
+
+/* =====================================================
+   TOOLS
+===================================================== */
+
+.tools{
+    display:grid;
+
+    grid-template-columns:
+        1fr 180px;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.search{
+    width:100%;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid #dce6df;
+
+    border-radius:9px;
+
+    background:white;
+
+    outline:none;
+
     font-size:12px;
-    margin-bottom:15px;
+}
+
+.search:focus{
+    border-color:#008f50;
+}
+
+.category{
+    width:100%;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid #dce6df;
+
+    border-radius:9px;
+
+    background:white;
+
+    outline:none;
+
+    font-size:12px;
+}
+
+.category:focus{
+    border-color:#008f50;
 }
 
 
-/* ================================
-   GRID
-================================ */
+/* =====================================================
+   MATERIAL GRID
+===================================================== */
 
 .material-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
 }
 
 
-/* ================================
-   CARD
-================================ */
+/* =====================================================
+   MATERIAL CARD
+===================================================== */
 
 .material-card{
     background:white;
-    border:1px solid #e1e9e4;
-    border-radius:16px;
+
+    border:
+        1px solid #e1e9e4;
+
+    border-radius:15px;
+
     overflow:hidden;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.03);
+
     transition:.2s;
 }
 
 .material-card:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.07);
 }
 
 
-/* ================================
+/* =====================================================
    THUMBNAIL
-================================ */
+===================================================== */
 
 .thumbnail{
-    height:180px;
+    height:175px;
+
     position:relative;
+
     overflow:hidden;
-    background:#dff1e6;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff5e8,
+            #c9ead8
+        );
 
     display:flex;
     align-items:center;
@@ -259,258 +358,363 @@ header{
 .thumbnail img{
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     display:block;
 }
 
-.thumbnail-fallback{
+.thumbnail-placeholder{
     width:100%;
     height:100%;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    font-size:52px;
+    flex-direction:column;
+
+    gap:5px;
+
+    font-size:45px;
+
+    color:#008f50;
+}
+
+.thumbnail-placeholder span{
+    font-size:11px;
+    font-weight:bold;
 }
 
 
-/* ================================
-   PREMIUM THUMBNAIL
-================================ */
+/* =====================================================
+   PREMIUM
+===================================================== */
 
-.premium-card .thumbnail{
-    background:#203b2e;
-}
-
-.premium-card .thumbnail img{
+.material-card.premium .thumbnail img{
     filter:brightness(.35);
 }
 
 .lock{
     position:absolute;
+
     inset:0;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    font-size:52px;
+    font-size:48px;
 }
 
 
-/* ================================
+/* =====================================================
    CONTENT
-================================ */
+===================================================== */
 
 .content{
     padding:15px;
 }
 
-.category{
+.type{
     display:inline-block;
 
-    padding:4px 8px;
+    padding:
+        3px 8px;
+
+    margin-bottom:7px;
 
     border-radius:50px;
 
-    background:#eef7f1;
-    color:#238b57;
+    background:#eaf7ef;
+
+    color:#008f50;
 
     font-size:9px;
-    font-weight:bold;
 
-    margin-bottom:7px;
+    font-weight:bold;
 }
 
-.content h3{
+.title{
     margin:0 0 5px;
 
-    font-size:16px;
+    font-size:15px;
 
-    display:-webkit-box;
+    line-height:1.35;
+
+    display:
+        -webkit-box;
+
     -webkit-line-clamp:2;
+
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
 .description{
     margin:0 0 10px;
 
-    color:#7a8580;
+    color:#7b8580;
+
     font-size:11px;
 
     min-height:35px;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
 }
 
-.meta{
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info{
     display:flex;
-    align-items:center;
-    gap:8px;
+
     flex-wrap:wrap;
 
-    margin-bottom:12px;
+    gap:5px;
+
+    margin-bottom:11px;
 }
 
-.type{
-    color:#667085;
-    font-size:10px;
+.info span{
+    font-size:9px;
+
+    color:#68736d;
 }
 
-.status{
-    display:inline-block;
-
-    padding:3px 7px;
+.badge{
+    padding:
+        3px 7px;
 
     border-radius:50px;
 
     font-size:9px;
+
     font-weight:bold;
 }
 
-.free{
-    background:#dff7e6;
-    color:#168447;
+.badge-free{
+    background:#dcf7e6;
+    color:#087a43;
 }
 
-.premium{
-    background:#fff1b8;
-    color:#8a6500;
+.badge-premium{
+    background:#fff1bc;
+    color:#846500;
 }
 
 
-/* ================================
+/* =====================================================
    BUTTON
-================================ */
+===================================================== */
 
-.open-button{
+.material-button{
     width:100%;
-    border:none;
 
-    padding:10px;
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:
+        9px;
+
+    border:none;
 
     border-radius:8px;
 
-    font-size:12px;
+    font-size:11px;
+
     font-weight:bold;
 
     cursor:pointer;
 }
 
-.open-free{
-    background:#009b59;
+.free-button{
+    background:#008f50;
     color:white;
 }
 
-.open-premium{
-    background:#f0f0f0;
+.free-button:hover{
+    background:#007944;
+}
+
+.premium-button{
+    background:#eeeeee;
     color:#777;
+
+    cursor:pointer;
 }
 
-.open-premium:hover{
-    background:#e5e5e5;
-}
 
+/* =====================================================
+   LOADING
+===================================================== */
 
-/* ================================
-   EMPTY
-================================ */
-
-.loading,
-.empty,
-.error{
+.loading{
     background:white;
+
     border-radius:14px;
-    padding:35px 20px;
+
+    padding:
+        35px 20px;
 
     text-align:center;
 
-    font-size:13px;
-    color:#7a8580;
+    color:#7b8580;
+
+    font-size:12px;
 }
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+    background:white;
+
+    border-radius:14px;
+
+    padding:
+        35px 20px;
+
+    text-align:center;
+
+    color:#7b8580;
+
+    font-size:12px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
 
 .error{
-    color:#b42318;
+    background:#fff1f0;
+
+    border:
+        1px solid #f1c5c0;
+
+    color:#a5281d;
+
+    border-radius:12px;
+
+    padding:
+        18px;
+
+    font-size:12px;
+
+    line-height:1.6;
 }
 
 
-/* ================================
+/* =====================================================
    FOOTER
-================================ */
-
-footer{
-    background:#111814;
-    color:white;
-    margin-top:50px;
-}
+===================================================== */
 
 .footer{
+    background:#0d1712;
+
+    color:white;
+
+    margin-top:35px;
+}
+
+.footer-inner{
     max-width:1150px;
+
     margin:auto;
-    padding:30px 20px;
+
+    padding:
+        30px 20px;
 }
 
 .footer-logo{
-    color:#63c58f;
+    color:#38b878;
+
     font-weight:bold;
+
+    font-size:15px;
+
+    margin-bottom:5px;
 }
 
 .footer p{
-    color:#9daaa2;
-    font-size:11px;
+    margin:0;
+
+    color:#87948d;
+
+    font-size:10px;
 }
 
 
-/* ================================
+/* =====================================================
    MOBILE
-================================ */
+===================================================== */
 
 @media(max-width:850px){
 
     .material-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
 }
 
 
-@media(max-width:550px){
+@media(max-width:600px){
 
-    .nav{
-        padding:10px 14px;
+    .header-inner{
+        padding:
+            9px 14px;
     }
 
     .logo{
         font-size:15px;
     }
 
-    .user-name{
-        display:none;
+    .login-button{
+        padding:
+            8px 12px;
+
+        font-size:10px;
     }
 
     .hero{
-        padding:35px 15px 20px;
+        padding:
+            35px 15px 20px;
     }
 
     .hero h1{
-        font-size:27px;
+        font-size:28px;
     }
 
-    .hero p{
-        font-size:12px;
+    .notice{
+        padding:
+            0 15px 15px;
     }
 
-    .login-info{
-        padding:0 15px;
+    .material-inner{
+        padding:
+            15px;
     }
 
     .tools{
-        padding:10px 15px 20px;
         grid-template-columns:1fr;
-    }
-
-    .material-container{
-        padding:0 15px;
     }
 
     .material-grid{
@@ -523,6 +727,23 @@ footer{
 
 }
 
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media(max-width:380px){
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .thumbnail{
+        height:175px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -531,61 +752,41 @@ footer{
 <body>
 
 
-<!-- =========================================
+<!-- =====================================================
      HEADER
-========================================= -->
+===================================================== -->
 
-<header>
+<header class="header">
 
-<div class="nav">
+<div class="header-inner">
 
-<a href="index.html"
-   class="logo">
 
-📖 NgajiPlus Akademi
+<a
+    href="index.html"
+    class="logo"
+>
+
+<span class="logo-icon">
+📖
+</span>
+
+<span>
+NgajiPlus Akademi
+</span>
 
 </a>
 
 
-<div class="nav-right">
-
-<span
-    id="userName"
-    class="user-name">
-</span>
-
-
 <a
     href="login.html"
+    class="login-button"
     id="loginButton"
-    class="btn btn-login">
+>
 
 🔐 Login
 
 </a>
 
-
-<a
-    href="dashboard.html"
-    id="dashboardButton"
-    class="btn btn-dashboard"
-    style="display:none;">
-
-👤 Dashboard
-
-</a>
-
-
-<button
-    id="logoutButton"
-    class="btn btn-logout"
-    style="display:none;">
-
-Keluar
-
-</button>
-
-</div>
 
 </div>
 
@@ -593,9 +794,9 @@ Keluar
 
 
 
-<!-- =========================================
+<!-- =====================================================
      HERO
-========================================= -->
+===================================================== -->
 
 <section class="hero">
 
@@ -604,37 +805,47 @@ Belajar <span>Islam</span> dengan Mudah
 </h1>
 
 <p>
-Temukan berbagai materi pembelajaran
-Video, Audio, dan PDF di NgajiPlus Akademi.
+Temukan berbagai materi pembelajaran Video,
+Audio, dan PDF di NgajiPlus Akademi.
 </p>
 
 </section>
 
 
 
-<!-- =========================================
-     LOGIN INFO
-========================================= -->
+<!-- =====================================================
+     NOTICE
+===================================================== -->
 
-<div
-    class="login-info"
-    id="loginInfo">
+<section class="notice">
 
-<div class="info-box">
+<div class="notice-box">
 
-👤 <strong>Login</strong> —
+👤
+<strong>Login</strong>
+—
 Materi gratis dapat dipelajari.
 Materi premium memerlukan membership aktif.
 
 </div>
 
-</div>
+</section>
 
 
 
-<!-- =========================================
-     SEARCH
-========================================= -->
+<!-- =====================================================
+     MATERIAL
+===================================================== -->
+
+<section
+    class="material-section"
+    id="materi"
+>
+
+<div class="material-inner">
+
+
+<!-- SEARCH -->
 
 <div class="tools">
 
@@ -643,12 +854,14 @@ Materi premium memerlukan membership aktif.
     id="searchInput"
     class="search"
     placeholder="🔎 Cari materi..."
+    autocomplete="off"
 >
 
 
 <select
     id="categoryFilter"
-    class="select">
+    class="category"
+>
 
 <option value="">
 Semua Kategori
@@ -692,28 +905,18 @@ Sejarah Islam
 
 
 
-<!-- =========================================
-     MATERIAL
-========================================= -->
+<!-- MATERIAL CONTAINER -->
 
-<section class="material-section">
-
-<div class="material-container">
-
-<div
-    id="materialCount"
-    class="material-count">
-</div>
-
-
-<div
-    id="materialContainer">
+<div id="materialContainer">
 
 <div class="loading">
+
 ⏳ Mengambil materi...
+
 </div>
 
 </div>
+
 
 </div>
 
@@ -721,21 +924,21 @@ Sejarah Islam
 
 
 
-<!-- =========================================
+<!-- =====================================================
      FOOTER
-========================================= -->
+===================================================== -->
 
-<footer>
+<footer class="footer">
 
-<div class="footer">
+<div class="footer-inner">
 
 <div class="footer-logo">
 📖 NgajiPlus Akademi
 </div>
 
 <p>
-Platform pembelajaran Islam
-berupa Video, Audio dan PDF.
+Platform pembelajaran Islam berupa Video,
+Audio dan PDF.
 </p>
 
 </div>
@@ -744,194 +947,155 @@ berupa Video, Audio dan PDF.
 
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
 
-/* ==================================================
-   SUPABASE
-================================================== */
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+/*
+   PENTING:
+
+   GANTI KEY DI BAWAH DENGAN PUBLISHABLE KEY
+   SUPABASE ANDA YANG LENGKAP.
+
+   JANGAN gunakan service_role key.
+*/
 
 const SUPABASE_URL =
-"https://ksgywgdrfskqsufchbcm.supabase.co";
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
 
 
-const SUPABASE_ANON_KEY =
-"sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
+
+/* =====================================================
+   SUPABASE CLIENT
+===================================================== */
 
 const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
-
-/* ==================================================
+/* =====================================================
    VARIABLES
-================================================== */
+===================================================== */
 
 let allMaterials = [];
 
-let currentSession = null;
+let currentUser = null;
 
 
-
-/* ==================================================
+/* =====================================================
    ELEMENTS
-================================================== */
+===================================================== */
 
 const materialContainer =
-document.getElementById(
-    "materialContainer"
-);
-
-const materialCount =
-document.getElementById(
-    "materialCount"
-);
+    document.getElementById(
+        "materialContainer"
+    );
 
 const searchInput =
-document.getElementById(
-    "searchInput"
-);
+    document.getElementById(
+        "searchInput"
+    );
 
 const categoryFilter =
-document.getElementById(
-    "categoryFilter"
-);
+    document.getElementById(
+        "categoryFilter"
+    );
 
 const loginButton =
-document.getElementById(
-    "loginButton"
-);
-
-const dashboardButton =
-document.getElementById(
-    "dashboardButton"
-);
-
-const logoutButton =
-document.getElementById(
-    "logoutButton"
-);
-
-const userName =
-document.getElementById(
-    "userName"
-);
-
-const loginInfo =
-document.getElementById(
-    "loginInfo"
-);
+    document.getElementById(
+        "loginButton"
+    );
 
 
+/* =====================================================
+   GET LOGIN STATUS
+===================================================== */
 
-/* ==================================================
-   INIT
-================================================== */
-
-async function init(){
+async function checkLogin(){
 
     try{
 
-        const sessionResult =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
-            .auth
-            .getSession();
+                .auth
+                .getSession();
 
 
-        currentSession =
-            sessionResult.data.session;
+        if(error){
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return;
+
+        }
 
 
-        updateUserInterface();
+        currentUser =
+            data.session
+                ? data.session.user
+                : null;
 
 
-        await loadMaterials();
+        updateLoginButton();
 
 
     }catch(error){
 
         console.error(error);
 
-        materialContainer.innerHTML = `
-            <div class="error">
-                ❌ Gagal memuat halaman.
-                <br><br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
     }
 
 }
 
 
+/* =====================================================
+   UPDATE LOGIN BUTTON
+===================================================== */
 
-/* ==================================================
-   USER INTERFACE
-================================================== */
+function updateLoginButton(){
 
-function updateUserInterface(){
+    if(currentUser){
 
-    if(currentSession){
+        loginButton.textContent =
+            "👤 Dashboard";
 
-        loginButton.style.display =
-            "none";
-
-        dashboardButton.style.display =
-            "inline-block";
-
-        logoutButton.style.display =
-            "inline-block";
-
-
-        const metadata =
-            currentSession.user.user_metadata || {};
-
-
-        const name =
-            metadata.full_name ||
-            currentSession.user.email ||
-            "Member";
-
-
-        userName.textContent =
-            "👤 " + name;
-
-
-        loginInfo.innerHTML = `
-            <div class="info-box">
-                ✅ <strong>Anda sudah login.</strong>
-                Materi gratis dapat dipelajari.
-                Materi premium dapat dibuka
-                jika membership Anda aktif.
-            </div>
-        `;
+        loginButton.href =
+            "dashboard.html";
 
     }else{
 
-        loginButton.style.display =
-            "inline-block";
+        loginButton.textContent =
+            "🔐 Login";
 
-        dashboardButton.style.display =
-            "none";
-
-        logoutButton.style.display =
-            "none";
-
-        userName.textContent = "";
+        loginButton.href =
+            "login.html";
 
     }
 
 }
 
 
-
-/* ==================================================
+/* =====================================================
    LOAD MATERIALS
-================================================== */
+===================================================== */
 
 async function loadMaterials(){
 
@@ -942,59 +1106,89 @@ async function loadMaterials(){
     `;
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("materials")
-        .select(
-            "id,judul,deskripsi,kategori,tipe,url,thumbnail,premium"
-        )
-        .order(
-            "id",
-            {
-                ascending:false
-            }
-        );
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("materials")
+                .select("*")
+                .order(
+                    "id",
+                    {
+                        ascending:false
+                    }
+                );
 
 
-    if(error){
+        if(error){
+
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            materialContainer.innerHTML = `
+                <div class="error">
+                    ❌ Gagal mengambil materi.
+
+                    <br><br>
+
+                    <strong>
+                    ${escapeHtml(error.message)}
+                    </strong>
+
+                    <br><br>
+
+                    Pastikan tabel
+                    <strong>materials</strong>
+                    dan RLS Supabase sudah benar.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        allMaterials =
+            data || [];
+
+
+        renderMaterials();
+
+
+    }catch(error){
 
         console.error(error);
 
         materialContainer.innerHTML = `
             <div class="error">
-                ❌ Gagal mengambil materi.
+                ❌ Terjadi kesalahan saat
+                mengambil materi.
                 <br><br>
                 ${escapeHtml(error.message)}
             </div>
         `;
 
-        return;
     }
-
-
-    allMaterials =
-        data || [];
-
-
-    renderMaterials();
 
 }
 
 
-
-/* ==================================================
-   RENDER
-================================================== */
+/* =====================================================
+   RENDER MATERIALS
+===================================================== */
 
 function renderMaterials(){
 
     const keyword =
-        searchInput.value
-        .trim()
-        .toLowerCase();
+        searchInput
+            .value
+            .trim()
+            .toLowerCase();
 
 
     const category =
@@ -1023,331 +1217,543 @@ function renderMaterials(){
                     );
 
 
-                const matchSearch =
+                const matchesSearch =
                     !keyword ||
                     title.includes(keyword) ||
                     description.includes(keyword);
 
 
-                const matchCategory =
+                const matchesCategory =
                     !category ||
                     materialCategory === category;
 
 
                 return (
-                    matchSearch &&
-                    matchCategory
+                    matchesSearch &&
+                    matchesCategory
                 );
 
             }
         );
 
 
-    materialCount.textContent =
-        filtered.length +
-        " materi tersedia";
-
-
     if(filtered.length === 0){
 
         materialContainer.innerHTML = `
             <div class="empty">
-                📭 Materi tidak ditemukan.
+                📚 Tidak ada materi yang ditemukan.
             </div>
         `;
 
         return;
+
     }
 
 
-    const grid =
-        document.createElement("div");
+    materialContainer.innerHTML = `
 
-    grid.className =
-        "material-grid";
+        <div class="material-grid">
 
-
-    filtered.forEach(
-        material => {
-
-            grid.appendChild(
-                createMaterialCard(
-                    material
+            ${filtered
+                .map(
+                    material =>
+                        createMaterialCard(
+                            material
+                        )
                 )
+                .join("")
+            }
+
+        </div>
+
+    `;
+
+
+    attachMaterialEvents();
+
+}
+
+
+/* =====================================================
+   CREATE CARD
+===================================================== */
+
+function createMaterialCard(material){
+
+    const id =
+        material.id;
+
+
+    const title =
+        material.judul ||
+        "Materi Tanpa Judul";
+
+
+    const description =
+        material.deskripsi ||
+        "Materi pembelajaran Islam.";
+
+
+    const category =
+        material.kategori ||
+        "Umum";
+
+
+    const type =
+        material.tipe ||
+        "Video";
+
+
+    const url =
+        material.url ||
+        "";
+
+
+    const thumbnail =
+        material.thumbnail ||
+        "";
+
+
+    const premium =
+        material.premium === true ||
+        material.premium === "true";
+
+
+    const cardClass =
+        premium
+            ? "material-card premium"
+            : "material-card";
+
+
+    let thumbnailHTML;
+
+
+    if(thumbnail){
+
+        thumbnailHTML = `
+            <img
+                src="${escapeAttribute(thumbnail)}"
+                alt="${escapeAttribute(title)}"
+                loading="lazy"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div
+                class="thumbnail-placeholder"
+                style="display:none"
+            >
+                📚
+                <span>
+                    ${escapeHtml(title)}
+                </span>
+            </div>
+        `;
+
+    }else{
+
+        thumbnailHTML = `
+            <div class="thumbnail-placeholder">
+                ${getTypeIcon(type)}
+
+                <span>
+                    ${escapeHtml(title)}
+                </span>
+            </div>
+        `;
+
+    }
+
+
+    const lockHTML =
+        premium
+            ? `
+                <div class="lock">
+                    🔐
+                </div>
+            `
+            : "";
+
+
+    const badge =
+        premium
+            ? `
+                <span class="badge badge-premium">
+                    🔐 Premium
+                </span>
+            `
+            : `
+                <span class="badge badge-free">
+                    ✓ Gratis
+                </span>
+            `;
+
+
+    const button =
+        premium
+            ? `
+                <button
+                    class="material-button premium-button"
+                    data-action="premium"
+                    data-id="${id}"
+                >
+                    🔐 Login / Upgrade
+                </button>
+            `
+            : `
+                <button
+                    class="material-button free-button"
+                    data-action="open"
+                    data-id="${id}"
+                >
+                    🚀 Mulai Belajar
+                </button>
+            `;
+
+
+    return `
+
+        <article
+            class="${cardClass}"
+        >
+
+            <div class="thumbnail">
+
+                ${thumbnailHTML}
+
+                ${lockHTML}
+
+            </div>
+
+
+            <div class="content">
+
+                <span class="type">
+                    ${getTypeIcon(type)}
+                    ${escapeHtml(type)}
+                </span>
+
+
+                <h3 class="title">
+                    ${escapeHtml(title)}
+                </h3>
+
+
+                <p class="description">
+                    ${escapeHtml(description)}
+                </p>
+
+
+                <div class="info">
+
+                    <span>
+                        📚
+                        ${escapeHtml(category)}
+                    </span>
+
+                    ${badge}
+
+                </div>
+
+
+                ${button}
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   TYPE ICON
+===================================================== */
+
+function getTypeIcon(type){
+
+    const value =
+        String(type)
+            .toLowerCase();
+
+
+    if(
+        value.includes("audio")
+    ){
+
+        return "🎧";
+
+    }
+
+
+    if(
+        value.includes("pdf") ||
+        value.includes("dokumen")
+    ){
+
+        return "📄";
+
+    }
+
+
+    return "🎥";
+
+}
+
+
+/* =====================================================
+   ATTACH BUTTON EVENTS
+===================================================== */
+
+function attachMaterialEvents(){
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-action]"
+        );
+
+
+    buttons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const action =
+                        this.dataset.action;
+
+
+                    const id =
+                        this.dataset.id;
+
+
+                    const material =
+                        allMaterials.find(
+                            item =>
+                                String(
+                                    item.id
+                                ) === String(id)
+                        );
+
+
+                    if(!material){
+
+                        return;
+
+                    }
+
+
+                    if(
+                        action === "premium"
+                    ){
+
+                        handlePremium(
+                            material
+                        );
+
+                        return;
+
+                    }
+
+
+                    if(
+                        action === "open"
+                    ){
+
+                        openMaterial(
+                            material
+                        );
+
+                    }
+
+                }
             );
 
         }
     );
 
+}
 
-    materialContainer.innerHTML = "";
 
-    materialContainer.appendChild(grid);
+/* =====================================================
+   OPEN FREE MATERIAL
+===================================================== */
+
+function openMaterial(material){
+
+    const url =
+        material.url ||
+        "";
+
+
+    if(!url){
+
+        alert(
+            "Link materi belum tersedia."
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
 
 }
 
 
+/* =====================================================
+   PREMIUM HANDLER
+===================================================== */
 
-/* ==================================================
-   CREATE CARD
-================================================== */
+function handlePremium(material){
 
-function createMaterialCard(material){
+    if(!currentUser){
 
-    const card =
-        document.createElement("article");
-
-
-    const isPremium =
-        material.premium === true ||
-        material.premium === "true";
-
-
-    if(isPremium){
-
-        card.className =
-            "material-card premium-card";
-
-    }else{
-
-        card.className =
-            "material-card";
-
-    }
-
-
-    /* ==============================
-       THUMBNAIL
-    ============================== */
-
-    const thumbnail =
-        document.createElement("div");
-
-    thumbnail.className =
-        "thumbnail";
-
-
-    const thumbnailUrl =
-        String(
-            material.thumbnail || ""
-        ).trim();
-
-
-    if(thumbnailUrl){
-
-        const img =
-            document.createElement("img");
-
-
-        img.src =
-            thumbnailUrl;
-
-
-        img.alt =
-            material.judul || "Thumbnail";
-
-
-        img.loading =
-            "lazy";
-
-
-        img.onerror =
-            function(){
-
-                this.style.display =
-                    "none";
-
-                showFallback(
-                    thumbnail,
-                    material
-                );
-
-            };
-
-
-        thumbnail.appendChild(img);
-
-
-    }else{
-
-        showFallback(
-            thumbnail,
-            material
-        );
-
-    }
-
-
-    /* ==============================
-       LOCK
-    ============================== */
-
-    if(isPremium){
-
-        const lock =
-            document.createElement("div");
-
-        lock.className =
-            "lock";
-
-        lock.textContent =
-            "🔐";
-
-        thumbnail.appendChild(lock);
-
-    }
-
-
-    /* ==============================
-       CONTENT
-    ============================== */
-
-    const content =
-        document.createElement("div");
-
-    content.className =
-        "content";
-
-
-    const category =
-        document.createElement("div");
-
-    category.className =
-        "category";
-
-    category.textContent =
-        material.kategori ||
-        "Umum";
-
-
-    const title =
-        document.createElement("h3");
-
-    title.textContent =
-        material.judul ||
-        "Tanpa Judul";
-
-
-    const description =
-        document.createElement("p");
-
-    description.className =
-        "description";
-
-    description.textContent =
-        material.deskripsi ||
-        "Materi pembelajaran NgajiPlus.";
-
-
-    const meta =
-        document.createElement("div");
-
-    meta.className =
-        "meta";
-
-
-    const type =
-        document.createElement("span");
-
-    type.className =
-        "type";
-
-
-    const typeIcon =
-        getTypeIcon(
-            material.tipe
-        );
-
-
-    type.textContent =
-        typeIcon +
-        " " +
-        (
-            material.tipe ||
-            "Materi"
-        );
-
-
-    const status =
-        document.createElement("span");
-
-    status.className =
-        "status " +
-        (
-            isPremium
-                ? "premium"
-                : "free"
-        );
-
-
-    status.textContent =
-        isPremium
-            ? "🔐 Premium"
-            : "🟢 Gratis";
-
-
-    meta.appendChild(type);
-
-    meta.appendChild(status);
-
-
-    /* ==============================
-       BUTTON
-    ============================== */
-
-    const button =
-        document.createElement("button");
-
-    button.className =
-        "open-button";
-
-
-    if(!isPremium){
-
-        button.classList.add(
-            "open-free"
-        );
-
-        button.textContent =
-            "▶ Mulai Belajar";
-
-
-        button.onclick =
-            function(){
-
-                openMaterial(
-                    material
-                );
-
-            };
-
-
-    }else{
-
-        if(currentSession){
-
-            button.classList.add(
-                "open-premium"
+        const goLogin =
+            confirm(
+                "Materi ini khusus member premium.\n\nLogin terlebih dahulu?"
             );
 
-            button.textContent =
-                "🔓 Buka Materi";
+
+        if(goLogin){
+
+            window.location.href =
+                "login.html";
+
+        }
+
+        return;
+
+    }
 
 
-            button.onclick =
-                function(){
+    /*
+       Jika sudah login,
+       arahkan ke dashboard.
 
-                    openMaterial(
-                        material
-                    );
+       Status membership nantinya
+       dapat diperiksa di dashboard.
+    */
 
-                };
+    window.location.href =
+        "dashboard.html";
 
-        }else{
+}
 
-            button.classList.add(
-                "open-premium"
-            );
 
-            button.textContent =
-                "🔐 Login
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderMaterials
+);
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+categoryFilter.addEventListener(
+    "change",
+    renderMaterials
+);
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   ESCAPE ATTRIBUTE
+===================================================== */
+
+function escapeAttribute(value){
+
+    return escapeHtml(value);
+
+}
+
+
+/* =====================================================
+   AUTH STATE CHANGE
+===================================================== */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        (
+            event,
+            session
+        ) => {
+
+            currentUser =
+                session
+                    ? session.user
+                    : null;
+
+
+            updateLoginButton();
+
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+async function start(){
+
+    await checkLogin();
+
+    await loadMaterials();
+
+}
+
+
+start();
+
+</script>
+
+
+</body>
+
+</html>
