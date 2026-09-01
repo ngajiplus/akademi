@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Profil Akun NgajiPlus Akademi"
+>
+
+<meta
+    name="theme-color"
+    content="#008f50"
+>
+
+<title>Profil Saya - NgajiPlus</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5faf7;
+    color:#202a25;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.header{
+    background:white;
+    border-bottom:1px solid #e2eae5;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.header-inner{
+    max-width:1000px;
+    margin:auto;
+
+    padding:12px 18px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:#008f50;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.header-actions{
+    display:flex;
+    gap:7px;
+}
+
+.header-btn{
+    border:0;
+    border-radius:8px;
+    padding:8px 12px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.back-btn{
+    background:#e9f7ef;
+    color:#087a47;
+}
+
+.logout-btn{
+    background:#eeeeee;
+    color:#555;
+}
+
+
+/* ================================
+   MAIN
+================================ */
+
+.main{
+    max-width:1000px;
+    margin:auto;
+
+    padding:25px 18px 60px;
+}
+
+
+/* ================================
+   PROFILE HEADER
+================================ */
+
+.profile-header{
+    background:white;
+
+    border:1px solid #e1e9e4;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:15px;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#e7f7ee;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    font-size:35px;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.profile-head-info{
+    flex:1;
+}
+
+.profile-head-info h1{
+    margin:0 0 3px;
+
+    font-size:20px;
+}
+
+.email{
+    color:#7b8580;
+
+    font-size:11px;
+
+    word-break:break-word;
+}
+
+.status{
+    display:inline-block;
+
+    margin-top:7px;
+
+    padding:4px 9px;
+
+    border-radius:30px;
+
+    background:#ddf7e7;
+
+    color:#087a45;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+.card{
+    background:white;
+
+    border:1px solid #e1e9e4;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-bottom:15px;
+}
+
+.card-title{
+    margin:0 0 18px;
+
+    font-size:17px;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+    margin-bottom:6px;
+
+    color:#68746e;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+input,
+textarea{
+    width:100%;
+
+    border:1px solid #dce6df;
+
+    border-radius:9px;
+
+    padding:11px 12px;
+
+    background:#fbfdfc;
+
+    outline:none;
+
+    color:#202a25;
+
+    font-size:12px;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#008f50;
+
+    background:white;
+}
+
+textarea{
+    min-height:100px;
+
+    resize:vertical;
+}
+
+input[readonly]{
+    background:#f1f4f2;
+
+    color:#707a75;
+}
+
+
+/* ================================
+   AVATAR EDIT
+================================ */
+
+.avatar-section{
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.avatar-large{
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:#e7f7ee;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    font-size:42px;
+
+    border:3px solid #d8eee1;
+}
+
+.avatar-large img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.avatar-help{
+    color:#7b8580;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+
+/* ================================
+   SAVE
+================================ */
+
+.actions{
+    margin-top:18px;
+
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+.save-btn{
+    border:0;
+
+    border-radius:9px;
+
+    padding:10px 17px;
+
+    background:#008f50;
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+.save-btn:hover{
+    background:#007d46;
+}
+
+.cancel-btn{
+    border:0;
+
+    border-radius:9px;
+
+    padding:10px 17px;
+
+    background:#eeeeee;
+
+    color:#555;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+
+/* ================================
+   MEMBERSHIP
+================================ */
+
+.membership-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.membership-item{
+    background:#f5f8f6;
+
+    border-radius:10px;
+
+    padding:13px;
+}
+
+.membership-label{
+    display:block;
+
+    color:#7b8580;
+
+    font-size:10px;
+
+    margin-bottom:3px;
+}
+
+.membership-value{
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.active{
+    color:#008f50;
+}
+
+
+/* ================================
+   NOTICE
+================================ */
+
+.notice{
+    padding:11px 13px;
+
+    border-radius:9px;
+
+    margin-bottom:15px;
+
+    font-size:11px;
+
+    display:none;
+}
+
+.notice.success{
+    display:block;
+
+    background:#e4f8ec;
+
+    border:1px solid #bde7cd;
+
+    color:#087a47;
+}
+
+.notice.error{
+    display:block;
+
+    background:#ffe9e9;
+
+    border:1px solid #f0c2c2;
+
+    color:#b42318;
+}
+
+.notice.loading{
+    display:block;
+
+    background:#eef4f1;
+
+    color:#66736c;
+}
+
+
+/* ================================
+   LOADING
+================================ */
+
+.loading-screen{
+    background:white;
+
+    border:1px solid #e1e9e4;
+
+    border-radius:15px;
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#7b8580;
+
+    font-size:12px;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer{
+    background:#0c1711;
+
+    color:white;
+}
+
+.footer-inner{
+    max-width:1000px;
+    margin:auto;
+
+    padding:25px 18px;
+}
+
+.footer-logo{
+    color:#35b878;
+
+    font-weight:bold;
+
+    font-size:13px;
+
+    margin-bottom:4px;
+}
+
+.footer-text{
+    color:#87948d;
+
+    font-size:10px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:650px){
+
+    .main{
+        padding:
+            18px 12px 45px;
+    }
+
+    .header-inner{
+        padding:
+            10px 12px;
+    }
+
+    .logo{
+        font-size:13px;
+    }
+
+    .header-btn{
+        padding:
+            7px 9px;
+
+        font-size:9px;
+    }
+
+    .profile-header{
+        padding:15px;
+    }
+
+    .avatar{
+        width:58px;
+        height:58px;
+
+        font-size:29px;
+    }
+
+    .profile-head-info h1{
+        font-size:17px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .membership-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="header">
+
+<div class="header-inner">
+
+<div class="logo">
+📖 NgajiPlus
+</div>
+
+
+<div class="header-actions">
+
+<a
+    href="index.html"
+    class="header-btn back-btn"
+>
+← Beranda
+</a>
+
+
+<button
+    id="logoutButton"
+    class="header-btn logout-btn"
+>
+Keluar
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main">
+
+
+<div
+    id="loadingScreen"
+    class="loading-screen"
+>
+⏳ Memuat profil akun...
+</div>
+
+
+<div
+    id="profileContent"
+    style="display:none"
+>
+
+
+<!-- NOTICE -->
+
+<div
+    id="notice"
+    class="notice"
+></div>
+
+
+
+<!-- =========================================
+     PROFILE HEADER
+========================================= -->
+
+<section class="profile-header">
+
+
+<div
+    class="avatar"
+    id="headerAvatar"
+>
+👤
+</div>
+
+
+<div class="profile-head-info">
+
+<h1 id="headerName">
+Memuat...
+</h1>
+
+<div
+    class="email"
+    id="headerEmail"
+>
+-
+</div>
+
+
+<span
+    class="status"
+    id="headerStatus"
+>
+MEMBER
+</span>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     EDIT PROFILE
+========================================= -->
+
+<section class="card">
+
+<h2 class="card-title">
+👤 Edit Profil
+</h2>
+
+
+<div class="avatar-section">
+
+<div
+    class="avatar-large"
+    id="avatarPreview"
+>
+👤
+</div>
+
+
+<div class="avatar-help">
+
+Masukkan URL foto profil Anda.
+
+<br>
+
+Contoh:
+
+https://domain.com/foto.jpg
+
+<br><br>
+
+Foto disimpan sebagai URL,
+jadi tidak menggunakan storage
+Supabase.
+
+</div>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="form-group full">
+
+<label>
+URL Foto Profil
+</label>
+
+<input
+    type="url"
+    id="avatarUrl"
+    placeholder="https://..."
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Nama Lengkap
+</label>
+
+<input
+    type="text"
+    id="nama"
+    placeholder="Nama lengkap"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+    type="email"
+    id="email"
+    readonly
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+No. HP / WhatsApp
+</label>
+
+<input
+    type="tel"
+    id="noHp"
+    placeholder="08xxxxxxxxxx"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Alamat
+</label>
+
+<input
+    type="text"
+    id="alamat"
+    placeholder="Alamat lengkap"
+>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>
+Bio
+</label>
+
+<textarea
+    id="bio"
+    placeholder="Ceritakan sedikit tentang Anda..."
+></textarea>
+
+</div>
+
+
+</div>
+
+
+<div class="actions">
+
+<button
+    id="saveButton"
+    class="save-btn"
+>
+💾 Simpan Profil
+</button>
+
+
+<a
+    href="index.html"
+    class="cancel-btn"
+>
+Batal
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     MEMBERSHIP
+========================================= -->
+
+<section class="card">
+
+<h2 class="card-title">
+💎 Membership
+</h2>
+
+
+<div class="membership-grid">
+
+
+<div class="membership-item">
+
+<span class="membership-label">
+Status
+</span>
+
+<span
+    class="membership-value active"
+    id="membershipStatus"
+>
+-
+</span>
+
+</div>
+
+
+<div class="membership-item">
+
+<span class="membership-label">
+Paket
+</span>
+
+<span
+    class="membership-value"
+    id="membershipPackage"
+>
+-
+</span>
+
+</div>
+
+
+<div class="membership-item">
+
+<span class="membership-label">
+Berlaku Sampai
+</span>
+
+<span
+    class="membership-value"
+    id="membershipExpiry"
+>
+-
+</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+</div>
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="footer">
+
+<div class="footer-inner">
+
+<div class="footer-logo">
+📖 NgajiPlus Akademi
+</div>
+
+<div class="footer-text">
+Platform pembelajaran Islam berupa Video,
+Audio dan PDF.
+</div>
+
+</div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loadingScreen =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+const profileContent =
+    document.getElementById(
+        "profileContent"
+    );
+
+const notice =
+    document.getElementById(
+        "notice"
+    );
+
+const headerAvatar =
+    document.getElementById(
+        "headerAvatar"
+    );
+
+const avatarPreview =
+    document.getElementById(
+        "avatarPreview"
+    );
+
+const avatarUrl =
+    document.getElementById(
+        "avatarUrl"
+    );
+
+const nama =
+    document.getElementById(
+        "nama"
+    );
+
+const email =
+    document.getElementById(
+        "email"
+    );
+
+const noHp =
+    document.getElementById(
+        "noHp"
+    );
+
+const alamat =
+    document.getElementById(
+        "alamat"
+    );
+
+const bio =
+    document.getElementById(
+        "bio"
+    );
+
+const headerName =
+    document.getElementById(
+        "headerName"
+    );
+
+const headerEmail =
+    document.getElementById(
+        "headerEmail"
+    );
+
+const headerStatus =
+    document.getElementById(
+        "headerStatus"
+    );
+
+const membershipStatus =
+    document.getElementById(
+        "membershipStatus"
+    );
+
+const membershipPackage =
+    document.getElementById(
+        "membershipPackage"
+    );
+
+const membershipExpiry =
+    document.getElementById(
+        "membershipExpiry"
+    );
+
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   NOTICE
+===================================================== */
+
+function showNotice(
+    message,
+    type
+){
+
+    notice.className =
+        "notice " +
+        type;
+
+    notice.innerHTML =
+        message;
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value);
+
+    }
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+function renderAvatar(url){
+
+    const cleanUrl =
+        String(
+            url || ""
+        ).trim();
+
+
+    if(cleanUrl){
+
+        const safeUrl =
+            escapeHtml(
+                cleanUrl
+            );
+
+
+        headerAvatar.innerHTML = `
+            <img
+                src="${safeUrl}"
+                alt="Foto profil"
+                onerror="
+                    this.style.display='none';
+                    this.parentElement.innerHTML='👤';
+                "
+            >
+        `;
+
+
+        avatarPreview.innerHTML = `
+            <img
+                src="${safeUrl}"
+                alt="Foto profil"
+                onerror="
+                    this.style.display='none';
+                    this.parentElement.innerHTML='👤';
+                "
+            >
+        `;
+
+    }
+
+    else{
+
+        headerAvatar.innerHTML =
+            "👤";
+
+        avatarPreview.innerHTML =
+            "👤";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(){
+
+    try{
+
+        const sessionResult =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if(
+            sessionResult.error
+        ){
+
+            throw sessionResult.error;
+
+        }
+
+
+        currentUser =
+            sessionResult.data.session
+                ? sessionResult.data.session.user
+                : null;
+
+
+        /* =============================
+           BELUM LOGIN
+        ============================= */
+
+        if(!currentUser){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        /* =============================
+           AMBIL PROFILE
+        ============================= */
+
+        const profileResult =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(
+            profileResult.error
+        ){
+
+            throw profileResult.error;
+
+        }
+
+
+        currentProfile =
+            profileResult.data;
+
+
+        /* =============================
+           JIKA PROFILE BELUM ADA
+        ============================= */
+
+        if(!currentProfile){
+
+            currentProfile = {
+
+                id:
+                    currentUser.id,
+
+                nama:
+                    currentUser
+                        .user_metadata
+                        ?.full_name ||
+                    currentUser
+                        .user_metadata
+                        ?.name ||
+                    "",
+
+                status:
+                    "AKTIF",
+
+                paket:
+                    "Member",
+
+                berlaku_sampai:
+                    null,
+
+                avatar_url:
+                    "",
+
+                no_hp:
+                    "",
+
+                alamat:
+                    "",
+
+                bio:
+                    ""
+
+            };
+
+        }
+
+
+        fillProfile();
+
+
+        loadingScreen.style.display =
+            "none";
+
+        profileContent.style.display =
+            "block";
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "LOAD PROFILE ERROR:",
+            error
+        );
+
+
+        loadingScreen.innerHTML = `
+
+            ❌ Gagal memuat profil.
+
+            <br><br>
+
+            ${escapeHtml(
+                error.message
+            )}
+
+            <br><br>
+
+            <a
+                href="index.html"
+                style="
+                    color:#008f50;
+                    font-weight:bold;
+                "
+            >
+                ← Kembali
+            </a>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   FILL PROFILE
+===================================================== */
+
+function fillProfile(){
+
+    const metadata =
+        currentUser
+            .user_metadata || {};
+
+
+    const profileName =
+        currentProfile.nama ||
+        metadata.full_name ||
+        metadata.name ||
+        "Member";
+
+
+    const profileEmail =
+        currentUser.email ||
+        "-";
+
+
+    const status =
+        String(
+            currentProfile.status ||
+            "MEMBER"
+        ).toUpperCase();
+
+
+    /* HEADER */
+
+    headerName.textContent =
+        profileName;
+
+    headerEmail.textContent =
+        profileEmail;
+
+    headerStatus.textContent =
+        status;
+
+
+    /* FORM */
+
+    nama.value =
+        currentProfile.nama ||
+        profileName;
+
+    email.value =
+        profileEmail;
+
+    avatarUrl.value =
+        currentProfile.avatar_url ||
+        "";
+
+    noHp.value =
+        currentProfile.no_hp ||
+        "";
+
+    alamat.value =
+        currentProfile.alamat ||
+        "";
+
+    bio.value =
+        currentProfile.bio ||
+        "";
+
+
+    /* MEMBERSHIP */
+
+    membershipStatus.textContent =
+        status;
+
+    membershipPackage.textContent =
+        currentProfile.paket ||
+        "Member";
+
+    membershipExpiry.textContent =
+        formatDate(
+            currentProfile.berlaku_sampai
+        );
+
+
+    /* AVATAR */
+
+    renderAvatar(
+        currentProfile.avatar_url
+    );
+
+}
+
+
+/* =====================================================
+   AVATAR PREVIEW
+===================================================== */
+
+avatarUrl.addEventListener(
+    "input",
+    function(){
+
+        renderAvatar(
+            this.value
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
+saveButton.addEventListener(
+    "click",
+    async function(){
+
+        if(!currentUser){
+
+            return;
+
+        }
+
+
+        const newName =
+            nama.value.trim();
+
+        const newAvatar =
+            avatarUrl.value.trim();
+
+        const newPhone =
+            noHp.value.trim();
+
+        const newAddress =
+            alamat.value.trim();
+
+        const newBio =
+            bio.value.trim();
+
+
+        if(!newName){
+
+            showNotice(
+                "⚠️ Nama lengkap wajib diisi.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "⏳ Menyimpan...";
+
+
+        try{
+
+            /* =========================
+               UPDATE PROFILES
+            ========================= */
+
+            const profileData = {
+
+                id:
+                    currentUser.id,
+
+                nama:
+                    newName,
+
+                avatar_url:
+                    newAvatar || null,
+
+                no_hp:
+                    newPhone || null,
+
+                alamat:
+                    newAddress || null,
+
+                bio:
+                    newBio || null
+
+            };
+
+
+            const result =
+                await supabaseClient
+                    .from("profiles")
+                    .upsert(
+                        profileData,
+                        {
+                            onConflict:"id"
+                        }
+                    );
+
+
+            if(result.error){
+
+                throw result.error;
+
+            }
+
+
+            /* =========================
+               UPDATE USER METADATA
+            ========================= */
+
+            const authResult =
+                await supabaseClient
+                    .auth
+                    .updateUser({
+
+                        data:{
+
+                            full_name:
+                                newName,
+
+                            name:
+                                newName
+
+                        }
+
+                    });
+
+
+            if(
+                authResult.error
+            ){
+
+                console.warn(
+                    "Metadata tidak diperbarui:",
+                    authResult.error
+                );
+
+            }
+
+
+            /* =========================
+               UPDATE LOCAL DATA
+            ========================= */
+
+            currentProfile.nama =
+                newName;
+
+            currentProfile.avatar_url =
+                newAvatar;
+
+            currentProfile.no_hp =
+                newPhone;
+
+            currentProfile.alamat =
+                newAddress;
+
+            currentProfile.bio =
+                newBio;
+
+
+            fillProfile();
+
+
+            showNotice(
+                "✅ Profil berhasil disimpan.",
+                "success"
+            );
+
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+
+        }
+
+        catch(error){
+
+            console.error(
+                "SAVE PROFILE ERROR:",
+                error
+            );
+
+
+            showNotice(
+                "❌ Gagal menyimpan profil.<br><br>" +
+                escapeHtml(
+                    error.message
+                ),
+                "error"
+            );
+
+        }
+
+
+        finally{
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "💾 Simpan Profil";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        const confirmLogout =
+            confirm(
+                "Apakah Anda ingin keluar?"
+            );
+
+
+        if(!confirmLogout){
+
+            return;
+
+        }
+
+
+        const result =
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+        if(result.error){
+
+            alert(
+                result.error.message
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            "login.html";
+
+    }
+);
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event
+        ){
+
+            if(
+                event ===
+                "SIGNED_OUT"
+            ){
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadProfile();
+
+</script>
+
+</body>
+
+</html>
