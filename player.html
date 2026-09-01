@@ -5,179 +5,573 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="description"
+  content="Pemutar materi pembelajaran NgajiPlus Akademi"
+>
 
 <title>Pemutar Materi - NgajiPlus Akademi</title>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase-config.js"></script>
 
+
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   background:#f5f8f6;
   color:#202a24;
 }
 
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header{
-  background:white;
-  border-bottom:1px solid #e5e9e6;
+  background:#ffffff;
+  border-bottom:1px solid #e3e9e5;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 .header-inner{
+
   max-width:1100px;
+
   margin:auto;
-  padding:12px 20px;
+
+  padding:
+    12px
+    20px;
 
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
+  gap:15px;
 }
 
 .logo{
+
   color:#008f58;
+
   font-weight:bold;
+
+  font-size:16px;
+
+  text-decoration:none;
 }
 
 .back-button{
+
   background:#e8f5ef;
+
   color:#087a47;
-  padding:8px 12px;
+
+  padding:
+    8px
+    13px;
+
   border-radius:8px;
+
   text-decoration:none;
+
   font-size:13px;
+
+  font-weight:bold;
+
+  white-space:nowrap;
 }
+
+.back-button:hover{
+  background:#d7eee3;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
 
 main{
+
   max-width:1000px;
+
   margin:auto;
-  padding:25px 15px;
+
+  padding:
+    25px
+    15px
+    50px;
 }
+
+
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading{
-  text-align:center;
+
+  background:#ffffff;
+
+  border:1px solid #e2e8e4;
+
+  border-radius:15px;
+
   padding:50px 20px;
-  color:#777;
+
+  text-align:center;
+
+  color:#666;
+
+  font-size:15px;
 }
+
+
+/* =====================================================
+   ERROR
+===================================================== */
 
 .error-box{
-  background:#ffe9e9;
+
+  background:#fff0f0;
+
   color:#b42318;
-  border:1px solid #f5c2c2;
-  border-radius:12px;
-  padding:20px;
+
+  border:
+    1px
+    solid
+    #f2c3c3;
+
+  border-radius:14px;
+
+  padding:25px 20px;
+
   text-align:center;
+
+  line-height:1.7;
+
+  box-shadow:
+    0
+    5px
+    20px
+    rgba(0,0,0,.04);
 }
+
+
+/* =====================================================
+   MATERIAL BOX
+===================================================== */
 
 .material-box{
-  background:white;
-  border:1px solid #e2e8e4;
-  border-radius:15px;
+
+  background:#ffffff;
+
+  border:
+    1px
+    solid
+    #e2e8e4;
+
+  border-radius:16px;
+
   overflow:hidden;
+
+  box-shadow:
+    0
+    5px
+    20px
+    rgba(0,0,0,.04);
 }
 
+
+/* =====================================================
+   MATERIAL HEADER
+===================================================== */
+
 .material-header{
-  padding:20px;
+
+  padding:24px;
 }
 
 .material-title{
-  margin:0 0 10px;
-  font-size:24px;
+
+  margin:
+    0
+    0
+    12px;
+
+  font-size:27px;
+
+  line-height:1.3;
 }
 
 .material-description{
+
   color:#666;
-  line-height:1.6;
+
+  line-height:1.7;
+
+  font-size:14px;
+
+  white-space:pre-line;
 }
 
+
+/* =====================================================
+   BADGES
+===================================================== */
+
 .badge{
+
   display:inline-block;
-  padding:5px 10px;
+
+  padding:
+    6px
+    11px;
+
   border-radius:20px;
+
   font-size:12px;
+
   font-weight:bold;
-  margin-top:8px;
+
+  margin-top:13px;
 }
 
 .badge-free{
+
   background:#ddf7e7;
+
   color:#087a47;
 }
 
 .badge-premium{
+
   background:#fff0b8;
+
   color:#8a6200;
 }
 
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
 .player{
+
   width:100%;
+
   background:#111;
+
+  min-height:100px;
 }
+
+
+/* =====================================================
+   YOUTUBE / VIDEO
+===================================================== */
 
 .video-frame{
+
   width:100%;
+
   aspect-ratio:16 / 9;
+
   border:0;
+
   display:block;
+
+  background:#000;
 }
 
+
+/* =====================================================
+   VIDEO BIASA
+===================================================== */
+
+.normal-video{
+
+  width:100%;
+
+  max-height:75vh;
+
+  display:block;
+
+  background:#000;
+}
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
 .audio-player{
-  padding:40px 20px;
+
+  padding:
+    50px
+    25px;
+
   background:#f0f4f2;
+
+  text-align:center;
+}
+
+.audio-icon{
+
+  font-size:55px;
+
+  margin-bottom:20px;
 }
 
 .audio-player audio{
+
   width:100%;
+
+  max-width:700px;
+}
+
+
+/* =====================================================
+   PDF
+===================================================== */
+
+.pdf-container{
+
+  background:#eeeeee;
+
+  padding:10px;
 }
 
 .pdf-frame{
+
   width:100%;
+
   height:75vh;
+
   border:0;
-  background:white;
+
+  display:block;
+
+  background:#ffffff;
 }
 
+
+/* =====================================================
+   INFO
+===================================================== */
+
 .info{
-  padding:20px;
-  border-top:1px solid #e5e9e6;
-  line-height:1.8;
+
+  padding:20px 24px;
+
+  border-top:
+    1px
+    solid
+    #e5e9e6;
+
+  line-height:2;
+
   font-size:14px;
+
+  color:#555;
+}
+
+.info strong{
+
+  color:#202a24;
+}
+
+
+/* =====================================================
+   BOTTOM BACK
+===================================================== */
+
+.back-area{
+
+  text-align:center;
+
+  padding-top:20px;
 }
 
 .back-bottom{
+
   display:inline-block;
-  margin-top:20px;
+
   background:#008f58;
+
   color:white;
-  padding:11px 16px;
+
+  padding:
+    11px
+    18px;
+
   border-radius:9px;
+
   text-decoration:none;
+
+  font-size:14px;
+
+  font-weight:bold;
 }
 
+.back-bottom:hover{
+
+  background:#007849;
+}
+
+
+/* =====================================================
+   SECURITY MESSAGE
+===================================================== */
+
+.access-note{
+
+  margin-top:15px;
+
+  padding:
+    12px
+    15px;
+
+  background:#f5f8f6;
+
+  border-radius:9px;
+
+  color:#666;
+
+  font-size:12px;
+
+  text-align:center;
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
 .hidden{
+
   display:none !important;
 }
 
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media(max-width:600px){
 
+  .header-inner{
+
+    padding:
+      10px
+      12px;
+  }
+
+  .logo{
+
+    font-size:14px;
+  }
+
+  .back-button{
+
+    font-size:12px;
+
+    padding:
+      7px
+      10px;
+  }
+
   main{
-    padding:15px 10px;
+
+    padding:
+      15px
+      10px
+      40px;
+  }
+
+  .material-header{
+
+    padding:18px;
   }
 
   .material-title{
-    font-size:19px;
+
+    font-size:20px;
+  }
+
+  .material-description{
+
+    font-size:13px;
+  }
+
+  .info{
+
+    padding:17px;
+
+    font-size:13px;
   }
 
   .pdf-frame{
+
     height:70vh;
+  }
+
+  .audio-player{
+
+    padding:
+      40px
+      15px;
+  }
+
+}
+
+
+/* =====================================================
+   VERY SMALL SCREEN
+===================================================== */
+
+@media(max-width:380px){
+
+  .material-title{
+
+    font-size:18px;
+  }
+
+  .logo{
+
+    font-size:13px;
   }
 
 }
@@ -190,140 +584,194 @@ main{
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
-<div class="header-inner">
+  <div class="header-inner">
 
-<div class="logo">
-📖 NgajiPlus Akademi
-</div>
+    <a
+      href="akademi.html"
+      class="logo"
+    >
+      📖 NgajiPlus Akademi
+    </a>
 
-<a
-  href="akademi.html"
-  class="back-button"
->
-← Kembali
-</a>
 
-</div>
+    <a
+      href="akademi.html"
+      class="back-button"
+    >
+      ← Kembali
+    </a>
+
+  </div>
 
 </header>
 
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
-<div
-  id="loading"
-  class="loading"
->
-⏳ Memeriksa akses materi...
-</div>
+
+  <!-- LOADING -->
+
+  <div
+    id="loading"
+    class="loading"
+  >
+
+    ⏳ Memeriksa akses materi...
+
+  </div>
 
 
-<div
-  id="errorBox"
-  class="error-box hidden"
-></div>
+
+  <!-- ERROR -->
+
+  <div
+    id="errorBox"
+    class="error-box hidden"
+  ></div>
 
 
-<div
-  id="materialBox"
-  class="material-box hidden"
->
 
-<div class="material-header">
+  <!-- MATERIAL -->
 
-<h1
-  id="title"
-  class="material-title"
->
-</h1>
-
-<div
-  id="description"
-  class="material-description"
->
-</div>
-
-<div
-  id="badge"
->
-</div>
-
-</div>
+  <div
+    id="materialBox"
+    class="material-box hidden"
+  >
 
 
-<div
-  id="player"
-  class="player"
->
-</div>
+    <!-- MATERIAL HEADER -->
+
+    <div class="material-header">
 
 
-<div
-  id="info"
-  class="info"
->
-</div>
-
-</div>
+      <h1
+        id="title"
+        class="material-title"
+      >
+      </h1>
 
 
-<a
-  href="akademi.html"
-  id="bottomBack"
-  class="back-bottom hidden"
->
-← Kembali ke Materi
-</a>
+      <div
+        id="description"
+        class="material-description"
+      >
+      </div>
+
+
+      <div
+        id="badge"
+      >
+      </div>
+
+
+    </div>
+
+
+
+    <!-- PLAYER -->
+
+    <div
+      id="player"
+      class="player"
+    >
+    </div>
+
+
+
+    <!-- INFO -->
+
+    <div
+      id="info"
+      class="info"
+    >
+    </div>
+
+
+  </div>
+
+
+
+  <!-- BACK -->
+
+  <div
+    id="bottomBackArea"
+    class="back-area hidden"
+  >
+
+    <a
+      href="akademi.html"
+      class="back-bottom"
+    >
+      ← Kembali ke Materi
+    </a>
+
+  </div>
+
 
 </main>
 
 
+
 <script>
 
-
-// =====================================================
-// AMBIL ID MATERI DARI URL
-// =====================================================
+/* =====================================================
+   AMBIL ID DARI URL
+===================================================== */
 
 const params =
   new URLSearchParams(
     window.location.search
   );
 
+
 const materialId =
   params.get("id");
 
 
-// =====================================================
-// ELEMENT
-// =====================================================
+
+/* =====================================================
+   ELEMENT
+===================================================== */
 
 const loading =
   document.getElementById(
     "loading"
   );
 
+
 const errorBox =
   document.getElementById(
     "errorBox"
   );
+
 
 const materialBox =
   document.getElementById(
     "materialBox"
   );
 
-const bottomBack =
+
+const bottomBackArea =
   document.getElementById(
-    "bottomBack"
+    "bottomBackArea"
   );
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
@@ -331,27 +779,46 @@ function escapeHtml(value){
     value === null ||
     value === undefined
   ){
+
     return "";
+
   }
+
 
   return String(value)
 
-    .replace(/&/g,"&amp;")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-    .replace(/</g,"&lt;")
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-    .replace(/>/g,"&gt;")
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-    .replace(/"/g,"&quot;")
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-    .replace(/'/g,"&#039;");
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-// =====================================================
-// ERROR
-// =====================================================
+
+/* =====================================================
+   ERROR
+===================================================== */
 
 function showError(message){
 
@@ -359,17 +826,21 @@ function showError(message){
     "hidden"
   );
 
+
   materialBox.classList.add(
     "hidden"
   );
+
 
   errorBox.classList.remove(
     "hidden"
   );
 
-  bottomBack.classList.remove(
+
+  bottomBackArea.classList.remove(
     "hidden"
   );
+
 
   errorBox.innerHTML =
     message;
@@ -377,25 +848,46 @@ function showError(message){
 }
 
 
-// =====================================================
-// YOUTUBE ID
-// =====================================================
+
+/* =====================================================
+   YOUTUBE ID
+===================================================== */
 
 function getYoutubeId(url){
 
   if(!url){
+
     return null;
+
   }
+
 
   try{
 
     const parsed =
       new URL(url);
 
-    if(
+
+    const hostname =
       parsed.hostname
-        .includes("youtube.com")
+        .toLowerCase()
+        .replace(
+          "www.",
+          ""
+        );
+
+
+    /* ================================================
+       youtube.com
+    ================================================ */
+
+    if(
+      hostname === "youtube.com" ||
+      hostname === "m.youtube.com"
     ){
+
+
+      /* WATCH */
 
       if(
         parsed.pathname === "/watch"
@@ -407,6 +899,9 @@ function getYoutubeId(url){
 
       }
 
+
+      /* SHORTS */
+
       if(
         parsed.pathname.startsWith(
           "/shorts/"
@@ -414,9 +909,14 @@ function getYoutubeId(url){
       ){
 
         return parsed.pathname
-          .split("/")[2];
+          .split("/")
+          .filter(Boolean)[1]
+          || null;
 
       }
+
+
+      /* EMBED */
 
       if(
         parsed.pathname.startsWith(
@@ -425,20 +925,27 @@ function getYoutubeId(url){
       ){
 
         return parsed.pathname
-          .split("/")[2];
+          .split("/")
+          .filter(Boolean)[1]
+          || null;
 
       }
 
     }
 
 
+    /* ================================================
+       youtu.be
+    ================================================ */
+
     if(
-      parsed.hostname === "youtu.be"
+      hostname === "youtu.be"
     ){
 
       return parsed.pathname
-        .replace("/","")
-        .split("?")[0];
+        .split("/")
+        .filter(Boolean)[0]
+        || null;
 
     }
 
@@ -453,46 +960,99 @@ function getYoutubeId(url){
 
   }
 
+
   return null;
 
 }
 
 
-// =====================================================
-// TAMPILKAN PLAYER
-// =====================================================
 
-function renderPlayer(
-  material
-){
+/* =====================================================
+   RENDER PLAYER
+===================================================== */
+
+function renderPlayer(material){
 
   const player =
     document.getElementById(
       "player"
     );
 
+
   const tipe =
-    (
+    String(
       material.type ||
       material.tipe ||
       "video"
-    ).toLowerCase();
+    )
+    .toLowerCase()
+    .trim();
+
 
   const url =
-    material.url || "";
+    String(
+      material.url ||
+      ""
+    )
+    .trim();
 
 
-  // ==========================
-  // VIDEO
-  // ==========================
 
-  if(tipe === "video"){
+  /* ===================================================
+     URL KOSONG
+  =================================================== */
+
+  if(!url){
+
+    player.innerHTML = `
+
+      <div
+        style="
+          padding:40px 20px;
+          text-align:center;
+          background:#fff0f0;
+          color:#b42318;
+        "
+      >
+
+        ❌ URL materi belum tersedia.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+
+  /* ===================================================
+     VIDEO
+  =================================================== */
+
+  if(
+    tipe === "video" ||
+    tipe === "youtube"
+  ){
 
     const youtubeId =
       getYoutubeId(url);
 
 
+
+    /* ================================================
+       YOUTUBE
+    ================================================ */
+
     if(youtubeId){
+
+      const safeTitle =
+        escapeHtml(
+          material.judul ||
+          "Video NgajiPlus"
+        );
+
 
       player.innerHTML = `
 
@@ -502,7 +1062,11 @@ function renderPlayer(
 
           src="https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}"
 
-          title="${escapeHtml(material.judul)}"
+          title="${safeTitle}"
+
+          loading="lazy"
+
+          referrerpolicy="strict-origin-when-cross-origin"
 
           allow="
             accelerometer;
@@ -525,18 +1089,18 @@ function renderPlayer(
     }
 
 
-    // Video URL biasa
+
+    /* ================================================
+       VIDEO URL BIASA
+    ================================================ */
 
     player.innerHTML = `
 
       <video
+        class="normal-video"
         controls
         playsinline
-        style="
-          width:100%;
-          max-height:70vh;
-          display:block;
-        "
+        preload="metadata"
       >
 
         <source
@@ -555,23 +1119,20 @@ function renderPlayer(
   }
 
 
-  // ==========================
-  // AUDIO
-  // ==========================
 
-  if(tipe === "audio"){
+  /* ===================================================
+     AUDIO
+  =================================================== */
+
+  if(
+    tipe === "audio"
+  ){
 
     player.innerHTML = `
 
       <div class="audio-player">
 
-        <div
-          style="
-            text-align:center;
-            font-size:50px;
-            margin-bottom:20px;
-          "
-        >
+        <div class="audio-icon">
           🎧
         </div>
 
@@ -598,19 +1159,29 @@ function renderPlayer(
   }
 
 
-  // ==========================
-  // PDF
-  // ==========================
 
-  if(tipe === "pdf"){
+  /* ===================================================
+     PDF
+  =================================================== */
+
+  if(
+    tipe === "pdf"
+  ){
 
     player.innerHTML = `
 
-      <iframe
-        class="pdf-frame"
-        src="${escapeHtml(url)}"
-        title="${escapeHtml(material.judul)}"
-      ></iframe>
+      <div class="pdf-container">
+
+        <iframe
+          class="pdf-frame"
+          src="${escapeHtml(url)}"
+          title="${escapeHtml(
+            material.judul ||
+            "Materi PDF NgajiPlus"
+          )}"
+        ></iframe>
+
+      </div>
 
     `;
 
@@ -619,15 +1190,30 @@ function renderPlayer(
   }
 
 
+
+  /* ===================================================
+     TIPE TIDAK DIKENALI
+  =================================================== */
+
   player.innerHTML = `
 
     <div
       style="
-        padding:40px;
+        padding:40px 20px;
         text-align:center;
+        background:white;
       "
     >
+
       ❌ Tipe materi tidak dikenali.
+
+      <br><br>
+
+      Tipe:
+      <strong>
+        ${escapeHtml(tipe)}
+      </strong>
+
     </div>
 
   `;
@@ -635,11 +1221,17 @@ function renderPlayer(
 }
 
 
-// =====================================================
-// LOAD MATERI
-// =====================================================
+
+/* =====================================================
+   LOAD MATERIAL
+===================================================== */
 
 async function loadMaterial(){
+
+
+  /* ===================================================
+     CEK SUPABASE
+  =================================================== */
 
   if(
     typeof supabaseClient ===
@@ -647,20 +1239,39 @@ async function loadMaterial(){
   ){
 
     showError(
-      "❌ Supabase belum terhubung.<br><br>" +
-      "Periksa file supabase-config.js"
+
+      "❌ <strong>Supabase belum terhubung.</strong>" +
+
+      "<br><br>" +
+
+      "Periksa file " +
+
+      "<strong>supabase-config.js</strong>."
+
     );
 
     return;
 
   }
 
+
+
+  /* ===================================================
+     CEK ID
+  =================================================== */
 
   if(!materialId){
 
     showError(
-      "❌ ID materi tidak ditemukan.<br><br>" +
-      "Silakan kembali ke halaman materi."
+
+      "❌ <strong>ID materi tidak ditemukan.</strong>" +
+
+      "<br><br>" +
+
+      "Silakan kembali ke halaman materi " +
+
+      "dan pilih materi yang ingin dipelajari."
+
     );
 
     return;
@@ -668,13 +1279,23 @@ async function loadMaterial(){
   }
 
 
+
   try{
 
+
     console.log(
-      "PLAYER: mengambil materi",
+      "NgajiPlus PLAYER:",
       materialId
     );
 
+
+
+    /* =================================================
+       AMBIL MATERI
+
+       RLS SUPABASE YANG MENENTUKAN
+       APAKAH USER BOLEH MELIHAT DATA.
+    ================================================= */
 
     const result =
       await supabaseClient
@@ -691,11 +1312,17 @@ async function loadMaterial(){
         .maybeSingle();
 
 
+
     console.log(
-      "PLAYER RESULT:",
+      "NgajiPlus PLAYER RESULT:",
       result
     );
 
+
+
+    /* =================================================
+       ERROR SUPABASE
+    ================================================= */
 
     if(result.error){
 
@@ -704,24 +1331,40 @@ async function loadMaterial(){
     }
 
 
+
     const material =
       result.data;
 
 
-    // ==========================
-    // TIDAK DITEMUKAN
-    // ==========================
+
+    /* =================================================
+       MATERI TIDAK TERSEDIA
+
+       Bisa berarti:
+       - ID salah
+       - materi dihapus
+       - user tidak memiliki akses
+       - RLS menolak akses premium
+    ================================================= */
 
     if(!material){
 
       showError(
-        "🔐 <strong>Akses materi ditolak.</strong><br><br>" +
 
-        "Materi tidak tersedia untuk akun Anda " +
-        "atau materi tidak ditemukan.<br><br>" +
+        "🔐 <strong>Akses materi ditolak.</strong>" +
+
+        "<br><br>" +
+
+        "Materi tidak tersedia untuk akun Anda." +
+
+        "<br><br>" +
 
         "Jika materi ini Premium, pastikan " +
-        "membership Anda masih aktif."
+
+        "Anda sudah login dan membership Anda " +
+
+        "masih aktif."
+
       );
 
       return;
@@ -729,23 +1372,36 @@ async function loadMaterial(){
     }
 
 
-    // ==========================
-    // TAMPILKAN INFORMASI
-    // ==========================
+
+    /* =================================================
+       JUDUL
+    ================================================= */
 
     document.getElementById(
       "title"
     ).innerText =
+
       material.judul ||
       "Tanpa Judul";
 
 
+
+    /* =================================================
+       DESKRIPSI
+    ================================================= */
+
     document.getElementById(
       "description"
     ).innerText =
+
       material.deskripsi ||
       "";
 
+
+
+    /* =================================================
+       BADGE
+    ================================================= */
 
     const badge =
       document.getElementById(
@@ -758,17 +1414,39 @@ async function loadMaterial(){
     ){
 
       badge.innerHTML =
-        '<span class="badge badge-premium">🔐 PREMIUM</span>';
+
+        '<span class="badge badge-premium">' +
+        '🔐 PREMIUM' +
+        '</span>';
 
     }
 
     else{
 
       badge.innerHTML =
-        '<span class="badge badge-free">🟢 GRATIS</span>';
+
+        '<span class="badge badge-free">' +
+        '🟢 GRATIS' +
+        '</span>';
 
     }
 
+
+
+    /* =================================================
+       TIPE
+    ================================================= */
+
+    const tipe =
+      material.type ||
+      material.tipe ||
+      "video";
+
+
+
+    /* =================================================
+       INFO
+    ================================================= */
 
     document.getElementById(
       "info"
@@ -777,7 +1455,8 @@ async function loadMaterial(){
       📁 Kategori:
       <strong>
         ${escapeHtml(
-          material.kategori || "-"
+          material.kategori ||
+          "-"
         )}
       </strong>
 
@@ -786,19 +1465,34 @@ async function loadMaterial(){
       🎬 Tipe:
       <strong>
         ${escapeHtml(
-          material.type ||
-          material.tipe ||
-          "video"
+          tipe
         )}
       </strong>
 
+      <div class="access-note">
+
+        🔒 Akses materi dikendalikan oleh
+        sistem keamanan NgajiPlus.
+
+      </div>
+
     `;
 
+
+
+    /* =================================================
+       PLAYER
+    ================================================= */
 
     renderPlayer(
       material
     );
 
+
+
+    /* =================================================
+       TAMPILKAN
+    ================================================= */
 
     loading.classList.add(
       "hidden"
@@ -810,8 +1504,14 @@ async function loadMaterial(){
     );
 
 
-    bottomBack.classList.remove(
+    bottomBackArea.classList.remove(
       "hidden"
+    );
+
+
+
+    console.log(
+      "NgajiPlus: materi berhasil dibuka."
     );
 
   }
@@ -819,7 +1519,7 @@ async function loadMaterial(){
   catch(error){
 
     console.error(
-      "PLAYER ERROR:",
+      "NgajiPlus PLAYER ERROR:",
       error
     );
 
@@ -831,7 +1531,8 @@ async function loadMaterial(){
       "<br><br>" +
 
       escapeHtml(
-        error.message
+        error.message ||
+        "Terjadi kesalahan."
       )
 
     );
@@ -841,9 +1542,10 @@ async function loadMaterial(){
 }
 
 
-// =====================================================
-// MULAI
-// =====================================================
+
+/* =====================================================
+   START
+===================================================== */
 
 window.addEventListener(
   "load",
@@ -855,6 +1557,7 @@ window.addEventListener(
 );
 
 </script>
+
 
 </body>
 
