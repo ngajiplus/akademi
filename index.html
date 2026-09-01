@@ -665,7 +665,7 @@ header{
 
 
 /* =====================================================
-   CARD
+   MATERIAL CARD
 ===================================================== */
 
 .material-card{
@@ -682,6 +682,11 @@ header{
         0 1px 3px
         rgba(0,0,0,.03);
 }
+
+
+/* =====================================================
+   THUMBNAIL
+===================================================== */
 
 .material-thumb{
     height:165px;
@@ -704,17 +709,88 @@ header{
     overflow:hidden;
 }
 
+
+/*
+   SEMUA THUMBNAIL OTOMATIS
+*/
+
 .material-thumb img{
     width:100%;
 
     height:100%;
 
     object-fit:cover;
+
+    display:block;
 }
 
+
+/*
+   Icon fallback
+*/
+
 .thumb-icon{
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     font-size:43px;
 }
+
+
+/*
+   Tombol play di thumbnail video
+*/
+
+.thumbnail-play{
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.75);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    padding-left:3px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.3);
+}
+
+
+/*
+   Lock premium
+*/
 
 .material-lock{
     position:absolute;
@@ -728,10 +804,15 @@ header{
     justify-content:center;
 
     background:
-        rgba(0,0,0,.28);
+        rgba(0,0,0,.30);
 
     font-size:40px;
 }
+
+
+/* =====================================================
+   CARD CONTENT
+===================================================== */
 
 .material-content{
     padding:12px;
@@ -815,6 +896,11 @@ header{
 
     color:#846400;
 }
+
+
+/* =====================================================
+   MATERIAL BUTTON
+===================================================== */
 
 .material-button{
     width:100%;
@@ -1047,6 +1133,7 @@ footer{
 
     .material-description{
         font-size:7px;
+
         min-height:25px;
     }
 
@@ -1111,8 +1198,6 @@ footer{
 >
 
 
-<!-- BELUM LOGIN -->
-
 <a
     href="login.html"
     id="loginBtn"
@@ -1130,8 +1215,6 @@ footer{
 Daftar
 </a>
 
-
-<!-- SUDAH LOGIN -->
 
 <a
     href="profile.html"
@@ -1543,10 +1626,7 @@ Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
 </div>
 
 
-<!-- TOOLS -->
-
 <div class="tools">
-
 
 <input
     type="search"
@@ -1602,8 +1682,6 @@ Sejarah Islam
 </div>
 
 
-<!-- MATERIAL CONTAINER -->
-
 <div id="materialContainer">
 
 <div class="loading">
@@ -1641,15 +1719,10 @@ Platform pembelajaran Islam berupa Video, Audio dan PDF.
 
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
-
 /* =====================================================
-   SUPABASE CONFIG
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -1685,59 +1758,37 @@ let materials = [];
 ===================================================== */
 
 const loginBtn =
-    document.getElementById(
-        "loginBtn"
-    );
+    document.getElementById("loginBtn");
 
 const registerBtn =
-    document.getElementById(
-        "registerBtn"
-    );
+    document.getElementById("registerBtn");
 
 const accountBtn =
-    document.getElementById(
-        "accountBtn"
-    );
+    document.getElementById("accountBtn");
 
 const accountName =
-    document.getElementById(
-        "accountName"
-    );
+    document.getElementById("accountName");
 
 const dashboardBtn =
-    document.getElementById(
-        "dashboardBtn"
-    );
+    document.getElementById("dashboardBtn");
 
 const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
+    document.getElementById("logoutBtn");
 
 const heroAvatar =
-    document.getElementById(
-        "heroAvatar"
-    );
+    document.getElementById("heroAvatar");
 
 const notice =
-    document.getElementById(
-        "notice"
-    );
+    document.getElementById("notice");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+    document.getElementById("searchInput");
 
 const categoryFilter =
-    document.getElementById(
-        "categoryFilter"
-    );
+    document.getElementById("categoryFilter");
 
 const materialContainer =
-    document.getElementById(
-        "materialContainer"
-    );
+    document.getElementById("materialContainer");
 
 
 /* =====================================================
@@ -1746,34 +1797,17 @@ const materialContainer =
 
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
+    return String(value ?? "")
 
-    .replace(
-        /&/g,
-        "&amp;"
-    )
+        .replace(/&/g,"&amp;")
 
-    .replace(
-        /</g,
-        "&lt;"
-    )
+        .replace(/</g,"&lt;")
 
-    .replace(
-        />/g,
-        "&gt;"
-    )
+        .replace(/>/g,"&gt;")
 
-    .replace(
-        /"/g,
-        "&quot;"
-    )
+        .replace(/"/g,"&quot;")
 
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1784,9 +1818,7 @@ function escapeHtml(value){
 
 function escapeAttribute(value){
 
-    return escapeHtml(
-        value
-    );
+    return escapeHtml(value);
 
 }
 
@@ -1803,10 +1835,8 @@ function formatTanggal(value){
 
     }
 
-
     const date =
         new Date(value);
-
 
     if(
         isNaN(
@@ -1817,7 +1847,6 @@ function formatTanggal(value){
         return String(value);
 
     }
-
 
     return date.toLocaleDateString(
         "id-ID",
@@ -1832,7 +1861,306 @@ function formatTanggal(value){
 
 
 /* =====================================================
-   SET DEFAULT NAV
+   YOUTUBE VIDEO ID
+===================================================== */
+
+/*
+   Fungsi ini membaca URL YouTube
+   dan mengambil ID videonya.
+
+   Contoh yang didukung:
+
+   https://www.youtube.com/watch?v=XXXXXXXXXXX
+
+   https://youtu.be/XXXXXXXXXXX
+
+   https://www.youtube.com/shorts/XXXXXXXXXXX
+
+   https://www.youtube.com/embed/XXXXXXXXXXX
+
+   https://www.youtube.com/live/XXXXXXXXXXX
+*/
+
+function getYouTubeId(value){
+
+    if(!value){
+
+        return null;
+
+    }
+
+    let text =
+        String(value)
+            .trim();
+
+
+    /*
+       Kalau langsung ID YouTube
+    */
+
+    if(
+        /^[a-zA-Z0-9_-]{11}$/.test(
+            text
+        )
+    ){
+
+        return text;
+
+    }
+
+
+    /*
+       Tambahkan protocol
+       jika belum ada
+    */
+
+    if(
+        !text.startsWith("http://") &&
+        !text.startsWith("https://")
+    ){
+
+        text =
+            "https://" +
+            text;
+
+    }
+
+
+    try{
+
+        const url =
+            new URL(text);
+
+
+        const hostname =
+            url.hostname
+                .toLowerCase();
+
+
+        /*
+           youtube.com
+        */
+
+        if(
+            hostname === "youtube.com" ||
+            hostname === "www.youtube.com" ||
+            hostname.endsWith(".youtube.com")
+        ){
+
+            /*
+               watch?v=
+            */
+
+            const v =
+                url.searchParams.get("v");
+
+
+            if(
+                v &&
+                /^[a-zA-Z0-9_-]{11}$/.test(v)
+            ){
+
+                return v;
+
+            }
+
+
+            /*
+               Path
+            */
+
+            const parts =
+                url.pathname
+                    .split("/")
+                    .filter(Boolean);
+
+
+            const types = [
+                "embed",
+                "shorts",
+                "live"
+            ];
+
+
+            for(
+                const type of types
+            ){
+
+                const index =
+                    parts.indexOf(type);
+
+
+                if(
+                    index !== -1 &&
+                    parts[index + 1]
+                ){
+
+                    const id =
+                        parts[index + 1];
+
+
+                    if(
+                        /^[a-zA-Z0-9_-]{11}$/.test(id)
+                    ){
+
+                        return id;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        /*
+           youtu.be
+        */
+
+        if(
+            hostname === "youtu.be" ||
+            hostname.endsWith(".youtu.be")
+        ){
+
+            const id =
+                url.pathname
+                    .replace(/^\/+/,"")
+                    .split("/")[0];
+
+
+            if(
+                id &&
+                /^[a-zA-Z0-9_-]{11}$/.test(id)
+            ){
+
+                return id;
+
+            }
+
+        }
+
+    }
+
+    catch(error){
+
+        console.warn(
+            "URL YouTube tidak valid:",
+            value,
+            error
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   GET AUTOMATIC THUMBNAIL
+===================================================== */
+
+function getAutomaticThumbnail(item){
+
+    const type =
+        String(
+            item.tipe ||
+            item.type ||
+            "video"
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const url =
+        item.url ||
+        "";
+
+
+    /*
+       VIDEO YOUTUBE
+    */
+
+    if(
+        type.includes("video")
+    ){
+
+        const youtubeId =
+            getYouTubeId(
+                url
+            );
+
+
+        if(youtubeId){
+
+            /*
+               maxresdefault biasanya
+               kualitas paling tinggi.
+
+               Jika tidak tersedia,
+               browser akan mencoba
+               fallback ke hqdefault.
+            */
+
+            return {
+
+                type:"youtube",
+
+                id:youtubeId,
+
+                src:
+                    "https://img.youtube.com/vi/" +
+                    youtubeId +
+                    "/maxresdefault.jpg",
+
+                fallback:
+                    "https://img.youtube.com/vi/" +
+                    youtubeId +
+                    "/hqdefault.jpg"
+
+            };
+
+        }
+
+    }
+
+
+    /*
+       Kalau bukan YouTube,
+       gunakan thumbnail database
+       jika memang ada.
+
+       Jadi thumbnail database
+       sekarang hanya sebagai
+       fallback, bukan kewajiban.
+    */
+
+    if(item.thumbnail){
+
+        return {
+
+            type:"image",
+
+            id:null,
+
+            src:item.thumbnail,
+
+            fallback:null
+
+        };
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   DEFAULT NAV
 ===================================================== */
 
 function setLoggedOutUI(){
@@ -1857,8 +2185,10 @@ function setLoggedOutUI(){
         "hidden"
     );
 
+
     accountName.textContent =
         "Akun";
+
 
     heroAvatar.removeAttribute(
         "src"
@@ -1868,7 +2198,7 @@ function setLoggedOutUI(){
 
 
 /* =====================================================
-   SET LOGGED IN NAV
+   LOGGED IN NAV
 ===================================================== */
 
 function setLoggedInUI(){
@@ -1921,7 +2251,9 @@ function setLoggedInUI(){
         heroAvatar.src =
             avatar;
 
-    }else{
+    }
+
+    else{
 
         heroAvatar.removeAttribute(
             "src"
@@ -1964,9 +2296,9 @@ async function checkUser(){
             result.data.user;
 
 
-        /* =========================================
+        /*
            BELUM LOGIN
-        ========================================= */
+        */
 
         if(!currentUser){
 
@@ -1988,21 +2320,16 @@ async function checkUser(){
         }
 
 
-        /* =========================================
-           SUDAH LOGIN
-        ========================================= */
-
         /*
-           Kita tetap menampilkan tombol akun
-           meskipun profile belum ditemukan.
+           SUDAH LOGIN
         */
 
         setLoggedInUI();
 
 
-        /* =========================================
+        /*
            LOAD PROFILE
-        ========================================= */
+        */
 
         const profileResult =
             await supabaseClient
@@ -2047,9 +2374,9 @@ async function checkUser(){
             profileResult.data;
 
 
-        /* =========================================
+        /*
            PROFILE TIDAK ADA
-        ========================================= */
+        */
 
         if(!currentProfile){
 
@@ -2075,16 +2402,12 @@ async function checkUser(){
         }
 
 
-        /* =========================================
-           UPDATE NAV
-        ========================================= */
-
         setLoggedInUI();
 
 
-        /* =========================================
+        /*
            STATUS MEMBERSHIP
-        ========================================= */
+        */
 
         const status =
             String(
@@ -2130,9 +2453,9 @@ async function checkUser(){
             tanggalAktif;
 
 
-        /* =========================================
+        /*
            NOTICE
-        ========================================= */
+        */
 
         if(membershipActive){
 
@@ -2167,7 +2490,9 @@ async function checkUser(){
 
                 "</strong>. Semua materi premium dapat diakses.";
 
-        }else{
+        }
+
+        else{
 
             notice.className =
                 "notice warning";
@@ -2239,12 +2564,7 @@ async function loadMaterials(){
     try{
 
         /*
-           Prioritas:
-           1. RPC jika tersedia
-           2. Query materials sebagai fallback
-
-           URL materi tetap berasal dari database.
-           File/video tidak disimpan di Supabase Storage.
+           Coba RPC dahulu
         */
 
         let result =
@@ -2253,6 +2573,11 @@ async function loadMaterials(){
                     "get_available_materials"
                 );
 
+
+        /*
+           Jika RPC tidak tersedia,
+           gunakan query biasa.
+        */
 
         if(result.error){
 
@@ -2364,12 +2689,8 @@ function renderMaterials(){
 
                 const cocokSearch =
                     !keyword ||
-                    title.includes(
-                        keyword
-                    ) ||
-                    description.includes(
-                        keyword
-                    );
+                    title.includes(keyword) ||
+                    description.includes(keyword);
 
 
                 const cocokKategori =
@@ -2492,23 +2813,26 @@ function createMaterialCard(item){
         "Umum";
 
 
+    /*
+       AMBIL THUMBNAIL OTOMATIS
+    */
+
     const thumbnail =
-        item.thumbnail ||
-        "";
+        getAutomaticThumbnail(
+            item
+        );
 
 
-    /* =========================================
+    /* =================================================
        ICON
-    ========================================= */
+    ================================================= */
 
     let icon =
         "🎥";
 
 
     if(
-        typeLower.includes(
-            "audio"
-        )
+        typeLower.includes("audio")
     ){
 
         icon =
@@ -2517,9 +2841,7 @@ function createMaterialCard(item){
     }
 
     else if(
-        typeLower.includes(
-            "pdf"
-        )
+        typeLower.includes("pdf")
     ){
 
         icon =
@@ -2528,9 +2850,9 @@ function createMaterialCard(item){
     }
 
 
-    /* =========================================
-       THUMBNAIL
-    ========================================= */
+    /* =================================================
+       THUMBNAIL HTML
+    ================================================= */
 
     let thumbnailHTML = `
 
@@ -2541,32 +2863,54 @@ function createMaterialCard(item){
     `;
 
 
+    /*
+       Jika ada thumbnail
+    */
+
     if(thumbnail){
+
+        const fallbackSrc =
+            thumbnail.fallback || "";
+
 
         thumbnailHTML = `
 
             <img
-                src="${escapeAttribute(thumbnail)}"
+                src="${escapeAttribute(thumbnail.src)}"
                 alt="${escapeAttribute(title)}"
                 loading="lazy"
-                onerror="this.style.display='none';this.parentElement.querySelector('.fallback-icon').style.display='flex';"
+                data-fallback="${escapeAttribute(fallbackSrc)}"
+                onerror="handleThumbnailError(this)"
             >
-
-            <div
-                class="thumb-icon fallback-icon"
-                style="display:none"
-            >
-                ${icon}
-            </div>
 
         `;
+
+
+        /*
+           Hanya video YouTube
+           yang diberi tombol play
+        */
+
+        if(
+            thumbnail.type === "youtube"
+        ){
+
+            thumbnailHTML += `
+
+                <div class="thumbnail-play">
+                    ▶
+                </div>
+
+            `;
+
+        }
 
     }
 
 
-    /* =========================================
+    /* =================================================
        LOCK
-    ========================================= */
+    ================================================= */
 
     let lockHTML =
         "";
@@ -2588,9 +2932,9 @@ function createMaterialCard(item){
     }
 
 
-    /* =========================================
+    /* =================================================
        BADGE
-    ========================================= */
+    ================================================= */
 
     const badgeHTML =
         isPremium
@@ -2616,9 +2960,9 @@ function createMaterialCard(item){
         `;
 
 
-    /* =========================================
+    /* =================================================
        BUTTON
-    ========================================= */
+    ================================================= */
 
     let buttonHTML;
 
@@ -2655,9 +2999,9 @@ function createMaterialCard(item){
     }
 
 
-    /* =========================================
+    /* =================================================
        CARD
-    ========================================= */
+    ================================================= */
 
     card.innerHTML = `
 
@@ -2682,9 +3026,7 @@ function createMaterialCard(item){
 
 
             <h3>
-
                 ${escapeHtml(title)}
-
             </h3>
 
 
@@ -2722,9 +3064,9 @@ function createMaterialCard(item){
     `;
 
 
-    /* =========================================
+    /*
        OPEN BUTTON
-    ========================================= */
+    */
 
     const openButton =
         card.querySelector(
@@ -2754,6 +3096,81 @@ function createMaterialCard(item){
 
 
 /* =====================================================
+   THUMBNAIL ERROR HANDLER
+===================================================== */
+
+function handleThumbnailError(img){
+
+    const fallback =
+        img.dataset.fallback;
+
+
+    /*
+       Jika maxresdefault gagal,
+       coba hqdefault.
+    */
+
+    if(
+        fallback &&
+        img.src !== fallback
+    ){
+
+        img.src =
+            fallback;
+
+
+        img.dataset.fallback =
+            "";
+
+
+        return;
+
+    }
+
+
+    /*
+       Jika semuanya gagal,
+       sembunyikan gambar.
+
+       Parent akan menampilkan
+       background/icon fallback.
+    */
+
+    img.style.display =
+        "none";
+
+
+    const parent =
+        img.parentElement;
+
+
+    if(parent){
+
+        const fallbackIcon =
+            document.createElement(
+                "div"
+            );
+
+
+        fallbackIcon.className =
+            "thumb-icon";
+
+
+        fallbackIcon.textContent =
+            "🎥";
+
+
+        parent.insertBefore(
+            fallbackIcon,
+            img
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    OPEN MATERIAL
 ===================================================== */
 
@@ -2775,9 +3192,9 @@ function openMaterial(item){
         item.premium === "true";
 
 
-    /* =========================================
+    /*
        PREMIUM CHECK
-    ========================================= */
+    */
 
     if(
         isPremium &&
@@ -2794,9 +3211,9 @@ function openMaterial(item){
     }
 
 
-    /* =========================================
+    /*
        URL CHECK
-    ========================================= */
+    */
 
     if(!item.url){
 
@@ -2809,9 +3226,9 @@ function openMaterial(item){
     }
 
 
-    /* =========================================
+    /*
        PLAYER
-    ========================================= */
+    */
 
     window.location.href =
         "player.html?id=" +
@@ -2833,7 +3250,7 @@ searchInput.addEventListener(
 
 
 /* =====================================================
-   CATEGORY FILTER
+   CATEGORY
 ===================================================== */
 
 categoryFilter.addEventListener(
@@ -2865,6 +3282,7 @@ logoutBtn.addEventListener(
 
         logoutBtn.disabled =
             true;
+
 
         logoutBtn.textContent =
             "⏳";
@@ -2907,6 +3325,7 @@ logoutBtn.addEventListener(
             logoutBtn.disabled =
                 false;
 
+
             logoutBtn.textContent =
                 "Keluar";
 
@@ -2917,7 +3336,7 @@ logoutBtn.addEventListener(
 
 
 /* =====================================================
-   AUTH STATE CHANGE
+   AUTH STATE
 ===================================================== */
 
 supabaseClient
@@ -2959,6 +3378,9 @@ supabaseClient
                 notice.innerHTML =
                     "🔐 Anda telah keluar. " +
                     "Silakan login untuk mengakses akun.";
+
+
+                renderMaterials();
 
             }
 
@@ -3011,21 +3433,21 @@ supabaseClient
 async function start(){
 
     /*
-       Pastikan UI awal tidak salah.
+       UI awal
     */
 
     setLoggedOutUI();
 
 
     /*
-       Cek login.
+       Cek user
     */
 
     await checkUser();
 
 
     /*
-       Ambil materi.
+       Ambil materi
     */
 
     await loadMaterials();
