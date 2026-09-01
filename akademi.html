@@ -5,16 +5,25 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="description"
-      content="NgajiPlus Akademi - Perpustakaan Pembelajaran Islam">
+<meta
+    name="description"
+    content="NgajiPlus Akademi - Perpustakaan Pembelajaran Islam"
+>
 
-<meta name="theme-color"
-      content="#009b59">
+<meta
+    name="theme-color"
+    content="#009b59"
+>
 
 <title>NgajiPlus Akademi</title>
+
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -22,6 +31,10 @@
 
 
 <style>
+
+/* =====================================================
+RESET
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -50,9 +63,9 @@ select{
 }
 
 
-/* ==============================
+/* =====================================================
 HEADER
-============================== */
+===================================================== */
 
 header{
     background:white;
@@ -108,9 +121,9 @@ header{
 }
 
 
-/* ==============================
+/* =====================================================
 HERO
-============================== */
+===================================================== */
 
 .hero{
     max-width:1200px;
@@ -134,9 +147,9 @@ HERO
 }
 
 
-/* ==============================
+/* =====================================================
 NOTICE
-============================== */
+===================================================== */
 
 .notice{
     max-width:1200px;
@@ -170,9 +183,9 @@ NOTICE
 }
 
 
-/* ==============================
+/* =====================================================
 TOOLS
-============================== */
+===================================================== */
 
 .tools{
     max-width:1200px;
@@ -204,9 +217,9 @@ TOOLS
 }
 
 
-/* ==============================
+/* =====================================================
 MATERIAL AREA
-============================== */
+===================================================== */
 
 .material-area{
     background:#eef9f3;
@@ -223,9 +236,9 @@ MATERIAL AREA
 }
 
 
-/* ==============================
+/* =====================================================
 CARD
-============================== */
+===================================================== */
 
 .card{
     background:white;
@@ -273,9 +286,9 @@ CARD
 }
 
 
-/* ==============================
+/* =====================================================
 CONTENT
-============================== */
+===================================================== */
 
 .content{
     padding:13px;
@@ -346,9 +359,9 @@ CONTENT
 }
 
 
-/* ==============================
+/* =====================================================
 BUTTON
-============================== */
+===================================================== */
 
 .open-btn,
 .locked-btn{
@@ -387,9 +400,9 @@ BUTTON
 }
 
 
-/* ==============================
+/* =====================================================
 LOADING / EMPTY / ERROR
-============================== */
+===================================================== */
 
 .loading,
 .empty,
@@ -416,9 +429,9 @@ LOADING / EMPTY / ERROR
 }
 
 
-/* ==============================
+/* =====================================================
 FOOTER
-============================== */
+===================================================== */
 
 footer{
     background:#0c1711;
@@ -448,9 +461,9 @@ footer{
 }
 
 
-/* ==============================
-MOBILE
-============================== */
+/* =====================================================
+TABLET
+===================================================== */
 
 @media(max-width:800px){
 
@@ -459,6 +472,11 @@ MOBILE
     }
 
 }
+
+
+/* =====================================================
+MOBILE
+===================================================== */
 
 @media(max-width:550px){
 
@@ -513,189 +531,189 @@ MOBILE
 <body>
 
 
-<!-- =========================================
+<!-- =====================================================
 HEADER
-========================================= -->
+===================================================== -->
 
 <header>
 
-<div class="nav">
+    <div class="nav">
 
-<div class="logo">
-📖 NgajiPlus Akademi
-</div>
-
-
-<div class="nav-buttons">
-
-<a
-    href="login.html"
-    id="loginBtn"
-    class="nav-btn login-btn"
->
-🔐 Login
-</a>
+        <div class="logo">
+            📖 NgajiPlus Akademi
+        </div>
 
 
-<a
-    href="dashboard.html"
-    id="dashboardBtn"
-    class="nav-btn dashboard-btn"
->
-📊 Dashboard
-</a>
+        <div class="nav-buttons">
+
+            <a
+                href="login.html"
+                id="loginBtn"
+                class="nav-btn login-btn"
+            >
+                🔐 Login
+            </a>
 
 
-<button
-    id="logoutBtn"
-    class="nav-btn logout-btn"
-    onclick="logout()"
->
-Keluar
-</button>
+            <a
+                href="dashboard.html"
+                id="dashboardBtn"
+                class="nav-btn dashboard-btn"
+            >
+                📊 Dashboard
+            </a>
 
-</div>
 
-</div>
+            <button
+                id="logoutBtn"
+                class="nav-btn logout-btn"
+                onclick="logout()"
+            >
+                Keluar
+            </button>
+
+        </div>
+
+    </div>
 
 </header>
 
 
 
-<!-- =========================================
+<!-- =====================================================
 HERO
-========================================= -->
+===================================================== -->
 
 <section class="hero">
 
-<h1>
-Belajar <span>Islam</span> dengan Mudah
-</h1>
+    <h1>
+        Belajar <span>Islam</span> dengan Mudah
+    </h1>
 
-<p>
-Temukan berbagai materi pembelajaran Video, Audio, dan PDF di NgajiPlus Akademi.
-</p>
+    <p>
+        Temukan berbagai materi pembelajaran Video, Audio,
+        dan PDF di NgajiPlus Akademi.
+    </p>
 
 </section>
 
 
 
-<!-- =========================================
+<!-- =====================================================
 NOTICE
-========================================= -->
+===================================================== -->
 
 <div
     id="notice"
     class="notice"
 >
-⏳ Memeriksa status akun...
+    ⏳ Memeriksa status akun...
 </div>
 
 
 
-<!-- =========================================
+<!-- =====================================================
 SEARCH
-========================================= -->
+===================================================== -->
 
 <div class="tools">
 
-<input
-    id="searchInput"
-    class="search"
-    type="search"
-    placeholder="🔎 Cari materi..."
->
+    <input
+        id="searchInput"
+        class="search"
+        type="search"
+        placeholder="🔎 Cari materi..."
+    >
 
 
-<select
-    id="categoryFilter"
-    class="filter"
->
+    <select
+        id="categoryFilter"
+        class="filter"
+    >
 
-<option value="">
-Semua Kategori
-</option>
+        <option value="">
+            Semua Kategori
+        </option>
 
-<option value="Al-Qur'an & Tahsin">
-Al-Qur'an & Tahsin
-</option>
+        <option value="Al-Qur'an & Tahsin">
+            Al-Qur'an & Tahsin
+        </option>
 
-<option value="Fiqih">
-Fiqih
-</option>
+        <option value="Fiqih">
+            Fiqih
+        </option>
 
-<option value="Aqidah">
-Aqidah
-</option>
+        <option value="Aqidah">
+            Aqidah
+        </option>
 
-<option value="Akhlak & Adab">
-Akhlak & Adab
-</option>
+        <option value="Akhlak & Adab">
+            Akhlak & Adab
+        </option>
 
-<option value="Bahasa Arab">
-Bahasa Arab
-</option>
+        <option value="Bahasa Arab">
+            Bahasa Arab
+        </option>
 
-<option value="Hadits">
-Hadits
-</option>
+        <option value="Hadits">
+            Hadits
+        </option>
 
-<option value="Tafsir">
-Tafsir
-</option>
+        <option value="Tafsir">
+            Tafsir
+        </option>
 
-<option value="Sejarah Islam">
-Sejarah Islam
-</option>
+        <option value="Sejarah Islam">
+            Sejarah Islam
+        </option>
 
-</select>
+    </select>
 
 </div>
 
 
 
-<!-- =========================================
+<!-- =====================================================
 MATERIAL
-========================================= -->
+===================================================== -->
 
 <section class="material-area">
 
-<div id="materialContainer">
+    <div id="materialContainer">
 
-<div class="loading">
-⏳ Mengambil materi...
-</div>
+        <div class="loading">
+            ⏳ Mengambil materi...
+        </div>
 
-</div>
+    </div>
 
 </section>
 
 
 
-<!-- =========================================
+<!-- =====================================================
 FOOTER
-========================================= -->
+===================================================== -->
 
 <footer>
 
-<div class="footer-inner">
+    <div class="footer-inner">
 
-<div class="footer-logo">
-📖 NgajiPlus Akademi
-</div>
+        <div class="footer-logo">
+            📖 NgajiPlus Akademi
+        </div>
 
-<div class="footer-text">
-Platform pembelajaran Islam berupa Video, Audio dan PDF.
-</div>
+        <div class="footer-text">
+            Platform pembelajaran Islam berupa Video, Audio dan PDF.
+        </div>
 
-</div>
+    </div>
 
 </footer>
 
 
 
 <script>
-
 
 /* =====================================================
 VARIABLE
@@ -801,7 +819,9 @@ async function checkUser(){
 
 
             notice.innerHTML =
-                "🔐 Anda belum login. Materi gratis dapat dipelajari. Materi premium memerlukan membership aktif.";
+                "🔐 Anda belum login. " +
+                "Materi gratis dapat dipelajari. " +
+                "Materi premium memerlukan membership aktif.";
 
 
             return;
@@ -884,7 +904,8 @@ async function checkUser(){
 
 
             notice.innerHTML =
-                "👤 Anda sudah login, tetapi profil membership belum tersedia.";
+                "👤 Anda sudah login, tetapi " +
+                "profil membership belum tersedia.";
 
 
             return;
@@ -931,7 +952,9 @@ async function checkUser(){
 
 
             tanggalAktif =
-                !isNaN(tanggal.getTime()) &&
+                !isNaN(
+                    tanggal.getTime()
+                ) &&
                 tanggal >= sekarang;
 
         }
@@ -957,7 +980,8 @@ async function checkUser(){
 
 
             notice.innerHTML =
-                "✅ Anda sudah login. Membership <strong>" +
+                "✅ Anda sudah login. Membership " +
+                "<strong>" +
                 escapeHTML(
                     currentProfile.paket ||
                     "Premium"
@@ -978,7 +1002,9 @@ async function checkUser(){
 
 
             notice.innerHTML =
-                "👤 Anda sudah login, tetapi membership premium belum aktif. Materi gratis tetap dapat dipelajari.";
+                "👤 Anda sudah login, tetapi " +
+                "membership premium belum aktif. " +
+                "Materi gratis tetap dapat dipelajari.";
 
         }
 
@@ -1067,12 +1093,11 @@ LOAD MATERIALS
 
 async function loadMaterials(){
 
-    materialContainer.innerHTML =
-        `
+    materialContainer.innerHTML = `
         <div class="loading">
             ⏳ Mengambil materi...
         </div>
-        `;
+    `;
 
 
     try{
@@ -1114,8 +1139,7 @@ async function loadMaterials(){
         );
 
 
-        materialContainer.innerHTML =
-            `
+        materialContainer.innerHTML = `
             <div class="error">
 
                 ❌ Gagal mengambil materi.
@@ -1127,7 +1151,7 @@ async function loadMaterials(){
                 )}
 
             </div>
-            `;
+        `;
 
     }
 
@@ -1135,7 +1159,7 @@ async function loadMaterials(){
 
 
 /* =====================================================
-RENDER
+RENDER MATERIALS
 ===================================================== */
 
 function renderMaterials(){
@@ -1198,14 +1222,11 @@ function renderMaterials(){
         filtered.length === 0
     ){
 
-        materialContainer.innerHTML =
-            `
+        materialContainer.innerHTML = `
             <div class="empty">
-
                 📚 Materi tidak ditemukan.
-
             </div>
-            `;
+        `;
 
         return;
 
@@ -1245,7 +1266,7 @@ function renderMaterials(){
 
 
 /* =====================================================
-CARD
+CREATE MATERIAL CARD
 ===================================================== */
 
 function createMaterialCard(item){
@@ -1310,24 +1331,23 @@ function createMaterialCard(item){
     THUMBNAIL
     ========================================= */
 
-    let thumbnailHTML =
-        `
+    let thumbnailHTML = `
         <div class="default-thumb">
-
             ${typeIcon}
-
         </div>
-        `;
+    `;
 
 
     if(item.thumbnail){
 
-        thumbnailHTML =
-            `
+        thumbnailHTML = `
             <img
-                src="${escapeAttribute(item.thumbnail)}"
+                src="${escapeAttribute(
+                    item.thumbnail
+                )}"
                 alt="${escapeAttribute(
-                    item.judul || "Materi"
+                    item.judul ||
+                    "Materi"
                 )}"
                 onerror="
                     this.style.display='none';
@@ -1341,17 +1361,15 @@ function createMaterialCard(item){
                 class="default-thumb fallback"
                 style="display:none"
             >
-
                 ${typeIcon}
-
             </div>
-            `;
+        `;
 
     }
 
 
     /* =========================================
-    LOCK
+    PREMIUM LOCK
     ========================================= */
 
     if(
@@ -1359,14 +1377,11 @@ function createMaterialCard(item){
         !canOpen
     ){
 
-        thumbnailHTML +=
-            `
+        thumbnailHTML += `
             <div class="lock">
-
                 🔐
-
             </div>
-            `;
+        `;
 
     }
 
@@ -1380,35 +1395,29 @@ function createMaterialCard(item){
 
     if(canOpen){
 
-        buttonHTML =
-            `
+        buttonHTML = `
             <button
                 class="open-btn"
                 onclick="openMaterial(${Number(
                     item.id
                 )})"
             >
-
                 📖 Buka Materi
-
             </button>
-            `;
+        `;
 
     }
 
     else{
 
-        buttonHTML =
-            `
+        buttonHTML = `
             <button
                 class="locked-btn"
                 disabled
             >
-
                 🔐 Membership Diperlukan
-
             </button>
-            `;
+        `;
 
     }
 
@@ -1417,8 +1426,7 @@ function createMaterialCard(item){
     CARD HTML
     ========================================= */
 
-    card.innerHTML =
-        `
+    card.innerHTML = `
 
         <div class="thumb">
 
@@ -1428,7 +1436,6 @@ function createMaterialCard(item){
 
 
         <div class="content">
-
 
             <span class="type">
 
@@ -1481,9 +1488,7 @@ function createMaterialCard(item){
 
                     `
                     <span class="badge premium">
-
                         🔐 Premium
-
                     </span>
                     `
 
@@ -1491,12 +1496,9 @@ function createMaterialCard(item){
 
                     `
                     <span class="badge free">
-
                         ✓ Gratis
-
                     </span>
                     `
-
                 }
 
             </div>
@@ -1504,10 +1506,9 @@ function createMaterialCard(item){
 
             ${buttonHTML}
 
-
         </div>
 
-        `;
+    `;
 
 
     return card;
@@ -1518,6 +1519,23 @@ function createMaterialCard(item){
 /* =====================================================
 OPEN MATERIAL
 ===================================================== */
+
+/*
+    PENTING:
+
+    Tombol Buka Materi TIDAK lagi langsung
+    menuju YouTube.
+
+    Sekarang alurnya:
+
+    akademi.html
+          ↓
+    player.html?id=ID
+          ↓
+    player membaca data materials
+          ↓
+    Video / Audio / PDF
+*/
 
 function openMaterial(id){
 
@@ -1554,7 +1572,8 @@ function openMaterial(id){
     ){
 
         alert(
-            "🔐 Materi ini khusus member premium.\n\nSilakan aktifkan membership terlebih dahulu."
+            "🔐 Materi ini khusus member premium.\n\n" +
+            "Silakan aktifkan membership terlebih dahulu."
         );
 
         return;
@@ -1563,7 +1582,7 @@ function openMaterial(id){
 
 
     /* =========================================
-    URL
+    CEK URL
     ========================================= */
 
     if(!item.url){
@@ -1577,11 +1596,15 @@ function openMaterial(id){
     }
 
 
-    window.open(
-        item.url,
-        "_blank",
-        "noopener,noreferrer"
-    );
+    /* =========================================
+    MASUK KE PLAYER
+    ========================================= */
+
+    window.location.href =
+        "player.html?id=" +
+        encodeURIComponent(
+            item.id
+        );
 
 }
 
@@ -1729,6 +1752,7 @@ async function init(){
 init();
 
 </script>
+
 
 </body>
 
