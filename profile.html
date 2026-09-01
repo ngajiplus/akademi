@@ -61,6 +61,7 @@ body{
 
 a{
     text-decoration:none;
+
     color:inherit;
 }
 
@@ -94,7 +95,7 @@ textarea{
     margin:auto;
 
     padding:
-        12px 18px;
+        10px 15px;
 
     display:flex;
 
@@ -108,7 +109,7 @@ textarea{
 .logo{
     color:#008f50;
 
-    font-size:18px;
+    font-size:15px;
 
     font-weight:bold;
 }
@@ -118,7 +119,7 @@ textarea{
 
     color:#7a8580;
 
-    font-size:9px;
+    font-size:8px;
 
     font-weight:normal;
 }
@@ -127,6 +128,8 @@ textarea{
     display:flex;
 
     gap:6px;
+
+    align-items:center;
 }
 
 .header-btn{
@@ -137,7 +140,7 @@ textarea{
 
     border-radius:8px;
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:bold;
 
@@ -167,7 +170,7 @@ textarea{
     margin:auto;
 
     padding:
-        25px 15px 60px;
+        20px 15px 60px;
 }
 
 
@@ -183,13 +186,13 @@ textarea{
 
     border-radius:15px;
 
-    padding:50px 20px;
+    padding:45px 20px;
 
     text-align:center;
 
     color:#777;
 
-    font-size:13px;
+    font-size:12px;
 }
 
 
@@ -211,7 +214,7 @@ textarea{
 
     text-align:center;
 
-    font-size:12px;
+    font-size:11px;
 }
 
 
@@ -227,7 +230,7 @@ textarea{
 
     border-radius:16px;
 
-    padding:20px;
+    padding:18px;
 
     margin-bottom:15px;
 
@@ -244,13 +247,16 @@ textarea{
     flex-shrink:0;
 }
 
-.avatar{
-    width:70px;
+.avatar,
+.avatar-fallback{
+    width:65px;
 
-    height:70px;
+    height:65px;
 
     border-radius:50%;
+}
 
+.avatar{
     object-fit:cover;
 
     background:#e8f7ef;
@@ -260,12 +266,6 @@ textarea{
 }
 
 .avatar-fallback{
-    width:70px;
-
-    height:70px;
-
-    border-radius:50%;
-
     background:#e8f7ef;
 
     display:flex;
@@ -274,13 +274,14 @@ textarea{
 
     justify-content:center;
 
-    font-size:35px;
+    font-size:30px;
 }
 
 .profile-name{
-    margin:0 0 2px;
+    margin:
+        0 0 2px;
 
-    font-size:19px;
+    font-size:18px;
 }
 
 .profile-email{
@@ -288,20 +289,20 @@ textarea{
 
     color:#7a8580;
 
-    font-size:11px;
+    font-size:10px;
 }
 
 .status{
     display:inline-block;
 
-    margin-top:6px;
+    margin-top:5px;
 
     padding:
         3px 8px;
 
     border-radius:20px;
 
-    font-size:9px;
+    font-size:8px;
 
     font-weight:bold;
 }
@@ -331,19 +332,16 @@ textarea{
 
     border-radius:16px;
 
-    padding:20px;
+    padding:18px;
 
     margin-bottom:15px;
 }
 
 .card-title{
-    margin:0 0 15px;
+    margin:
+        0 0 15px;
 
-    font-size:17px;
-}
-
-.card-title span{
-    margin-right:5px;
+    font-size:16px;
 }
 
 
@@ -373,13 +371,13 @@ textarea{
 
     color:#7a8580;
 
-    font-size:9px;
+    font-size:8px;
 
     margin-bottom:4px;
 }
 
 .membership-value{
-    font-size:12px;
+    font-size:11px;
 
     font-weight:bold;
 }
@@ -398,7 +396,7 @@ textarea{
 
     margin-bottom:6px;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:bold;
 
@@ -412,16 +410,16 @@ textarea{
     border:
         1px solid #d8e3dc;
 
-    background:#fff;
+    background:white;
 
     border-radius:9px;
 
     padding:
-        11px 12px;
+        10px 11px;
 
     outline:none;
 
-    font-size:11px;
+    font-size:10px;
 
     color:#202a25;
 }
@@ -444,7 +442,7 @@ textarea{
 }
 
 .form-textarea{
-    min-height:100px;
+    min-height:90px;
 
     resize:vertical;
 }
@@ -456,22 +454,23 @@ textarea{
 
     color:#8a958f;
 
-    font-size:9px;
+    font-size:8px;
 }
 
 
 /* =====================================================
-   AVATAR URL
+   PHOTO UPLOAD
 ===================================================== */
 
-.avatar-preview-box{
-    background:#f4f8f6;
+.photo-upload{
+    background:#f5faf7;
 
-    border-radius:12px;
+    border:
+        1px solid #dce9e1;
+
+    border-radius:14px;
 
     padding:15px;
-
-    margin-bottom:15px;
 
     display:flex;
 
@@ -480,10 +479,10 @@ textarea{
     gap:15px;
 }
 
-.preview{
-    width:65px;
+.photo-preview{
+    width:75px;
 
-    height:65px;
+    height:75px;
 
     border-radius:50%;
 
@@ -492,30 +491,62 @@ textarea{
     background:#dff5e8;
 
     border:
-        1px solid #d5e9dd;
+        2px solid #cde9d9;
+
+    flex-shrink:0;
 }
 
-.preview-info{
+.photo-info{
     flex:1;
 }
 
-.preview-info strong{
+.photo-info strong{
     display:block;
 
     font-size:11px;
 
-    margin-bottom:3px;
+    margin-bottom:4px;
 }
 
-.preview-info span{
+.photo-info p{
+    margin:
+        0 0 8px;
+
     color:#7a8580;
 
+    font-size:8px;
+}
+
+.choose-photo{
+    display:inline-block;
+
+    background:#008f50;
+
+    color:white;
+
+    padding:
+        8px 11px;
+
+    border-radius:8px;
+
     font-size:9px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.choose-photo:hover{
+    background:#007d46;
+}
+
+#photoInput{
+    display:none;
 }
 
 
 /* =====================================================
-   BUTTON
+   SAVE BUTTON
 ===================================================== */
 
 .save-button{
@@ -531,7 +562,7 @@ textarea{
 
     color:white;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:bold;
 
@@ -561,7 +592,7 @@ textarea{
 
     color:#555;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:bold;
 
@@ -580,11 +611,11 @@ textarea{
 
     border-radius:10px;
 
-    padding:11px 13px;
+    padding:10px 12px;
 
     margin-bottom:15px;
 
-    font-size:10px;
+    font-size:9px;
 }
 
 .notice.success{
@@ -607,6 +638,17 @@ textarea{
         1px solid #f2c4c4;
 
     color:#b42318;
+}
+
+.notice.warning{
+    display:block;
+
+    background:#fff8d9;
+
+    border:
+        1px solid #f0df91;
+
+    color:#75621c;
 }
 
 
@@ -641,7 +683,7 @@ textarea{
 .footer-logo{
     color:#35b878;
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:bold;
 }
@@ -649,7 +691,7 @@ textarea{
 .footer-text{
     color:#87948d;
 
-    font-size:9px;
+    font-size:8px;
 
     margin-top:4px;
 }
@@ -663,18 +705,18 @@ textarea{
 
     .header-inner{
         padding:
-            10px 12px;
+            9px 10px;
     }
 
     .logo{
-        font-size:14px;
+        font-size:12px;
     }
 
     .header-btn{
         padding:
-            7px 9px;
+            7px 8px;
 
-        font-size:9px;
+        font-size:8px;
     }
 
     .main{
@@ -683,7 +725,7 @@ textarea{
     }
 
     .profile-header{
-        padding:15px;
+        padding:14px;
     }
 
     .avatar,
@@ -694,11 +736,11 @@ textarea{
     }
 
     .avatar-fallback{
-        font-size:28px;
+        font-size:27px;
     }
 
     .profile-name{
-        font-size:16px;
+        font-size:15px;
     }
 
     .membership-grid{
@@ -706,7 +748,32 @@ textarea{
     }
 
     .card{
-        padding:15px;
+        padding:14px;
+    }
+
+    .photo-upload{
+        padding:12px;
+    }
+
+    .photo-preview{
+        width:65px;
+
+        height:65px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:360px){
+
+    .photo-upload{
+        flex-direction:column;
+
+        text-align:center;
     }
 
 }
@@ -726,6 +793,7 @@ textarea{
 <header class="header">
 
 <div class="header-inner">
+
 
 <div class="logo">
 
@@ -807,27 +875,31 @@ Profil Akun
 
 <section class="profile-header">
 
+
 <div class="avatar-wrapper">
+
 
 <img
     id="profileAvatar"
-    class="avatar"
+    class="avatar hidden"
     src=""
     alt="Foto Profil"
-    onerror="this.classList.add('hidden'); document.getElementById('avatarFallback').classList.remove('hidden');"
 >
+
 
 <div
     id="avatarFallback"
-    class="avatar-fallback hidden"
+    class="avatar-fallback"
 >
 👤
 </div>
+
 
 </div>
 
 
 <div>
+
 
 <h1
     id="profileName"
@@ -852,7 +924,9 @@ Memuat...
 AKTIF
 </span>
 
+
 </div>
+
 
 </section>
 
@@ -875,6 +949,7 @@ AKTIF
 ===================================================== -->
 
 <section class="card">
+
 
 <h2 class="card-title">
 🔐 Informasi Membership
@@ -944,15 +1019,86 @@ Berlaku Sampai
 
 <section class="card">
 
+
 <h2 class="card-title">
 ✏️ Edit Profil
 </h2>
 
 
 
-<!-- NAMA -->
+<!-- =====================================================
+     FOTO PROFIL
+===================================================== -->
 
 <div class="form-group">
+
+
+<label class="form-label">
+📷 Foto Profil
+</label>
+
+
+<div class="photo-upload">
+
+
+<img
+    id="photoPreview"
+    class="photo-preview"
+    src=""
+    alt="Preview Foto"
+>
+
+
+<div class="photo-info">
+
+
+<strong>
+Foto Profil Anda
+</strong>
+
+
+<p>
+Pilih foto dari galeri HP.
+Maksimal 5 MB.
+</p>
+
+
+<label
+    for="photoInput"
+    class="choose-photo"
+>
+📷 Pilih Foto
+</label>
+
+
+<input
+    type="file"
+    id="photoInput"
+    accept="image/jpeg,image/png,image/webp"
+>
+
+
+</div>
+
+
+</div>
+
+
+<span class="help">
+Format JPG, JPEG, PNG atau WEBP. Foto akan disimpan sebagai foto profil akun.
+</span>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     NAMA
+===================================================== -->
+
+<div class="form-group">
+
 
 <label
     class="form-label"
@@ -960,6 +1106,7 @@ Berlaku Sampai
 >
 Nama Lengkap
 </label>
+
 
 <input
     type="text"
@@ -969,13 +1116,17 @@ Nama Lengkap
     maxlength="100"
 >
 
+
 </div>
 
 
 
-<!-- EMAIL -->
+<!-- =====================================================
+     EMAIL
+===================================================== -->
 
 <div class="form-group">
+
 
 <label
     class="form-label"
@@ -984,6 +1135,7 @@ Nama Lengkap
 Email
 </label>
 
+
 <input
     type="email"
     id="email"
@@ -991,17 +1143,22 @@ Email
     disabled
 >
 
+
 <span class="help">
 Email akun tidak dapat diubah dari halaman ini.
 </span>
+
 
 </div>
 
 
 
-<!-- NO HP -->
+<!-- =====================================================
+     NO HP
+===================================================== -->
 
 <div class="form-group">
+
 
 <label
     class="form-label"
@@ -1009,6 +1166,7 @@ Email akun tidak dapat diubah dari halaman ini.
 >
 No. HP / WhatsApp
 </label>
+
 
 <input
     type="tel"
@@ -1018,13 +1176,17 @@ No. HP / WhatsApp
     maxlength="30"
 >
 
+
 </div>
 
 
 
-<!-- ALAMAT -->
+<!-- =====================================================
+     ALAMAT
+===================================================== -->
 
 <div class="form-group">
+
 
 <label
     class="form-label"
@@ -1033,6 +1195,7 @@ No. HP / WhatsApp
 Alamat
 </label>
 
+
 <textarea
     id="alamat"
     class="form-textarea"
@@ -1040,13 +1203,17 @@ Alamat
     maxlength="500"
 ></textarea>
 
+
 </div>
 
 
 
-<!-- BIO -->
+<!-- =====================================================
+     BIO
+===================================================== -->
 
 <div class="form-group">
+
 
 <label
     class="form-label"
@@ -1055,6 +1222,7 @@ Alamat
 Bio
 </label>
 
+
 <textarea
     id="bio"
     class="form-textarea"
@@ -1062,64 +1230,14 @@ Bio
     maxlength="500"
 ></textarea>
 
-</div>
-
-
-
-<!-- FOTO -->
-
-<div class="form-group">
-
-<label
-    class="form-label"
-    for="avatarUrl"
->
-URL Foto Profil
-</label>
-
-
-<div class="avatar-preview-box">
-
-<img
-    id="avatarPreview"
-    class="preview"
-    src=""
-    alt="Preview"
-    onerror="this.src='';"
->
-
-
-<div class="preview-info">
-
-<strong>
-🖼️ Foto Profil
-</strong>
-
-<span>
-Masukkan URL gambar jika ingin mengganti foto.
-</span>
-
-</div>
-
-</div>
-
-
-<input
-    type="url"
-    id="avatarUrl"
-    class="form-input"
-    placeholder="https://contoh.com/foto.jpg"
->
-
-<span class="help">
-Gunakan link gambar yang bisa diakses publik. Tidak menggunakan Storage Supabase.
-</span>
 
 </div>
 
 
 
-<!-- SAVE -->
+<!-- =====================================================
+     SAVE
+===================================================== -->
 
 <button
     id="saveButton"
@@ -1155,13 +1273,16 @@ Gunakan link gambar yang bisa diakses publik. Tidak menggunakan Storage Supabase
 
 <div class="footer-inner">
 
+
 <div class="footer-logo">
 📖 NgajiPlus Akademi
 </div>
 
+
 <div class="footer-text">
 Platform pembelajaran Islam berupa Video, Audio dan PDF.
 </div>
+
 
 </div>
 
@@ -1191,6 +1312,14 @@ const supabaseClient =
 
 
 /* =====================================================
+   STORAGE BUCKET
+===================================================== */
+
+const AVATAR_BUCKET =
+    "avatars";
+
+
+/* =====================================================
    ELEMENT
 ===================================================== */
 
@@ -1199,100 +1328,120 @@ const loading =
         "loading"
     );
 
+
 const errorBox =
     document.getElementById(
         "errorBox"
     );
+
 
 const profileContent =
     document.getElementById(
         "profileContent"
     );
 
+
 const profileAvatar =
     document.getElementById(
         "profileAvatar"
     );
+
 
 const avatarFallback =
     document.getElementById(
         "avatarFallback"
     );
 
+
 const profileName =
     document.getElementById(
         "profileName"
     );
+
 
 const profileEmail =
     document.getElementById(
         "profileEmail"
     );
 
+
 const profileStatus =
     document.getElementById(
         "profileStatus"
     );
+
 
 const membershipStatus =
     document.getElementById(
         "membershipStatus"
     );
 
+
 const membershipPackage =
     document.getElementById(
         "membershipPackage"
     );
+
 
 const membershipExpiry =
     document.getElementById(
         "membershipExpiry"
     );
 
+
 const namaInput =
     document.getElementById(
         "nama"
     );
+
 
 const emailInput =
     document.getElementById(
         "email"
     );
 
+
 const noHpInput =
     document.getElementById(
         "noHp"
     );
+
 
 const alamatInput =
     document.getElementById(
         "alamat"
     );
 
+
 const bioInput =
     document.getElementById(
         "bio"
     );
 
-const avatarUrlInput =
+
+const photoInput =
     document.getElementById(
-        "avatarUrl"
+        "photoInput"
     );
 
-const avatarPreview =
+
+const photoPreview =
     document.getElementById(
-        "avatarPreview"
+        "photoPreview"
     );
+
 
 const saveButton =
     document.getElementById(
         "saveButton"
     );
 
+
 const cancelButton =
     document.getElementById(
         "cancelButton"
     );
+
 
 const notice =
     document.getElementById(
@@ -1301,12 +1450,16 @@ const notice =
 
 
 /* =====================================================
-   CURRENT USER
+   VARIABLES
 ===================================================== */
 
 let currentUser = null;
 
 let currentProfile = null;
+
+let selectedPhotoFile = null;
+
+let selectedPhotoPreviewUrl = null;
 
 
 /* =====================================================
@@ -1388,7 +1541,26 @@ function formatDate(value){
 
 
 /* =====================================================
-   SHOW ERROR
+   NOTICE
+===================================================== */
+
+function showNotice(
+    message,
+    type
+){
+
+    notice.className =
+        "notice " +
+        type;
+
+    notice.innerHTML =
+        message;
+
+}
+
+
+/* =====================================================
+   ERROR
 ===================================================== */
 
 function showError(message){
@@ -1406,25 +1578,6 @@ function showError(message){
     );
 
     errorBox.innerHTML =
-        message;
-
-}
-
-
-/* =====================================================
-   SHOW NOTICE
-===================================================== */
-
-function showNotice(
-    message,
-    type
-){
-
-    notice.className =
-        "notice " +
-        type;
-
-    notice.innerHTML =
         message;
 
 }
@@ -1449,14 +1602,11 @@ function setAvatar(url){
             "hidden"
         );
 
-        avatarPreview.src =
+
+        photoPreview.src =
             url;
 
     }else{
-
-        profileAvatar.removeAttribute(
-            "src"
-        );
 
         profileAvatar.classList.add(
             "hidden"
@@ -1466,7 +1616,8 @@ function setAvatar(url){
             "hidden"
         );
 
-        avatarPreview.removeAttribute(
+
+        photoPreview.removeAttribute(
             "src"
         );
 
@@ -1505,24 +1656,39 @@ async function checkLogin(){
         if(!currentUser){
 
             showError(
-                "🔐 <strong>Anda belum login.</strong><br><br>" +
-                "Silakan login terlebih dahulu untuk membuka profil akun.<br><br>" +
+
+                "🔐 <strong>Anda belum login.</strong>" +
+
+                "<br><br>" +
+
+                "Silakan login terlebih dahulu." +
+
+                "<br><br>" +
 
                 '<a href="login.html" style="' +
+
                 'display:inline-block;' +
+
                 'background:#008f50;' +
+
                 'color:white;' +
+
                 'padding:10px 15px;' +
+
                 'border-radius:8px;' +
-                'text-decoration:none;' +
+
                 'font-weight:bold;' +
-                'font-size:11px;' +
+
+                'font-size:10px;' +
+
                 '">' +
 
                 "🔐 Login" +
 
                 "</a>"
+
             );
+
 
             return false;
 
@@ -1536,16 +1702,20 @@ async function checkLogin(){
     catch(error){
 
         console.error(
-            "CHECK LOGIN ERROR:",
             error
         );
 
 
         showError(
-            "❌ Gagal memeriksa login.<br><br>" +
+
+            "❌ Gagal memeriksa login." +
+
+            "<br><br>" +
+
             escapeHtml(
                 error.message
             )
+
         );
 
 
@@ -1598,20 +1768,8 @@ async function loadProfile(){
 
         if(!currentProfile){
 
-            /*
-               Kita buat data awal berdasarkan
-               akun Auth.
-            */
-
             const metadata =
                 currentUser.user_metadata || {};
-
-
-            const defaultName =
-                metadata.full_name ||
-                metadata.name ||
-                metadata.nama ||
-                "";
 
 
             currentProfile = {
@@ -1620,7 +1778,10 @@ async function loadProfile(){
                     currentUser.id,
 
                 nama:
-                    defaultName,
+                    metadata.full_name ||
+                    metadata.name ||
+                    metadata.nama ||
+                    "",
 
                 status:
                     "AKTIF",
@@ -1650,7 +1811,6 @@ async function loadProfile(){
 
         displayProfile();
 
-
     }
 
     catch(error){
@@ -1662,15 +1822,15 @@ async function loadProfile(){
 
 
         showError(
-            "❌ <strong>Profil tidak dapat dibaca.</strong><br><br>" +
 
-            escapeHtml(
-                error.message
-            ) +
+            "❌ <strong>Profil tidak dapat dibaca.</strong>" +
 
             "<br><br>" +
 
-            "Periksa kebijakan RLS tabel profiles jika diperlukan."
+            escapeHtml(
+                error.message
+            )
+
         );
 
     }
@@ -1724,25 +1884,6 @@ function displayProfile(){
         "";
 
 
-    const noHp =
-        currentProfile.no_hp ||
-        "";
-
-
-    const alamat =
-        currentProfile.alamat ||
-        "";
-
-
-    const bio =
-        currentProfile.bio ||
-        "";
-
-
-    /* =========================================
-       HEADER
-    ========================================= */
-
     profileName.textContent =
         nama;
 
@@ -1768,15 +1909,6 @@ function displayProfile(){
     }
 
 
-    setAvatar(
-        avatar
-    );
-
-
-    /* =========================================
-       MEMBERSHIP
-    ========================================= */
-
     membershipStatus.textContent =
         status;
 
@@ -1791,10 +1923,6 @@ function displayProfile(){
         );
 
 
-    /* =========================================
-       FORM
-    ========================================= */
-
     namaInput.value =
         nama === "Member"
             ? ""
@@ -1806,24 +1934,24 @@ function displayProfile(){
 
 
     noHpInput.value =
-        noHp;
+        currentProfile.no_hp ||
+        "";
 
 
     alamatInput.value =
-        alamat;
+        currentProfile.alamat ||
+        "";
 
 
     bioInput.value =
-        bio;
+        currentProfile.bio ||
+        "";
 
 
-    avatarUrlInput.value =
-        avatar;
+    setAvatar(
+        avatar
+    );
 
-
-    /* =========================================
-       TAMPILKAN
-    ========================================= */
 
     loading.classList.add(
         "hidden"
@@ -1841,32 +1969,233 @@ function displayProfile(){
 
 
 /* =====================================================
-   PREVIEW FOTO
+   PHOTO SELECT
 ===================================================== */
 
-avatarUrlInput.addEventListener(
-    "input",
+photoInput.addEventListener(
+    "change",
     function(){
 
-        const url =
-            this.value.trim();
+        const file =
+            this.files &&
+            this.files[0];
 
 
-        if(url){
+        if(!file){
 
-            avatarPreview.src =
-                url;
+            return;
 
-        }else{
+        }
 
-            avatarPreview.removeAttribute(
-                "src"
+
+        /* =========================================
+           FILE TYPE
+        ========================================= */
+
+        const allowedTypes = [
+
+            "image/jpeg",
+
+            "image/png",
+
+            "image/webp"
+
+        ];
+
+
+        if(
+            !allowedTypes.includes(
+                file.type
+            )
+        ){
+
+            alert(
+                "❌ Format foto tidak didukung.\n\n" +
+                "Gunakan JPG, JPEG, PNG atau WEBP."
+            );
+
+
+            this.value =
+                "";
+
+
+            return;
+
+        }
+
+
+        /* =========================================
+           FILE SIZE
+        ========================================= */
+
+        const maxSize =
+            5 * 1024 * 1024;
+
+
+        if(
+            file.size >
+            maxSize
+        ){
+
+            alert(
+                "❌ Ukuran foto terlalu besar.\n\n" +
+                "Maksimal 5 MB."
+            );
+
+
+            this.value =
+                "";
+
+
+            return;
+
+        }
+
+
+        /* =========================================
+           SIMPAN FILE
+        ========================================= */
+
+        selectedPhotoFile =
+            file;
+
+
+        /* =========================================
+           PREVIEW
+        ========================================= */
+
+        if(
+            selectedPhotoPreviewUrl
+        ){
+
+            URL.revokeObjectURL(
+                selectedPhotoPreviewUrl
             );
 
         }
 
+
+        selectedPhotoPreviewUrl =
+            URL.createObjectURL(
+                file
+            );
+
+
+        photoPreview.src =
+            selectedPhotoPreviewUrl;
+
+
+        showNotice(
+            "📷 Foto baru dipilih. Jangan lupa klik <strong>Simpan Perubahan</strong>.",
+            "success"
+        );
+
     }
 );
+
+
+/* =====================================================
+   UPLOAD AVATAR
+===================================================== */
+
+async function uploadAvatar(){
+
+    if(
+        !selectedPhotoFile
+    ){
+
+        return currentProfile.avatar_url ||
+            "";
+
+    }
+
+
+    /* =========================================
+       EXTENSION
+    ========================================= */
+
+    const extension =
+        selectedPhotoFile.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    /* =========================================
+       FILE NAME
+       Menggunakan ID user
+       agar satu akun punya satu foto
+    ========================================= */
+
+    const filePath =
+        currentUser.id +
+        "/avatar." +
+        extension;
+
+
+    /* =========================================
+       UPLOAD
+    ========================================= */
+
+    const uploadResult =
+        await supabaseClient
+            .storage
+            .from(
+                AVATAR_BUCKET
+            )
+            .upload(
+                filePath,
+                selectedPhotoFile,
+                {
+                    cacheControl:"3600",
+
+                    upsert:true,
+
+                    contentType:
+                        selectedPhotoFile.type
+                }
+            );
+
+
+    if(uploadResult.error){
+
+        throw uploadResult.error;
+
+    }
+
+
+    /* =========================================
+       GET PUBLIC URL
+    ========================================= */
+
+    const publicResult =
+        supabaseClient
+            .storage
+            .from(
+                AVATAR_BUCKET
+            )
+            .getPublicUrl(
+                filePath
+            );
+
+
+    const publicUrl =
+        publicResult.data
+            .publicUrl;
+
+
+    /*
+       Tambahkan cache busting supaya
+       foto baru langsung tampil.
+    */
+
+    return (
+        publicUrl +
+        "?v=" +
+        Date.now()
+    );
+
+}
 
 
 /* =====================================================
@@ -1900,12 +2229,8 @@ saveButton.addEventListener(
             bioInput.value.trim();
 
 
-        const avatarUrl =
-            avatarUrlInput.value.trim();
-
-
         /* =========================================
-           VALIDASI
+           VALIDASI NAMA
         ========================================= */
 
         if(!nama){
@@ -1915,7 +2240,9 @@ saveButton.addEventListener(
                 "error"
             );
 
+
             namaInput.focus();
+
 
             return;
 
@@ -1929,21 +2256,40 @@ saveButton.addEventListener(
         saveButton.disabled =
             true;
 
+
         saveButton.textContent =
             "⏳ Menyimpan...";
-
-
-        notice.className =
-            "notice";
-
-        notice.innerHTML =
-            "";
 
 
         try{
 
             /* =====================================
-               UPDATE PROFILES
+               UPLOAD FOTO JIKA ADA
+            ===================================== */
+
+            let avatarUrl =
+                currentProfile.avatar_url ||
+                "";
+
+
+            if(
+                selectedPhotoFile
+            ){
+
+                showNotice(
+                    "📷 Mengupload foto profil...",
+                    "success"
+                );
+
+
+                avatarUrl =
+                    await uploadAvatar();
+
+            }
+
+
+            /* =====================================
+               UPDATE PROFILE
             ===================================== */
 
             const updateData = {
@@ -1990,7 +2336,6 @@ saveButton.addEventListener(
 
             /* =====================================
                UPDATE AUTH METADATA
-               Agar nama juga ikut tersimpan
             ===================================== */
 
             const authResult =
@@ -2017,7 +2362,6 @@ saveButton.addEventListener(
             if(authResult.error){
 
                 console.warn(
-                    "AUTH METADATA:",
                     authResult.error
                 );
 
@@ -2031,17 +2375,43 @@ saveButton.addEventListener(
             currentProfile.nama =
                 nama;
 
+
             currentProfile.no_hp =
                 noHp;
+
 
             currentProfile.alamat =
                 alamat;
 
+
             currentProfile.bio =
                 bio;
 
+
             currentProfile.avatar_url =
                 avatarUrl;
+
+
+            selectedPhotoFile =
+                null;
+
+
+            photoInput.value =
+                "";
+
+
+            if(
+                selectedPhotoPreviewUrl
+            ){
+
+                URL.revokeObjectURL(
+                    selectedPhotoPreviewUrl
+                );
+
+                selectedPhotoPreviewUrl =
+                    null;
+
+            }
 
 
             displayProfile();
@@ -2054,8 +2424,7 @@ saveButton.addEventListener(
 
 
             /* =====================================
-               KEMBALI OTOMATIS
-               setelah 1,2 detik
+               KEMBALI KE INDEX
             ===================================== */
 
             setTimeout(
@@ -2067,7 +2436,6 @@ saveButton.addEventListener(
                 },
                 1200
             );
-
 
         }
 
@@ -2081,7 +2449,9 @@ saveButton.addEventListener(
 
             showNotice(
 
-                "❌ <strong>Gagal menyimpan profil.</strong><br><br>" +
+                "❌ <strong>Gagal menyimpan profil.</strong>" +
+
+                "<br><br>" +
 
                 escapeHtml(
                     error.message
@@ -2097,6 +2467,7 @@ saveButton.addEventListener(
 
             saveButton.disabled =
                 false;
+
 
             saveButton.textContent =
                 "💾 Simpan Perubahan";
@@ -2129,9 +2500,7 @@ cancelButton.addEventListener(
 supabaseClient
     .auth
     .onAuthStateChange(
-        function(
-            event
-        ){
+        function(event){
 
             if(
                 event ===
