@@ -1,1 +1,861 @@
+<!DOCTYPE html>
+<html lang="id">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Pemutar Materi - NgajiPlus Akademi</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f8f6;
+  color:#202a24;
+}
+
+header{
+  background:white;
+  border-bottom:1px solid #e5e9e6;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:12px 20px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:#008f58;
+  font-weight:bold;
+}
+
+.back-button{
+  background:#e8f5ef;
+  color:#087a47;
+  padding:8px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:13px;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+.loading{
+  text-align:center;
+  padding:50px 20px;
+  color:#777;
+}
+
+.error-box{
+  background:#ffe9e9;
+  color:#b42318;
+  border:1px solid #f5c2c2;
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+}
+
+.material-box{
+  background:white;
+  border:1px solid #e2e8e4;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.material-header{
+  padding:20px;
+}
+
+.material-title{
+  margin:0 0 10px;
+  font-size:24px;
+}
+
+.material-description{
+  color:#666;
+  line-height:1.6;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.badge-free{
+  background:#ddf7e7;
+  color:#087a47;
+}
+
+.badge-premium{
+  background:#fff0b8;
+  color:#8a6200;
+}
+
+.player{
+  width:100%;
+  background:#111;
+}
+
+.video-frame{
+  width:100%;
+  aspect-ratio:16 / 9;
+  border:0;
+  display:block;
+}
+
+.audio-player{
+  padding:40px 20px;
+  background:#f0f4f2;
+}
+
+.audio-player audio{
+  width:100%;
+}
+
+.pdf-frame{
+  width:100%;
+  height:75vh;
+  border:0;
+  background:white;
+}
+
+.info{
+  padding:20px;
+  border-top:1px solid #e5e9e6;
+  line-height:1.8;
+  font-size:14px;
+}
+
+.back-bottom{
+  display:inline-block;
+  margin-top:20px;
+  background:#008f58;
+  color:white;
+  padding:11px 16px;
+  border-radius:9px;
+  text-decoration:none;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:600px){
+
+  main{
+    padding:15px 10px;
+  }
+
+  .material-title{
+    font-size:19px;
+  }
+
+  .pdf-frame{
+    height:70vh;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+📖 NgajiPlus Akademi
+</div>
+
+<a
+  href="akademi.html"
+  class="back-button"
+>
+← Kembali
+</a>
+
+</div>
+
+</header>
+
+
+<main>
+
+<div
+  id="loading"
+  class="loading"
+>
+⏳ Memeriksa akses materi...
+</div>
+
+
+<div
+  id="errorBox"
+  class="error-box hidden"
+></div>
+
+
+<div
+  id="materialBox"
+  class="material-box hidden"
+>
+
+<div class="material-header">
+
+<h1
+  id="title"
+  class="material-title"
+>
+</h1>
+
+<div
+  id="description"
+  class="material-description"
+>
+</div>
+
+<div
+  id="badge"
+>
+</div>
+
+</div>
+
+
+<div
+  id="player"
+  class="player"
+>
+</div>
+
+
+<div
+  id="info"
+  class="info"
+>
+</div>
+
+</div>
+
+
+<a
+  href="akademi.html"
+  id="bottomBack"
+  class="back-bottom hidden"
+>
+← Kembali ke Materi
+</a>
+
+</main>
+
+
+<script>
+
+
+// =====================================================
+// AMBIL ID MATERI DARI URL
+// =====================================================
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const materialId =
+  params.get("id");
+
+
+// =====================================================
+// ELEMENT
+// =====================================================
+
+const loading =
+  document.getElementById(
+    "loading"
+  );
+
+const errorBox =
+  document.getElementById(
+    "errorBox"
+  );
+
+const materialBox =
+  document.getElementById(
+    "materialBox"
+  );
+
+const bottomBack =
+  document.getElementById(
+    "bottomBack"
+  );
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
+
+}
+
+
+// =====================================================
+// ERROR
+// =====================================================
+
+function showError(message){
+
+  loading.classList.add(
+    "hidden"
+  );
+
+  materialBox.classList.add(
+    "hidden"
+  );
+
+  errorBox.classList.remove(
+    "hidden"
+  );
+
+  bottomBack.classList.remove(
+    "hidden"
+  );
+
+  errorBox.innerHTML =
+    message;
+
+}
+
+
+// =====================================================
+// YOUTUBE ID
+// =====================================================
+
+function getYoutubeId(url){
+
+  if(!url){
+    return null;
+  }
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+    if(
+      parsed.hostname
+        .includes("youtube.com")
+    ){
+
+      if(
+        parsed.pathname === "/watch"
+      ){
+
+        return parsed.searchParams.get(
+          "v"
+        );
+
+      }
+
+      if(
+        parsed.pathname.startsWith(
+          "/shorts/"
+        )
+      ){
+
+        return parsed.pathname
+          .split("/")[2];
+
+      }
+
+      if(
+        parsed.pathname.startsWith(
+          "/embed/"
+        )
+      ){
+
+        return parsed.pathname
+          .split("/")[2];
+
+      }
+
+    }
+
+
+    if(
+      parsed.hostname === "youtu.be"
+    ){
+
+      return parsed.pathname
+        .replace("/","")
+        .split("?")[0];
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(
+      "URL YouTube tidak valid:",
+      error
+    );
+
+  }
+
+  return null;
+
+}
+
+
+// =====================================================
+// TAMPILKAN PLAYER
+// =====================================================
+
+function renderPlayer(
+  material
+){
+
+  const player =
+    document.getElementById(
+      "player"
+    );
+
+  const tipe =
+    (
+      material.type ||
+      material.tipe ||
+      "video"
+    ).toLowerCase();
+
+  const url =
+    material.url || "";
+
+
+  // ==========================
+  // VIDEO
+  // ==========================
+
+  if(tipe === "video"){
+
+    const youtubeId =
+      getYoutubeId(url);
+
+
+    if(youtubeId){
+
+      player.innerHTML = `
+
+        <iframe
+
+          class="video-frame"
+
+          src="https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}"
+
+          title="${escapeHtml(material.judul)}"
+
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+            web-share
+          "
+
+          allowfullscreen
+
+        ></iframe>
+
+      `;
+
+      return;
+
+    }
+
+
+    // Video URL biasa
+
+    player.innerHTML = `
+
+      <video
+        controls
+        playsinline
+        style="
+          width:100%;
+          max-height:70vh;
+          display:block;
+        "
+      >
+
+        <source
+          src="${escapeHtml(url)}"
+        >
+
+        Browser Anda tidak mendukung
+        pemutar video.
+
+      </video>
+
+    `;
+
+    return;
+
+  }
+
+
+  // ==========================
+  // AUDIO
+  // ==========================
+
+  if(tipe === "audio"){
+
+    player.innerHTML = `
+
+      <div class="audio-player">
+
+        <div
+          style="
+            text-align:center;
+            font-size:50px;
+            margin-bottom:20px;
+          "
+        >
+          🎧
+        </div>
+
+        <audio
+          controls
+          preload="metadata"
+        >
+
+          <source
+            src="${escapeHtml(url)}"
+          >
+
+          Browser Anda tidak mendukung
+          pemutar audio.
+
+        </audio>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  // ==========================
+  // PDF
+  // ==========================
+
+  if(tipe === "pdf"){
+
+    player.innerHTML = `
+
+      <iframe
+        class="pdf-frame"
+        src="${escapeHtml(url)}"
+        title="${escapeHtml(material.judul)}"
+      ></iframe>
+
+    `;
+
+    return;
+
+  }
+
+
+  player.innerHTML = `
+
+    <div
+      style="
+        padding:40px;
+        text-align:center;
+      "
+    >
+      ❌ Tipe materi tidak dikenali.
+    </div>
+
+  `;
+
+}
+
+
+// =====================================================
+// LOAD MATERI
+// =====================================================
+
+async function loadMaterial(){
+
+  if(
+    typeof supabaseClient ===
+    "undefined"
+  ){
+
+    showError(
+      "❌ Supabase belum terhubung.<br><br>" +
+      "Periksa file supabase-config.js"
+    );
+
+    return;
+
+  }
+
+
+  if(!materialId){
+
+    showError(
+      "❌ ID materi tidak ditemukan.<br><br>" +
+      "Silakan kembali ke halaman materi."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    console.log(
+      "PLAYER: mengambil materi",
+      materialId
+    );
+
+
+    const result =
+      await supabaseClient
+
+        .from("materials")
+
+        .select("*")
+
+        .eq(
+          "id",
+          materialId
+        )
+
+        .maybeSingle();
+
+
+    console.log(
+      "PLAYER RESULT:",
+      result
+    );
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    const material =
+      result.data;
+
+
+    // ==========================
+    // TIDAK DITEMUKAN
+    // ==========================
+
+    if(!material){
+
+      showError(
+        "🔐 <strong>Akses materi ditolak.</strong><br><br>" +
+
+        "Materi tidak tersedia untuk akun Anda " +
+        "atau materi tidak ditemukan.<br><br>" +
+
+        "Jika materi ini Premium, pastikan " +
+        "membership Anda masih aktif."
+      );
+
+      return;
+
+    }
+
+
+    // ==========================
+    // TAMPILKAN INFORMASI
+    // ==========================
+
+    document.getElementById(
+      "title"
+    ).innerText =
+      material.judul ||
+      "Tanpa Judul";
+
+
+    document.getElementById(
+      "description"
+    ).innerText =
+      material.deskripsi ||
+      "";
+
+
+    const badge =
+      document.getElementById(
+        "badge"
+      );
+
+
+    if(
+      material.premium === true
+    ){
+
+      badge.innerHTML =
+        '<span class="badge badge-premium">🔐 PREMIUM</span>';
+
+    }
+
+    else{
+
+      badge.innerHTML =
+        '<span class="badge badge-free">🟢 GRATIS</span>';
+
+    }
+
+
+    document.getElementById(
+      "info"
+    ).innerHTML = `
+
+      📁 Kategori:
+      <strong>
+        ${escapeHtml(
+          material.kategori || "-"
+        )}
+      </strong>
+
+      <br>
+
+      🎬 Tipe:
+      <strong>
+        ${escapeHtml(
+          material.type ||
+          material.tipe ||
+          "video"
+        )}
+      </strong>
+
+    `;
+
+
+    renderPlayer(
+      material
+    );
+
+
+    loading.classList.add(
+      "hidden"
+    );
+
+
+    materialBox.classList.remove(
+      "hidden"
+    );
+
+
+    bottomBack.classList.remove(
+      "hidden"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "PLAYER ERROR:",
+      error
+    );
+
+
+    showError(
+
+      "❌ <strong>Gagal membuka materi.</strong>" +
+
+      "<br><br>" +
+
+      escapeHtml(
+        error.message
+      )
+
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// MULAI
+// =====================================================
+
+window.addEventListener(
+  "load",
+  function(){
+
+    loadMaterial();
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>
