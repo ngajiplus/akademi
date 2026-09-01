@@ -23,7 +23,9 @@
 <title>NgajiPlus Akademi</title>
 
 
-<!-- SUPABASE -->
+<!-- =====================================================
+SUPABASE
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -70,14 +72,17 @@ HEADER
 header{
     background:white;
     border-bottom:1px solid #e5ebe7;
+
     position:sticky;
     top:0;
+
     z-index:1000;
 }
 
 .nav{
     max-width:1200px;
     margin:auto;
+
     padding:10px 18px;
 
     display:flex;
@@ -99,9 +104,13 @@ header{
 .nav-btn{
     border:0;
     border-radius:8px;
+
     padding:8px 12px;
+
     font-size:11px;
     font-weight:bold;
+
+    cursor:pointer;
 }
 
 .login-btn{
@@ -117,7 +126,6 @@ header{
 .logout-btn{
     background:#eeeeee;
     color:#555;
-    cursor:pointer;
 }
 
 
@@ -128,12 +136,15 @@ HERO
 .hero{
     max-width:1200px;
     margin:auto;
+
     padding:35px 20px 20px;
 }
 
 .hero h1{
-    margin:0 0 6px;
-    font-size:28px;
+    margin:0 0 8px;
+
+    font-size:32px;
+    line-height:1.2;
 }
 
 .hero h1 span{
@@ -142,8 +153,11 @@ HERO
 
 .hero p{
     margin:0;
+
     color:#718078;
+
     font-size:12px;
+    line-height:1.7;
 }
 
 
@@ -153,14 +167,19 @@ NOTICE
 
 .notice{
     max-width:1200px;
+
     margin:0 auto 15px;
+
     padding:10px 14px;
 
     background:#fff8d9;
+
     border:1px solid #f0df91;
+
     border-radius:8px;
 
     color:#75621c;
+
     font-size:11px;
 }
 
@@ -189,23 +208,30 @@ TOOLS
 
 .tools{
     max-width:1200px;
+
     margin:auto;
+
     padding:0 20px 20px;
 
     display:grid;
+
     grid-template-columns:1fr 180px;
+
     gap:10px;
 }
 
 .search,
 .filter{
     width:100%;
+
     padding:11px 13px;
 
     border:1px solid #dce5df;
+
     border-radius:8px;
 
     background:white;
+
     outline:none;
 
     font-size:11px;
@@ -223,15 +249,21 @@ MATERIAL AREA
 
 .material-area{
     background:#eef9f3;
+
     padding:25px 20px 55px;
+
+    min-height:400px;
 }
 
 .material-grid{
     max-width:1200px;
+
     margin:auto;
 
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:15px;
 }
 
@@ -242,21 +274,44 @@ CARD
 
 .card{
     background:white;
+
     border:1px solid #e1e9e4;
+
     border-radius:13px;
+
     overflow:hidden;
 
-    box-shadow:0 1px 3px rgba(0,0,0,.04);
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.04);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
+
+.card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.07);
+}
+
+
+/* =====================================================
+THUMBNAIL
+===================================================== */
 
 .thumb{
     height:175px;
+
     background:#d9f5e6;
 
     position:relative;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     overflow:hidden;
@@ -265,21 +320,36 @@ CARD
 .thumb img{
     width:100%;
     height:100%;
+
     object-fit:cover;
+
+    display:block;
 }
 
 .default-thumb{
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     font-size:45px;
 }
 
 .lock{
     position:absolute;
+
     inset:0;
 
     background:rgba(25,60,45,.58);
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     font-size:48px;
@@ -302,9 +372,11 @@ CONTENT
     border-radius:20px;
 
     background:#edf8f2;
+
     color:#008f55;
 
     font-size:9px;
+
     font-weight:bold;
 
     margin-bottom:6px;
@@ -314,7 +386,10 @@ CONTENT
     margin:0 0 5px;
 
     font-size:13px;
+
     font-weight:bold;
+
+    line-height:1.4;
 }
 
 .description{
@@ -325,13 +400,18 @@ CONTENT
     min-height:30px;
 
     margin-bottom:8px;
+
+    line-height:1.5;
 }
 
 .meta{
     display:flex;
 
     justify-content:space-between;
+
     align-items:center;
+
+    gap:5px;
 
     margin-bottom:10px;
 
@@ -346,6 +426,8 @@ CONTENT
     border-radius:20px;
 
     font-weight:bold;
+
+    white-space:nowrap;
 }
 
 .free{
@@ -378,22 +460,32 @@ BUTTON
     padding:9px;
 
     font-size:10px;
+
     font-weight:bold;
 }
 
 .open-btn{
     background:#009b59;
+
     color:white;
 
     cursor:pointer;
+
+    transition:
+        background .2s ease;
 }
 
 .open-btn:hover{
     background:#00874e;
 }
 
+.open-btn:active{
+    transform:scale(.98);
+}
+
 .locked-btn{
     background:#eeeeee;
+
     color:#777;
 
     cursor:not-allowed;
@@ -401,19 +493,17 @@ BUTTON
 
 
 /* =====================================================
-LOADING / EMPTY / ERROR
+LOADING
 ===================================================== */
 
-.loading,
-.empty,
-.error{
+.loading{
     max-width:1200px;
 
     margin:auto;
 
     background:white;
 
-    padding:30px;
+    padding:35px;
 
     text-align:center;
 
@@ -424,8 +514,52 @@ LOADING / EMPTY / ERROR
     font-size:12px;
 }
 
+
+/* =====================================================
+EMPTY
+===================================================== */
+
+.empty{
+    max-width:1200px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:35px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    color:#777;
+
+    font-size:12px;
+}
+
+
+/* =====================================================
+ERROR
+===================================================== */
+
 .error{
+    max-width:1200px;
+
+    margin:auto;
+
+    background:#ffe9e9;
+
+    border:1px solid #f3c2c2;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-radius:12px;
+
     color:#b42318;
+
+    font-size:12px;
 }
 
 
@@ -443,6 +577,7 @@ footer{
 
 .footer-inner{
     max-width:1200px;
+
     margin:auto;
 }
 
@@ -452,6 +587,8 @@ footer{
     font-weight:bold;
 
     font-size:13px;
+
+    margin-bottom:5px;
 }
 
 .footer-text{
@@ -518,7 +655,29 @@ MOBILE
 
     .nav-btn{
         padding:7px 9px;
+
         font-size:10px;
+    }
+
+}
+
+
+/* =====================================================
+VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:380px){
+
+    .tools{
+        grid-template-columns:1fr;
+    }
+
+    .filter{
+        width:100%;
+    }
+
+    .nav-buttons{
+        gap:4px;
     }
 
 }
@@ -540,7 +699,7 @@ HEADER
     <div class="nav">
 
         <div class="logo">
-            📖 NgajiPlus Akademi
+            📖 NgajiPlus
         </div>
 
 
@@ -559,15 +718,18 @@ HEADER
                 href="dashboard.html"
                 id="dashboardBtn"
                 class="nav-btn dashboard-btn"
+                style="display:none;"
             >
                 📊 Dashboard
             </a>
 
 
             <button
+                type="button"
                 id="logoutBtn"
                 class="nav-btn logout-btn"
                 onclick="logout()"
+                style="display:none;"
             >
                 Keluar
             </button>
@@ -577,7 +739,6 @@ HEADER
     </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -591,12 +752,11 @@ HERO
     </h1>
 
     <p>
-        Temukan berbagai materi pembelajaran Video, Audio,
-        dan PDF di NgajiPlus Akademi.
+        Temukan berbagai materi pembelajaran Video,
+        Audio, dan PDF di NgajiPlus Akademi.
     </p>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -609,7 +769,6 @@ NOTICE
 >
     ⏳ Memeriksa status akun...
 </div>
-
 
 
 <!-- =====================================================
@@ -672,7 +831,6 @@ SEARCH
 </div>
 
 
-
 <!-- =====================================================
 MATERIAL
 ===================================================== -->
@@ -690,7 +848,6 @@ MATERIAL
 </section>
 
 
-
 <!-- =====================================================
 FOOTER
 ===================================================== -->
@@ -704,13 +861,13 @@ FOOTER
         </div>
 
         <div class="footer-text">
-            Platform pembelajaran Islam berupa Video, Audio dan PDF.
+            Platform pembelajaran Islam berupa Video,
+            Audio dan PDF.
         </div>
 
     </div>
 
 </footer>
-
 
 
 <script>
@@ -766,6 +923,88 @@ const logoutBtn =
     document.getElementById(
         "logoutBtn"
     );
+
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(value){
+
+    return escapeHTML(value);
+
+}
+
+
+/* =====================================================
+FORMAT TANGGAL
+===================================================== */
+
+function formatTanggal(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value);
+
+    }
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
 
 
 /* =====================================================
@@ -849,14 +1088,18 @@ async function checkUser(){
 
         const profileResult =
             await supabaseClient
+
                 .from("profiles")
+
                 .select(
                     "id,nama,status,paket,berlaku_sampai"
                 )
+
                 .eq(
                     "id",
                     currentUser.id
                 )
+
                 .maybeSingle();
 
 
@@ -921,7 +1164,9 @@ async function checkUser(){
             String(
                 currentProfile.status || ""
             )
+
             .toLowerCase()
+
             .trim();
 
 
@@ -981,16 +1226,22 @@ async function checkUser(){
 
             notice.innerHTML =
                 "✅ Anda sudah login. Membership " +
+
                 "<strong>" +
+
                 escapeHTML(
                     currentProfile.paket ||
                     "Premium"
                 ) +
+
                 "</strong> aktif sampai " +
+
                 "<strong>" +
+
                 formatTanggal(
                     currentProfile.berlaku_sampai
                 ) +
+
                 "</strong>. Semua materi premium dapat diakses.";
 
         }
@@ -1048,55 +1299,17 @@ async function checkUser(){
 
 
 /* =====================================================
-FORMAT TANGGAL
-===================================================== */
-
-function formatTanggal(value){
-
-    if(!value){
-
-        return "-";
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-
-        return String(value);
-
-    }
-
-
-    return date.toLocaleDateString(
-        "id-ID",
-        {
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
 LOAD MATERIALS
 ===================================================== */
 
 async function loadMaterials(){
 
     materialContainer.innerHTML = `
+
         <div class="loading">
             ⏳ Mengambil materi...
         </div>
+
     `;
 
 
@@ -1104,10 +1317,13 @@ async function loadMaterials(){
 
         const result =
             await supabaseClient
+
                 .from("materials")
+
                 .select(
                     "id,judul,deskripsi,kategori,tipe,url,thumbnail,premium"
                 )
+
                 .order(
                     "id",
                     {
@@ -1140,6 +1356,7 @@ async function loadMaterials(){
 
 
         materialContainer.innerHTML = `
+
             <div class="error">
 
                 ❌ Gagal mengambil materi.
@@ -1151,6 +1368,7 @@ async function loadMaterials(){
                 )}
 
             </div>
+
         `;
 
     }
@@ -1200,12 +1418,19 @@ function renderMaterials(){
 
                 const cocokSearch =
                     !keyword ||
-                    title.includes(keyword) ||
-                    description.includes(keyword);
+
+                    title.includes(
+                        keyword
+                    ) ||
+
+                    description.includes(
+                        keyword
+                    );
 
 
                 const cocokKategori =
                     !category ||
+
                     kategori === category;
 
 
@@ -1218,20 +1443,32 @@ function renderMaterials(){
         );
 
 
+    /* =========================================
+    KOSONG
+    ========================================= */
+
     if(
         filtered.length === 0
     ){
 
         materialContainer.innerHTML = `
+
             <div class="empty">
+
                 📚 Materi tidak ditemukan.
+
             </div>
+
         `;
 
         return;
 
     }
 
+
+    /* =========================================
+    GRID
+    ========================================= */
 
     const grid =
         document.createElement(
@@ -1281,13 +1518,17 @@ function createMaterialCard(item){
         "card";
 
 
+    /* =========================================
+    PREMIUM
+    ========================================= */
+
     const isPremium =
         item.premium === true;
 
 
     const canOpen =
         !isPremium ||
-        membershipActive;
+        membershipActive === true;
 
 
     /* =========================================
@@ -1298,7 +1539,10 @@ function createMaterialCard(item){
         String(
             item.tipe || "materi"
         )
-        .toLowerCase();
+
+        .toLowerCase()
+
+        .trim();
 
 
     let typeIcon =
@@ -1332,44 +1576,61 @@ function createMaterialCard(item){
     ========================================= */
 
     let thumbnailHTML = `
+
         <div class="default-thumb">
+
             ${typeIcon}
+
         </div>
+
     `;
 
 
-    if(item.thumbnail){
+    if(
+        item.thumbnail &&
+        String(
+            item.thumbnail
+        ).trim() !== ""
+    ){
 
         thumbnailHTML = `
+
             <img
+
                 src="${escapeAttribute(
                     item.thumbnail
                 )}"
+
                 alt="${escapeAttribute(
                     item.judul ||
                     "Materi"
                 )}"
+
                 onerror="
                     this.style.display='none';
                     this.parentElement
                         .querySelector('.fallback')
                         .style.display='flex';
                 "
+
             >
 
             <div
                 class="default-thumb fallback"
-                style="display:none"
+                style="display:none;"
             >
+
                 ${typeIcon}
+
             </div>
+
         `;
 
     }
 
 
     /* =========================================
-    PREMIUM LOCK
+    LOCK PREMIUM
     ========================================= */
 
     if(
@@ -1378,9 +1639,13 @@ function createMaterialCard(item){
     ){
 
         thumbnailHTML += `
+
             <div class="lock">
+
                 🔐
+
             </div>
+
         `;
 
     }
@@ -1395,15 +1660,42 @@ function createMaterialCard(item){
 
     if(canOpen){
 
+        /*
+        =================================================
+        PENTING
+
+        TOMBOL TIDAK MENGGUNAKAN item.url.
+
+        TOMBOL HANYA MEMANGGIL:
+
+        openMaterial(id)
+
+        kemudian openMaterial() menuju:
+
+        player.html?id=ID
+
+        Jadi TIDAK LANGSUNG KE YOUTUBE.
+        =================================================
+        */
+
         buttonHTML = `
+
             <button
+
+                type="button"
+
                 class="open-btn"
-                onclick="openMaterial(${Number(
-                    item.id
-                )})"
+
+                onclick="openMaterial('${escapeAttribute(
+                    String(item.id)
+                )}')"
+
             >
+
                 📖 Buka Materi
+
             </button>
+
         `;
 
     }
@@ -1411,19 +1703,28 @@ function createMaterialCard(item){
     else{
 
         buttonHTML = `
+
             <button
+
+                type="button"
+
                 class="locked-btn"
+
                 disabled
+
             >
+
                 🔐 Membership Diperlukan
+
             </button>
+
         `;
 
     }
 
 
     /* =========================================
-    CARD HTML
+    CARD
     ========================================= */
 
     card.innerHTML = `
@@ -1436,6 +1737,7 @@ function createMaterialCard(item){
 
 
         <div class="content">
+
 
             <span class="type">
 
@@ -1487,17 +1789,25 @@ function createMaterialCard(item){
                     ?
 
                     `
+
                     <span class="badge premium">
+
                         🔐 Premium
+
                     </span>
+
                     `
 
                     :
 
                     `
+
                     <span class="badge free">
+
                         ✓ Gratis
+
                     </span>
+
                     `
                 }
 
@@ -1505,6 +1815,7 @@ function createMaterialCard(item){
 
 
             ${buttonHTML}
+
 
         </div>
 
@@ -1521,40 +1832,62 @@ OPEN MATERIAL
 ===================================================== */
 
 /*
-    PENTING:
+=========================================================
+ALUR FINAL
 
-    Tombol Buka Materi TIDAK lagi langsung
-    menuju YouTube.
+akademi.html
+      ↓
+klik "Buka Materi"
+      ↓
+openMaterial(ID)
+      ↓
+player.html?id=ID
+      ↓
+player membaca data dari Supabase
+      ↓
+jika VIDEO:
+YouTube ditampilkan di dalam iframe player
 
-    Sekarang alurnya:
+BUKAN:
 
-    akademi.html
-          ↓
-    player.html?id=ID
-          ↓
-    player membaca data materials
-          ↓
-    Video / Audio / PDF
+akademi.html
+      ↓
+YouTube langsung
+=========================================================
 */
 
 function openMaterial(id){
+
+    console.log(
+        "NgajiPlus - Membuka materi:",
+        id
+    );
+
+
+    /* =========================================
+    CARI MATERI
+    ========================================= */
 
     const item =
         materials.find(
             function(material){
 
-                return Number(
+                return String(
                     material.id
-                ) === Number(id);
+                ) === String(id);
 
             }
         );
 
 
+    /* =========================================
+    MATERI TIDAK DITEMUKAN
+    ========================================= */
+
     if(!item){
 
         alert(
-            "Materi tidak ditemukan."
+            "❌ Materi tidak ditemukan."
         );
 
         return;
@@ -1563,17 +1896,20 @@ function openMaterial(id){
 
 
     /* =========================================
-    PREMIUM CHECK
+    CEK PREMIUM
     ========================================= */
 
     if(
         item.premium === true &&
-        !membershipActive
+        membershipActive !== true
     ){
 
         alert(
+
             "🔐 Materi ini khusus member premium.\n\n" +
+
             "Silakan aktifkan membership terlebih dahulu."
+
         );
 
         return;
@@ -1582,13 +1918,18 @@ function openMaterial(id){
 
 
     /* =========================================
-    CEK URL
+    CEK URL MATERI
     ========================================= */
 
-    if(!item.url){
+    if(
+        !item.url ||
+        String(
+            item.url
+        ).trim() === ""
+    ){
 
         alert(
-            "Materi ini belum memiliki URL."
+            "❌ Materi ini belum memiliki URL."
         );
 
         return;
@@ -1597,14 +1938,44 @@ function openMaterial(id){
 
 
     /* =========================================
-    MASUK KE PLAYER
+    URL PLAYER
     ========================================= */
 
-    window.location.href =
+    const playerUrl =
         "player.html?id=" +
+
         encodeURIComponent(
-            item.id
+            String(item.id)
         );
+
+
+    console.log(
+        "NgajiPlus - Player URL:",
+        playerUrl
+    );
+
+
+    /* =========================================
+    PENTING
+
+    TIDAK PERNAH:
+
+    window.location.href = item.url
+
+    TIDAK PERNAH:
+
+    window.open(item.url)
+
+    TIDAK PERNAH:
+
+    location.href = item.url
+
+    ========================================= */
+
+
+    window.location.assign(
+        playerUrl
+    );
 
 }
 
@@ -1618,7 +1989,9 @@ async function logout(){
     try{
 
         const result =
-            await supabaseClient.auth.signOut();
+            await supabaseClient
+                .auth
+                .signOut();
 
 
         if(result.error){
@@ -1628,58 +2001,21 @@ async function logout(){
         }
 
 
-        location.reload();
+        window.location.reload();
 
     }
 
     catch(error){
 
         alert(
+
             "❌ Gagal keluar:\n\n" +
+
             error.message
+
         );
 
     }
-
-}
-
-
-/* =====================================================
-ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replaceAll(
-        "&",
-        "&amp;"
-    )
-    .replaceAll(
-        "<",
-        "&lt;"
-    )
-    .replaceAll(
-        ">",
-        "&gt;"
-    )
-    .replaceAll(
-        '"',
-        "&quot;"
-    )
-    .replaceAll(
-        "'",
-        "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(value){
-
-    return escapeHTML(value);
 
 }
 
@@ -1705,6 +2041,7 @@ AUTH STATE
 ===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
+
     function(event){
 
         console.log(
@@ -1720,6 +2057,7 @@ supabaseClient.auth.onAuthStateChange(
         ){
 
             setTimeout(
+
                 async function(){
 
                     await checkUser();
@@ -1727,12 +2065,15 @@ supabaseClient.auth.onAuthStateChange(
                     renderMaterials();
 
                 },
+
                 0
+
             );
 
         }
 
     }
+
 );
 
 
@@ -1742,12 +2083,57 @@ START
 
 async function init(){
 
+    /* -----------------------------------------
+    CEK SUPABASE
+    ----------------------------------------- */
+
+    if(
+        typeof supabaseClient ===
+        "undefined"
+    ){
+
+        materialContainer.innerHTML = `
+
+            <div class="error">
+
+                ❌ Supabase belum terhubung.
+
+                <br><br>
+
+                Periksa file:
+
+                <strong>
+                    supabase-config.js
+                </strong>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------
+    CEK USER
+    ----------------------------------------- */
+
     await checkUser();
+
+
+    /* -----------------------------------------
+    LOAD MATERIAL
+    ----------------------------------------- */
 
     await loadMaterials();
 
 }
 
+
+/* =====================================================
+JALANKAN
+===================================================== */
 
 init();
 
