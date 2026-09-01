@@ -1031,39 +1031,110 @@ SESSION
 
 async function checkSession(){
 
-    try{
+  try{
 
-        const result =
-            await supabaseClient.auth.getSession();
+    console.log("SESSION: mengecek session...");
 
+    const {
+      data: { session },
+      error
+    } = await supabaseClient.auth.getSession();
 
-        if(result.error){
+    if(error){
+      throw error;
+    }
 
-            console.error(
-                result.error
-            );
+    /* BELUM LOGIN */
 
-            return;
+    if(!session){
 
-        }
+      console.log("SESSION: belum login");
 
-
-        if(result.data.session){
-
-            showAdmin();
-
-        }
+      return;
 
     }
 
-    catch(error){
+    console.log(
+      "SESSION: login ditemukan, mengecek admin..."
+    );
 
-        console.error(
-            "SESSION ERROR:",
-            error
-        );
+
+    /* ==========================================
+       CEK APAKAH USER ADALAH ADMIN
+       ========================================== */
+
+    const {
+      data: adminUser,
+      error: adminError
+    } =
+    await supabaseClient
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", session.user.id)
+      .maybeSingle();
+
+
+    if(adminError){
+
+      console.error(
+        "ADMIN CHECK ERROR:",
+        adminError
+      );
+
+      alert(
+        "❌ Tidak dapat memeriksa status admin."
+      );
+
+      return;
 
     }
+
+
+    /* ==========================================
+       BUKAN ADMIN
+       ========================================== */
+
+    if(!adminUser){
+
+      console.log(
+        "AKSES DITOLAK: bukan admin"
+      );
+
+      alert(
+        "🔐 Akses Ditolak.\n\n" +
+        "Akun Anda bukan administrator NgajiPlus."
+      );
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    /* ==========================================
+       ADMIN
+       ========================================== */
+
+    console.log(
+      "AKSES ADMIN: diterima"
+    );
+
+    showAdmin();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "SESSION ERROR:",
+      error
+    );
+
+  }
 
 }
 
