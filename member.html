@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kelola Member - NgajiPlus</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f8f6;
+    color:#202a24;
+}
+
+header{
+    background:white;
+    border-bottom:1px solid #e5e9e6;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    padding:12px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:#168b57;
+    font-weight:bold;
+}
+
+.header-buttons{
+    display:flex;
+    gap:7px;
+}
+
+.header-btn{
+    border:0;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    background:#e8f5ef;
+    color:#087a47;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.logout{
+    background:#f1f1f1;
+    color:#555;
+}
+
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px 50px;
+}
+
+h1{
+    margin:0 0 5px;
+    font-size:24px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.box{
+    background:white;
+    border:1px solid #e1e7e3;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.loading,
+.empty,
+.error{
+    padding:25px;
+    text-align:center;
+    color:#777;
+}
+
+.error{
+    color:#b42318;
+}
+
+.member{
+    border:1px solid #e1e6e3;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.member-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.member-name{
+    font-weight:bold;
+    font-size:16px;
+}
+
+.member-id{
+    color:#999;
+    font-size:9px;
+    margin-top:4px;
+    word-break:break-all;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.active{
+    background:#dcf8e7;
+    color:#087a47;
+}
+
+.inactive{
+    background:#ffe4e4;
+    color:#b42318;
+}
+
+.free{
+    background:#e8f5ef;
+    color:#087a47;
+}
+
+.premium{
+    background:#fff0b8;
+    color:#8a6200;
+}
+
+.member-info{
+    margin-top:12px;
+    font-size:12px;
+    line-height:1.8;
+    color:#666;
+}
+
+.member-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
+}
+
+.action{
+    border:0;
+    border-radius:7px;
+    padding:8px 10px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.activate{
+    background:#dff8e9;
+    color:#087a47;
+}
+
+.deactivate{
+    background:#ffe3e3;
+    color:#b42318;
+}
+
+.premium-btn{
+    background:#fff1bd;
+    color:#8a6200;
+}
+
+.free-btn{
+    background:#e8f5ef;
+    color:#087a47;
+}
+
+.extend{
+    background:#e4efff;
+    color:#245b9e;
+}
+
+.refresh{
+    background:#e8f5ef;
+    color:#087a47;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.topbar h2{
+    margin:0;
+    font-size:18px;
+}
+
+.search{
+    width:100%;
+    padding:11px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    margin-bottom:15px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#009b59;
+}
+
+.hidden{
+    display:none !important;
+}
+
+#accessDenied{
+    max-width:500px;
+    margin:80px auto;
+    padding:25px;
+    background:white;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 4px 20px rgba(0,0,0,.07);
+}
+
+.denied-icon{
+    font-size:45px;
+}
+
+.denied-title{
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.denied-text{
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+}
+
+footer{
+    background:#071a10;
+    color:white;
+    padding:25px 18px;
+}
+
+.footer-inner{
+    max-width:1100px;
+    margin:auto;
+}
+
+.footer-logo{
+    color:#55c990;
+    font-weight:bold;
+}
+
+.footer-text{
+    color:#91a098;
+    font-size:10px;
+    margin-top:5px;
+}
+
+@media(max-width:600px){
+
+    main{
+        padding:20px 12px 40px;
+    }
+
+    .member-header{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+📖 NgajiPlus Admin
+</div>
+
+<div class="header-buttons">
+
+<button
+    class="header-btn"
+    onclick="location.href='admin.html'">
+🎬 Materi
+</button>
+
+<button
+    class="header-btn logout"
+    onclick="logout()">
+Keluar
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<div id="accessDenied"
+     class="hidden">
+
+<div class="denied-icon">
+🔒
+</div>
+
+<div class="denied-title">
+Akses Ditolak
+</div>
+
+<div class="denied-text">
+Akun Anda bukan administrator NgajiPlus.
+</div>
+
+<button
+    class="action refresh"
+    onclick="location.href='akademi.html'"
+    style="margin-top:15px">
+Kembali ke Akademi
+</button>
+
+</div>
+
+
+<main id="adminPage"
+      class="hidden">
+
+<h1>
+👥 Kelola Member
+</h1>
+
+<div class="subtitle">
+Kelola status dan membership pengguna NgajiPlus Akademi.
+</div>
+
+
+<div class="box">
+
+<div class="topbar">
+
+<h2>
+📊 Daftar Member
+</h2>
+
+<button
+    class="action refresh"
+    onclick="loadMembers()">
+🔄 Refresh
+</button>
+
+</div>
+
+
+<input
+    id="searchInput"
+    class="search"
+    type="search"
+    placeholder="🔎 Cari nama member..."
+>
+
+
+<div id="membersList">
+
+<div class="loading">
+⏳ Mengambil data member...
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+<div class="footer-inner">
+
+<div class="footer-logo">
+📖 NgajiPlus Akademi
+</div>
+
+<div class="footer-text">
+Platform pembelajaran Islam berupa Video, Audio dan PDF.
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   VARIABLE
+===================================================== */
+
+let members = [];
+
+
+/* =====================================================
+   ELEMEN
+===================================================== */
+
+const adminPage =
+document.getElementById("adminPage");
+
+const accessDenied =
+document.getElementById("accessDenied");
+
+const membersList =
+document.getElementById("membersList");
+
+const searchInput =
+document.getElementById("searchInput");
+
+
+/* =====================================================
+   CEK ADMIN
+===================================================== */
+
+async function checkAdmin(){
+
+    try{
+
+        const {
+            data:{
+                user
+            },
+            error
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        if(error){
+            throw error;
+        }
+
+
+        if(!user){
+
+            showDenied();
+
+            return;
+
+        }
+
+
+        const {
+            data:admin,
+            error:adminError
+        } =
+        await supabaseClient
+            .from("admin_users")
+            .select("user_id")
+            .eq("user_id",user.id)
+            .maybeSingle();
+
+
+        if(adminError){
+
+            console.error(adminError);
+
+            showDenied();
+
+            return;
+
+        }
+
+
+        if(!admin){
+
+            showDenied();
+
+            return;
+
+        }
+
+
+        adminPage.classList.remove("hidden");
+
+        await loadMembers();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "ADMIN CHECK ERROR:",
+            error
+        );
+
+        showDenied();
+
+    }
+
+}
+
+
+/* =====================================================
+   AKSES DITOLAK
+===================================================== */
+
+function showDenied(){
+
+    adminPage.classList.add("hidden");
+
+    accessDenied.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   LOAD MEMBER
+===================================================== */
+
+async function loadMembers(){
+
+    membersList.innerHTML =
+        `<div class="loading">
+            ⏳ Mengambil data member...
+         </div>`;
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("profiles")
+            .select(`
+                id,
+                nama,
+                status,
+                paket,
+                berlaku_sampai,
+                created_at,
+                is_admin
+            `)
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        members =
+            data || [];
+
+
+        renderMembers();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "LOAD MEMBER ERROR:",
+            error
+        );
+
+        membersList.innerHTML =
+            `<div class="error">
+                ❌ Gagal mengambil data member.<br><br>
+                ${escapeHTML(error.message)}
+             </div>`;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderMembers(){
+
+    const keyword =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        members.filter(member => {
+
+            const nama =
+                String(member.nama || "")
+                    .toLowerCase();
+
+            return !keyword ||
+                   nama.includes(keyword);
+
+        });
+
+
+    if(filtered.length === 0){
+
+        membersList.innerHTML =
+            `<div class="empty">
+                👥 Tidak ada member ditemukan.
+             </div>`;
+
+        return;
+
+    }
+
+
+    membersList.innerHTML =
+        filtered
+            .map(createMemberCard)
+            .join("");
+
+}
+
+
+/* =====================================================
+   CARD MEMBER
+===================================================== */
+
+function createMemberCard(member){
+
+    const status =
+        String(member.status || "")
+            .toLowerCase()
+            .trim();
+
+
+    const paket =
+        String(member.paket || "Member");
+
+
+    const isActive =
+        status === "aktif";
+
+
+    const isAdmin =
+        member.is_admin === true;
+
+
+    const statusBadge =
+        isActive
+        ?
+        `<span class="badge active">
+            🟢 AKTIF
+         </span>`
+        :
+        `<span class="badge inactive">
+            🔴 ${escapeHTML(member.status || "GRATIS")}
+         </span>`;
+
+
+    const paketBadge =
+        paket.toLowerCase().includes("premium")
+        ?
+        `<span class="badge premium">
+            🔐 ${escapeHTML(paket)}
+         </span>`
+        :
+        `<span class="badge free">
+            📦 ${escapeHTML(paket)}
+         </span>`;
+
+
+    const adminBadge =
+        isAdmin
+        ?
+        `<span class="badge premium">
+            🛡️ ADMIN
+         </span>`
+        :
+        "";
+
+
+    const tanggal =
+        member.berlaku_sampai
+        ?
+        formatTanggal(
+            member.berlaku_sampai
+        )
+        :
+        "-";
+
+
+    return `
+
+        <div class="member">
+
+            <div class="member-header">
+
+                <div>
+
+                    <div class="member-name">
+                        👤
+                        ${escapeHTML(
+                            member.nama ||
+                            "Tanpa Nama"
+                        )}
+                    </div>
+
+                    <div class="member-id">
+                        ID:
+                        ${escapeHTML(member.id)}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    ${statusBadge}
+                    ${paketBadge}
+                    ${adminBadge}
+
+                </div>
+
+            </div>
+
+
+            <div class="member-info">
+
+                📦 Paket:
+                <strong>
+                    ${escapeHTML(paket)}
+                </strong>
+
+                <br>
+
+                📅 Berlaku sampai:
+                <strong>
+                    ${tanggal}
+                </strong>
+
+                <br>
+
+                🗓️ Terdaftar:
+                ${formatTanggal(
+                    member.created_at
+                )}
+
+            </div>
+
+
+            ${
+                !isAdmin
+                ?
+                `
+
+                <div class="member-actions">
+
+                    <button
+                        class="action activate"
+                        onclick="setStatus('${member.id}','aktif')">
+                        🟢 Aktifkan
+                    </button>
+
+                    <button
+                        class="action deactivate"
+                        onclick="setStatus('${member.id}','nonaktif')">
+                        🔴 Nonaktifkan
+                    </button>
+
+                    <button
+                        class="action premium-btn"
+                        onclick="setPaket('${member.id}','Premium')">
+                        🔐 Premium
+                    </button>
+
+                    <button
+                        class="action free-btn"
+                        onclick="setPaket('${member.id}','Member')">
+                        🟢 Gratis
+                    </button>
+
+                    <button
+                        class="action extend"
+                        onclick="extendMember('${member.id}')">
+                        📅 +30 Hari
+                    </button>
+
+                </div>
+
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   UBAH STATUS
+===================================================== */
+
+async function setStatus(
+    id,
+    status
+){
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+                status:status
+            })
+            .eq("id",id);
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        alert(
+            "✅ Status berhasil diubah menjadi " +
+            status
+        );
+
+
+        loadMembers();
+
+    }
+
+    catch(error){
+
+        alert(
+            "❌ Gagal mengubah status:\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   UBAH PAKET
+===================================================== */
+
+async function setPaket(
+    id,
+    paket
+){
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+                paket:paket
+            })
+            .eq("id",id);
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        alert(
+            "✅ Paket berhasil diubah menjadi " +
+            paket
+        );
+
+
+        loadMembers();
+
+    }
+
+    catch(error){
+
+        alert(
+            "❌ Gagal mengubah paket:\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   TAMBAH 30 HARI
+===================================================== */
+
+async function extendMember(id){
+
+    const member =
+        members.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!member){
+
+        alert(
+            "Member tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    let tanggal;
+
+
+    if(member.berlaku_sampai){
+
+        tanggal =
+            new Date(
+                member.berlaku_sampai
+            );
+
+        if(
+            isNaN(tanggal.getTime())
+        ){
+
+            tanggal =
+                new Date();
+
+        }
+
+    }else{
+
+        tanggal =
+            new Date();
+
+    }
+
+
+    const sekarang =
+        new Date();
+
+
+    if(tanggal < sekarang){
+
+        tanggal =
+            sekarang;
+
+    }
+
+
+    tanggal.setDate(
+        tanggal.getDate() + 30
+    );
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+        .from("profiles")
+        .update({
+
+            berlaku_sampai:
+                tanggal.toISOString(),
+
+            status:
+                "aktif",
+
+            paket:
+                "Premium"
+
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        alert(
+            "❌ Gagal memperpanjang:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "✅ Membership berhasil ditambah 30 hari."
+    );
+
+
+    loadMembers();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout(){
+
+    await supabaseClient
+        .auth
+        .signOut();
+
+
+    location.href =
+        "admin.html";
+
+}
+
+
+/* =====================================================
+   FORMAT TANGGAL
+===================================================== */
+
+function formatTanggal(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(isNaN(date.getTime())){
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderMembers
+);
+
+
+/* =====================================================
+   MULAI
+===================================================== */
+
+window.addEventListener(
+    "load",
+    checkAdmin
+);
+
+</script>
+
+</body>
+</html>
