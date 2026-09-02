@@ -15,1042 +15,625 @@
     content="Player materi pembelajaran NgajiPlus Akademi"
   >
 
-  <title>
-    Materi - NgajiPlus Akademi
-  </title>
+  <title>Materi - NgajiPlus Akademi</title>
 
-
-  <!-- =========================
-       SUPABASE
-  ========================== -->
-
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- YOUTUBE IFRAME API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <style>
 
-    /* =========================
-       RESET
-    ========================== */
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
 
     html {
       scroll-behavior: smooth;
     }
 
-
     body {
-
+      margin: 0;
       font-family:
-        Arial,
-        Helvetica,
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         sans-serif;
 
-      background:
-        #f5f7f6;
-
-      color:
-        #17221d;
-
-      min-height:
-        100vh;
-
+      background: #f4f7f6;
+      color: #17231f;
     }
 
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
 
     /* =========================
        HEADER
-    ========================== */
+    ========================= */
 
     header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
 
-      position:
-        sticky;
+      height: 58px;
 
-      top:
-        0;
+      background: rgba(255,255,255,.96);
 
-      z-index:
-        1000;
+      border-bottom: 1px solid #e4ebe8;
 
-      background:
-        #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-      border-bottom:
-        1px solid #e5e7eb;
+      padding: 0 20px;
 
-      box-shadow:
-        0 2px 10px rgba(0,0,0,.05);
-
+      backdrop-filter: blur(10px);
     }
-
-
-    .header-inner {
-
-      width:
-        min(1100px, 94%);
-
-      margin:
-        auto;
-
-      min-height:
-        64px;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        10px;
-
-    }
-
 
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
 
-      text-decoration:
-        none;
-
-      color:
-        #087443;
-
-      font-size:
-        20px;
-
-      font-weight:
-        800;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        8px;
-
+      color: #087f5b;
+      font-weight: 800;
+      font-size: 14px;
     }
-
 
     .brand-icon {
+      width: 27px;
+      height: 27px;
 
-      width:
-        36px;
+      border-radius: 7px;
 
-      height:
-        36px;
+      background: #087f5b;
+      color: white;
 
-      border-radius:
-        10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      background:
-        #087443;
-
-      color:
-        #ffffff;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      font-size:
-        18px;
-
+      font-size: 15px;
     }
 
-
-    .header-actions {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        8px;
-
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-
 
     .back-btn {
+      border: 0;
+      background: #edf8f3;
+      color: #087f5b;
 
-      border:
-        0;
+      padding: 8px 12px;
 
-      background:
-        #eef7f1;
+      border-radius: 8px;
 
-      color:
-        #087443;
+      font-size: 12px;
+      font-weight: 700;
 
-      border-radius:
-        10px;
-
-      padding:
-        9px 13px;
-
-      cursor:
-        pointer;
-
-      font-weight:
-        700;
-
+      cursor: pointer;
     }
 
+    .account {
+      display: flex;
+      align-items: center;
+      gap: 7px;
 
-    .profile-btn {
+      font-size: 12px;
+      font-weight: 600;
 
-      text-decoration:
-        none;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        8px;
-
-      color:
-        #17221d;
-
-      font-weight:
-        700;
-
+      white-space: nowrap;
     }
-
 
     .avatar {
+      width: 29px;
+      height: 29px;
 
-      width:
-        36px;
+      border-radius: 50%;
 
-      height:
-        36px;
+      object-fit: cover;
 
-      border-radius:
-        50%;
-
-      object-fit:
-        cover;
-
-      background:
-        #dcefe4;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      color:
-        #087443;
-
-      font-weight:
-        800;
-
-      overflow:
-        hidden;
-
-      flex-shrink:
-        0;
-
+      background: #dcebe5;
     }
-
-
-    .avatar img {
-
-      width:
-        100%;
-
-      height:
-        100%;
-
-      object-fit:
-        cover;
-
-    }
-
 
     /* =========================
        MAIN
-    ========================== */
+    ========================= */
 
     main {
+      width: min(100%, 1000px);
 
-      width:
-        min(1100px, 94%);
+      margin: 0 auto;
 
-      margin:
-        25px auto 50px;
-
+      padding: 20px;
     }
-
-
-    .loading {
-
-      text-align:
-        center;
-
-      padding:
-        60px 20px;
-
-      color:
-        #68756e;
-
-    }
-
-
-    .loading-icon {
-
-      font-size:
-        40px;
-
-      margin-bottom:
-        15px;
-
-    }
-
-
-    .error-box {
-
-      background:
-        #fff1f2;
-
-      border:
-        1px solid #fecdd3;
-
-      color:
-        #9f1239;
-
-      border-radius:
-        16px;
-
-      padding:
-        20px;
-
-      margin-top:
-        25px;
-
-      line-height:
-        1.6;
-
-    }
-
 
     /* =========================
-       PREMIUM
-    ========================== */
+       TITLE
+    ========================= */
 
-    .premium-lock {
+    .material-info {
+      background: white;
 
-      background:
-        #fff8e6;
+      border-radius: 15px;
 
-      border:
-        1px solid #f2d48b;
+      padding: 18px;
 
-      color:
-        #795500;
-
-      border-radius:
-        16px;
-
-      padding:
-        20px;
-
-      text-align:
-        center;
-
-      margin-bottom:
-        20px;
-
-    }
-
-
-    .premium-lock h2 {
-
-      margin-bottom:
-        8px;
-
-    }
-
-
-    .premium-lock p {
-
-      line-height:
-        1.6;
-
-    }
-
-
-    /* =========================
-       MATERIAL HEADER
-    ========================== */
-
-    .material-header {
-
-      background:
-        #ffffff;
-
-      border-radius:
-        18px;
-
-      padding:
-        22px;
-
-      margin-bottom:
-        18px;
+      margin-bottom: 14px;
 
       box-shadow:
-        0 5px 20px rgba(0,0,0,.05);
-
+        0 4px 18px rgba(0,0,0,.04);
     }
-
 
     .category {
+      display: inline-block;
 
-      display:
-        inline-block;
+      padding: 5px 9px;
 
-      padding:
-        6px 10px;
+      border-radius: 999px;
 
-      border-radius:
-        999px;
+      background: #e9f7f1;
 
-      background:
-        #e9f7ef;
+      color: #087f5b;
 
-      color:
-        #087443;
+      font-size: 10px;
 
-      font-size:
-        12px;
+      font-weight: 800;
 
-      font-weight:
-        800;
-
-      margin-bottom:
-        10px;
-
+      margin-bottom: 8px;
     }
 
+    .material-info h1 {
+      margin: 0;
 
-    .material-header h1 {
+      font-size: 24px;
 
-      font-size:
-        clamp(24px, 5vw, 36px);
-
-      line-height:
-        1.2;
-
-      margin-bottom:
-        10px;
-
+      line-height: 1.25;
     }
-
 
     .description {
+      margin: 7px 0 0;
 
-      color:
-        #66736c;
+      color: #77837f;
 
-      line-height:
-        1.7;
+      font-size: 13px;
 
+      line-height: 1.6;
     }
-
-
-    .premium-badge {
-
-      display:
-        inline-block;
-
-      margin-top:
-        12px;
-
-      background:
-        #f4b400;
-
-      color:
-        #ffffff;
-
-      border-radius:
-        999px;
-
-      padding:
-        6px 11px;
-
-      font-size:
-        12px;
-
-      font-weight:
-        800;
-
-    }
-
 
     /* =========================
        PLAYER CARD
-    ========================== */
+    ========================= */
 
     .player-card {
+      background: #111;
 
-      background:
-        #000000;
+      border-radius: 15px;
 
-      border-radius:
-        18px;
+      overflow: hidden;
 
-      overflow:
-        hidden;
+      margin-bottom: 14px;
 
       box-shadow:
-        0 10px 30px rgba(0,0,0,.12);
-
-      margin-bottom:
-        18px;
-
+        0 6px 22px rgba(0,0,0,.10);
     }
-
 
     /* =========================
-       VIDEO
-    ========================== */
+       YOUTUBE
+    ========================= */
 
-    .video-wrapper {
+    .youtube-wrapper {
+      position: relative;
 
-      position:
-        relative;
+      width: 100%;
 
-      width:
-        100%;
+      aspect-ratio: 16 / 9;
 
-      aspect-ratio:
-        16 / 9;
-
-      background:
-        #000000;
-
+      background: #000;
     }
 
+    #youtube-player {
+      position: absolute;
 
-    .video-wrapper iframe {
+      inset: 0;
 
-      position:
-        absolute;
-
-      inset:
-        0;
-
-      width:
-        100%;
-
-      height:
-        100%;
-
-      border:
-        0;
-
+      width: 100%;
+      height: 100%;
     }
-
 
     /* =========================
        AUDIO
-    ========================== */
+    ========================= */
 
     .audio-player {
+      min-height: 205px;
 
-      padding:
-        40px 20px;
+      padding: 28px 20px;
 
       background:
         linear-gradient(
           135deg,
-          #075b35,
-          #0b8a51
+          #087f5b,
+          #00965f
         );
 
-      color:
-        #ffffff;
+      color: white;
 
-      text-align:
-        center;
+      display: flex;
 
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
     }
-
 
     .audio-icon {
+      font-size: 45px;
 
-      font-size:
-        55px;
-
-      margin-bottom:
-        15px;
-
+      margin-bottom: 8px;
     }
-
 
     .audio-player h2 {
+      margin: 0 0 3px;
 
-      margin-bottom:
-        8px;
-
+      font-size: 20px;
     }
-
 
     .audio-player p {
+      margin: 0 0 16px;
 
-      margin-bottom:
-        20px;
+      opacity: .9;
 
-      opacity:
-        .85;
-
+      font-size: 12px;
     }
 
+    audio {
+      width: min(100%, 560px);
 
-    .audio-player audio {
-
-      width:
-        100%;
-
-      max-width:
-        700px;
-
+      height: 40px;
     }
-
 
     /* =========================
        PDF
-    ========================== */
+    ========================= */
 
     .pdf-wrapper {
+      background: #222;
 
-      width:
-        100%;
+      padding: 0;
 
-      min-height:
-        75vh;
-
-      background:
-        #ffffff;
-
+      min-height: 500px;
     }
 
+    .pdf-frame {
+      display: block;
 
-    .pdf-wrapper iframe {
+      width: 100%;
 
-      display:
-        block;
+      height: 70vh;
 
-      width:
-        100%;
+      min-height: 500px;
 
-      height:
-        75vh;
+      border: 0;
 
-      min-height:
-        600px;
-
-      border:
-        0;
-
-      background:
-        #ffffff;
-
+      background: white;
     }
-
-
-    .pdf-actions {
-
-      background:
-        #ffffff;
-
-      padding:
-        12px;
-
-      display:
-        flex;
-
-      justify-content:
-        center;
-
-      border-top:
-        1px solid #e5e7eb;
-
-    }
-
 
     /* =========================
-       UNSUPPORTED
-    ========================== */
+       LOADING
+    ========================= */
 
-    .unsupported {
+    .loading {
+      min-height: 250px;
 
-      min-height:
-        300px;
+      display: flex;
 
-      padding:
-        50px 20px;
+      flex-direction: column;
 
-      text-align:
-        center;
+      align-items: center;
 
-      color:
-        #ffffff;
+      justify-content: center;
 
-      display:
-        flex;
-
-      flex-direction:
-        column;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
+      color: white;
     }
 
+    .spinner {
+      width: 35px;
+      height: 35px;
 
-    .unsupported-icon {
+      border: 4px solid rgba(255,255,255,.25);
 
-      font-size:
-        50px;
+      border-top-color: white;
 
-      margin-bottom:
-        15px;
+      border-radius: 50%;
 
+      animation: spin .8s linear infinite;
+
+      margin-bottom: 12px;
     }
 
-
-    .unsupported p {
-
-      margin-top:
-        10px;
-
-      color:
-        #cccccc;
-
-      line-height:
-        1.6;
-
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
+    /* =========================
+       ERROR
+    ========================= */
+
+    .error-box {
+      background: #fff1f1;
+
+      color: #a52b2b;
+
+      border: 1px solid #ffd1d1;
+
+      padding: 18px;
+
+      border-radius: 12px;
+
+      line-height: 1.6;
+
+      font-size: 13px;
+    }
 
     /* =========================
        PROGRESS
-    ========================== */
+    ========================= */
 
     .progress-card {
+      background: white;
 
-      background:
-        #ffffff;
+      border-radius: 15px;
 
-      border-radius:
-        18px;
+      padding: 16px;
 
-      padding:
-        20px;
+      margin-bottom: 12px;
 
       box-shadow:
-        0 5px 20px rgba(0,0,0,.05);
-
-      margin-bottom:
-        18px;
-
+        0 4px 18px rgba(0,0,0,.04);
     }
 
+    .progress-head {
+      display: flex;
 
-    .progress-top {
+      justify-content: space-between;
 
-      display:
-        flex;
+      align-items: center;
 
-      justify-content:
-        space-between;
+      margin-bottom: 8px;
 
-      align-items:
-        center;
+      font-size: 13px;
 
-      gap:
-        10px;
-
-      margin-bottom:
-        10px;
-
-      font-weight:
-        700;
-
+      font-weight: 700;
     }
 
+    .progress-percent {
+      color: #087f5b;
+    }
+
+    .progress-track {
+      width: 100%;
+
+      height: 7px;
+
+      background: #e3e8e6;
+
+      border-radius: 999px;
+
+      overflow: hidden;
+    }
 
     .progress-bar {
+      height: 100%;
 
-      height:
-        10px;
+      width: 0%;
 
-      background:
-        #e5e7eb;
+      background: #087f5b;
 
-      border-radius:
-        999px;
+      border-radius: 999px;
 
-      overflow:
-        hidden;
-
+      transition: width .25s ease;
     }
-
-
-    .progress-fill {
-
-      height:
-        100%;
-
-      width:
-        0%;
-
-      background:
-        #087443;
-
-      border-radius:
-        999px;
-
-      transition:
-        width .4s ease;
-
-    }
-
 
     .progress-status {
+      margin-top: 8px;
 
-      margin-top:
-        10px;
+      color: #7a8581;
 
-      font-size:
-        13px;
-
-      color:
-        #68756e;
-
+      font-size: 11px;
     }
-
 
     /* =========================
-       ACTIONS
-    ========================== */
+       BUTTON AREA
+    ========================= */
 
-    .actions {
+    .action-area {
+      display: flex;
 
-      display:
-        flex;
+      gap: 8px;
 
-      flex-wrap:
-        wrap;
+      flex-wrap: wrap;
 
-      gap:
-        10px;
-
+      margin-bottom: 25px;
     }
-
 
     .action-btn {
+      border: 0;
 
-      display:
-        inline-flex;
+      padding: 10px 14px;
 
-      align-items:
-        center;
+      border-radius: 9px;
 
-      justify-content:
-        center;
+      font-size: 12px;
 
-      text-decoration:
-        none;
+      font-weight: 700;
 
-      border:
-        0;
+      cursor: pointer;
 
-      cursor:
-        pointer;
+      background: #eaf7f2;
 
-      border-radius:
-        11px;
-
-      padding:
-        12px 16px;
-
-      font-weight:
-        800;
-
-      background:
-        #087443;
-
-      color:
-        #ffffff;
-
+      color: #087f5b;
     }
 
+    .action-btn.primary {
+      background: #087f5b;
 
-    .action-secondary {
-
-      background:
-        #eef7f1;
-
-      color:
-        #087443;
-
+      color: white;
     }
-
 
     .action-btn:disabled {
+      opacity: .6;
 
-      opacity:
-        .7;
-
-      cursor:
-        default;
-
+      cursor: not-allowed;
     }
 
+    /* =========================
+       SAVE INDICATOR
+    ========================= */
+
+    .save-indicator {
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 25px;
+
+      transform:
+        translateX(-50%)
+        translateY(20px);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      background: #087f5b;
+
+      color: white;
+
+      padding: 10px 18px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+      z-index: 5000;
+    }
+
+    .save-indicator.show {
+      opacity: 1;
+
+      transform:
+        translateX(-50%)
+        translateY(0);
+    }
+
+    /* =========================
+       DESKTOP
+    ========================= */
+
+    @media (min-width: 768px) {
+
+      header {
+        padding: 0 30px;
+      }
+
+      main {
+        padding:
+          28px
+          30px
+          50px;
+      }
+
+      .material-info {
+        padding: 24px;
+      }
+
+      .material-info h1 {
+        font-size: 28px;
+      }
+
+      .pdf-frame {
+        height: 75vh;
+      }
+
+    }
 
     /* =========================
        MOBILE
-    ========================== */
+    ========================= */
 
     @media (max-width: 600px) {
 
-      .header-inner {
-
-        min-height:
-          58px;
-
+      header {
+        padding: 0 12px;
       }
 
-
-      .brand span {
-
-        display:
-          none;
-
+      .brand {
+        font-size: 12px;
       }
-
 
       .back-btn {
-
-        padding:
-          8px 10px;
-
+        padding: 7px 9px;
       }
 
+      .account-name {
+        max-width: 90px;
 
-      .profile-name {
+        overflow: hidden;
 
-        display:
-          none;
-
+        text-overflow: ellipsis;
       }
-
 
       main {
-
-        width:
-          94%;
-
-        margin-top:
-          15px;
-
+        padding: 14px;
       }
 
+      .material-info {
+        padding: 16px;
 
-      .material-header {
-
-        padding:
-          18px;
-
+        border-radius: 14px;
       }
 
-
-      .material-header h1 {
-
-        font-size:
-          24px;
-
+      .material-info h1 {
+        font-size: 23px;
       }
 
+      .description {
+        font-size: 12px;
+      }
 
       .player-card {
-
-        border-radius:
-          14px;
-
+        border-radius: 14px;
       }
 
+      .pdf-frame {
+        height: 65vh;
 
-      .pdf-wrapper {
-
-        min-height:
-          70vh;
-
-      }
-
-
-      .pdf-wrapper iframe {
-
-        height:
-          70vh;
-
-        min-height:
-          500px;
-
-      }
-
-
-      .audio-player {
-
-        padding:
-          30px 15px;
-
-      }
-
-
-      .actions {
-
-        flex-direction:
-          column;
-
-      }
-
-
-      .action-btn {
-
-        width:
-          100%;
-
+        min-height: 450px;
       }
 
     }
@@ -1063,69 +646,59 @@
 <body>
 
 
-<!-- =====================================================
+<!-- =========================
      HEADER
-====================================================== -->
+========================= -->
 
 <header>
 
-  <div class="header-inner">
+  <a
+    href="index.html"
+    class="brand"
+  >
+
+    <span class="brand-icon">
+      📖
+    </span>
+
+    <span>
+      NgajiPlus Akademi
+    </span>
+
+  </a>
+
+
+  <div class="header-right">
+
+    <button
+      class="back-btn"
+      id="backBtn"
+    >
+      ← Kembali
+    </button>
 
 
     <a
-      href="index.html"
-      class="brand"
+      href="profile.html"
+      class="account"
+      id="accountLink"
     >
 
-      <div class="brand-icon">
-        📖
-      </div>
+      <img
+        id="avatar"
+        class="avatar"
+        src=""
+        alt="Profil"
+      >
 
-      <span>
-        NgajiPlus Akademi
+      <span
+        id="accountName"
+        class="account-name"
+      >
+        Memuat...
       </span>
 
     </a>
-
-
-    <div class="header-actions">
-
-
-      <button
-        class="back-btn"
-        type="button"
-        onclick="goBack()"
-      >
-        ← Kembali
-      </button>
-
-
-      <!-- SATU-SATUNYA KONTROL PROFIL -->
-
-      <a
-        href="profile.html"
-        class="profile-btn"
-        id="profileBtn"
-      >
-
-        <div
-          class="avatar"
-          id="avatar"
-        >
-          U
-        </div>
-
-        <span
-          class="profile-name"
-          id="profileName"
-        >
-          Akun
-        </span>
-
-      </a>
-
-
-    </div>
 
   </div>
 
@@ -1133,191 +706,124 @@
 
 
 
-<!-- =====================================================
+<!-- =========================
      MAIN
-====================================================== -->
+========================= -->
 
 <main>
 
 
-  <!-- LOADING -->
+  <!-- INFO -->
 
-  <div
-    id="loading"
-    class="loading"
+  <section
+    class="material-info"
+    id="materialInfo"
   >
 
-    <div class="loading-icon">
-      ⏳
-    </div>
+    <span
+      class="category"
+      id="category"
+    >
+      Materi
+    </span>
 
-    <div>
+    <h1 id="title">
       Memuat materi...
-    </div>
+    </h1>
 
-  </div>
+    <p
+      class="description"
+      id="description"
+    >
+      Silakan tunggu...
+    </p>
 
-
-
-  <!-- ERROR -->
-
-  <div
-    id="error"
-    class="error-box"
-    style="display:none;"
-  ></div>
+  </section>
 
 
 
-  <!-- CONTENT -->
+  <!-- PLAYER -->
 
-  <div
-    id="content"
-    style="display:none;"
+  <section
+    class="player-card"
+    id="playerCard"
   >
 
+    <div class="loading">
 
-    <!-- PREMIUM LOCK -->
+      <div class="spinner"></div>
 
-    <div
-      id="premiumLock"
-      class="premium-lock"
-      style="display:none;"
-    >
+      <div>
+        Memuat materi...
+      </div>
 
-      <h2>
-        🔒 Materi Premium
-      </h2>
+    </div>
 
-      <p>
-        Materi ini khusus untuk member
-        dengan membership aktif.
-      </p>
+  </section>
+
+
+
+  <!-- PROGRESS -->
+
+  <section
+    class="progress-card"
+  >
+
+    <div class="progress-head">
+
+      <span>
+        Progress Materi
+      </span>
+
+      <span
+        class="progress-percent"
+        id="progressPercent"
+      >
+        0%
+      </span>
 
     </div>
 
 
-
-    <!-- MATERIAL INFO -->
-
-    <section class="material-header">
-
-
-      <span
-        class="category"
-        id="category"
-      >
-        Materi
-      </span>
-
-
-      <h1 id="title">
-        -
-      </h1>
-
-
-      <p
-        class="description"
-        id="description"
-      >
-        -
-      </p>
-
-
-      <span
-        id="premiumBadge"
-        class="premium-badge"
-        style="display:none;"
-      >
-        ⭐ PREMIUM
-      </span>
-
-
-    </section>
-
-
-
-    <!-- PLAYER -->
-
-    <section
-      class="player-card"
-      id="playerCard"
-    >
+    <div class="progress-track">
 
       <div
-        id="playerContainer"
-        class="video-wrapper"
+        class="progress-bar"
+        id="progressBar"
       ></div>
 
-    </section>
-
-
-
-    <!-- PROGRESS -->
-
-    <section class="progress-card">
-
-
-      <div class="progress-top">
-
-        <span>
-          Progress Materi
-        </span>
-
-        <span id="progressPercent">
-          0%
-        </span>
-
-      </div>
-
-
-      <div class="progress-bar">
-
-        <div
-          class="progress-fill"
-          id="progressFill"
-        ></div>
-
-      </div>
-
-
-      <div
-        class="progress-status"
-        id="progressStatus"
-      >
-        Belum dimulai
-      </div>
-
-
-    </section>
-
-
-
-    <!-- ACTION -->
-
-    <div class="actions">
-
-
-      <a
-        href="index.html"
-        class="action-btn action-secondary"
-      >
-        📚 Semua Materi
-      </a>
-
-
-      <button
-        class="action-btn"
-        id="completeBtn"
-        type="button"
-        onclick="completeMaterial()"
-      >
-        ✓ Tandai Selesai
-      </button>
-
-
     </div>
 
+
+    <div
+      class="progress-status"
+      id="progressStatus"
+    >
+      Belum dimulai
+    </div>
+
+  </section>
+
+
+
+  <!-- ACTION -->
+
+  <div class="action-area">
+
+    <a
+      href="index.html"
+      class="action-btn"
+    >
+      📚 Semua Materi
+    </a>
+
+
+    <button
+      class="action-btn primary"
+      id="completeBtn"
+    >
+      ✓ Tandai Selesai
+    </button>
 
   </div>
 
@@ -1326,933 +832,709 @@
 
 
 
+<!-- SAVE INDICATOR -->
+
+<div
+  class="save-indicator"
+  id="saveIndicator"
+>
+  ✓ Progress berhasil disimpan
+</div>
+
+
+
 <script>
 
-/* =====================================================
-   SUPABASE CONFIG
-====================================================== */
+  /* =====================================================
+     SUPABASE CONFIG
+  ===================================================== */
 
-const SUPABASE_URL =
-  "https://ksgywgdrfskqsufchbcm.supabase.co";
-
-
-const SUPABASE_KEY =
-  "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+  const SUPABASE_URL =
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
 
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  /*
+    PENTING:
+
+    Ganti nilai di bawah dengan publishable key
+    yang SAMA dengan index.html Anda.
+  */
+
+  const SUPABASE_KEY =
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
 
-/* =====================================================
-   GLOBAL VARIABLES
-====================================================== */
-
-let currentMaterial =
-  null;
-
-let currentUser =
-  null;
-
-let membershipActive =
-  false;
-
-let currentProgress =
-  0;
-
-let audioElement =
-  null;
+  const {
+    createClient
+  } = supabase;
 
 
-/* =====================================================
-   GET MATERIAL ID
-====================================================== */
-
-function getMaterialId() {
-
-  const params =
-    new URLSearchParams(
-      window.location.search
+  const supabaseClient =
+    createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
     );
 
 
-  const id =
-    params.get("id");
 
+  /* =====================================================
+     GLOBAL
+  ===================================================== */
 
-  if (!id) {
+  let currentUser = null;
 
-    return null;
+  let material = null;
 
-  }
+  let currentProgress = 0;
 
+  let youtubePlayer = null;
 
-  const numericId =
-    Number(id);
+  let saveTimer = null;
 
+  let lastSavedProgress = -1;
 
-  if (
-    !Number.isInteger(
-      numericId
-    ) ||
-    numericId <= 0
-  ) {
+  let audioElement = null;
 
-    return null;
 
-  }
 
+  /* =====================================================
+     ELEMENT
+  ===================================================== */
 
-  return numericId;
+  const titleEl =
+    document.getElementById("title");
 
-}
+  const descriptionEl =
+    document.getElementById("description");
 
+  const categoryEl =
+    document.getElementById("category");
 
-/* =====================================================
-   YOUTUBE ID
-====================================================== */
+  const playerCard =
+    document.getElementById("playerCard");
 
-function getYouTubeId(url) {
+  const progressPercentEl =
+    document.getElementById("progressPercent");
 
-  if (!url) {
+  const progressBarEl =
+    document.getElementById("progressBar");
 
-    return null;
+  const progressStatusEl =
+    document.getElementById("progressStatus");
 
-  }
+  const completeBtn =
+    document.getElementById("completeBtn");
 
+  const accountNameEl =
+    document.getElementById("accountName");
 
-  try {
+  const avatarEl =
+    document.getElementById("avatar");
 
-    const parsed =
-      new URL(url);
+  const saveIndicator =
+    document.getElementById("saveIndicator");
 
 
-    const hostname =
-      parsed.hostname
-        .toLowerCase();
 
+  /* =====================================================
+     GET MATERIAL ID
+  ===================================================== */
 
-    /*
-      youtube.com/watch?v=ID
-    */
+  function getMaterialId() {
 
-    if (
-      hostname.includes("youtube.com") &&
-      parsed.searchParams.get("v")
-    ) {
-
-      return parsed.searchParams.get("v");
-
-    }
-
-
-    /*
-      youtube.com/embed/ID
-    */
-
-    if (
-      hostname.includes("youtube.com") &&
-      parsed.pathname.startsWith("/embed/")
-    ) {
-
-      return parsed.pathname
-        .split("/embed/")[1]
-        .split("/")[0];
-
-    }
-
-
-    /*
-      youtube.com/shorts/ID
-    */
-
-    if (
-      hostname.includes("youtube.com") &&
-      parsed.pathname.startsWith("/shorts/")
-    ) {
-
-      return parsed.pathname
-        .split("/shorts/")[1]
-        .split("/")[0];
-
-    }
-
-
-    /*
-      youtu.be/ID
-    */
-
-    if (
-      hostname === "youtu.be"
-    ) {
-
-      return parsed.pathname
-        .replace("/", "")
-        .split("/")[0];
-
-    }
-
-  } catch (error) {
-
-    console.warn(
-      "URL YouTube tidak valid:",
-      url
-    );
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   YOUTUBE THUMBNAIL
-====================================================== */
-
-function getYouTubeThumbnail(url) {
-
-  const videoId =
-    getYouTubeId(url);
-
-
-  if (!videoId) {
-
-    return null;
-
-  }
-
-
-  return (
-    "https://img.youtube.com/vi/" +
-    videoId +
-    "/hqdefault.jpg"
-  );
-
-}
-
-
-/* =====================================================
-   AUDIO URL
-====================================================== */
-
-function isAudioUrl(url) {
-
-  if (!url) {
-
-    return false;
-
-  }
-
-
-  const cleanUrl =
-    url
-      .split("?")[0]
-      .toLowerCase();
-
-
-  return (
-
-    cleanUrl.endsWith(".mp3") ||
-
-    cleanUrl.endsWith(".m4a") ||
-
-    cleanUrl.endsWith(".wav") ||
-
-    cleanUrl.endsWith(".ogg") ||
-
-    cleanUrl.endsWith(".aac") ||
-
-    cleanUrl.endsWith(".flac")
-
-  );
-
-}
-
-
-/* =====================================================
-   PDF URL
-====================================================== */
-
-function isPdfUrl(url) {
-
-  if (!url) {
-
-    return false;
-
-  }
-
-
-  const cleanUrl =
-    url
-      .split("?")[0]
-      .toLowerCase();
-
-
-  return cleanUrl.endsWith(".pdf");
-
-}
-
-
-/* =====================================================
-   GOOGLE DRIVE FILE ID
-====================================================== */
-
-function getGoogleDriveFileId(url) {
-
-  if (!url) {
-
-    return null;
-
-  }
-
-
-  try {
-
-    const parsed =
-      new URL(url);
-
-
-    /*
-      FORMAT:
-
-      https://drive.google.com/file/d/FILE_ID/view
-    */
-
-    const pathMatch =
-      parsed.pathname.match(
-        /\/file\/d\/([^/]+)/
+    const params =
+      new URLSearchParams(
+        window.location.search
       );
-
-
-    if (
-      pathMatch &&
-      pathMatch[1]
-    ) {
-
-      return pathMatch[1];
-
-    }
-
-
-    /*
-      FORMAT:
-
-      https://drive.google.com/open?id=FILE_ID
-    */
 
     const id =
-      parsed.searchParams.get("id");
+      params.get("id");
+
+    if (!id) {
+      return null;
+    }
+
+    return id.trim();
+
+  }
 
 
-    if (id) {
 
-      return id;
+  /* =====================================================
+     INIT
+  ===================================================== */
+
+  async function init() {
+
+    try {
+
+      const materialId =
+        getMaterialId();
+
+
+      if (!materialId) {
+
+        showError(
+          "ID materi tidak ditemukan."
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         AUTH
+      ========================= */
+
+      const {
+        data: authData,
+        error: authError
+      } =
+        await supabaseClient
+          .auth
+          .getUser();
+
+
+      if (
+        authError ||
+        !authData ||
+        !authData.user
+      ) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+
+      currentUser =
+        authData.user;
+
+
+      await loadProfile();
+
+
+      /* =========================
+         LOAD MATERIAL
+      ========================= */
+
+      await loadMaterial(
+        materialId
+      );
+
+
+      /* =========================
+         LOAD PROGRESS
+      ========================= */
+
+      await loadProgress(
+        materialId
+      );
+
+
+      /* =========================
+         PLAYER
+      ========================= */
+
+      renderPlayer();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showError(
+        "Terjadi kesalahan saat memuat materi."
+      );
 
     }
+
+  }
+
+
+
+  /* =====================================================
+     PROFILE
+  ===================================================== */
+
+  async function loadProfile() {
+
+    try {
+
+      const {
+        data
+      } =
+        await supabaseClient
+          .from("profiles")
+          .select(
+            "nama, avatar_url"
+          )
+          .eq(
+            "id",
+            currentUser.id
+          )
+          .maybeSingle();
+
+
+      if (data) {
+
+        accountNameEl.textContent =
+          data.nama ||
+          currentUser.email ||
+          "Akun";
+
+
+        if (data.avatar_url) {
+
+          avatarEl.src =
+            data.avatar_url;
+
+        } else {
+
+          avatarEl.src =
+            createAvatar(
+              data.nama ||
+              currentUser.email
+            );
+
+        }
+
+      } else {
+
+        accountNameEl.textContent =
+          currentUser.email ||
+          "Akun";
+
+        avatarEl.src =
+          createAvatar(
+            currentUser.email
+          );
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Profile error:",
+        error
+      );
+
+      accountNameEl.textContent =
+        currentUser.email ||
+        "Akun";
+
+      avatarEl.src =
+        createAvatar(
+          currentUser.email
+        );
+
+    }
+
+  }
+
+
+
+  /* =====================================================
+     DEFAULT AVATAR
+  ===================================================== */
+
+  function createAvatar(name) {
+
+    const letter =
+      encodeURIComponent(
+        (name || "A")
+          .charAt(0)
+          .toUpperCase()
+      );
+
+
+    return `
+      https://ui-avatars.com/api/
+      ?name=${letter}
+      &background=087f5b
+      &color=ffffff
+      &size=80
+    `.replace(/\s/g, "");
+
+  }
+
+
+
+  /* =====================================================
+     LOAD MATERIAL
+  ===================================================== */
+
+  async function loadMaterial(
+    materialId
+  ) {
+
+    let result =
+      await supabaseClient
+        .from("materials")
+        .select(`
+          id,
+          judul,
+          deskripsi,
+          kategori,
+          tipe,
+          type,
+          url,
+          thumbnail,
+          premium
+        `)
+        .eq(
+          "id",
+          materialId
+        )
+        .maybeSingle();
+
+
+    if (result.error) {
+
+      console.error(
+        result.error
+      );
+
+      throw result.error;
+
+    }
+
+
+    if (!result.data) {
+
+      throw new Error(
+        "Materi tidak ditemukan."
+      );
+
+    }
+
+
+    material =
+      result.data;
+
+
+    titleEl.textContent =
+      material.judul ||
+      "Materi";
+
+
+    descriptionEl.textContent =
+      material.deskripsi ||
+      "Materi pembelajaran NgajiPlus Akademi.";
+
+
+    categoryEl.textContent =
+      material.kategori ||
+      "Materi";
+
+  }
+
+
+
+  /* =====================================================
+     LOAD PROGRESS FROM SUPABASE
+  ===================================================== */
+
+  async function loadProgress(
+    materialId
+  ) {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("learning_progress")
+        .select(`
+          id,
+          progress,
+          status,
+          completed_at,
+          updated_at
+        `)
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "material_id",
+          String(materialId)
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.error(
+        "Load progress:",
+        error
+      );
+
+      /*
+        Kalau belum ada row,
+        progress dimulai dari 0.
+      */
+
+      currentProgress = 0;
+
+    } else {
+
+      currentProgress =
+        Number(
+          data?.progress || 0
+        );
+
+    }
+
+
+    currentProgress =
+      clampProgress(
+        currentProgress
+      );
+
+
+    updateProgressUI();
+
+  }
+
+
+
+  /* =====================================================
+     SAVE PROGRESS
+  ===================================================== */
+
+  async function saveProgress(
+    progress,
+    force = false
+  ) {
+
+    if (!currentUser || !material) {
+      return;
+    }
+
+
+    progress =
+      clampProgress(progress);
 
 
     /*
-      FORMAT:
-
-      https://drive.google.com/uc?id=FILE_ID
+      Hindari terlalu sering UPDATE.
     */
 
-    const ucId =
-      parsed.searchParams.get("id");
-
-
-    if (ucId) {
-
-      return ucId;
-
-    }
-
-  } catch (error) {
-
-    console.warn(
-      "URL Google Drive tidak valid:",
-      url
-    );
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   MATERIAL TYPE
-====================================================== */
-
-function getMaterialType(material) {
-
-  const tipe =
-    String(
-      material.tipe ||
-      ""
-    )
-      .toLowerCase()
-      .trim();
-
-
-  const type =
-    String(
-      material.type ||
-      ""
-    )
-      .toLowerCase()
-      .trim();
-
-
-  /*
-    Prioritas tipe.
-  */
-
-  if (
-    tipe === "video" ||
-    type === "video"
-  ) {
-
     if (
-      getYouTubeId(
-        material.url
-      )
+      !force &&
+      Math.abs(
+        progress -
+        lastSavedProgress
+      ) < 1
     ) {
 
-      return "video";
+      return;
+
+    }
+
+
+    const isCompleted =
+      progress >= 100;
+
+
+    const payload = {
+
+      user_id:
+        currentUser.id,
+
+      material_id:
+        String(material.id),
+
+      status:
+        isCompleted
+          ? "completed"
+          : "started",
+
+      progress:
+        progress,
+
+      last_watched_at:
+        new Date().toISOString(),
+
+      completed_at:
+        isCompleted
+          ? new Date().toISOString()
+          : null
+
+    };
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("learning_progress")
+        .upsert(
+          payload,
+          {
+            onConflict:
+              "user_id,material_id"
+          }
+        );
+
+
+    if (error) {
+
+      console.error(
+        "Gagal menyimpan progress:",
+        error
+      );
+
+      return;
+
+    }
+
+
+    lastSavedProgress =
+      progress;
+
+
+    currentProgress =
+      progress;
+
+
+    updateProgressUI();
+
+
+    showSaved();
+
+  }
+
+
+
+  /* =====================================================
+     UPDATE PROGRESS UI
+  ===================================================== */
+
+  function updateProgressUI() {
+
+    const percent =
+      Math.round(
+        clampProgress(
+          currentProgress
+        )
+      );
+
+
+    progressPercentEl.textContent =
+      `${percent}%`;
+
+
+    progressBarEl.style.width =
+      `${percent}%`;
+
+
+    if (percent >= 100) {
+
+      progressStatusEl.textContent =
+        "✓ Materi selesai";
+
+
+      completeBtn.textContent =
+        "✓ Sudah Selesai";
+
+    } else if (percent > 0) {
+
+      progressStatusEl.textContent =
+        "Sedang dipelajari";
+
+      completeBtn.textContent =
+        "✓ Tandai Selesai";
+
+    } else {
+
+      progressStatusEl.textContent =
+        "Belum dimulai";
+
+      completeBtn.textContent =
+        "✓ Tandai Selesai";
 
     }
 
   }
 
 
-  if (
-    tipe === "audio" ||
-    tipe === "mp3" ||
-    tipe === "murottal" ||
 
-    type === "audio" ||
-    type === "mp3" ||
-    type === "murottal"
-  ) {
+  /* =====================================================
+     COMPLETE BUTTON
+  ===================================================== */
 
-    return "audio";
+  completeBtn.addEventListener(
+    "click",
+    async () => {
 
-  }
+      completeBtn.disabled =
+        true;
 
 
-  if (
-    tipe === "pdf" ||
-    tipe === "ebook" ||
-    tipe === "dokumen" ||
+      try {
 
-    type === "pdf" ||
-    type === "ebook" ||
-    type === "dokumen"
-  ) {
-
-    return "pdf";
-
-  }
+        currentProgress =
+          100;
 
 
-  /*
-    Fallback URL.
-  */
-
-  if (
-    getYouTubeId(
-      material.url
-    )
-  ) {
-
-    return "video";
-
-  }
+        updateProgressUI();
 
 
-  if (
-    isAudioUrl(
-      material.url
-    )
-  ) {
-
-    return "audio";
-
-  }
+        await saveProgress(
+          100,
+          true
+        );
 
 
-  if (
-    isPdfUrl(
-      material.url
-    ) ||
-    getGoogleDriveFileId(
-      material.url
-    )
-  ) {
+      } finally {
 
-    return "pdf";
+        completeBtn.disabled =
+          false;
 
-  }
+      }
+
+    }
+  );
 
 
-  return "unknown";
 
-}
+  /* =====================================================
+     RENDER PLAYER
+  ===================================================== */
 
+  function renderPlayer() {
 
-/* =====================================================
-   CHECK USER
-====================================================== */
-
-async function checkUser() {
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth.getUser();
-
-
-  if (error) {
-
-    console.error(
-      "Auth error:",
-      error
-    );
-
-    return null;
-
-  }
-
-
-  const user =
-    data?.user;
-
-
-  if (!user) {
-
-    return null;
-
-  }
-
-
-  currentUser =
-    user;
-
-
-  /*
-    Ambil profile.
-  */
-
-  const {
-    data: profile,
-    error: profileError
-  } =
-    await supabaseClient
-      .from("profiles")
-      .select(`
-        id,
-        nama,
-        status,
-        paket,
-        berlaku_sampai,
-        avatar_url
-      `)
-      .eq(
-        "id",
-        user.id
+    const type =
+      (
+        material.type ||
+        material.tipe ||
+        ""
       )
-      .maybeSingle();
+        .toLowerCase()
+        .trim();
 
 
-  if (profileError) {
-
-    console.warn(
-      "Profile error:",
-      profileError
-    );
-
-  }
+    const url =
+      material.url ||
+      "";
 
 
-  if (!profile) {
+    /*
+      VIDEO
+    */
 
-    document.getElementById(
-      "profileName"
-    ).textContent =
-      user.email ||
-      "Akun";
+    if (
+      type === "video"
+    ) {
 
-    return user;
-
-  }
-
-
-  /*
-    Nama.
-  */
-
-  const nama =
-    profile.nama ||
-    user.email ||
-    "User";
-
-
-  document.getElementById(
-    "profileName"
-  ).textContent =
-    nama;
-
-
-  /*
-    Avatar.
-  */
-
-  const avatar =
-    document.getElementById(
-      "avatar"
-    );
-
-
-  if (
-    profile.avatar_url
-  ) {
-
-    avatar.innerHTML = `
-
-      <img
-        src="${escapeHtml(
-          profile.avatar_url
-        )}"
-        alt="Avatar"
-      >
-
-    `;
-
-  } else {
-
-    avatar.textContent =
-      nama
-        .charAt(0)
-        .toUpperCase();
-
-  }
-
-
-  /*
-    Membership.
-  */
-
-  const status =
-    String(
-      profile.status ||
-      ""
-    )
-      .toLowerCase()
-      .trim();
-
-
-  let activeDate =
-    false;
-
-
-  if (
-    profile.berlaku_sampai
-  ) {
-
-    const expiry =
-      new Date(
-        profile.berlaku_sampai
+      renderYoutube(
+        url
       );
-
-
-    activeDate =
-      expiry >= new Date();
-
-  }
-
-
-  membershipActive =
-    status === "aktif" &&
-    activeDate;
-
-
-  return user;
-
-}
-
-
-/* =====================================================
-   LOAD MATERIAL
-====================================================== */
-
-async function loadMaterial() {
-
-  const materialId =
-    getMaterialId();
-
-
-  if (!materialId) {
-
-    showError(
-      "ID materi tidak valid."
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data: material,
-    error
-  } =
-    await supabaseClient
-      .from("materials")
-      .select(`
-        id,
-        judul,
-        deskripsi,
-        kategori,
-        tipe,
-        type,
-        url,
-        thumbnail,
-        premium
-      `)
-      .eq(
-        "id",
-        materialId
-      )
-      .maybeSingle();
-
-
-  if (error) {
-
-    console.error(
-      "Material error:",
-      error
-    );
-
-
-    showError(
-      "Gagal mengambil materi: " +
-      error.message
-    );
-
-
-    return;
-
-  }
-
-
-  if (!material) {
-
-    showError(
-      "Materi tidak ditemukan."
-    );
-
-
-    return;
-
-  }
-
-
-  currentMaterial =
-    material;
-
-
-  renderMaterial();
-
-}
-
-
-/* =====================================================
-   RENDER MATERIAL
-====================================================== */
-
-function renderMaterial() {
-
-  const material =
-    currentMaterial;
-
-
-  document.title =
-    (
-      material.judul ||
-      "Materi"
-    ) +
-    " - NgajiPlus Akademi";
-
-
-  /*
-    Judul.
-  */
-
-  document.getElementById(
-    "title"
-  ).textContent =
-    material.judul ||
-    "Materi";
-
-
-  /*
-    Deskripsi.
-  */
-
-  document.getElementById(
-    "description"
-  ).textContent =
-    material.deskripsi ||
-    "Materi pembelajaran NgajiPlus Akademi.";
-
-
-  /*
-    Kategori.
-  */
-
-  document.getElementById(
-    "category"
-  ).textContent =
-    material.kategori ||
-    "Materi";
-
-
-  /*
-    Premium.
-  */
-
-  const isPremium =
-    material.premium === true ||
-    material.premium === "true" ||
-    material.premium === 1;
-
-
-  if (isPremium) {
-
-    document.getElementById(
-      "premiumBadge"
-    ).style.display =
-      "inline-block";
-
-  }
-
-
-  /*
-    Premium lock.
-  */
-
-  if (
-    isPremium &&
-    !membershipActive
-  ) {
-
-    document.getElementById(
-      "premiumLock"
-    ).style.display =
-      "block";
-
-
-    document.getElementById(
-      "playerCard"
-    ).innerHTML = `
-
-      <div
-        style="
-          background:#111111;
-          color:#ffffff;
-          padding:70px 20px;
-          text-align:center;
-        "
-      >
-
-        <div style="font-size:55px;">
-          🔒
-        </div>
-
-        <h2 style="margin:15px 0;">
-          Materi Premium
-        </h2>
-
-        <p style="
-          color:#cccccc;
-          line-height:1.6;
-        ">
-          Silakan aktifkan membership
-          untuk membuka materi ini.
-        </p>
-
-      </div>
-
-    `;
-
-
-    document.getElementById(
-      "completeBtn"
-    ).style.display =
-      "none";
-
-
-    return;
-
-  }
-
-
-  renderPlayer();
-
-}
-
-
-/* =====================================================
-   RENDER PLAYER
-====================================================== */
-
-function renderPlayer() {
-
-  const material =
-    currentMaterial;
-
-
-  const type =
-    getMaterialType(
-      material
-    );
-
-
-  const container =
-    document.getElementById(
-      "playerContainer"
-    );
-
-
-  /* ===================================================
-     VIDEO YOUTUBE
-  =================================================== */
-
-  if (
-    type === "video"
-  ) {
-
-    const videoId =
-      getYouTubeId(
-        material.url
-      );
-
-
-    if (!videoId) {
-
-      showPlayerError(
-        "Link YouTube tidak valid."
-      );
-
 
       return;
 
@@ -2260,136 +1542,504 @@ function renderPlayer() {
 
 
     /*
-      YouTube Privacy Enhanced Mode.
+      AUDIO
     */
 
-    const embedUrl =
-      "https://www.youtube-nocookie.com/embed/" +
-      encodeURIComponent(
-        videoId
-      ) +
-      "?rel=0&modestbranding=1";
+    if (
+      type === "audio"
+    ) {
+
+      renderAudio(
+        url
+      );
+
+      return;
+
+    }
 
 
-    container.className =
-      "video-wrapper";
+    /*
+      PDF / EBOOK / DOKUMEN
+    */
+
+    if (
+      type === "pdf" ||
+      type === "ebook" ||
+      type === "dokumen"
+    ) {
+
+      renderPdf(
+        url
+      );
+
+      return;
+
+    }
 
 
-    container.innerHTML = `
+    showError(
+      "Jenis materi tidak dikenali."
+    );
 
-      <iframe
-        id="youtubePlayer"
-        src="${embedUrl}"
-        title="${escapeHtml(
-          material.judul ||
-          "Video Pembelajaran"
-        )}"
-        allow="
-          accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture;
-          web-share
-        "
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
+  }
+
+
+
+  /* =====================================================
+     YOUTUBE URL → VIDEO ID
+  ===================================================== */
+
+  function extractYoutubeId(url) {
+
+    if (!url) {
+      return null;
+    }
+
+
+    const patterns = [
+
+      /youtube\.com\/watch\?v=([^&]+)/i,
+
+      /youtu\.be\/([^?&]+)/i,
+
+      /youtube\.com\/embed\/([^?&]+)/i,
+
+      /youtube\.com\/shorts\/([^?&]+)/i
+
+    ];
+
+
+    for (
+      const pattern
+      of patterns
+    ) {
+
+      const match =
+        url.match(pattern);
+
+
+      if (match) {
+
+        return match[1];
+
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+
+  /* =====================================================
+     YOUTUBE
+  ===================================================== */
+
+  function renderYoutube(
+    url
+  ) {
+
+    const videoId =
+      extractYoutubeId(
+        url
+      );
+
+
+    if (!videoId) {
+
+      showError(
+        "Link YouTube tidak valid."
+      );
+
+      return;
+
+    }
+
+
+    playerCard.innerHTML = `
+
+      <div
+        class="youtube-wrapper"
+      >
+
+        <div
+          id="youtube-player"
+        ></div>
+
+      </div>
 
     `;
 
 
     /*
-      Catatan:
-      Progress YouTube belum dibaca
-      berdasarkan durasi video pada versi ini.
+      Kalau API YouTube sudah siap
+      langsung buat player.
     */
 
-    return;
+    if (
+      window.YT &&
+      window.YT.Player
+    ) {
+
+      createYoutubePlayer(
+        videoId
+      );
+
+    } else {
+
+      window.pendingYoutubeVideoId =
+        videoId;
+
+    }
 
   }
 
 
-  /* ===================================================
-     AUDIO
-  =================================================== */
 
-  if (
-    type === "audio"
+  /* =====================================================
+     YOUTUBE API CALLBACK
+  ===================================================== */
+
+  window.onYouTubeIframeAPIReady =
+    function() {
+
+      if (
+        window.pendingYoutubeVideoId
+      ) {
+
+        createYoutubePlayer(
+          window.pendingYoutubeVideoId
+        );
+
+      }
+
+    };
+
+
+
+  /* =====================================================
+     CREATE YOUTUBE PLAYER
+  ===================================================== */
+
+  function createYoutubePlayer(
+    videoId
   ) {
 
-    container.className =
-      "audio-player";
+    youtubePlayer =
+      new YT.Player(
+        "youtube-player",
+        {
+
+          videoId:
+            videoId,
+
+          playerVars: {
+
+            playsinline: 1,
+
+            rel: 0,
+
+            modestbranding: 1
+
+          },
+
+          events: {
+
+            onStateChange:
+              onYoutubeStateChange
+
+          }
+
+        }
+      );
+
+  }
 
 
-    container.innerHTML = `
 
-      <div class="audio-icon">
-        🎧
-      </div>
+  /* =====================================================
+     YOUTUBE STATE
+  ===================================================== */
+
+  function onYoutubeStateChange(
+    event
+  ) {
+
+    /*
+      PLAYING
+    */
+
+    if (
+      event.data ===
+      YT.PlayerState.PLAYING
+    ) {
+
+      startYoutubeProgress();
+
+    }
 
 
-      <h2>
-        ${escapeHtml(
-          material.judul ||
-          "Audio"
-        )}
-      </h2>
+    /*
+      PAUSED
+    */
+
+    if (
+      event.data ===
+      YT.PlayerState.PAUSED
+    ) {
+
+      saveYoutubeProgress();
+
+    }
 
 
-      <p>
-        Murottal / Audio Pembelajaran
-      </p>
+    /*
+      ENDED
+    */
+
+    if (
+      event.data ===
+      YT.PlayerState.ENDED
+    ) {
+
+      stopYoutubeProgress();
 
 
-      <audio
-        id="audioPlayer"
-        controls
-        preload="metadata"
-      >
+      currentProgress =
+        100;
 
-        <source
-          src="${escapeHtml(
-            material.url ||
-            ""
-          )}"
+
+      updateProgressUI();
+
+
+      saveProgress(
+        100,
+        true
+      );
+
+    }
+
+  }
+
+
+
+  /* =====================================================
+     YOUTUBE PROGRESS TIMER
+  ===================================================== */
+
+  function startYoutubeProgress() {
+
+    stopYoutubeProgress();
+
+
+    saveTimer =
+      setInterval(
+        () => {
+
+          saveYoutubeProgress();
+
+        },
+        5000
+      );
+
+  }
+
+
+
+  function stopYoutubeProgress() {
+
+    if (saveTimer) {
+
+      clearInterval(
+        saveTimer
+      );
+
+      saveTimer =
+        null;
+
+    }
+
+  }
+
+
+
+  function saveYoutubeProgress() {
+
+    if (
+      !youtubePlayer ||
+      typeof youtubePlayer.getCurrentTime !==
+        "function"
+    ) {
+
+      return;
+
+    }
+
+
+    const duration =
+      youtubePlayer.getDuration();
+
+
+    const current =
+      youtubePlayer.getCurrentTime();
+
+
+    if (
+      !duration ||
+      duration <= 0
+    ) {
+
+      return;
+
+    }
+
+
+    const percent =
+      Math.floor(
+        (
+          current /
+          duration
+        ) * 100
+      );
+
+
+    currentProgress =
+      clampProgress(
+        percent
+      );
+
+
+    updateProgressUI();
+
+
+    saveProgress(
+      currentProgress
+    );
+
+  }
+
+
+
+  /* =====================================================
+     AUDIO
+  ===================================================== */
+
+  function renderAudio(
+    url
+  ) {
+
+    if (!url) {
+
+      showError(
+        "URL audio tidak ditemukan."
+      );
+
+      return;
+
+    }
+
+
+    playerCard.innerHTML = `
+
+      <div class="audio-player">
+
+        <div class="audio-icon">
+          🎧
+        </div>
+
+        <h2>
+          ${escapeHtml(
+            material.judul ||
+            "Audio Pembelajaran"
+          )}
+        </h2>
+
+        <p>
+          Murottal / Audio Pembelajaran
+        </p>
+
+        <audio
+          id="audio-player"
+          controls
+          preload="metadata"
         >
 
-        Browser Anda tidak mendukung
-        pemutar audio.
+          <source
+            src="${escapeAttribute(url)}"
+          >
 
-      </audio>
+          Browser Anda tidak mendukung
+          audio.
+
+        </audio>
+
+      </div>
 
     `;
 
 
     audioElement =
       document.getElementById(
-        "audioPlayer"
+        "audio-player"
       );
 
 
+    if (!audioElement) {
+      return;
+    }
+
+
     /*
-      Progress audio.
+      Ketika audio mulai diputar.
     */
 
     audioElement.addEventListener(
-      "timeupdate",
-      handleAudioProgress
+      "play",
+      () => {
+
+        startAudioProgress();
+
+      }
     );
 
 
     /*
-      Audio selesai.
+      Ketika pause.
+    */
+
+    audioElement.addEventListener(
+      "pause",
+      () => {
+
+        saveAudioProgress();
+
+      }
+    );
+
+
+    /*
+      Ketika selesai.
     */
 
     audioElement.addEventListener(
       "ended",
-      () => {
+      async () => {
 
-        setProgress(
-          100
+        stopAudioProgress();
+
+
+        currentProgress =
+          100;
+
+
+        updateProgressUI();
+
+
+        await saveProgress(
+          100,
+          true
         );
 
       }
@@ -2397,655 +2047,492 @@ function renderPlayer() {
 
 
     /*
-      Jika audio error.
+      Saat metadata sudah terbaca,
+      lanjutkan dari posisi progress terakhir.
     */
 
     audioElement.addEventListener(
-      "error",
+      "loadedmetadata",
       () => {
 
-        console.error(
-          "Audio gagal diputar:",
-          material.url
-        );
-
-
-        document.getElementById(
-          "progressStatus"
-        ).textContent =
-          "Audio tidak dapat diputar dari alamat tersebut.";
+        restoreAudioPosition();
 
       }
     );
 
+  }
 
-    return;
+
+
+  /* =====================================================
+     AUDIO TIMER
+  ===================================================== */
+
+  function startAudioProgress() {
+
+    stopAudioProgress();
+
+
+    saveTimer =
+      setInterval(
+        () => {
+
+          saveAudioProgress();
+
+        },
+        5000
+      );
 
   }
 
 
-  /* ===================================================
-     PDF GOOGLE DRIVE
-  =================================================== */
 
-  if (
-    type === "pdf"
-  ) {
+  function stopAudioProgress() {
 
-    const driveFileId =
-      getGoogleDriveFileId(
-        material.url
+    if (saveTimer) {
+
+      clearInterval(
+        saveTimer
       );
 
+      saveTimer =
+        null;
 
-    if (!driveFileId) {
+    }
 
-      container.className =
-        "unsupported";
-
-
-      container.innerHTML = `
-
-        <div class="unsupported-icon">
-          ⚠️
-        </div>
+  }
 
 
-        <h3>
-          Link PDF tidak valid
-        </h3>
 
+  /* =====================================================
+     AUDIO PROGRESS
+  ===================================================== */
 
-        <p>
-          File PDF Google Drive
-          tidak dapat ditemukan
-          dari URL materi.
-        </p>
+  function saveAudioProgress() {
 
-      `;
-
+    if (
+      !audioElement ||
+      !audioElement.duration ||
+      !isFinite(
+        audioElement.duration
+      )
+    ) {
 
       return;
 
     }
 
 
-    /*
-      Google Drive Preview.
-    */
-
-    const previewUrl =
-      "https://drive.google.com/file/d/" +
-      encodeURIComponent(
-        driveFileId
-      ) +
-      "/preview";
+    const percent =
+      Math.floor(
+        (
+          audioElement.currentTime /
+          audioElement.duration
+        ) * 100
+      );
 
 
-    container.className =
-      "pdf-wrapper";
-
-
-    container.innerHTML = `
-
-      <iframe
-        src="${previewUrl}"
-        title="${escapeHtml(
-          material.judul ||
-          "Dokumen PDF"
-        )}"
-        allow="autoplay"
-      ></iframe>
-
-    `;
-
-
-    /*
-      PDF berhasil dibuka.
-      Untuk sementara kita beri
-      progress awal 10%.
-    */
-
-    setProgress(
-      10
-    );
-
-
-    return;
-
-  }
-
-
-  /* ===================================================
-     UNKNOWN
-  =================================================== */
-
-  container.className =
-    "unsupported";
-
-
-  container.innerHTML = `
-
-    <div class="unsupported-icon">
-      ⚠️
-    </div>
-
-
-    <h3>
-      Format materi belum dikenali
-    </h3>
-
-
-    <p>
-      Periksa kolom
-      <b>tipe</b>,
-      <b>type</b>,
-      dan
-      <b>url</b>
-      di Supabase.
-    </p>
-
-  `;
-
-}
-
-
-/* =====================================================
-   PLAYER ERROR
-====================================================== */
-
-function showPlayerError(message) {
-
-  const container =
-    document.getElementById(
-      "playerContainer"
-    );
-
-
-  container.className =
-    "unsupported";
-
-
-  container.innerHTML = `
-
-    <div class="unsupported-icon">
-      ⚠️
-    </div>
-
-
-    <h3>
-      ${escapeHtml(
-        message
-      )}
-    </h3>
-
-
-    <p>
-      Silakan periksa URL materi
-      di Supabase.
-    </p>
-
-  `;
-
-}
-
-
-/* =====================================================
-   AUDIO PROGRESS
-====================================================== */
-
-function handleAudioProgress() {
-
-  if (!audioElement) {
-
-    return;
-
-  }
-
-
-  const duration =
-    audioElement.duration;
-
-
-  const currentTime =
-    audioElement.currentTime;
-
-
-  if (
-    !Number.isFinite(
-      duration
-    ) ||
-    duration <= 0
-  ) {
-
-    return;
-
-  }
-
-
-  const percent =
-    (
-      currentTime /
-      duration
-    ) * 100;
-
-
-  setProgress(
-    Math.min(
-      Math.round(
+    currentProgress =
+      clampProgress(
         percent
-      ),
-      100
-    )
-  );
-
-}
+      );
 
 
-/* =====================================================
-   PROGRESS KEY
-====================================================== */
-
-function getProgressKey() {
-
-  if (
-    !currentUser ||
-    !currentMaterial
-  ) {
-
-    return null;
-
-  }
+    updateProgressUI();
 
 
-  return (
-    "ngajiplus_progress_" +
-    currentUser.id +
-    "_" +
-    currentMaterial.id
-  );
-
-}
-
-
-/* =====================================================
-   LOAD SAVED PROGRESS
-====================================================== */
-
-function loadSavedProgress() {
-
-  const key =
-    getProgressKey();
-
-
-  if (!key) {
-
-    return;
-
-  }
-
-
-  const saved =
-    localStorage.getItem(
-      key
-    );
-
-
-  if (
-    saved === null
-  ) {
-
-    return;
-
-  }
-
-
-  const percent =
-    Number(
-      saved
-    );
-
-
-  if (
-    Number.isFinite(
-      percent
-    )
-  ) {
-
-    setProgress(
-      Math.max(
-        0,
-        Math.min(
-          percent,
-          100
-        )
-      ),
-      false
+    saveProgress(
+      currentProgress
     );
 
   }
 
-}
 
 
-/* =====================================================
-   SET PROGRESS
-====================================================== */
+  /* =====================================================
+     RESTORE AUDIO
+  ===================================================== */
 
-function setProgress(
-  percent,
-  save = true
-) {
+  function restoreAudioPosition() {
 
-  currentProgress =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        Math.round(
-          percent
-        )
-      )
-    );
+    if (
+      !audioElement ||
+      !audioElement.duration ||
+      currentProgress <= 0 ||
+      currentProgress >= 100
+    ) {
+
+      return;
+
+    }
 
 
-  /*
-    Persentase.
-  */
-
-  document.getElementById(
-    "progressPercent"
-  ).textContent =
-    currentProgress +
-    "%";
+    const seconds =
+      (
+        currentProgress /
+        100
+      ) *
+      audioElement.duration;
 
 
-  /*
-    Bar.
-  */
+    try {
 
-  document.getElementById(
-    "progressFill"
-  ).style.width =
-    currentProgress +
-    "%";
+      audioElement.currentTime =
+        seconds;
 
+    } catch (error) {
 
-  /*
-    Status.
-  */
-
-  const status =
-    document.getElementById(
-      "progressStatus"
-    );
-
-
-  if (
-    currentProgress >= 100
-  ) {
-
-    status.textContent =
-      "✓ Materi selesai";
-
-
-    document.getElementById(
-      "completeBtn"
-    ).textContent =
-      "✓ Sudah Selesai";
-
-  }
-
-  else if (
-    currentProgress > 0
-  ) {
-
-    status.textContent =
-      "Sedang dipelajari";
-
-  }
-
-  else {
-
-    status.textContent =
-      "Belum dimulai";
-
-  }
-
-
-  /*
-    Simpan ke browser.
-  */
-
-  if (save) {
-
-    const key =
-      getProgressKey();
-
-
-    if (key) {
-
-      localStorage.setItem(
-        key,
-        String(
-          currentProgress
-        )
+      console.warn(
+        "Tidak bisa restore audio position:",
+        error
       );
 
     }
 
   }
 
-}
 
 
-/* =====================================================
-   COMPLETE
-====================================================== */
+  /* =====================================================
+     PDF
+  ===================================================== */
 
-function completeMaterial() {
+  function renderPdf(
+    url
+  ) {
 
-  setProgress(
-    100
+    if (!url) {
+
+      showError(
+        "URL PDF tidak ditemukan."
+      );
+
+      return;
+
+    }
+
+
+    const pdfUrl =
+      convertGoogleDriveUrl(
+        url
+      );
+
+
+    playerCard.innerHTML = `
+
+      <div class="pdf-wrapper">
+
+        <iframe
+          class="pdf-frame"
+          src="${escapeAttribute(pdfUrl)}"
+          title="${escapeAttribute(
+            material.judul ||
+            "PDF"
+          )}"
+          loading="lazy"
+        ></iframe>
+
+      </div>
+
+    `;
+
+
+    /*
+      PDF browser tidak memberikan
+      API yang konsisten untuk mengetahui
+      halaman yang sedang dibaca.
+
+      Karena itu PDF menggunakan
+      tombol "Tandai Selesai".
+    */
+
+
+    if (
+      currentProgress === 0
+    ) {
+
+      currentProgress =
+        10;
+
+
+      updateProgressUI();
+
+
+      saveProgress(
+        10,
+        true
+      );
+
+    }
+
+  }
+
+
+
+  /* =====================================================
+     GOOGLE DRIVE → PREVIEW
+  ===================================================== */
+
+  function convertGoogleDriveUrl(
+    url
+  ) {
+
+    if (
+      url.includes(
+        "drive.google.com"
+      )
+    ) {
+
+      const match =
+        url.match(
+          /\/d\/([^/]+)/
+        );
+
+
+      if (
+        match &&
+        match[1]
+      ) {
+
+        return (
+          "https://drive.google.com/file/d/" +
+          match[1] +
+          "/preview"
+        );
+
+      }
+
+    }
+
+
+    return url;
+
+  }
+
+
+
+  /* =====================================================
+     ERROR
+  ===================================================== */
+
+  function showError(
+    message
+  ) {
+
+    playerCard.innerHTML = `
+
+      <div
+        style="
+          padding:20px;
+          background:#fff;
+        "
+      >
+
+        <div class="error-box">
+
+          ⚠️
+          ${escapeHtml(message)}
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  /* =====================================================
+     PROGRESS CLAMP
+  ===================================================== */
+
+  function clampProgress(
+    value
+  ) {
+
+    value =
+      Number(value);
+
+
+    if (
+      !Number.isFinite(value)
+    ) {
+
+      return 0;
+
+    }
+
+
+    return Math.max(
+      0,
+      Math.min(
+        100,
+        Math.round(value)
+      )
+    );
+
+  }
+
+
+
+  /* =====================================================
+     SAVE INDICATOR
+  ===================================================== */
+
+  let indicatorTimer =
+    null;
+
+
+  function showSaved() {
+
+    saveIndicator.classList.add(
+      "show"
+    );
+
+
+    clearTimeout(
+      indicatorTimer
+    );
+
+
+    indicatorTimer =
+      setTimeout(
+        () => {
+
+          saveIndicator.classList.remove(
+            "show"
+          );
+
+        },
+        1500
+      );
+
+  }
+
+
+
+  /* =====================================================
+     ESCAPE HTML
+  ===================================================== */
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value ?? ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+
+  function escapeAttribute(
+    value
+  ) {
+
+    return escapeHtml(
+      value
+    );
+
+  }
+
+
+
+  /* =====================================================
+     BACK BUTTON
+  ===================================================== */
+
+  document
+    .getElementById("backBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        if (
+          document.referrer &&
+          document.referrer.includes(
+            window.location.hostname
+          )
+        ) {
+
+          history.back();
+
+        } else {
+
+          window.location.href =
+            "index.html";
+
+        }
+
+      }
+    );
+
+
+
+  /* =====================================================
+     BEFORE LEAVING PAGE
+  ===================================================== */
+
+  window.addEventListener(
+    "beforeunload",
+    () => {
+
+      /*
+        Simpan progress terakhir
+        sebelum meninggalkan halaman.
+      */
+
+      if (
+        audioElement
+      ) {
+
+        saveAudioProgress();
+
+      }
+
+
+      if (
+        youtubePlayer
+      ) {
+
+        saveYoutubeProgress();
+
+      }
+
+    }
   );
 
 
-  const button =
-    document.getElementById(
-      "completeBtn"
-    );
 
+  /* =====================================================
+     START
+  ===================================================== */
 
-  button.textContent =
-    "✓ Sudah Selesai";
-
-
-  button.disabled =
-    true;
-
-}
-
-
-/* =====================================================
-   ERROR PAGE
-====================================================== */
-
-function showError(message) {
-
-  document.getElementById(
-    "loading"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "content"
-  ).style.display =
-    "none";
-
-
-  const errorBox =
-    document.getElementById(
-      "error"
-    );
-
-
-  errorBox.style.display =
-    "block";
-
-
-  errorBox.textContent =
-    message;
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-====================================================== */
-
-function escapeHtml(value) {
-
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
-    return "";
-
-  }
-
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   BACK BUTTON
-====================================================== */
-
-function goBack() {
-
-  if (
-    document.referrer &&
-    document.referrer.includes(
-      "ngajiplus.id"
-    )
-  ) {
-
-    history.back();
-
-  }
-
-  else {
-
-    window.location.href =
-      "index.html";
-
-  }
-
-}
-
-
-/* =====================================================
-   INITIALIZE
-====================================================== */
-
-async function init() {
-
-  try {
-
-    /*
-      1. Check login
-    */
-
-    await checkUser();
-
-
-    /*
-      2. Load material
-    */
-
-    await loadMaterial();
-
-
-    /*
-      3. Load progress
-    */
-
-    loadSavedProgress();
-
-
-    /*
-      4. Hide loading
-    */
-
-    document.getElementById(
-      "loading"
-    ).style.display =
-      "none";
-
-
-    document.getElementById(
-      "content"
-    ).style.display =
-      "block";
-
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "INIT ERROR:",
-      error
-    );
-
-
-    showError(
-      "Terjadi kesalahan: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   START
-====================================================== */
-
-init();
+  init();
 
 </script>
-
 
 </body>
 
