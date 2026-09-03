@@ -48,7 +48,12 @@ body{
 
   background:#f7faf8;
   color:#1f2933;
+
   line-height:1.6;
+
+  transition:
+    background .25s ease,
+    color .25s ease;
 }
 
 a{
@@ -70,6 +75,7 @@ select{
 .site-header{
 
   position:sticky;
+
   top:0;
 
   z-index:1000;
@@ -77,10 +83,15 @@ select{
   background:
     rgba(255,255,255,.97);
 
-  backdrop-filter:blur(10px);
+  backdrop-filter:
+    blur(10px);
 
   border-bottom:
     1px solid #e8ece9;
+
+  transition:
+    background .25s ease,
+    border-color .25s ease;
 }
 
 
@@ -103,7 +114,9 @@ select{
 }
 
 
-/* LOGO */
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logo{
 
@@ -126,11 +139,13 @@ select{
 .logo-icon{
 
   width:36px;
+
   height:36px;
 
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
   background:#eaf6ef;
@@ -141,7 +156,9 @@ select{
 }
 
 
-/* NAV */
+/* =========================================================
+   NAV
+========================================================= */
 
 .nav-menu{
 
@@ -155,7 +172,8 @@ select{
 }
 
 
-.nav-menu a{
+.nav-menu a,
+.theme-toggle{
 
   padding:
     8px 11px;
@@ -226,6 +244,31 @@ select{
   color:#555 !important;
 
   cursor:pointer;
+}
+
+
+/* =========================================================
+   THEME BUTTON
+========================================================= */
+
+.theme-toggle{
+
+  border:
+    1px solid #dce5df;
+
+  background:white;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+
+.theme-toggle:hover{
+
+  background:#eef7f1;
+
+  color:#009b55;
 }
 
 
@@ -355,7 +398,9 @@ select{
 }
 
 
-/* HERO CARD */
+/* =========================================================
+   HERO CARD
+========================================================= */
 
 .hero-card{
 
@@ -496,6 +541,10 @@ select{
   padding:18px;
 
   border-radius:16px;
+
+  transition:
+    background .25s ease,
+    border-color .25s ease;
 }
 
 
@@ -653,6 +702,9 @@ select{
   background:#eef7f1;
 
   max-width:none;
+
+  transition:
+    background .25s ease;
 }
 
 
@@ -698,6 +750,8 @@ select{
     11px 13px;
 
   outline:none;
+
+  color:#1f2933;
 }
 
 
@@ -742,7 +796,10 @@ select{
 
   min-width:0;
 
-  transition:.2s;
+  transition:
+    .2s,
+    background .25s ease,
+    border-color .25s ease;
 }
 
 
@@ -1186,6 +1243,246 @@ footer{
 
 
 /* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode{
+
+  background:#0f1512;
+
+  color:#e7eee9;
+}
+
+
+body.dark-mode .site-header{
+
+  background:
+    rgba(18,25,21,.97);
+
+  border-color:#26332c;
+}
+
+
+body.dark-mode .nav-menu a{
+
+  color:#c4cec8;
+}
+
+
+body.dark-mode .nav-menu a:hover{
+
+  background:#1b2a22;
+
+  color:#61d39a;
+}
+
+
+body.dark-mode .nav-login{
+
+  color:#61d39a !important;
+
+  border-color:#2eaa6e;
+}
+
+
+body.dark-mode .nav-user{
+
+  background:#193426;
+
+  color:#72dca5 !important;
+}
+
+
+body.dark-mode .nav-logout{
+
+  background:#29312d;
+
+  color:#d5ddd8 !important;
+}
+
+
+body.dark-mode .theme-toggle{
+
+  background:#1b241f;
+
+  border-color:#34433a;
+
+  color:#e7eee9;
+}
+
+
+body.dark-mode .hero-badge{
+
+  background:#183527;
+
+  color:#62d49b;
+}
+
+
+body.dark-mode .hero-description{
+
+  color:#aab7b0;
+}
+
+
+body.dark-mode .btn-secondary{
+
+  background:#18211c;
+
+  color:#61d39a;
+
+  border-color:#2eaa6e;
+}
+
+
+body.dark-mode .hero-card{
+
+  background:#18211c;
+
+  border-color:#2b3931;
+
+  box-shadow:
+    0 18px 50px
+    rgba(0,0,0,.25);
+}
+
+
+body.dark-mode .hero-screen{
+
+  background:#202d26;
+}
+
+
+body.dark-mode .mini-avatar{
+
+  background:#18211c;
+}
+
+
+body.dark-mode .mini-text{
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .feature{
+
+  background:#18211c;
+
+  border-color:#2a3930;
+}
+
+
+body.dark-mode .feature p{
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .section-header p{
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .category-card{
+
+  background:#18211c;
+
+  border-color:#2a3930;
+}
+
+
+body.dark-mode .category-card p{
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .material-section{
+
+  background:#14221a;
+}
+
+
+body.dark-mode .search-box,
+body.dark-mode .category-select{
+
+  background:#18211c;
+
+  border-color:#33433a;
+
+  color:#e7eee9;
+}
+
+
+body.dark-mode .material-card{
+
+  background:#18211c;
+
+  border-color:#2a3930;
+}
+
+
+body.dark-mode .material-card p,
+body.dark-mode .material-meta{
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .material-type{
+
+  background:#1d3528;
+
+  color:#67d99f;
+}
+
+
+body.dark-mode .empty-material,
+body.dark-mode .loading{
+
+  background:#18211c;
+
+  color:#a5b1aa;
+}
+
+
+body.dark-mode .material-button.disabled{
+
+  background:#303934;
+
+  color:#b5beb9;
+}
+
+
+body.dark-mode .account-notice-free{
+
+  background:#352f16 !important;
+
+  border-color:#665b22 !important;
+
+  color:#f0dc70 !important;
+}
+
+
+body.dark-mode .account-notice-premium{
+
+  background:#153a28 !important;
+
+  border-color:#276b49 !important;
+
+  color:#79dfa9 !important;
+}
+
+
+body.dark-mode .member-box{
+
+  background:#09100c;
+}
+
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
@@ -1277,7 +1574,8 @@ footer{
   }
 
 
-  .nav-menu a{
+  .nav-menu a,
+  .theme-toggle{
 
     padding:
       6px 7px;
@@ -1415,6 +1713,7 @@ footer{
 
   <div class="nav-container">
 
+
     <a
       href="index.html"
       class="logo"
@@ -1432,6 +1731,7 @@ footer{
 
 
     <nav class="nav-menu">
+
 
       <a href="#beranda">
         Beranda
@@ -1470,15 +1770,15 @@ footer{
       </a>
 
 
-      <!-- DASHBOARD -->
+      <!-- PROFILE -->
 
       <a
-        href="akademi.html"
-        id="dashboardBtn"
+        href="profile.html"
+        id="userBtn"
         class="nav-user"
         style="display:none"
       >
-        📚 Dashboard
+        👤 Member
       </a>
 
 
@@ -1492,6 +1792,19 @@ footer{
       >
         Keluar
       </a>
+
+
+      <!-- THEME -->
+
+      <button
+        type="button"
+        id="themeToggle"
+        class="theme-toggle"
+        aria-label="Ganti mode tampilan"
+      >
+        🌙
+      </button>
+
 
     </nav>
 
@@ -1513,7 +1826,9 @@ footer{
   id="beranda"
 >
 
+
   <div>
+
 
     <span class="hero-badge">
 
@@ -1544,6 +1859,12 @@ footer{
 
     <div class="hero-buttons">
 
+
+      <!--
+        LINK DIUBAH OTOMATIS
+        OLEH JAVASCRIPT
+      -->
+
       <a
         href="daftar.html"
         class="btn btn-primary"
@@ -1560,6 +1881,7 @@ footer{
         📚 Lihat Materi
       </a>
 
+
     </div>
 
   </div>
@@ -1568,17 +1890,22 @@ footer{
 
   <div class="hero-card">
 
+
     <div class="hero-screen">
 
+
       <div class="hero-screen-top">
+
 
         <div class="mini-logo">
           NgajiPlus
         </div>
 
+
         <div class="mini-avatar">
           👤
         </div>
+
 
       </div>
 
@@ -1605,9 +1932,12 @@ footer{
 
       </div>
 
+
     </div>
 
+
   </div>
+
 
 </section>
 
@@ -1723,20 +2053,26 @@ footer{
   id="kategori"
 >
 
+
   <div class="section-header">
 
+
     <div>
+
 
       <h2>
         Jelajahi Kategori
       </h2>
+
 
       <p>
         Pilih tema pembelajaran
         yang ingin Anda pelajari.
       </p>
 
+
     </div>
+
 
   </div>
 
@@ -1943,16 +2279,20 @@ footer{
   id="materi"
 >
 
+
   <div class="material-inner">
 
 
     <div class="section-header">
 
+
       <div>
+
 
         <h2>
           📚 Materi Terbaru
         </h2>
+
 
         <p>
           Temukan berbagai materi
@@ -1960,13 +2300,18 @@ footer{
           di NgajiPlus.
         </p>
 
+
       </div>
+
 
     </div>
 
 
 
+    <!-- SEARCH -->
+
     <div class="material-tools">
+
 
       <input
         id="searchInput"
@@ -2019,9 +2364,12 @@ footer{
 
       </select>
 
+
     </div>
 
 
+
+    <!-- MATERIAL GRID -->
 
     <div
       id="materialsGrid"
@@ -2037,6 +2385,7 @@ footer{
 
   </div>
 
+
 </section>
 
 
@@ -2050,16 +2399,20 @@ footer{
   id="memberBox"
 >
 
+
   <div>
+
 
     <h2>
       🔐 Ingin mengakses semua materi?
     </h2>
 
+
     <p>
       Daftar sebagai member untuk membuka
       materi premium NgajiPlus.
     </p>
+
 
   </div>
 
@@ -2072,6 +2425,7 @@ footer{
     🚀 Daftar Member
 
   </a>
+
 
 </section>
 
@@ -2087,6 +2441,7 @@ footer{
 
 <footer>
 
+
   <div class="footer-container">
 
 
@@ -2095,8 +2450,11 @@ footer{
 
       <div>
 
+
         <div class="logo">
+
           📖 NgajiPlus
+
         </div>
 
 
@@ -2111,11 +2469,13 @@ footer{
 
         </p>
 
+
       </div>
 
 
 
       <div>
+
 
         <div class="footer-title">
           Menu
@@ -2124,19 +2484,24 @@ footer{
 
         <div class="footer-links">
 
+
           <a href="#beranda">
             Beranda
           </a>
+
 
           <a href="#kategori">
             Kategori
           </a>
 
+
           <a href="#materi">
             Materi
           </a>
 
+
         </div>
+
 
       </div>
 
@@ -2144,12 +2509,14 @@ footer{
 
       <div>
 
+
         <div class="footer-title">
           Akun
         </div>
 
 
         <div class="footer-links">
+
 
           <a
             href="login.html"
@@ -2168,14 +2535,16 @@ footer{
 
 
           <a
-            href="akademi.html"
-            id="footerDashboard"
+            href="profile.html"
+            id="footerProfile"
             style="display:none"
           >
-            Dashboard
+            Profil
           </a>
 
+
         </div>
+
 
       </div>
 
@@ -2193,6 +2562,7 @@ footer{
 
 
   </div>
+
 
 </footer>
 
@@ -2238,6 +2608,8 @@ let currentProfile = null;
 
 let membershipActive = false;
 
+let isAdmin = false;
+
 
 /* =========================================================
    ELEMENT
@@ -2255,15 +2627,27 @@ const registerBtn =
   );
 
 
-const dashboardBtn =
+const userBtn =
   document.getElementById(
-    "dashboardBtn"
+    "userBtn"
   );
 
 
 const logoutBtn =
   document.getElementById(
     "logoutBtn"
+  );
+
+
+const themeToggle =
+  document.getElementById(
+    "themeToggle"
+  );
+
+
+const startLearningBtn =
+  document.getElementById(
+    "startLearningBtn"
   );
 
 
@@ -2279,9 +2663,9 @@ const footerRegister =
   );
 
 
-const footerDashboard =
+const footerProfile =
   document.getElementById(
-    "footerDashboard"
+    "footerProfile"
   );
 
 
@@ -2343,9 +2727,19 @@ function getUserName(
     profile.nama
   ){
 
-    return String(
-      profile.nama
-    ).trim();
+    const nama =
+      String(
+        profile.nama
+      ).trim();
+
+
+    if(
+      nama
+    ){
+
+      return nama;
+
+    }
 
   }
 
@@ -2411,16 +2805,168 @@ function getUserName(
 
 
 /* =========================================================
+   THEME
+========================================================= */
+
+function loadTheme(){
+
+  const savedTheme =
+    localStorage.getItem(
+      "ngajiplus-theme"
+    );
+
+
+  if(
+    savedTheme === "dark"
+  ){
+
+    document.body.classList.add(
+      "dark-mode"
+    );
+
+  }
+
+
+  updateThemeButton();
+
+}
+
+
+function updateThemeButton(){
+
+  if(
+    !themeToggle
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    document.body.classList.contains(
+      "dark-mode"
+    )
+  ){
+
+    themeToggle.innerHTML =
+      "☀️";
+
+
+    themeToggle.title =
+      "Gunakan Mode Terang";
+
+  }
+
+  else{
+
+    themeToggle.innerHTML =
+      "🌙";
+
+
+    themeToggle.title =
+      "Gunakan Mode Gelap";
+
+  }
+
+}
+
+
+function toggleTheme(){
+
+  document.body.classList.toggle(
+    "dark-mode"
+  );
+
+
+  const isDark =
+    document.body.classList.contains(
+      "dark-mode"
+    );
+
+
+  localStorage.setItem(
+    "ngajiplus-theme",
+    isDark
+      ? "dark"
+      : "light"
+  );
+
+
+  updateThemeButton();
+
+}
+
+
+themeToggle.addEventListener(
+  "click",
+  toggleTheme
+);
+
+
+/* =========================================================
+   START LEARNING BUTTON
+========================================================= */
+
+function updateStartLearningButton(){
+
+  if(
+    !startLearningBtn
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    currentUser
+  ){
+
+    startLearningBtn.href =
+      "akademi.html";
+
+
+    startLearningBtn.innerHTML =
+      isAdmin
+
+        ? "👑 Masuk Akademi"
+
+        : "🚀 Masuk Akademi";
+
+  }
+
+  else{
+
+    startLearningBtn.href =
+      "daftar.html";
+
+
+    startLearningBtn.innerHTML =
+      "🚀 Mulai Belajar";
+
+  }
+
+}
+
+
+/* =========================================================
    CHECK MEMBERSHIP
 ========================================================= */
 
 async function checkMembership(){
 
-  currentUser = null;
+  currentUser =
+    null;
 
-  currentProfile = null;
+  currentProfile =
+    null;
 
-  membershipActive = false;
+  membershipActive =
+    false;
+
+  isAdmin =
+    false;
 
 
   try{
@@ -2447,7 +2993,10 @@ async function checkMembership(){
         userError
       );
 
+
       updateNavbar();
+
+      updateStartLearningButton();
 
       showAccountNotice();
 
@@ -2470,6 +3019,8 @@ async function checkMembership(){
 
       updateNavbar();
 
+      updateStartLearningButton();
+
       showAccountNotice();
 
       return;
@@ -2488,14 +3039,20 @@ async function checkMembership(){
       profileError
     } =
       await supabaseClient
-        .from("profiles")
-        .select(
-          "id,nama,status,paket,berlaku_sampai"
+
+        .from(
+          "profiles"
         )
+
+        .select(
+          "id,nama,status,paket,berlaku_sampai,is_admin"
+        )
+
         .eq(
           "id",
           currentUser.id
         )
+
         .maybeSingle();
 
 
@@ -2508,10 +3065,14 @@ async function checkMembership(){
         profileError
       );
 
+
       currentProfile =
         null;
 
       membershipActive =
+        false;
+
+      isAdmin =
         false;
 
     }
@@ -2521,20 +3082,33 @@ async function checkMembership(){
       currentProfile =
         profile;
 
-    }
+
+      /* ===================================================
+         ADMIN CHECK
+      =================================================== */
+
+      isAdmin =
+        profile &&
+        (
+
+          profile.is_admin === true ||
+
+          profile.is_admin === "true" ||
+
+          profile.is_admin === 1 ||
+
+          profile.is_admin === "1"
+
+        );
 
 
-    /* =====================================================
-       HITUNG MEMBERSHIP
-    ===================================================== */
-
-    if(
-      currentProfile
-    ){
+      /* ===================================================
+         STATUS
+      =================================================== */
 
       const status =
         String(
-          currentProfile.status ||
+          profile?.status ||
           ""
         )
         .toLowerCase()
@@ -2543,7 +3117,7 @@ async function checkMembership(){
 
       const paket =
         String(
-          currentProfile.paket ||
+          profile?.paket ||
           ""
         )
         .toLowerCase()
@@ -2558,17 +3132,21 @@ async function checkMembership(){
         paket === "premium";
 
 
+      /* ===================================================
+         CEK TANGGAL
+      =================================================== */
+
       let tanggalAktif =
         false;
 
 
       if(
-        currentProfile.berlaku_sampai
+        profile?.berlaku_sampai
       ){
 
         const tanggal =
           new Date(
-            currentProfile.berlaku_sampai
+            profile.berlaku_sampai
           );
 
 
@@ -2577,21 +3155,55 @@ async function checkMembership(){
 
 
         tanggalAktif =
+
           !isNaN(
             tanggal.getTime()
           ) &&
+
           tanggal >=
             sekarang;
 
       }
 
 
-      membershipActive =
-        statusAktif &&
-        paketPremium &&
-        tanggalAktif;
+      /* ===================================================
+         AKSES PREMIUM
+         
+         ADMIN = SELALU AKSES PENUH
+         
+         PREMIUM =
+         status aktif
+         + paket premium
+         + tanggal belum habis
+      =================================================== */
+
+      if(
+        isAdmin
+      ){
+
+        membershipActive =
+          true;
+
+      }
+
+      else{
+
+        membershipActive =
+
+          statusAktif &&
+
+          paketPremium &&
+
+          tanggalAktif;
+
+      }
 
     }
+
+
+    console.log(
+      "================================"
+    );
 
 
     console.log(
@@ -2607,12 +3219,25 @@ async function checkMembership(){
 
 
     console.log(
+      "IS ADMIN:",
+      isAdmin
+    );
+
+
+    console.log(
       "MEMBERSHIP AKTIF:",
       membershipActive
     );
 
 
+    console.log(
+      "================================"
+    );
+
+
     updateNavbar();
+
+    updateStartLearningButton();
 
     showAccountNotice();
 
@@ -2635,8 +3260,13 @@ async function checkMembership(){
     membershipActive =
       false;
 
+    isAdmin =
+      false;
+
 
     updateNavbar();
+
+    updateStartLearningButton();
 
     showAccountNotice();
 
@@ -2667,13 +3297,13 @@ function updateNavbar(){
       "none";
 
 
-    /* DASHBOARD TAMPIL */
+    /* USER / PROFILE TAMPIL */
 
-    dashboardBtn.style.display =
+    userBtn.style.display =
       "inline-block";
 
 
-    /* NAMA USER */
+    /* NAMA */
 
     const nama =
       getUserName(
@@ -2682,14 +3312,24 @@ function updateNavbar(){
       );
 
 
-    dashboardBtn.innerHTML =
-      "👤 " +
-      escapeHtml(
-        nama
-      );
+    userBtn.innerHTML =
+
+      isAdmin
+
+        ? "👑 " +
+          escapeHtml(nama)
+
+        : "👤 " +
+          escapeHtml(nama);
 
 
-    /* LOGOUT TAMPIL */
+    /* PROFILE */
+
+    userBtn.href =
+      "profile.html";
+
+
+    /* LOGOUT */
 
     logoutBtn.style.display =
       "inline-block";
@@ -2705,7 +3345,7 @@ function updateNavbar(){
       "none";
 
 
-    footerDashboard.style.display =
+    footerProfile.style.display =
       "block";
 
   }
@@ -2724,9 +3364,9 @@ function updateNavbar(){
       "inline-block";
 
 
-    /* DASHBOARD */
+    /* USER */
 
-    dashboardBtn.style.display =
+    userBtn.style.display =
       "none";
 
 
@@ -2746,7 +3386,7 @@ function updateNavbar(){
       "block";
 
 
-    footerDashboard.style.display =
+    footerProfile.style.display =
       "none";
 
   }
@@ -2769,13 +3409,21 @@ function showAccountNotice(){
   }
 
 
+  /* =======================================================
+     BELUM LOGIN
+  ======================================================= */
+
   if(
     !currentUser
   ){
 
     accountNotice.innerHTML =
 
-      '<div style="' +
+      '<div ' +
+
+      'class="account-notice-free" ' +
+
+      'style="' +
 
       'background:#fff7d6;' +
 
@@ -2804,13 +3452,62 @@ function showAccountNotice(){
   }
 
 
+  /* =======================================================
+     ADMIN
+  ======================================================= */
+
+  if(
+    isAdmin
+  ){
+
+    accountNotice.innerHTML =
+
+      '<div ' +
+
+      'class="account-notice-premium" ' +
+
+      'style="' +
+
+      'background:#e4f8ed;' +
+
+      'border:1px solid #b9e9ce;' +
+
+      'color:#006c3c;' +
+
+      'padding:10px 14px;' +
+
+      'border-radius:10px;' +
+
+      'font-size:13px;' +
+
+      '">' +
+
+      '👑 Anda login sebagai Admin. ' +
+
+      'Semua materi termasuk Premium dapat diakses.' +
+
+      '</div>';
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     PREMIUM
+  ======================================================= */
+
   if(
     membershipActive
   ){
 
     accountNotice.innerHTML =
 
-      '<div style="' +
+      '<div ' +
+
+      'class="account-notice-premium" ' +
+
+      'style="' +
 
       'background:#e4f8ed;' +
 
@@ -2836,9 +3533,17 @@ function showAccountNotice(){
 
   else{
 
+    /* =====================================================
+       GRATIS
+    ===================================================== */
+
     accountNotice.innerHTML =
 
-      '<div style="' +
+      '<div ' +
+
+      'class="account-notice-free" ' +
+
+      'style="' +
 
       'background:#fff7d6;' +
 
@@ -3077,6 +3782,8 @@ function getYoutubeId(url){
         .toLowerCase();
 
 
+    /* youtu.be */
+
     if(
       host.includes(
         "youtu.be"
@@ -3093,6 +3800,8 @@ function getYoutubeId(url){
 
     }
 
+
+    /* youtube.com */
 
     if(
       host.includes(
@@ -3278,6 +3987,10 @@ async function loadMaterials(){
 
 
   try{
+
+    /* =====================================================
+       AMBIL MATERIAL
+    ===================================================== */
 
     const {
       data,
@@ -3472,6 +4185,10 @@ function renderMaterials(){
     );
 
 
+  /* =====================================================
+     EMPTY
+  ===================================================== */
+
   if(
     !filtered.length
   ){
@@ -3488,6 +4205,10 @@ function renderMaterials(){
 
   }
 
+
+  /* =====================================================
+     CARD
+  ===================================================== */
 
   grid.innerHTML =
 
@@ -3530,7 +4251,9 @@ function renderMaterials(){
           "";
 
 
-        /* IMAGE */
+        /* =================================================
+           IMAGE
+        ================================================= */
 
         if(
           thumbnail
@@ -3583,7 +4306,9 @@ function renderMaterials(){
         }
 
 
-        /* PREMIUM OVERLAY */
+        /* =================================================
+           PREMIUM LOCK
+        ================================================= */
 
         if(
           premium &&
@@ -3606,6 +4331,7 @@ function renderMaterials(){
 
         }
 
+
         else if(
           premium &&
           membershipActive
@@ -3615,20 +4341,32 @@ function renderMaterials(){
 
             '<div class="premium-label premium-active-label">' +
 
-            '👑 PREMIUM AKTIF' +
+            (
+
+              isAdmin
+
+                ? "👑 ADMIN ACCESS"
+
+                : "👑 PREMIUM AKTIF"
+
+            ) +
 
             '</div>';
 
         }
 
 
-        /* BUTTON */
+        /* =================================================
+           BUTTON
+        ================================================= */
 
         let buttonHtml =
           "";
 
 
-        /* PREMIUM */
+        /* =================================================
+           PREMIUM
+        ================================================= */
 
         if(
           premium
@@ -3653,7 +4391,15 @@ function renderMaterials(){
 
               'class="material-button">' +
 
-              '👑 Buka Materi Premium' +
+              (
+
+                isAdmin
+
+                  ? "👑 Buka Materi Premium"
+
+                  : "👑 Buka Materi Premium"
+
+              ) +
 
               '</a>';
 
@@ -3676,7 +4422,9 @@ function renderMaterials(){
         }
 
 
-        /* GRATIS */
+        /* =================================================
+           GRATIS
+        ================================================= */
 
         else if(
           url
@@ -3703,7 +4451,9 @@ function renderMaterials(){
         }
 
 
-        /* LINK KOSONG */
+        /* =================================================
+           LINK KOSONG
+        ================================================= */
 
         else{
 
@@ -3718,9 +4468,14 @@ function renderMaterials(){
         }
 
 
+        /* =================================================
+           CARD HTML
+        ================================================= */
+
         return (
 
           '<article class="material-card">' +
+
 
             '<div class="material-image">' +
 
@@ -3728,7 +4483,9 @@ function renderMaterials(){
 
             '</div>' +
 
+
             '<div class="material-content">' +
+
 
               '<span class="material-type">' +
 
@@ -3738,6 +4495,7 @@ function renderMaterials(){
 
               '</span>' +
 
+
               '<h3>' +
 
                 escapeHtml(
@@ -3746,6 +4504,7 @@ function renderMaterials(){
 
               '</h3>' +
 
+
               '<p>' +
 
                 escapeHtml(
@@ -3753,6 +4512,7 @@ function renderMaterials(){
                 ) +
 
               '</p>' +
+
 
               '<div class="material-meta">' +
 
@@ -3765,6 +4525,7 @@ function renderMaterials(){
                 ) +
 
               '</div>' +
+
 
               '<div class="material-status ' +
 
@@ -3784,7 +4545,15 @@ function renderMaterials(){
 
                   premium
 
-                    ? "🔐 Materi Premium"
+                    ? (
+
+                        isAdmin
+
+                          ? "👑 Premium — Admin Access"
+
+                          : "🔐 Materi Premium"
+
+                      )
 
                     : "🟢 Materi Gratis"
 
@@ -3792,9 +4561,12 @@ function renderMaterials(){
 
               '</div>' +
 
+
               buttonHtml +
 
+
             '</div>' +
+
 
           '</article>'
 
@@ -3823,7 +4595,7 @@ document
 
 
 /* =========================================================
-   CATEGORY FILTER
+   CATEGORY
 ========================================================= */
 
 document
@@ -3912,19 +4684,26 @@ logoutBtn.addEventListener(
       }
 
 
-      currentUser = null;
+      currentUser =
+        null;
 
-      currentProfile = null;
+      currentProfile =
+        null;
 
-      membershipActive = false;
+      membershipActive =
+        false;
+
+      isAdmin =
+        false;
 
 
       updateNavbar();
 
+      updateStartLearningButton();
+
       showAccountNotice();
 
       renderMaterials();
-
 
     }
 
@@ -3941,8 +4720,11 @@ logoutBtn.addEventListener(
         "❌ Gagal keluar.\n\n" +
 
         (
+
           error.message ||
+
           "Terjadi kesalahan."
+
         )
 
       );
@@ -4004,9 +4786,24 @@ supabaseClient
 
 async function init(){
 
+  /* Theme dulu */
+
+  loadTheme();
+
+
+  /* Login / membership */
+
   await checkMembership();
 
+
+  /* Materi */
+
   await loadMaterials();
+
+
+  /* Tombol */
+
+  updateStartLearningButton();
 
 }
 
