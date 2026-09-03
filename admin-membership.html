@@ -20,21 +20,11 @@
     content="Admin Membership NgajiPlus Akademi"
 >
 
-<title>
-    Admin Membership - NgajiPlus Akademi
-</title>
+<title>Admin Membership - NgajiPlus Akademi</title>
 
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -46,16 +36,12 @@ html{
 
 body{
     margin:0;
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
-    background:#f3faf7;
-
-    color:#1e2924;
-
+    background:#f4faf7;
+    color:#202a25;
     line-height:1.5;
 }
 
@@ -69,9 +55,8 @@ button{
     cursor:pointer;
 }
 
-a{
-    text-decoration:none;
-    color:inherit;
+.hidden{
+    display:none !important;
 }
 
 
@@ -80,78 +65,52 @@ a{
 ===================================================== */
 
 header{
-    background:white;
-
-    border-bottom:
-        1px solid #dce9e2;
-
+    background:#ffffff;
+    border-bottom:1px solid #dfe9e3;
     position:sticky;
-
     top:0;
-
     z-index:1000;
 }
 
 .nav{
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        10px 15px;
-
+    padding:10px 15px;
     display:flex;
-
-    justify-content:space-between;
-
     align-items:center;
-
+    justify-content:space-between;
     gap:10px;
 }
 
 .logo{
     color:#008f50;
-
-    font-size:14px;
-
+    font-size:13px;
     font-weight:bold;
-
-    white-space:nowrap;
 }
 
 .nav-buttons{
     display:flex;
-
     align-items:center;
-
     gap:6px;
 }
 
 .nav-btn{
     border:0;
-
     border-radius:7px;
-
-    padding:
-        7px 10px;
-
+    padding:7px 10px;
     font-size:9px;
-
     font-weight:bold;
-
-    white-space:nowrap;
+    text-decoration:none;
 }
 
 .dashboard-btn{
-    background:#e7f7ef;
-
+    background:#e8f7ef;
     color:#087a47;
 }
 
 .logout-btn{
     background:#eeeeee;
-
-    color:#555;
+    color:#555555;
 }
 
 
@@ -161,11 +120,8 @@ header{
 
 main{
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        25px 15px 60px;
+    padding:20px 15px 50px;
 }
 
 
@@ -178,46 +134,37 @@ main{
         linear-gradient(
             135deg,
             #008f50,
-            #00b86b
+            #00b85c
         );
 
     color:white;
 
     border-radius:15px;
 
-    padding:
-        25px 20px;
+    padding:28px 22px;
 
     margin-bottom:15px;
 
     box-shadow:
         0 8px 25px
-        rgba(0,143,80,.16);
+        rgba(0,143,80,.18);
 }
 
 .hero-label{
     font-size:8px;
-
     font-weight:bold;
-
     opacity:.9;
-
-    margin-bottom:5px;
+    margin-bottom:7px;
 }
 
 .hero h1{
-    margin:
-        0 0 5px;
-
-    font-size:
-        clamp(25px,4vw,38px);
+    margin:0 0 5px;
+    font-size:32px;
 }
 
 .hero p{
     margin:0;
-
     font-size:9px;
-
     opacity:.9;
 }
 
@@ -227,37 +174,25 @@ main{
 ===================================================== */
 
 .notice{
-    background:#e6f8ee;
-
-    border:
-        1px solid #bce7cf;
-
-    color:#087a47;
-
+    padding:11px 14px;
     border-radius:9px;
-
-    padding:
-        10px 12px;
-
-    font-size:9px;
-
     margin-bottom:15px;
+    font-size:9px;
+    background:#e5f9ed;
+    border:1px solid #bde8cf;
+    color:#087a47;
 }
 
 .notice.error{
     background:#ffe9e9;
-
     border-color:#f3c2c2;
-
     color:#b42318;
 }
 
 .notice.warning{
     background:#fff8d9;
-
-    border-color:#efdf9d;
-
-    color:#806500;
+    border-color:#f0df91;
+    color:#75621c;
 }
 
 
@@ -267,47 +202,35 @@ main{
 
 .stats{
     display:grid;
-
     grid-template-columns:
         repeat(4,1fr);
-
     gap:12px;
-
     margin-bottom:15px;
 }
 
 .stat-card{
     background:white;
-
-    border:
-        1px solid #dfe9e3;
-
+    border:1px solid #dfe9e3;
     border-radius:12px;
-
-    padding:14px;
-
+    padding:15px;
     box-shadow:
         0 4px 15px
-        rgba(0,0,0,.03);
+        rgba(0,0,0,.035);
 }
 
 .stat-icon{
-    font-size:20px;
-
-    margin-bottom:2px;
+    font-size:22px;
+    margin-bottom:4px;
 }
 
 .stat-number{
     color:#008f50;
-
     font-size:23px;
-
     font-weight:bold;
 }
 
 .stat-label{
     color:#718078;
-
     font-size:8px;
 }
 
@@ -318,71 +241,45 @@ main{
 
 .toolbar{
     background:white;
-
-    border:
-        1px solid #dfe9e3;
-
+    border:1px solid #dfe9e3;
     border-radius:12px;
-
     padding:10px;
-
     display:flex;
-
     gap:8px;
-
     margin-bottom:15px;
 }
 
 .search{
     flex:1;
-
-    border:
-        1px solid #d8e4dd;
-
-    border-radius:8px;
-
-    padding:
-        9px 10px;
-
-    font-size:9px;
-
-    outline:none;
 }
 
-.search:focus{
+.search input,
+.filter select{
+    width:100%;
+    border:1px solid #d7e2dc;
+    border-radius:8px;
+    padding:10px;
+    font-size:9px;
+    outline:none;
+    background:white;
+}
+
+.search input:focus,
+.filter select:focus{
     border-color:#008f50;
 }
 
 .filter{
     width:160px;
-
-    border:
-        1px solid #d8e4dd;
-
-    border-radius:8px;
-
-    padding:
-        9px 10px;
-
-    font-size:9px;
-
-    background:white;
 }
 
 .refresh-btn{
     border:0;
-
-    background:#008f50;
-
-    color:white;
-
     border-radius:8px;
-
-    padding:
-        9px 13px;
-
+    padding:0 15px;
+    background:#008f50;
+    color:white;
     font-size:9px;
-
     font-weight:bold;
 }
 
@@ -392,213 +289,160 @@ main{
 ===================================================== */
 
 .section-title{
-    font-size:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:10px 0;
+}
 
-    margin:
-        0 0 10px;
+.section-title h2{
+    margin:0;
+    font-size:17px;
+}
+
+.section-count{
+    color:#718078;
+    font-size:8px;
 }
 
 
 /* =====================================================
-   ORDER CARD
+   ORDERS
 ===================================================== */
 
 .orders{
     display:grid;
-
     gap:12px;
 }
 
 .order-card{
     background:white;
-
-    border:
-        1px solid #dfe9e3;
-
+    border:1px solid #dfe9e3;
     border-radius:14px;
-
     padding:15px;
-
     box-shadow:
         0 4px 15px
-        rgba(0,0,0,.03);
+        rgba(0,0,0,.035);
 }
 
 .order-top{
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
-
     gap:10px;
-
-    margin-bottom:10px;
 }
 
 .member-name{
     font-size:13px;
-
     font-weight:bold;
 }
 
 .member-email{
     color:#7a8580;
-
     font-size:8px;
-
     margin-top:2px;
 }
 
 .status{
     display:inline-block;
-
-    padding:
-        5px 8px;
-
+    padding:5px 8px;
     border-radius:20px;
-
     font-size:8px;
-
     font-weight:bold;
-
     white-space:nowrap;
 }
 
 .status-menunggu{
-    background:#fff3c4;
-
+    background:#fff4c8;
     color:#806500;
 }
 
 .status-diproses{
-    background:#e4f1ff;
-
+    background:#e3f1ff;
     color:#1769aa;
 }
 
-.status-disetujui,
-.status-berhasil{
-    background:#dcf7e8;
-
+.status-disetujui{
+    background:#dff7e9;
     color:#087a47;
 }
 
 .status-ditolak,
 .status-dibatalkan{
     background:#ffe5e5;
-
     color:#b42318;
 }
 
-
-/* =====================================================
-   ORDER INFO
-===================================================== */
-
 .order-info{
     display:grid;
-
     grid-template-columns:
         repeat(4,1fr);
-
     gap:8px;
-
-    margin-bottom:10px;
+    margin-top:12px;
 }
 
 .info-box{
     background:#f7faf8;
-
     border-radius:8px;
-
     padding:9px;
 }
 
 .info-label{
-    color:#8a958f;
-
+    color:#8a948f;
     font-size:7px;
-
-    margin-bottom:2px;
+    margin-bottom:3px;
 }
 
 .info-value{
     font-size:9px;
-
     font-weight:bold;
 }
 
-
-/* =====================================================
-   ORDER FOOTER
-===================================================== */
-
 .order-bottom{
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:10px;
-
+    margin-top:12px;
     padding-top:10px;
-
-    border-top:
-        1px solid #edf1ee;
+    border-top:1px solid #edf1ee;
 }
 
-.order-date{
-    color:#7a8580;
-
+.order-id{
+    color:#8a948f;
     font-size:8px;
 }
 
-.actions{
+.action-buttons{
     display:flex;
-
     gap:6px;
-
-    flex-wrap:wrap;
-
-    justify-content:flex-end;
 }
 
 .action-btn{
     border:0;
-
     border-radius:7px;
-
-    padding:
-        7px 10px;
-
+    padding:8px 11px;
     font-size:8px;
-
     font-weight:bold;
 }
 
 .detail-btn{
-    background:#edf7f2;
-
+    background:#e8f7ef;
     color:#087a47;
 }
 
 .approve-btn{
     background:#008f50;
-
     color:white;
 }
 
 .reject-btn{
-    background:#ffe9e9;
-
+    background:#ffe5e5;
     color:#b42318;
 }
 
 .action-btn:disabled{
     opacity:.5;
-
     cursor:not-allowed;
 }
 
@@ -609,18 +453,11 @@ main{
 
 .empty{
     background:white;
-
-    border:
-        1px solid #dfe9e3;
-
+    border:1px solid #dfe9e3;
     border-radius:14px;
-
-    padding:35px 20px;
-
+    padding:35px 15px;
     text-align:center;
-
-    color:#7a8580;
-
+    color:#718078;
     font-size:9px;
 }
 
@@ -631,183 +468,81 @@ main{
 
 .modal{
     position:fixed;
-
     inset:0;
-
-    background:
-        rgba(0,0,0,.55);
-
+    background:rgba(0,0,0,.55);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     padding:15px;
-
-    z-index:5000;
+    z-index:3000;
 }
 
-.modal.hidden{
-    display:none;
-}
-
-.modal-card{
-    width:100%;
-
-    max-width:500px;
-
+.modal-box{
     background:white;
-
-    border-radius:16px;
-
-    padding:20px;
-
-    max-height:
-        calc(100vh - 30px);
-
+    width:100%;
+    max-width:520px;
+    max-height:90vh;
     overflow:auto;
+    border-radius:15px;
+    padding:20px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
 }
 
 .modal-title{
-    margin:
-        0 0 5px;
-
-    font-size:18px;
+    margin:0;
+    font-size:17px;
 }
 
-.modal-description{
-    margin:
-        0 0 15px;
-
-    color:#718078;
-
-    font-size:9px;
+.close-btn{
+    width:30px;
+    height:30px;
+    border:0;
+    border-radius:50%;
+    background:#eeeeee;
+    color:#555;
+    font-size:15px;
 }
 
 .detail-grid{
     display:grid;
-
     grid-template-columns:
         repeat(2,1fr);
-
     gap:8px;
-
-    margin-bottom:15px;
 }
 
 .detail-item{
-    background:#f5faf7;
-
+    background:#f7faf8;
     border-radius:8px;
-
     padding:10px;
 }
 
-.detail-item strong{
-    display:block;
-
+.detail-label{
     color:#7a8580;
-
     font-size:7px;
-
-    margin-bottom:3px;
 }
 
-.detail-item span{
+.detail-value{
     font-size:9px;
-
     font-weight:bold;
+    margin-top:2px;
+    word-break:break-word;
 }
 
 .modal-actions{
     display:flex;
-
-    justify-content:flex-end;
-
-    gap:7px;
+    gap:8px;
+    margin-top:15px;
 }
 
-.close-btn{
-    border:0;
-
-    background:#eeeeee;
-
-    color:#555;
-
-    border-radius:7px;
-
-    padding:
-        8px 12px;
-
-    font-size:9px;
-
-    font-weight:bold;
-}
-
-
-/* =====================================================
-   APPROVAL MODAL
-===================================================== */
-
-.approval-box{
-    background:#eaf8f1;
-
-    border:
-        1px solid #c7ead7;
-
-    border-radius:10px;
-
-    padding:12px;
-
-    margin-bottom:15px;
-}
-
-.approval-box-title{
-    color:#087a47;
-
-    font-size:10px;
-
-    font-weight:bold;
-
-    margin-bottom:7px;
-}
-
-.approval-row{
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    padding:4px 0;
-
-    font-size:9px;
-}
-
-.approval-row span:first-child{
-    color:#718078;
-}
-
-.approval-row span:last-child{
-    font-weight:bold;
-}
-
-.warning-box{
-    background:#fff8d9;
-
-    border:
-        1px solid #efdf9d;
-
-    color:#806500;
-
-    border-radius:9px;
-
-    padding:10px;
-
-    font-size:8px;
-
-    margin-bottom:15px;
+.modal-actions button{
+    flex:1;
 }
 
 
@@ -816,33 +551,25 @@ main{
 ===================================================== */
 
 footer{
-    background:#071a12;
-
+    background:#0b1812;
     color:white;
-
-    padding:
-        22px 15px;
+    padding:22px 15px;
 }
 
 .footer-inner{
     max-width:1200px;
-
     margin:auto;
 }
 
 .footer-logo{
     color:#35b878;
-
     font-size:11px;
-
     font-weight:bold;
 }
 
 .footer-text{
-    color:#809089;
-
-    font-size:7px;
-
+    color:#87948d;
+    font-size:8px;
     margin-top:3px;
 }
 
@@ -853,11 +580,8 @@ footer{
 
 .loading{
     text-align:center;
-
-    padding:35px;
-
+    padding:30px;
     color:#718078;
-
     font-size:9px;
 }
 
@@ -878,29 +602,12 @@ footer{
             repeat(2,1fr);
     }
 
-    .toolbar{
-        flex-wrap:wrap;
-    }
-
-    .search{
-        width:100%;
-
-        flex:none;
-    }
-
-    .filter{
-        flex:1;
-
-        width:auto;
-    }
-
 }
 
 @media(max-width:550px){
 
     .nav{
-        padding:
-            8px 10px;
+        padding:8px 10px;
     }
 
     .logo{
@@ -908,78 +615,74 @@ footer{
     }
 
     .nav-btn{
-        padding:
-            6px 7px;
-
-        font-size:7px;
+        padding:6px 7px;
+        font-size:8px;
     }
 
     main{
-        padding:
-            20px 10px 40px;
+        padding:12px 10px 40px;
     }
 
     .hero{
-        padding:
-            20px 15px;
+        padding:23px 16px;
     }
 
     .hero h1{
-        font-size:25px;
+        font-size:27px;
     }
 
-    .stats{
-        gap:7px;
+    .hero p{
+        font-size:8px;
     }
 
-    .stat-card{
-        padding:10px;
+    .toolbar{
+        flex-direction:column;
     }
 
-    .stat-number{
-        font-size:20px;
+    .filter{
+        width:100%;
     }
 
-    .order-card{
-        padding:11px;
+    .refresh-btn{
+        height:38px;
     }
 
     .order-top{
         align-items:flex-start;
     }
 
-    .member-name{
-        font-size:11px;
-    }
-
-    .order-info{
-        gap:5px;
-    }
-
-    .info-box{
-        padding:7px;
-    }
-
     .order-bottom{
         flex-direction:column;
-
-        align-items:stretch;
+        align-items:flex-start;
     }
 
-    .actions{
-        justify-content:flex-start;
+    .action-buttons{
+        width:100%;
     }
 
     .action-btn{
         flex:1;
-
-        text-align:center;
     }
 
     .detail-grid{
         grid-template-columns:1fr;
     }
 
+}
+
+
+/* =====================================================
+   DATE PREVIEW
+===================================================== */
+
+.date-preview{
+    margin-top:10px;
+    background:#e5f9ed;
+    border:1px solid #bde8cf;
+    color:#087a47;
+    padding:10px;
+    border-radius:8px;
+    font-size:8px;
 }
 
 </style>
@@ -1063,10 +766,7 @@ Kelola pesanan membership dan aktivasi akun member.
 
 <!-- STATS -->
 
-<section
-    id="stats"
-    class="stats hidden"
->
+<section class="stats">
 
 <div class="stat-card">
 
@@ -1095,7 +795,7 @@ Total Pesanan
 </div>
 
 <div
-    id="pendingOrders"
+    id="waitingOrders"
     class="stat-number"
 >
 0
@@ -1152,22 +852,21 @@ Ditolak
 
 <!-- TOOLBAR -->
 
-<section
-    id="toolbar"
-    class="toolbar hidden"
->
+<section class="toolbar">
+
+<div class="search">
 
 <input
     id="searchInput"
-    class="search"
     type="search"
     placeholder="🔎 Cari nama, email atau paket..."
 >
 
-<select
-    id="statusFilter"
-    class="filter"
->
+</div>
+
+<div class="filter">
+
+<select id="statusFilter">
 
 <option value="">
 Semua Status
@@ -1195,6 +894,8 @@ Dibatalkan
 
 </select>
 
+</div>
+
 <button
     id="refreshBtn"
     class="refresh-btn"
@@ -1205,28 +906,73 @@ Dibatalkan
 </section>
 
 
-<!-- ORDERS -->
+<!-- SECTION TITLE -->
 
-<h2
-    id="sectionTitle"
-    class="section-title hidden"
->
+<div class="section-title">
+
+<h2>
 📋 Daftar Pesanan
 </h2>
 
-
 <div
-    id="ordersContainer"
+    id="orderCount"
+    class="section-count"
 >
+0 pesanan
+</div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<section id="ordersContainer">
 
 <div class="loading">
 ⏳ Memuat pesanan...
 </div>
 
-</div>
+</section>
 
 
 </main>
+
+
+<!-- =====================================================
+     MODAL DETAIL
+===================================================== -->
+
+<div
+    id="detailModal"
+    class="modal hidden"
+>
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2 class="modal-title">
+📋 Detail Pesanan
+</h2>
+
+<button
+    id="closeModalBtn"
+    class="close-btn"
+>
+×
+</button>
+
+</div>
+
+
+<div
+    id="detailContent"
+>
+</div>
+
+</div>
+
+</div>
 
 
 <!-- =====================================================
@@ -1248,95 +994,6 @@ Panel administrasi membership NgajiPlus Akademi.
 </div>
 
 </footer>
-
-
-<!-- =====================================================
-     DETAIL MODAL
-===================================================== -->
-
-<div
-    id="detailModal"
-    class="modal hidden"
->
-
-<div class="modal-card">
-
-<h2 class="modal-title">
-📋 Detail Pesanan
-</h2>
-
-<p class="modal-description">
-Informasi lengkap pesanan membership.
-</p>
-
-<div
-    id="detailContent"
->
-</div>
-
-<div class="modal-actions">
-
-<button
-    id="closeDetailBtn"
-    class="close-btn"
->
-Tutup
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     APPROVAL MODAL
-===================================================== -->
-
-<div
-    id="approvalModal"
-    class="modal hidden"
->
-
-<div class="modal-card">
-
-<h2 class="modal-title">
-✅ Konfirmasi Persetujuan
-</h2>
-
-<p class="modal-description">
-Pastikan data pesanan sudah benar sebelum mengaktifkan membership.
-</p>
-
-
-<div
-    id="approvalContent"
->
-</div>
-
-
-<div class="modal-actions">
-
-<button
-    id="cancelApprovalBtn"
-    class="close-btn"
->
-Batal
-</button>
-
-<button
-    id="confirmApprovalBtn"
-    class="action-btn approve-btn"
->
-✅ Setujui & Aktifkan
-</button>
-
-</div>
-
-</div>
-
-</div>
 
 
 <script>
@@ -1366,9 +1023,9 @@ const supabaseClient =
 
 let currentUser = null;
 
-let orders = [];
+let allOrders = [];
 
-let selectedOrder = null;
+let currentDetailOrder = null;
 
 
 /* =====================================================
@@ -1380,24 +1037,34 @@ const notice =
         "notice"
     );
 
-const stats =
-    document.getElementById(
-        "stats"
-    );
-
-const toolbar =
-    document.getElementById(
-        "toolbar"
-    );
-
-const sectionTitle =
-    document.getElementById(
-        "sectionTitle"
-    );
-
 const ordersContainer =
     document.getElementById(
         "ordersContainer"
+    );
+
+const totalOrders =
+    document.getElementById(
+        "totalOrders"
+    );
+
+const waitingOrders =
+    document.getElementById(
+        "waitingOrders"
+    );
+
+const approvedOrders =
+    document.getElementById(
+        "approvedOrders"
+    );
+
+const rejectedOrders =
+    document.getElementById(
+        "rejectedOrders"
+    );
+
+const orderCount =
+    document.getElementById(
+        "orderCount"
     );
 
 const searchInput =
@@ -1430,29 +1097,9 @@ const detailContent =
         "detailContent"
     );
 
-const closeDetailBtn =
+const closeModalBtn =
     document.getElementById(
-        "closeDetailBtn"
-    );
-
-const approvalModal =
-    document.getElementById(
-        "approvalModal"
-    );
-
-const approvalContent =
-    document.getElementById(
-        "approvalContent"
-    );
-
-const cancelApprovalBtn =
-    document.getElementById(
-        "cancelApprovalBtn"
-    );
-
-const confirmApprovalBtn =
-    document.getElementById(
-        "confirmApprovalBtn"
+        "closeModalBtn"
     );
 
 
@@ -1462,34 +1109,12 @@ const confirmApprovalBtn =
 
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1521,25 +1146,19 @@ function formatRupiah(value){
 function formatTanggal(value){
 
     if(!value){
-
         return "-";
-
     }
 
     const date =
         new Date(value);
-
 
     if(
         isNaN(
             date.getTime()
         )
     ){
-
         return "-";
-
     }
-
 
     return date.toLocaleDateString(
         "id-ID",
@@ -1547,6 +1166,41 @@ function formatTanggal(value){
             day:"numeric",
             month:"long",
             year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT DATETIME
+===================================================== */
+
+function formatTanggalJam(value){
+
+    if(!value){
+        return "-";
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+        return "-";
+    }
+
+    return date.toLocaleString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
         }
     );
 
@@ -1574,40 +1228,23 @@ function normalizeStatus(status){
 
 function getStatusClass(status){
 
-    status =
-        normalizeStatus(
-            status
-        );
+    const value =
+        normalizeStatus(status);
 
-
-    if(
-        status === "disetujui" ||
-        status === "berhasil"
-    ){
-
+    if(value === "disetujui"){
         return "status-disetujui";
-
     }
 
-
-    if(
-        status === "diproses"
-    ){
-
+    if(value === "diproses"){
         return "status-diproses";
-
     }
-
 
     if(
-        status === "ditolak" ||
-        status === "dibatalkan"
+        value === "ditolak" ||
+        value === "dibatalkan"
     ){
-
         return "status-ditolak";
-
     }
-
 
     return "status-menunggu";
 
@@ -1615,219 +1252,185 @@ function getStatusClass(status){
 
 
 /* =====================================================
-   STATUS LABEL
+   TODAY DATE ONLY
+=====================================================
+
+   Kita sengaja menggunakan tanggal lokal Indonesia,
+   bukan UTC, agar tidak bergeser satu hari.
 ===================================================== */
 
-function getStatusLabel(status){
-
-    status =
-        normalizeStatus(
-            status
-        );
-
-
-    if(
-        status === "disetujui"
-    ){
-
-        return "✓ Disetujui";
-
-    }
-
-
-    if(
-        status === "berhasil"
-    ){
-
-        return "✓ Berhasil";
-
-    }
-
-
-    if(
-        status === "diproses"
-    ){
-
-        return "⏳ Diproses";
-
-    }
-
-
-    if(
-        status === "ditolak"
-    ){
-
-        return "✕ Ditolak";
-
-    }
-
-
-    if(
-        status === "dibatalkan"
-    ){
-
-        return "✕ Dibatalkan";
-
-    }
-
-
-    return "⏳ Menunggu";
-
-}
-
-
-/* =====================================================
-   DURASI
-===================================================== */
-
-function getDuration(order){
-
-    const duration =
-        Number(
-            order?.durasi_hari || 0
-        );
-
-
-    if(
-        duration > 0
-    ){
-
-        return duration;
-
-    }
-
-
-    const paket =
-        String(
-            order?.paket || ""
-        )
-        .toLowerCase();
-
-
-    if(
-        paket.includes("1 bulan")
-    ){
-
-        return 30;
-
-    }
-
-
-    if(
-        paket.includes("3 bulan")
-    ){
-
-        return 90;
-
-    }
-
-
-    if(
-        paket.includes("6 bulan")
-    ){
-
-        return 180;
-
-    }
-
-
-    if(
-        paket.includes("1 tahun")
-    ){
-
-        return 365;
-
-    }
-
-
-    return 30;
-
-}
-
-
-/* =====================================================
-   ADD DAYS
-===================================================== */
-
-function addDays(
-    date,
-    days
-){
-
-    const result =
-        new Date(
-            date
-        );
-
-
-    result.setHours(
-        23,
-        59,
-        59,
-        999
-    );
-
-
-    result.setDate(
-        result.getDate() +
-        Number(days || 0)
-    );
-
-
-    return result;
-
-}
-
-
-/* =====================================================
-   CALCULATE EXPIRY
-===================================================== */
-
-function calculateNewExpiry(
-    existingExpiry,
-    duration
-){
+function getTodayDateOnly(){
 
     const now =
         new Date();
 
+    return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+    );
+
+}
+
+
+/* =====================================================
+   PARSE DATE ONLY
+===================================================== */
+
+function parseDateOnly(value){
+
+    if(!value){
+        return null;
+    }
+
+    const text =
+        String(value)
+        .slice(0,10);
+
+    const parts =
+        text.split("-");
+
+    if(parts.length !== 3){
+        return null;
+    }
+
+    const year =
+        Number(parts[0]);
+
+    const month =
+        Number(parts[1]);
+
+    const day =
+        Number(parts[2]);
+
+    if(
+        !year ||
+        !month ||
+        !day
+    ){
+        return null;
+    }
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+        return null;
+    }
+
+    return date;
+
+}
+
+
+/* =====================================================
+   DATE TO YYYY-MM-DD
+===================================================== */
+
+function dateToYMD(date){
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        )
+        .padStart(2,"0");
+
+    const day =
+        String(
+            date.getDate()
+        )
+        .padStart(2,"0");
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =====================================================
+   HITUNG TANGGAL MEMBERSHIP
+=====================================================
+
+   LOGIKA:
+
+   Jika membership lama masih aktif:
+       tanggal mulai = expiry lama
+
+   Jika sudah expired:
+       tanggal mulai = hari ini
+
+   Kemudian:
+       expiry baru = tanggal mulai + durasi hari
+
+   Contoh:
+       3 September + 30 hari
+       = 3 Oktober
+
+===================================================== */
+
+function calculateNewExpiry(
+    oldExpiry,
+    durationDays
+){
+
+    const today =
+        getTodayDateOnly();
 
     let baseDate =
-        now;
+        today;
 
 
-    /*
-       Jika membership lama masih aktif,
-       perpanjang dari tanggal expired lama.
-    */
-
-    if(existingExpiry){
-
-        const oldExpiry =
-            new Date(
-                existingExpiry
-            );
+    const oldDate =
+        parseDateOnly(
+            oldExpiry
+        );
 
 
-        if(
-            !isNaN(
-                oldExpiry.getTime()
-            ) &&
-            oldExpiry > now
-        ){
+    if(
+        oldDate &&
+        oldDate > today
+    ){
 
-            baseDate =
-                oldExpiry;
-
-        }
+        baseDate =
+            oldDate;
 
     }
 
 
-    return addDays(
-        baseDate,
-        duration
+    const newExpiry =
+        new Date(
+            baseDate.getFullYear(),
+            baseDate.getMonth(),
+            baseDate.getDate()
+        );
+
+
+    newExpiry.setDate(
+        newExpiry.getDate() +
+        Number(durationDays || 0)
     );
+
+
+    return {
+        startDate:baseDate,
+        expiryDate:newExpiry
+    };
 
 }
 
@@ -1867,14 +1470,14 @@ async function checkAdmin(){
 
 
         /*
-           CEK profiles.is_admin
+           CEK PROFILES
         */
 
         const profileResult =
             await supabaseClient
                 .from("profiles")
                 .select(
-                    "id,nama,is_admin,status,paket,berlaku_sampai"
+                    "id,nama,is_admin"
                 )
                 .eq(
                     "id",
@@ -1895,11 +1498,14 @@ async function checkAdmin(){
 
 
         let isAdmin =
-            profile?.is_admin === true;
+            Boolean(
+                profile?.is_admin
+            );
 
 
         /*
-           CEK admin_users JUGA
+           JIKA BELUM ADMIN DARI PROFILES,
+           CEK admin_users
         */
 
         if(!isAdmin){
@@ -1932,7 +1538,7 @@ async function checkAdmin(){
         if(!isAdmin){
 
             throw new Error(
-                "Akses ditolak. Akun ini bukan admin."
+                "Akun Anda tidak memiliki akses admin."
             );
 
         }
@@ -1945,21 +1551,9 @@ async function checkAdmin(){
             "✅ Login sebagai admin. Anda dapat mengelola pesanan membership.";
 
 
-        stats.classList.remove(
-            "hidden"
-        );
-
-        toolbar.classList.remove(
-            "hidden"
-        );
-
-        sectionTitle.classList.remove(
-            "hidden"
-        );
-
-
         await loadOrders();
 
+        return true;
 
     }
 
@@ -1974,7 +1568,6 @@ async function checkAdmin(){
         notice.className =
             "notice error";
 
-
         notice.innerHTML =
             "❌ " +
             escapeHtml(
@@ -1986,12 +1579,14 @@ async function checkAdmin(){
 
             <div class="empty">
 
-                🔐 Anda tidak memiliki akses
-                ke halaman admin ini.
+                🔐 Akses admin diperlukan.
 
             </div>
 
         `;
+
+
+        return false;
 
     }
 
@@ -2038,7 +1633,7 @@ async function loadOrders(){
         }
 
 
-        orders =
+        allOrders =
             result.data || [];
 
 
@@ -2060,9 +1655,7 @@ async function loadOrders(){
 
             <div class="empty">
 
-                ❌ Gagal mengambil data pesanan.
-
-                <br><br>
+                ❌ Gagal mengambil pesanan.<br><br>
 
                 ${escapeHtml(
                     error.message
@@ -2083,74 +1676,68 @@ async function loadOrders(){
 
 function updateStats(){
 
-    let pending = 0;
-
-    let approved = 0;
-
-    let rejected = 0;
+    const total =
+        allOrders.length;
 
 
-    orders.forEach(
-        function(order){
+    const waiting =
+        allOrders.filter(
+            order => {
 
-            const status =
-                normalizeStatus(
-                    order.status
+                const status =
+                    normalizeStatus(
+                        order.status
+                    );
+
+                return (
+                    status === "menunggu" ||
+                    status === "diproses"
                 );
 
+            }
+        )
+        .length;
 
-            if(
-                status === "menunggu" ||
-                status === "diproses"
-            ){
 
-                pending++;
+    const approved =
+        allOrders.filter(
+            order =>
+                normalizeStatus(
+                    order.status
+                ) === "disetujui"
+        )
+        .length;
+
+
+    const rejected =
+        allOrders.filter(
+            order => {
+
+                const status =
+                    normalizeStatus(
+                        order.status
+                    );
+
+                return (
+                    status === "ditolak" ||
+                    status === "dibatalkan"
+                );
 
             }
-
-            else if(
-                status === "disetujui" ||
-                status === "berhasil"
-            ){
-
-                approved++;
-
-            }
-
-            else if(
-                status === "ditolak" ||
-                status === "dibatalkan"
-            ){
-
-                rejected++;
-
-            }
-
-        }
-    );
+        )
+        .length;
 
 
-    document.getElementById(
-        "totalOrders"
-    ).textContent =
-        orders.length;
+    totalOrders.textContent =
+        total;
 
+    waitingOrders.textContent =
+        waiting;
 
-    document.getElementById(
-        "pendingOrders"
-    ).textContent =
-        pending;
-
-
-    document.getElementById(
-        "approvedOrders"
-    ).textContent =
+    approvedOrders.textContent =
         approved;
 
-
-    document.getElementById(
-        "rejectedOrders"
-    ).textContent =
+    rejectedOrders.textContent =
         rejected;
 
 }
@@ -2170,47 +1757,49 @@ function getFilteredOrders(){
         .trim();
 
 
-    const filter =
+    const status =
         normalizeStatus(
             statusFilter.value
         );
 
 
-    return orders.filter(
+    return allOrders.filter(
         function(order){
 
-            const text = [
+            const text =
+                (
+                    String(
+                        order.nama || ""
+                    ) +
+                    " " +
+                    String(
+                        order.email || ""
+                    ) +
+                    " " +
+                    String(
+                        order.paket || ""
+                    )
+                )
+                .toLowerCase();
 
-                order.nama,
 
-                order.email,
-
-                order.paket,
-
-                order.status
-
-            ]
-            .join(" ")
-            .toLowerCase();
-
-
-            const matchSearch =
+            const matchesSearch =
                 !search ||
                 text.includes(
                     search
                 );
 
 
-            const matchStatus =
-                !filter ||
+            const matchesStatus =
+                !status ||
                 normalizeStatus(
                     order.status
-                ) === filter;
+                ) === status;
 
 
             return (
-                matchSearch &&
-                matchStatus
+                matchesSearch &&
+                matchesStatus
             );
 
         }
@@ -2225,12 +1814,17 @@ function getFilteredOrders(){
 
 function renderOrders(){
 
-    const filtered =
+    const orders =
         getFilteredOrders();
 
 
+    orderCount.textContent =
+        orders.length +
+        " pesanan";
+
+
     if(
-        filtered.length === 0
+        orders.length === 0
     ){
 
         ordersContainer.innerHTML = `
@@ -2250,13 +1844,228 @@ function renderOrders(){
 
 
     ordersContainer.innerHTML =
-        filtered
+        orders
             .map(
                 function(order){
 
-                    return createOrderCard(
-                        order
-                    );
+                    const status =
+                        normalizeStatus(
+                            order.status
+                        );
+
+
+                    const isPending =
+                        (
+                            status === "menunggu" ||
+                            status === "diproses"
+                        );
+
+
+                    return `
+
+                        <article
+                            class="order-card"
+                        >
+
+                            <div class="order-top">
+
+                                <div>
+
+                                    <div
+                                        class="member-name"
+                                    >
+                                        ${escapeHtml(
+                                            order.nama
+                                        )}
+                                    </div>
+
+                                    <div
+                                        class="member-email"
+                                    >
+                                        ${escapeHtml(
+                                            order.email
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <span
+                                    class="
+                                        status
+                                        ${getStatusClass(
+                                            order.status
+                                        )}
+                                    "
+                                >
+                                    ${escapeHtml(
+                                        order.status
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div class="order-info">
+
+
+                                <div class="info-box">
+
+                                    <div
+                                        class="info-label"
+                                    >
+                                        Paket
+                                    </div>
+
+                                    <div
+                                        class="info-value"
+                                    >
+                                        ${escapeHtml(
+                                            order.paket
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <div
+                                        class="info-label"
+                                    >
+                                        Harga
+                                    </div>
+
+                                    <div
+                                        class="info-value"
+                                    >
+                                        ${formatRupiah(
+                                            order.harga
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <div
+                                        class="info-label"
+                                    >
+                                        Durasi
+                                    </div>
+
+                                    <div
+                                        class="info-value"
+                                    >
+                                        ${escapeHtml(
+                                            order.durasi_hari
+                                        )}
+                                        hari
+                                    </div>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <div
+                                        class="info-label"
+                                    >
+                                        Pesanan
+                                    </div>
+
+                                    <div
+                                        class="info-value"
+                                    >
+                                        ${formatTanggal(
+                                            order.created_at
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="order-bottom">
+
+                                <div
+                                    class="order-id"
+                                >
+                                    ID Pesanan:
+                                    ${escapeHtml(
+                                        order.id
+                                    )}
+                                </div>
+
+
+                                <div class="action-buttons">
+
+
+                                    <button
+                                        class="
+                                            action-btn
+                                            detail-btn
+                                        "
+                                        onclick="
+                                            showDetail(
+                                                ${Number(order.id)}
+                                            )
+                                        "
+                                    >
+                                        🔎 Detail
+                                    </button>
+
+
+                                    ${
+                                        isPending
+                                        ?
+                                        `
+
+                                            <button
+                                                class="
+                                                    action-btn
+                                                    approve-btn
+                                                "
+                                                onclick="
+                                                    approveOrder(
+                                                        ${Number(order.id)}
+                                                    )
+                                                "
+                                            >
+                                                ✅ Setujui
+                                            </button>
+
+
+                                            <button
+                                                class="
+                                                    action-btn
+                                                    reject-btn
+                                                "
+                                                onclick="
+                                                    rejectOrder(
+                                                        ${Number(order.id)}
+                                                    )
+                                                "
+                                            >
+                                                ❌ Tolak
+                                            </button>
+
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    `;
 
                 }
             )
@@ -2266,232 +2075,17 @@ function renderOrders(){
 
 
 /* =====================================================
-   CREATE ORDER CARD
-===================================================== */
-
-function createOrderCard(
-    order
-){
-
-    const status =
-        normalizeStatus(
-            order.status
-        );
-
-
-    const canApprove =
-        status === "menunggu" ||
-        status === "diproses";
-
-
-    const canReject =
-        status === "menunggu" ||
-        status === "diproses";
-
-
-    return `
-
-        <article
-            class="order-card"
-        >
-
-            <div class="order-top">
-
-                <div>
-
-                    <div class="member-name">
-                        ${escapeHtml(
-                            order.nama
-                        )}
-                    </div>
-
-                    <div class="member-email">
-                        ${escapeHtml(
-                            order.email
-                        )}
-                    </div>
-
-                </div>
-
-
-                <span
-                    class="status ${getStatusClass(
-                        order.status
-                    )}"
-                >
-                    ${getStatusLabel(
-                        order.status
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="order-info">
-
-
-                <div class="info-box">
-
-                    <div class="info-label">
-                        Paket
-                    </div>
-
-                    <div class="info-value">
-                        ${escapeHtml(
-                            order.paket
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="info-box">
-
-                    <div class="info-label">
-                        Harga
-                    </div>
-
-                    <div class="info-value">
-                        ${formatRupiah(
-                            order.harga
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="info-box">
-
-                    <div class="info-label">
-                        Durasi
-                    </div>
-
-                    <div class="info-value">
-                        ${getDuration(
-                            order
-                        )}
-                        hari
-                    </div>
-
-                </div>
-
-
-                <div class="info-box">
-
-                    <div class="info-label">
-                        Pesanan
-                    </div>
-
-                    <div class="info-value">
-                        ${formatTanggal(
-                            order.created_at
-                        )}
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="order-bottom">
-
-                <div class="order-date">
-
-                    ID Pesanan:
-                    ${escapeHtml(
-                        order.id
-                    )}
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="action-btn detail-btn"
-                        onclick="showDetail('${escapeHtml(
-                            order.id
-                        )}')"
-                    >
-                        🔎 Detail
-                    </button>
-
-
-                    ${
-                        canApprove
-                        ?
-                        `
-                        <button
-                            class="action-btn approve-btn"
-                            onclick="openApproval('${escapeHtml(
-                                order.id
-                            )}')"
-                        >
-                            ✓ Setujui
-                        </button>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        canReject
-                        ?
-                        `
-                        <button
-                            class="action-btn reject-btn"
-                            onclick="rejectOrder('${escapeHtml(
-                                order.id
-                            )}')"
-                        >
-                            ✕ Tolak
-                        </button>
-                        `
-                        :
-                        ""
-                    }
-
-                </div>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
-/* =====================================================
-   FIND ORDER
-===================================================== */
-
-function findOrder(id){
-
-    return orders.find(
-        function(order){
-
-            return String(
-                order.id
-            ) === String(id);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
    SHOW DETAIL
 ===================================================== */
 
-window.showDetail =
-function(id){
+function showDetail(orderId){
 
     const order =
-        findOrder(id);
+        allOrders.find(
+            item =>
+                Number(item.id) ===
+                Number(orderId)
+        );
 
 
     if(!order){
@@ -2501,6 +2095,53 @@ function(id){
         );
 
         return;
+
+    }
+
+
+    currentDetailOrder =
+        order;
+
+
+    const status =
+        normalizeStatus(
+            order.status
+        );
+
+
+    let extraInfo = "";
+
+
+    if(
+        status === "menunggu" ||
+        status === "diproses"
+    ){
+
+        const preview =
+            calculateNewExpiry(
+                null,
+                order.durasi_hari
+            );
+
+
+        extraInfo = `
+
+            <div
+                class="date-preview"
+            >
+
+                📅 Jika disetujui hari ini,
+                perkiraan membership aktif sampai:
+
+                <strong>
+                    ${formatTanggal(
+                        preview.expiryDate
+                    )}
+                </strong>
+
+            </div>
+
+        `;
 
     }
 
@@ -2512,126 +2153,177 @@ function(id){
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Nama Member
-                </strong>
+                </div>
 
-                <span>
+                <div class="detail-value">
                     ${escapeHtml(
                         order.nama
                     )}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Email
-                </strong>
+                </div>
 
-                <span>
+                <div class="detail-value">
                     ${escapeHtml(
                         order.email
                     )}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Paket
-                </strong>
+                </div>
 
-                <span>
+                <div class="detail-value">
                     ${escapeHtml(
                         order.paket
                     )}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Harga
-                </strong>
+                </div>
 
-                <span>
+                <div class="detail-value">
                     ${formatRupiah(
                         order.harga
                     )}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Durasi
-                </strong>
+                </div>
 
-                <span>
-                    ${getDuration(
-                        order
+                <div class="detail-value">
+                    ${escapeHtml(
+                        order.durasi_hari
                     )}
                     hari
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
+                <div class="detail-label">
                     Status
-                </strong>
+                </div>
 
-                <span>
-                    ${getStatusLabel(
+                <div class="detail-value">
+                    ${escapeHtml(
                         order.status
                     )}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="detail-item">
 
-                <strong>
-                    Dibuat
-                </strong>
+                <div class="detail-label">
+                    ID User
+                </div>
 
-                <span>
-                    ${formatTanggal(
-                        order.created_at
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <strong>
-                    User ID
-                </strong>
-
-                <span>
+                <div class="detail-value">
                     ${escapeHtml(
                         order.user_id
                     )}
-                </span>
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Dibuat
+                </div>
+
+                <div class="detail-value">
+                    ${formatTanggalJam(
+                        order.created_at
+                    )}
+                </div>
 
             </div>
 
 
         </div>
+
+
+        ${extraInfo}
+
+
+        ${
+            (
+                status === "menunggu" ||
+                status === "diproses"
+            )
+            ?
+            `
+
+                <div class="modal-actions">
+
+                    <button
+                        class="
+                            action-btn
+                            approve-btn
+                        "
+                        onclick="
+                            closeDetail();
+                            approveOrder(
+                                ${Number(order.id)}
+                            );
+                        "
+                    >
+                        ✅ Setujui Pesanan
+                    </button>
+
+                    <button
+                        class="
+                            action-btn
+                            reject-btn
+                        "
+                        onclick="
+                            closeDetail();
+                            rejectOrder(
+                                ${Number(order.id)}
+                            );
+                        "
+                    >
+                        ❌ Tolak
+                    </button>
+
+                </div>
+
+            `
+            :
+            ""
+        }
 
     `;
 
@@ -2640,34 +2332,37 @@ function(id){
         "hidden"
     );
 
-};
+}
 
 
 /* =====================================================
    CLOSE DETAIL
 ===================================================== */
 
-closeDetailBtn.addEventListener(
-    "click",
-    function(){
+function closeDetail(){
 
-        detailModal.classList.add(
-            "hidden"
-        );
+    detailModal.classList.add(
+        "hidden"
+    );
 
-    }
-);
+    currentDetailOrder =
+        null;
+
+}
 
 
 /* =====================================================
-   OPEN APPROVAL
+   APPROVE ORDER
 ===================================================== */
 
-window.openApproval =
-async function(id){
+async function approveOrder(orderId){
 
     const order =
-        findOrder(id);
+        allOrders.find(
+            item =>
+                Number(item.id) ===
+                Number(orderId)
+        );
 
 
     if(!order){
@@ -2681,26 +2376,31 @@ async function(id){
     }
 
 
-    selectedOrder =
-        order;
+    const status =
+        normalizeStatus(
+            order.status
+        );
 
 
-    confirmApprovalBtn.disabled =
-        true;
+    if(
+        status !== "menunggu" &&
+        status !== "diproses"
+    ){
+
+        alert(
+            "Pesanan ini sudah diproses."
+        );
+
+        return;
+
+    }
 
 
-    approvalContent.innerHTML = `
+    /*
+       AMBIL PROFILE MEMBER
+    */
 
-        <div class="loading">
-            ⏳ Memeriksa membership member...
-        </div>
-
-    `;
-
-
-    approvalModal.classList.remove(
-        "hidden"
-    );
+    let profile = null;
 
 
     try{
@@ -2725,290 +2425,93 @@ async function(id){
         }
 
 
-        const profile =
+        profile =
             profileResult.data;
 
 
-        const duration =
-            getDuration(
-                order
+        /*
+           KONFIRMASI TANGGAL
+        */
+
+        const calculation =
+            calculateNewExpiry(
+                profile?.berlaku_sampai,
+                order.durasi_hari
             );
 
 
         const oldExpiry =
-            profile?.berlaku_sampai ||
-            null;
-
-
-        const newExpiry =
-            calculateNewExpiry(
-                oldExpiry,
-                duration
+            parseDateOnly(
+                profile?.berlaku_sampai
             );
 
 
-        const hasActiveMembership =
-            profile?.status === "aktif" &&
+        const today =
+            getTodayDateOnly();
+
+
+        let message = "";
+
+
+        if(
             oldExpiry &&
-            new Date(
-                oldExpiry
-            ) >= new Date();
+            oldExpiry > today
+        ){
 
+            message =
+                "Membership lama masih aktif sampai " +
+                formatTanggal(
+                    oldExpiry
+                ) +
+                ".\n\n" +
 
-        approvalContent.innerHTML = `
+                "Durasi " +
+                order.durasi_hari +
+                " hari akan ditambahkan setelah tanggal tersebut.\n\n";
 
-            <div class="approval-box">
+        }
 
-                <div class="approval-box-title">
-                    💎 Informasi Aktivasi
-                </div>
+        else{
 
-
-                <div class="approval-row">
-
-                    <span>
-                        Member
-                    </span>
-
-                    <span>
-                        ${escapeHtml(
-                            order.nama
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="approval-row">
-
-                    <span>
-                        Paket
-                    </span>
-
-                    <span>
-                        ${escapeHtml(
-                            order.paket
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="approval-row">
-
-                    <span>
-                        Harga
-                    </span>
-
-                    <span>
-                        ${formatRupiah(
-                            order.harga
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="approval-row">
-
-                    <span>
-                        Durasi
-                    </span>
-
-                    <span>
-                        ${duration}
-                        hari
-                    </span>
-
-                </div>
-
-
-                <div class="approval-row">
-
-                    <span>
-                        Membership Lama
-                    </span>
-
-                    <span>
-                        ${
-                            oldExpiry
-                            ?
-                            formatTanggal(
-                                oldExpiry
-                            )
-                            :
-                            "Belum ada"
-                        }
-                    </span>
-
-                </div>
-
-
-                <div class="approval-row">
-
-                    <span>
-                        Dasar Perhitungan
-                    </span>
-
-                    <span>
-                        ${
-                            hasActiveMembership
-                            ?
-                            "Tanggal expired lama"
-                            :
-                            "Hari ini"
-                        }
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="approval-row"
-                    style="
-                        margin-top:5px;
-                        padding-top:8px;
-                        border-top:1px solid #ccebdd;
-                    "
-                >
-
-                    <span>
-                        Berlaku Sampai
-                    </span>
-
-                    <span
-                        style="
-                            color:#008f50;
-                            font-size:10px;
-                        "
-                    >
-                        ${formatTanggal(
-                            newExpiry
-                        )}
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            ${
-                hasActiveMembership
-                ?
-                `
-                <div class="warning-box">
-
-                    ℹ️ Membership member masih aktif.
-                    Sistem akan memperpanjang
-                    membership dari tanggal expired
-                    lama, bukan dari hari ini.
-
-                </div>
-                `
-                :
-                `
-                <div class="warning-box">
-
-                    ℹ️ Membership akan dihitung
-                    mulai dari hari ini.
-
-                </div>
-                `
-            }
-
-        `;
-
-
-        confirmApprovalBtn.disabled =
-            false;
-
-
-    }
-
-    catch(error){
-
-        console.error(
-            "OPEN APPROVAL ERROR:",
-            error
-        );
-
-
-        approvalContent.innerHTML = `
-
-            <div class="notice error">
-
-                ❌ Gagal memeriksa profile member.
-
-                <br><br>
-
-                ${escapeHtml(
-                    error.message
-                )}
-
-            </div>
-
-        `;
-
-    }
-
-};
-
-
-/* =====================================================
-   CANCEL APPROVAL
-===================================================== */
-
-cancelApprovalBtn.addEventListener(
-    "click",
-    function(){
-
-        selectedOrder =
-            null;
-
-        approvalModal.classList.add(
-            "hidden"
-        );
-
-    }
-);
-
-
-/* =====================================================
-   CONFIRM APPROVAL
-===================================================== */
-
-confirmApprovalBtn.addEventListener(
-    "click",
-    async function(){
-
-        if(!selectedOrder){
-
-            return;
+            message =
+                "Membership akan dimulai dari hari ini.\n\n";
 
         }
 
 
-        const order =
-            selectedOrder;
+        message +=
+            "Member: " +
+            order.nama +
+            "\n" +
+
+            "Paket: " +
+            order.paket +
+            "\n" +
+
+            "Harga: " +
+            formatRupiah(
+                order.harga
+            ) +
+            "\n" +
+
+            "Durasi: " +
+            order.durasi_hari +
+            " hari\n\n" +
+
+            "Membership aktif sampai:\n" +
+
+            formatTanggal(
+                calculation.expiryDate
+            ) +
+
+            "\n\n" +
+
+            "Setujui pesanan ini?";
 
 
         const yakin =
             confirm(
-                "Setujui pembayaran member " +
-                order.nama +
-                "?\n\n" +
-
-                "Paket: " +
-                order.paket +
-                "\n" +
-
-                "Harga: " +
-                formatRupiah(
-                    order.harga
-                ) +
-                "\n\n" +
-
-                "Membership akan langsung diaktifkan."
+                message
             );
 
 
@@ -3019,210 +2522,136 @@ confirmApprovalBtn.addEventListener(
         }
 
 
-        confirmApprovalBtn.disabled =
-            true;
+        /*
+           UPDATE PROFILE
+        */
 
-        confirmApprovalBtn.textContent =
-            "⏳ Memproses...";
+        const profileUpdate =
+            await supabaseClient
+                .from("profiles")
+                .update({
 
+                    status:
+                        "aktif",
 
-        try{
+                    paket:
+                        "Premium",
 
-            /*
-               AMBIL PROFILE TERBARU
-            */
+                    berlaku_sampai:
+                        dateToYMD(
+                            calculation.expiryDate
+                        )
 
-            const profileResult =
-                await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "id,nama,status,paket,berlaku_sampai"
-                    )
-                    .eq(
-                        "id",
-                        order.user_id
-                    )
-                    .maybeSingle();
-
-
-            if(profileResult.error){
-
-                throw profileResult.error;
-
-            }
-
-
-            const profile =
-                profileResult.data;
-
-
-            /*
-               HITUNG DURASI
-            */
-
-            const duration =
-                getDuration(
-                    order
+                })
+                .eq(
+                    "id",
+                    order.user_id
                 );
 
 
-            /*
-               HITUNG TANGGAL BARU
-            */
+        if(profileUpdate.error){
 
-            const newExpiry =
-                calculateNewExpiry(
-                    profile?.berlaku_sampai ||
-                    null,
-                    duration
-                );
+            throw profileUpdate.error;
+
+        }
 
 
-            /*
-               UPDATE PROFILE
-            */
+        /*
+           UPDATE ORDER
+        */
 
-            const updateProfileResult =
-                await supabaseClient
-                    .from("profiles")
-                    .update({
-
-                        status:
-                            "aktif",
-
-                        paket:
-                            order.paket,
-
-                        berlaku_sampai:
-                            newExpiry.toISOString()
-
-                    })
-                    .eq(
-                        "id",
-                        order.user_id
-                    );
-
-
-            if(
-                updateProfileResult.error
-            ){
-
-                throw updateProfileResult.error;
-
-            }
-
-
-            /*
-               UPDATE ORDER
-            */
-
-            const updateOrderResult =
-                await supabaseClient
-                    .from(
-                        "membership_orders"
-                    )
-                    .update({
-
-                        status:
-                            "disetujui"
-
-                    })
-                    .eq(
-                        "id",
-                        order.id
-                    );
-
-
-            if(
-                updateOrderResult.error
-            ){
-
-                throw updateOrderResult.error;
-
-            }
-
-
-            /*
-               SUKSES
-            */
-
-            approvalModal.classList.add(
-                "hidden"
-            );
-
-
-            selectedOrder =
-                null;
-
-
-            alert(
-                "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
-
-                "Member: " +
-                order.nama +
-
-                "\nPaket: " +
-                order.paket +
-
-                "\nHarga: " +
-                formatRupiah(
-                    order.harga
-                ) +
-
-                "\nDurasi: " +
-                duration +
-                " hari" +
-
-                "\n\nMembership aktif sampai:\n" +
-
-                formatTanggal(
-                    newExpiry
+        const orderUpdate =
+            await supabaseClient
+                .from(
+                    "membership_orders"
                 )
-            );
+                .update({
+
+                    status:
+                        "disetujui"
+
+                })
+                .eq(
+                    "id",
+                    order.id
+                );
 
 
-            await loadOrders();
+        if(orderUpdate.error){
 
+            throw orderUpdate.error;
+
+        }
+
+
+        alert(
+
+            "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
+
+            "Member: " +
+            order.nama +
+            "\n" +
+
+            "Paket: " +
+            order.paket +
+            "\n" +
+
+            "Harga: " +
+            formatRupiah(
+                order.harga
+            ) +
+            "\n" +
+
+            "Durasi: " +
+            order.durasi_hari +
+            " hari\n\n" +
+
+            "Membership aktif sampai:\n" +
+
+            formatTanggal(
+                calculation.expiryDate
+            )
+
+        );
+
+
+        await loadOrders();
 
     }
 
     catch(error){
 
         console.error(
-            "APPROVE ERROR:",
+            "APPROVE ORDER ERROR:",
             error
         );
 
 
         alert(
-            "❌ Gagal mengaktifkan membership.\n\n" +
+
+            "❌ Gagal menyetujui pesanan.\n\n" +
+
             error.message
+
         );
 
     }
 
-    finally{
-
-        confirmApprovalBtn.disabled =
-            false;
-
-        confirmApprovalBtn.textContent =
-            "✅ Setujui & Aktifkan";
-
-    }
-
-});
+}
 
 
 /* =====================================================
    REJECT ORDER
 ===================================================== */
 
-window.rejectOrder =
-async function(id){
+async function rejectOrder(orderId){
 
     const order =
-        findOrder(id);
+        allOrders.find(
+            item =>
+                Number(item.id) ===
+                Number(orderId)
+        );
 
 
     if(!order){
@@ -3236,20 +2665,49 @@ async function(id){
     }
 
 
+    const status =
+        normalizeStatus(
+            order.status
+        );
+
+
+    if(
+        status !== "menunggu" &&
+        status !== "diproses"
+    ){
+
+        alert(
+            "Pesanan ini sudah diproses."
+        );
+
+        return;
+
+    }
+
+
+    const alasan =
+        prompt(
+            "Alasan penolakan pesanan:\n\n" +
+            "Boleh dikosongkan."
+        );
+
+
+    if(
+        alasan === null
+    ){
+
+        return;
+
+    }
+
+
     const yakin =
         confirm(
-            "Tolak pesanan ini?\n\n" +
-
-            "Member: " +
-            order.nama +
-
-            "\nPaket: " +
+            "Tolak pesanan " +
             order.paket +
-
-            "\nHarga: " +
-            formatRupiah(
-                order.harga
-            )
+            " milik " +
+            order.nama +
+            "?"
         );
 
 
@@ -3287,7 +2745,7 @@ async function(id){
 
 
         alert(
-            "✅ Pesanan berhasil ditolak."
+            "❌ Pesanan telah ditolak."
         );
 
 
@@ -3298,7 +2756,7 @@ async function(id){
     catch(error){
 
         console.error(
-            "REJECT ERROR:",
+            "REJECT ORDER ERROR:",
             error
         );
 
@@ -3310,7 +2768,7 @@ async function(id){
 
     }
 
-};
+}
 
 
 /* =====================================================
@@ -3370,8 +2828,14 @@ refreshBtn.addEventListener(
 
 
 /* =====================================================
-   CLOSE MODAL CLICK OUTSIDE
+   CLOSE MODAL
 ===================================================== */
+
+closeModalBtn.addEventListener(
+    "click",
+    closeDetail
+);
+
 
 detailModal.addEventListener(
     "click",
@@ -3382,31 +2846,7 @@ detailModal.addEventListener(
             detailModal
         ){
 
-            detailModal.classList.add(
-                "hidden"
-            );
-
-        }
-
-    }
-);
-
-
-approvalModal.addEventListener(
-    "click",
-    function(event){
-
-        if(
-            event.target ===
-            approvalModal
-        ){
-
-            approvalModal.classList.add(
-                "hidden"
-            );
-
-            selectedOrder =
-                null;
+            closeDetail();
 
         }
 
