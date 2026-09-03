@@ -1,0 +1,3613 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Admin Membership NgajiPlus Akademi"
+>
+
+<meta
+    name="theme-color"
+    content="#008f50"
+>
+
+<title>Admin Membership - NgajiPlus Akademi</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f4faf7;
+
+    color:#1e2924;
+
+    line-height:1.5;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:white;
+
+    border-bottom:
+        1px solid #dfe9e3;
+}
+
+.nav{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        11px 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.logo{
+    color:#008f50;
+
+    font-weight:bold;
+
+    font-size:15px;
+}
+
+.nav-actions{
+    display:flex;
+
+    gap:6px;
+
+    align-items:center;
+}
+
+.nav-btn{
+    border:0;
+
+    border-radius:7px;
+
+    padding:
+        7px 11px;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+.back-btn{
+    background:#eaf8f1;
+
+    color:#087a47;
+}
+
+.logout-btn{
+    background:#eeeeee;
+
+    color:#555;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.container{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        25px 15px 60px;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header{
+    background:
+        linear-gradient(
+            135deg,
+            #008f50,
+            #00a95f
+        );
+
+    color:white;
+
+    border-radius:16px;
+
+    padding:
+        24px;
+
+    margin-bottom:15px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,143,80,.15);
+}
+
+.page-header small{
+    opacity:.8;
+
+    font-size:9px;
+}
+
+.page-header h1{
+    margin:
+        5px 0;
+
+    font-size:
+        clamp(22px,4vw,34px);
+}
+
+.page-header p{
+    margin:0;
+
+    font-size:9px;
+
+    opacity:.9;
+}
+
+
+/* =====================================================
+   NOTICE
+===================================================== */
+
+.notice{
+    padding:
+        10px 13px;
+
+    border-radius:8px;
+
+    margin-bottom:15px;
+
+    font-size:9px;
+
+    border:
+        1px solid #e4ebe7;
+
+    background:white;
+}
+
+.notice.success{
+    background:#e5f9ed;
+
+    border-color:#b9e8cc;
+
+    color:#087a47;
+}
+
+.notice.warning{
+    background:#fff8d9;
+
+    border-color:#efdf99;
+
+    color:#75621c;
+}
+
+.notice.error{
+    background:#ffe9e9;
+
+    border-color:#f1c4c4;
+
+    color:#b42318;
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+.stat{
+    background:white;
+
+    border:
+        1px solid #e0e9e4;
+
+    border-radius:12px;
+
+    padding:14px;
+}
+
+.stat-icon{
+    font-size:21px;
+
+    margin-bottom:4px;
+}
+
+.stat-number{
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#008f50;
+}
+
+.stat-label{
+    color:#77837d;
+
+    font-size:8px;
+}
+
+
+/* =====================================================
+   TOOLS
+===================================================== */
+
+.tools{
+    background:white;
+
+    border:
+        1px solid #e0e9e4;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 180px 110px;
+
+    gap:8px;
+}
+
+.input,
+.select,
+.refresh-btn{
+    width:100%;
+
+    padding:
+        9px 11px;
+
+    border:
+        1px solid #dbe5df;
+
+    border-radius:7px;
+
+    background:white;
+
+    outline:none;
+
+    font-size:9px;
+}
+
+.input:focus,
+.select:focus{
+    border-color:#008f50;
+}
+
+.refresh-btn{
+    background:#008f50;
+
+    color:white;
+
+    border-color:#008f50;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   ORDERS
+===================================================== */
+
+.orders-title{
+    margin:
+        0 0 10px;
+
+    font-size:18px;
+}
+
+.orders{
+    display:grid;
+
+    gap:10px;
+}
+
+
+/* =====================================================
+   ORDER CARD
+===================================================== */
+
+.order-card{
+    background:white;
+
+    border:
+        1px solid #dfe8e3;
+
+    border-radius:13px;
+
+    padding:15px;
+
+    box-shadow:
+        0 2px 7px
+        rgba(0,0,0,.025);
+}
+
+.order-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    margin-bottom:12px;
+}
+
+.order-name{
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.order-email{
+    color:#7a8580;
+
+    font-size:8px;
+
+    margin-top:2px;
+}
+
+.status{
+    display:inline-block;
+
+    padding:
+        4px 8px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+}
+
+.status-pending{
+    background:#fff4c9;
+
+    color:#806400;
+}
+
+.status-paid,
+.status-approved,
+.status-success,
+.status-lunas,
+.status-aktif{
+    background:#dff8e9;
+
+    color:#087a47;
+}
+
+.status-rejected,
+.status-cancelled,
+.status-canceled,
+.status-failed{
+    background:#ffe5e5;
+
+    color:#b42318;
+}
+
+.status-processing{
+    background:#e5efff;
+
+    color:#235a9f;
+}
+
+
+/* =====================================================
+   ORDER INFO
+===================================================== */
+
+.order-info{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:8px;
+
+    margin-bottom:12px;
+}
+
+.info-box{
+    background:#f7faf8;
+
+    border-radius:8px;
+
+    padding:9px;
+}
+
+.info-label{
+    display:block;
+
+    color:#87918c;
+
+    font-size:7px;
+
+    margin-bottom:2px;
+}
+
+.info-value{
+    display:block;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   ORDER ID
+===================================================== */
+
+.order-id{
+    color:#9aa49f;
+
+    font-size:7px;
+
+    word-break:break-all;
+
+    margin-bottom:10px;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.actions{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+}
+
+.action-btn{
+    border:0;
+
+    border-radius:7px;
+
+    padding:
+        8px 11px;
+
+    font-size:8px;
+
+    font-weight:bold;
+}
+
+.confirm-btn{
+    background:#008f50;
+
+    color:white;
+}
+
+.reject-btn{
+    background:#ffe8e8;
+
+    color:#b42318;
+}
+
+.detail-btn{
+    background:#edf7f2;
+
+    color:#087a47;
+}
+
+.action-btn:disabled{
+    opacity:.5;
+
+    cursor:not-allowed;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+    background:white;
+
+    border:
+        1px solid #dfe8e3;
+
+    border-radius:12px;
+
+    padding:
+        40px 15px;
+
+    text-align:center;
+
+    color:#77837d;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+    background:white;
+
+    border-radius:12px;
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#77837d;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.55);
+
+    z-index:2000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:15px;
+}
+
+.modal.hidden{
+    display:none;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:500px;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    max-height:90vh;
+
+    overflow:auto;
+}
+
+.modal-title{
+    margin:
+        0 0 12px;
+
+    font-size:17px;
+}
+
+.modal-content{
+    font-size:9px;
+
+    color:#4d5953;
+}
+
+.modal-row{
+    padding:
+        8px 0;
+
+    border-bottom:
+        1px solid #edf1ee;
+}
+
+.modal-row strong{
+    display:block;
+
+    color:#222;
+
+    margin-bottom:2px;
+}
+
+.modal-close{
+    margin-top:14px;
+
+    width:100%;
+
+    border:0;
+
+    background:#eeeeee;
+
+    color:#555;
+
+    border-radius:7px;
+
+    padding:9px;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    background:#071a12;
+
+    color:white;
+
+    padding:
+        22px 15px;
+}
+
+.footer-inner{
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.footer-logo{
+    color:#35b878;
+
+    font-weight:bold;
+
+    font-size:11px;
+}
+
+.footer-text{
+    color:#7e9188;
+
+    font-size:7px;
+
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .tools{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .refresh-btn{
+        grid-column:
+            span 2;
+    }
+
+    .order-info{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .nav{
+        padding:
+            8px 10px;
+    }
+
+    .logo{
+        font-size:11px;
+    }
+
+    .nav-btn{
+        padding:
+            6px 7px;
+
+        font-size:8px;
+    }
+
+    .container{
+        padding:
+            18px 10px 45px;
+    }
+
+    .page-header{
+        padding:18px;
+    }
+
+    .page-header h1{
+        font-size:22px;
+    }
+
+    .tools{
+        grid-template-columns:
+            1fr;
+    }
+
+    .refresh-btn{
+        grid-column:auto;
+    }
+
+    .order-top{
+        flex-direction:column;
+    }
+
+    .order-info{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden{
+    display:none !important;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+📖 NgajiPlus Akademi
+</div>
+
+
+<div class="nav-actions">
+
+<a
+    href="dashboard.html"
+    class="nav-btn back-btn"
+>
+← Dashboard
+</a>
+
+
+<button
+    id="logoutBtn"
+    class="nav-btn logout-btn"
+>
+Keluar
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<section class="page-header">
+
+<small>
+🔐 PANEL ADMIN
+</small>
+
+<h1>
+📦 Pesanan Membership
+</h1>
+
+<p>
+Kelola pesanan membership dan aktivasi akun member.
+</p>
+
+</section>
+
+
+
+<!-- =====================================================
+     NOTICE
+===================================================== -->
+
+<div
+    id="notice"
+    class="notice warning"
+>
+⏳ Memeriksa akses admin...
+</div>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section
+    id="stats"
+    class="stats hidden"
+>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📦
+</div>
+
+<div
+    id="totalOrders"
+    class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Total Pesanan
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+⏳
+</div>
+
+<div
+    id="pendingOrders"
+    class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Menunggu
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+✅
+</div>
+
+<div
+    id="approvedOrders"
+    class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Disetujui
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+❌
+</div>
+
+<div
+    id="rejectedOrders"
+    class="stat-number"
+>
+0
+</div>
+
+<div class="stat-label">
+Ditolak
+</div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TOOLS
+===================================================== -->
+
+<section
+    id="tools"
+    class="tools hidden"
+>
+
+
+<input
+    type="search"
+    id="searchInput"
+    class="input"
+    placeholder="🔎 Cari nama, email atau paket..."
+>
+
+
+<select
+    id="statusFilter"
+    class="select"
+>
+
+<option value="">
+Semua Status
+</option>
+
+<option value="pending">
+Menunggu
+</option>
+
+<option value="paid">
+Dibayar
+</option>
+
+<option value="approved">
+Disetujui
+</option>
+
+<option value="rejected">
+Ditolak
+</option>
+
+</select>
+
+
+<button
+    id="refreshBtn"
+    class="refresh-btn"
+>
+🔄 Refresh
+</button>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ORDER LIST
+===================================================== -->
+
+<section
+    id="orderSection"
+    class="hidden"
+>
+
+<h2 class="orders-title">
+📋 Daftar Pesanan
+</h2>
+
+
+<div
+    id="ordersContainer"
+    class="orders"
+>
+
+<div class="loading">
+⏳ Mengambil pesanan...
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     DETAIL MODAL
+===================================================== -->
+
+<div
+    id="detailModal"
+    class="modal hidden"
+>
+
+<div class="modal-box">
+
+<h2 class="modal-title">
+📋 Detail Pesanan
+</h2>
+
+
+<div
+    id="detailContent"
+    class="modal-content"
+>
+</div>
+
+
+<button
+    id="closeModalBtn"
+    class="modal-close"
+>
+Tutup
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="footer-inner">
+
+<div class="footer-logo">
+📖 NgajiPlus Akademi
+</div>
+
+<div class="footer-text">
+Panel administrasi membership NgajiPlus Akademi.
+</div>
+
+</div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let orders = [];
+
+let profiles = [];
+
+let isAdmin = false;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const notice =
+    document.getElementById(
+        "notice"
+    );
+
+const stats =
+    document.getElementById(
+        "stats"
+    );
+
+const tools =
+    document.getElementById(
+        "tools"
+    );
+
+const orderSection =
+    document.getElementById(
+        "orderSection"
+    );
+
+const ordersContainer =
+    document.getElementById(
+        "ordersContainer"
+    );
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+const statusFilter =
+    document.getElementById(
+        "statusFilter"
+    );
+
+const refreshBtn =
+    document.getElementById(
+        "refreshBtn"
+    );
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+const detailModal =
+    document.getElementById(
+        "detailModal"
+    );
+
+const detailContent =
+    document.getElementById(
+        "detailContent"
+    );
+
+const closeModalBtn =
+    document.getElementById(
+        "closeModalBtn"
+    );
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT RUPIAH
+===================================================== */
+
+function formatRupiah(value){
+
+    const number =
+        Number(value || 0);
+
+    if(
+        !Number.isFinite(number)
+    ){
+
+        return "-";
+
+    }
+
+    return "Rp" +
+        number.toLocaleString(
+            "id-ID"
+        );
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatTanggal(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value);
+
+    }
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT DATETIME
+===================================================== */
+
+function formatTanggalWaktu(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return String(value);
+
+    }
+
+    return date.toLocaleString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NORMALIZE VALUE
+===================================================== */
+
+function normalize(value){
+
+    return String(
+        value ?? ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =====================================================
+   GET PACKAGE NAME
+===================================================== */
+
+function getPackage(order){
+
+    return (
+        order.paket ??
+        order.package ??
+        order.plan ??
+        order.package_name ??
+        order.nama_paket ??
+        order.duration ??
+        "-"
+    );
+
+}
+
+
+/* =====================================================
+   GET PRICE
+===================================================== */
+
+function getPrice(order){
+
+    const value =
+        order.harga ??
+        order.amount ??
+        order.price ??
+        order.total ??
+        order.total_amount;
+
+
+    if(
+        value !== undefined &&
+        value !== null &&
+        value !== ""
+    ){
+
+        return Number(value);
+
+    }
+
+
+    /*
+       Fallback harga paket
+    */
+
+    const paket =
+        normalize(
+            getPackage(order)
+        );
+
+
+    if(
+        paket.includes("1 tahun") ||
+        paket.includes("12 bulan") ||
+        paket.includes("1th") ||
+        paket === "tahunan"
+    ){
+
+        return 88000;
+
+    }
+
+
+    if(
+        paket.includes("6 bulan") ||
+        paket.includes("6bln")
+    ){
+
+        return 45000;
+
+    }
+
+
+    if(
+        paket.includes("3 bulan") ||
+        paket.includes("3bln")
+    ){
+
+        return 25000;
+
+    }
+
+
+    if(
+        paket.includes("1 bulan") ||
+        paket.includes("1bln") ||
+        paket.includes("bulanan")
+    ){
+
+        return 10000;
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* =====================================================
+   GET DURATION
+===================================================== */
+
+function getDuration(order){
+
+    const value =
+        order.durasi_hari ??
+        order.duration_days ??
+        order.days ??
+        order.masa_aktif;
+
+
+    if(
+        value !== undefined &&
+        value !== null &&
+        value !== ""
+    ){
+
+        const number =
+            Number(value);
+
+
+        if(
+            Number.isFinite(number) &&
+            number > 0
+        ){
+
+            return number;
+
+        }
+
+    }
+
+
+    const paket =
+        normalize(
+            getPackage(order)
+        );
+
+
+    if(
+        paket.includes("1 tahun") ||
+        paket.includes("12 bulan") ||
+        paket.includes("1th")
+    ){
+
+        return 365;
+
+    }
+
+
+    if(
+        paket.includes("6 bulan") ||
+        paket.includes("6bln")
+    ){
+
+        return 180;
+
+    }
+
+
+    if(
+        paket.includes("3 bulan") ||
+        paket.includes("3bln")
+    ){
+
+        return 90;
+
+    }
+
+
+    return 30;
+
+}
+
+
+/* =====================================================
+   GET STATUS
+===================================================== */
+
+function getStatus(order){
+
+    return normalize(
+        order.status ||
+        "pending"
+    );
+
+}
+
+
+/* =====================================================
+   GET USER ID
+===================================================== */
+
+function getOrderUserId(order){
+
+    return (
+        order.user_id ??
+        order.userid ??
+        order.userId ??
+        order.user ??
+        null
+    );
+
+}
+
+
+/* =====================================================
+   GET ORDER CREATED
+===================================================== */
+
+function getCreatedAt(order){
+
+    return (
+        order.created_at ??
+        order.createdAt ??
+        order.tanggal_pesan ??
+        order.order_date ??
+        null
+    );
+
+}
+
+
+/* =====================================================
+   GET PROFILE
+===================================================== */
+
+function getProfileById(userId){
+
+    return profiles.find(
+        function(profile){
+
+            return String(
+                profile.id
+            ) === String(
+                userId
+            );
+
+        }
+    ) || null;
+
+}
+
+
+/* =====================================================
+   GET USER NAME
+===================================================== */
+
+function getUserName(order){
+
+    const userId =
+        getOrderUserId(order);
+
+
+    const profile =
+        getProfileById(
+            userId
+        );
+
+
+    if(profile){
+
+        return (
+            profile.nama ||
+            profile.name ||
+            "Member"
+        );
+
+    }
+
+
+    return (
+        order.nama ||
+        order.name ||
+        order.customer_name ||
+        "Member"
+    );
+
+}
+
+
+/* =====================================================
+   GET USER EMAIL
+===================================================== */
+
+function getUserEmail(order){
+
+    const userId =
+        getOrderUserId(order);
+
+
+    const profile =
+        getProfileById(
+            userId
+        );
+
+
+    return (
+        order.email ||
+        order.customer_email ||
+        profile?.email ||
+        "-"
+    );
+
+}
+
+
+/* =====================================================
+   CHECK ADMIN
+===================================================== */
+
+async function checkAdmin(){
+
+    notice.className =
+        "notice warning";
+
+    notice.innerHTML =
+        "⏳ Memeriksa akses admin...";
+
+
+    try{
+
+        const userResult =
+            await supabaseClient
+                .auth
+                .getUser();
+
+
+        if(
+            userResult.error
+        ){
+
+            throw userResult.error;
+
+        }
+
+
+        currentUser =
+            userResult.data.user;
+
+
+        if(!currentUser){
+
+            throw new Error(
+                "Anda belum login."
+            );
+
+        }
+
+
+        /*
+           CEK PROFILE IS_ADMIN
+        */
+
+        const profileResult =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(
+            profileResult.error
+        ){
+
+            throw profileResult.error;
+
+        }
+
+
+        currentProfile =
+            profileResult.data;
+
+
+        if(
+            currentProfile &&
+            currentProfile.is_admin === true
+        ){
+
+            isAdmin =
+                true;
+
+        }
+
+
+        /*
+           CEK admin_users
+           jika profile belum memberi akses
+        */
+
+        if(!isAdmin){
+
+            const adminResult =
+                await supabaseClient
+                    .from("admin_users")
+                    .select(
+                        "user_id"
+                    )
+                    .eq(
+                        "user_id",
+                        currentUser.id
+                    )
+                    .maybeSingle();
+
+
+            if(
+                !adminResult.error &&
+                adminResult.data
+            ){
+
+                isAdmin =
+                    true;
+
+            }
+
+        }
+
+
+        /*
+           TIDAK ADMIN
+        */
+
+        if(!isAdmin){
+
+            throw new Error(
+                "Akses ditolak. Akun ini bukan admin."
+            );
+
+        }
+
+
+        /*
+           ADMIN
+        */
+
+        notice.className =
+            "notice success";
+
+        notice.innerHTML =
+            "✅ Login sebagai admin. " +
+            "Anda dapat mengelola pesanan membership.";
+
+
+        stats.classList.remove(
+            "hidden"
+        );
+
+        tools.classList.remove(
+            "hidden"
+        );
+
+        orderSection.classList.remove(
+            "hidden"
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "CHECK ADMIN ERROR:",
+            error
+        );
+
+
+        isAdmin =
+            false;
+
+
+        notice.className =
+            "notice error";
+
+
+        notice.innerHTML =
+            "❌ " +
+            escapeHtml(
+                error.message
+            );
+
+
+        stats.classList.add(
+            "hidden"
+        );
+
+        tools.classList.add(
+            "hidden"
+        );
+
+        orderSection.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+async function loadData(){
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    ordersContainer.innerHTML = `
+
+        <div class="loading">
+            ⏳ Mengambil pesanan membership...
+        </div>
+
+    `;
+
+
+    try{
+
+        /*
+           LOAD ORDERS
+        */
+
+        const ordersResult =
+            await supabaseClient
+                .from(
+                    "membership_orders"
+                )
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(
+            ordersResult.error
+        ){
+
+            throw ordersResult.error;
+
+        }
+
+
+        orders =
+            ordersResult.data || [];
+
+
+        /*
+           LOAD PROFILES
+        */
+
+        const profilesResult =
+            await supabaseClient
+                .from("profiles")
+                .select("*");
+
+
+        if(
+            profilesResult.error
+        ){
+
+            console.warn(
+                "PROFILE LOAD ERROR:",
+                profilesResult.error
+            );
+
+            profiles =
+                [];
+
+        }
+
+        else{
+
+            profiles =
+                profilesResult.data || [];
+
+        }
+
+
+        updateStats();
+
+        renderOrders();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "LOAD DATA ERROR:",
+            error
+        );
+
+
+        ordersContainer.innerHTML = `
+
+            <div class="notice error">
+
+                ❌ Gagal mengambil pesanan.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE STATS
+===================================================== */
+
+function updateStats(){
+
+    const total =
+        orders.length;
+
+
+    const pending =
+        orders.filter(
+            function(order){
+
+                const status =
+                    getStatus(order);
+
+                return (
+                    status === "pending" ||
+                    status === "menunggu" ||
+                    status === "waiting" ||
+                    status === "unpaid"
+                );
+
+            }
+        ).length;
+
+
+    const approved =
+        orders.filter(
+            function(order){
+
+                const status =
+                    getStatus(order);
+
+                return (
+                    status === "approved" ||
+                    status === "paid" ||
+                    status === "success" ||
+                    status === "lunas" ||
+                    status === "aktif"
+                );
+
+            }
+        ).length;
+
+
+    const rejected =
+        orders.filter(
+            function(order){
+
+                const status =
+                    getStatus(order);
+
+                return (
+                    status === "rejected" ||
+                    status === "ditolak" ||
+                    status === "cancelled" ||
+                    status === "canceled" ||
+                    status === "failed"
+                );
+
+            }
+        ).length;
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "approvedOrders"
+    ).textContent =
+        approved;
+
+
+    document.getElementById(
+        "rejectedOrders"
+    ).textContent =
+        rejected;
+
+}
+
+
+/* =====================================================
+   STATUS LABEL
+===================================================== */
+
+function statusLabel(status){
+
+    const value =
+        normalize(status);
+
+
+    if(
+        value === "pending" ||
+        value === "menunggu" ||
+        value === "waiting" ||
+        value === "unpaid"
+    ){
+
+        return "⏳ Menunggu";
+
+    }
+
+
+    if(
+        value === "approved" ||
+        value === "paid" ||
+        value === "success" ||
+        value === "lunas" ||
+        value === "aktif"
+    ){
+
+        return "✅ Disetujui";
+
+    }
+
+
+    if(
+        value === "rejected" ||
+        value === "ditolak"
+    ){
+
+        return "❌ Ditolak";
+
+    }
+
+
+    return status || "-";
+
+}
+
+
+/* =====================================================
+   STATUS CLASS
+===================================================== */
+
+function statusClass(status){
+
+    const value =
+        normalize(status);
+
+
+    if(
+        value === "pending" ||
+        value === "menunggu" ||
+        value === "waiting" ||
+        value === "unpaid"
+    ){
+
+        return "status-pending";
+
+    }
+
+
+    if(
+        value === "approved" ||
+        value === "paid" ||
+        value === "success" ||
+        value === "lunas" ||
+        value === "aktif"
+    ){
+
+        return "status-approved";
+
+    }
+
+
+    if(
+        value === "rejected" ||
+        value === "ditolak" ||
+        value === "cancelled" ||
+        value === "canceled" ||
+        value === "failed"
+    ){
+
+        return "status-rejected";
+
+    }
+
+
+    return "status-processing";
+
+}
+
+
+/* =====================================================
+   RENDER ORDERS
+===================================================== */
+
+function renderOrders(){
+
+    const keyword =
+        normalize(
+            searchInput.value
+        );
+
+
+    const filter =
+        normalize(
+            statusFilter.value
+        );
+
+
+    const filtered =
+        orders.filter(
+            function(order){
+
+                const name =
+                    normalize(
+                        getUserName(order)
+                    );
+
+
+                const email =
+                    normalize(
+                        getUserEmail(order)
+                    );
+
+
+                const paket =
+                    normalize(
+                        getPackage(order)
+                    );
+
+
+                const status =
+                    getStatus(order);
+
+
+                const searchMatch =
+                    !keyword ||
+                    name.includes(keyword) ||
+                    email.includes(keyword) ||
+                    paket.includes(keyword);
+
+
+                const statusMatch =
+                    !filter ||
+                    status === filter;
+
+
+                return (
+                    searchMatch &&
+                    statusMatch
+                );
+
+            }
+        );
+
+
+    if(
+        filtered.length === 0
+    ){
+
+        ordersContainer.innerHTML = `
+
+            <div class="empty">
+
+                📭 Belum ada pesanan
+                yang sesuai.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    ordersContainer.innerHTML = "";
+
+
+    filtered.forEach(
+        function(order){
+
+            ordersContainer.appendChild(
+                createOrderCard(
+                    order
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CREATE ORDER CARD
+===================================================== */
+
+function createOrderCard(order){
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "order-card";
+
+
+    const userId =
+        getOrderUserId(order);
+
+
+    const name =
+        getUserName(order);
+
+
+    const email =
+        getUserEmail(order);
+
+
+    const paket =
+        getPackage(order);
+
+
+    const harga =
+        getPrice(order);
+
+
+    const durasi =
+        getDuration(order);
+
+
+    const status =
+        getStatus(order);
+
+
+    const createdAt =
+        getCreatedAt(order);
+
+
+    const orderId =
+        order.id ??
+        "-";
+
+
+    const isPending =
+        status === "pending" ||
+        status === "menunggu" ||
+        status === "waiting" ||
+        status === "unpaid";
+
+
+    const isRejected =
+        status === "rejected" ||
+        status === "ditolak" ||
+        status === "cancelled" ||
+        status === "canceled" ||
+        status === "failed";
+
+
+    const isApproved =
+        status === "approved" ||
+        status === "paid" ||
+        status === "success" ||
+        status === "lunas" ||
+        status === "aktif";
+
+
+    let actions = `
+
+        <button
+            class="action-btn detail-btn"
+            data-action="detail"
+        >
+            📋 Detail
+        </button>
+
+    `;
+
+
+    if(isPending){
+
+        actions += `
+
+            <button
+                class="action-btn confirm-btn"
+                data-action="confirm"
+            >
+                ✅ Konfirmasi
+            </button>
+
+            <button
+                class="action-btn reject-btn"
+                data-action="reject"
+            >
+                ❌ Tolak
+            </button>
+
+        `;
+
+    }
+
+
+    if(isApproved){
+
+        actions += `
+
+            <button
+                class="action-btn detail-btn"
+                disabled
+            >
+                ✅ Sudah Aktif
+            </button>
+
+        `;
+
+    }
+
+
+    if(isRejected){
+
+        actions += `
+
+            <button
+                class="action-btn reject-btn"
+                disabled
+            >
+                ❌ Ditolak
+            </button>
+
+        `;
+
+    }
+
+
+    card.innerHTML = `
+
+        <div class="order-top">
+
+            <div>
+
+                <div class="order-name">
+                    ${escapeHtml(name)}
+                </div>
+
+                <div class="order-email">
+                    ${escapeHtml(email)}
+                </div>
+
+            </div>
+
+
+            <span
+                class="status ${statusClass(status)}"
+            >
+                ${escapeHtml(
+                    statusLabel(status)
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="order-info">
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Paket
+                </span>
+
+                <span class="info-value">
+                    ${escapeHtml(paket)}
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Harga
+                </span>
+
+                <span class="info-value">
+                    ${formatRupiah(harga)}
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Durasi
+                </span>
+
+                <span class="info-value">
+                    ${durasi} hari
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Pesanan
+                </span>
+
+                <span class="info-value">
+                    ${escapeHtml(
+                        formatTanggal(
+                            createdAt
+                        )
+                    )}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="order-id">
+
+            ID Pesanan:
+            ${escapeHtml(orderId)}
+
+        </div>
+
+
+        <div class="actions">
+
+            ${actions}
+
+        </div>
+
+    `;
+
+
+    /*
+       DETAIL
+    */
+
+    const detailBtn =
+        card.querySelector(
+            "[data-action='detail']"
+        );
+
+
+    if(detailBtn){
+
+        detailBtn.addEventListener(
+            "click",
+            function(){
+
+                showDetail(
+                    order
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+       CONFIRM
+    */
+
+    const confirmBtn =
+        card.querySelector(
+            "[data-action='confirm']"
+        );
+
+
+    if(confirmBtn){
+
+        confirmBtn.addEventListener(
+            "click",
+            async function(){
+
+                await confirmOrder(
+                    order,
+                    confirmBtn
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+       REJECT
+    */
+
+    const rejectBtn =
+        card.querySelector(
+            "[data-action='reject']"
+        );
+
+
+    if(rejectBtn){
+
+        rejectBtn.addEventListener(
+            "click",
+            async function(){
+
+                await rejectOrder(
+                    order,
+                    rejectBtn
+                );
+
+            }
+        );
+
+    }
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   SHOW DETAIL
+===================================================== */
+
+function showDetail(order){
+
+    const userId =
+        getOrderUserId(order);
+
+
+    const name =
+        getUserName(order);
+
+
+    const email =
+        getUserEmail(order);
+
+
+    const paket =
+        getPackage(order);
+
+
+    const harga =
+        getPrice(order);
+
+
+    const durasi =
+        getDuration(order);
+
+
+    const status =
+        getStatus(order);
+
+
+    const createdAt =
+        getCreatedAt(order);
+
+
+    let html = "";
+
+
+    html += `
+
+        <div class="modal-row">
+
+            <strong>
+                Nama Member
+            </strong>
+
+            ${escapeHtml(name)}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Email
+            </strong>
+
+            ${escapeHtml(email)}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                User ID
+            </strong>
+
+            ${escapeHtml(
+                userId || "-"
+            )}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Paket
+            </strong>
+
+            ${escapeHtml(paket)}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Harga
+            </strong>
+
+            ${formatRupiah(harga)}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Durasi
+            </strong>
+
+            ${durasi} hari
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Status
+            </strong>
+
+            ${escapeHtml(
+                statusLabel(status)
+            )}
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <strong>
+                Waktu Pesanan
+            </strong>
+
+            ${escapeHtml(
+                formatTanggalWaktu(
+                    createdAt
+                )
+            )}
+
+        </div>
+
+    `;
+
+
+    /*
+       Tampilkan semua field tambahan
+       dari membership_orders
+    */
+
+    const ignored = [
+        "id",
+        "user_id",
+        "paket",
+        "package",
+        "plan",
+        "package_name",
+        "nama_paket",
+        "duration",
+        "harga",
+        "amount",
+        "price",
+        "total",
+        "total_amount",
+        "durasi_hari",
+        "duration_days",
+        "days",
+        "masa_aktif",
+        "status",
+        "created_at",
+        "createdAt",
+        "tanggal_pesan",
+        "order_date"
+    ];
+
+
+    Object.keys(order).forEach(
+        function(key){
+
+            if(
+                ignored.includes(key)
+            ){
+
+                return;
+
+            }
+
+
+            let value =
+                order[key];
+
+
+            if(
+                value === null ||
+                value === undefined ||
+                value === ""
+            ){
+
+                return;
+
+            }
+
+
+            if(
+                typeof value === "object"
+            ){
+
+                try{
+
+                    value =
+                        JSON.stringify(
+                            value
+                        );
+
+                }
+
+                catch(error){
+
+                    value =
+                        String(value);
+
+                }
+
+            }
+
+
+            html += `
+
+                <div class="modal-row">
+
+                    <strong>
+                        ${escapeHtml(key)}
+                    </strong>
+
+                    ${escapeHtml(value)}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    detailContent.innerHTML =
+        html;
+
+
+    detailModal.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+closeModalBtn.addEventListener(
+    "click",
+    function(){
+
+        detailModal.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+detailModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            detailModal
+        ){
+
+            detailModal.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CONFIRM ORDER
+===================================================== */
+
+async function confirmOrder(
+    order,
+    button
+){
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    const name =
+        getUserName(order);
+
+
+    const paket =
+        getPackage(order);
+
+
+    const harga =
+        getPrice(order);
+
+
+    const durasi =
+        getDuration(order);
+
+
+    const userId =
+        getOrderUserId(order);
+
+
+    if(!userId){
+
+        alert(
+            "❌ User ID pesanan tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    const yakin =
+        confirm(
+
+            "Konfirmasi pembayaran?\n\n" +
+
+            "Member: " +
+            name +
+            "\n" +
+
+            "Paket: " +
+            paket +
+            "\n" +
+
+            "Harga: " +
+            formatRupiah(harga) +
+            "\n" +
+
+            "Durasi: " +
+            durasi +
+            " hari\n\n" +
+
+            "Membership member akan diaktifkan."
+
+        );
+
+
+    if(!yakin){
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ Memproses...";
+
+
+    try{
+
+        /*
+           ============================================
+           1. TENTUKAN TANGGAL MULAI
+           ============================================
+        */
+
+        const sekarang =
+            new Date();
+
+
+        /*
+           Kalau member masih aktif,
+           perpanjangan dimulai dari
+           tanggal berlaku_sampai lama.
+
+           Kalau sudah habis,
+           mulai dari hari ini.
+        */
+
+        const profile =
+            getProfileById(
+                userId
+            );
+
+
+        let tanggalMulai =
+            new Date();
+
+
+        if(
+            profile?.berlaku_sampai
+        ){
+
+            const tanggalLama =
+                new Date(
+                    profile.berlaku_sampai
+                );
+
+
+            if(
+                !isNaN(
+                    tanggalLama.getTime()
+                ) &&
+                tanggalLama > sekarang
+            ){
+
+                tanggalMulai =
+                    tanggalLama;
+
+            }
+
+        }
+
+
+        /*
+           ============================================
+           2. HITUNG BERLAKU SAMPAI
+           ============================================
+        */
+
+        const berlakuSampai =
+            new Date(
+                tanggalMulai
+            );
+
+
+        berlakuSampai.setDate(
+            berlakuSampai.getDate() +
+            durasi
+        );
+
+
+        /*
+           ============================================
+           3. UPDATE PROFILES
+           ============================================
+        */
+
+        const profileUpdate =
+            await supabaseClient
+                .from("profiles")
+                .update({
+
+                    status:
+                        "aktif",
+
+                    paket:
+                        String(
+                            paket
+                        ),
+
+                    berlaku_sampai:
+                        berlakuSampai
+                            .toISOString()
+
+                })
+                .eq(
+                    "id",
+                    userId
+                );
+
+
+        if(
+            profileUpdate.error
+        ){
+
+            throw new Error(
+                "Gagal mengaktifkan membership: " +
+                profileUpdate.error.message
+            );
+
+        }
+
+
+        /*
+           ============================================
+           4. UPDATE STATUS ORDER
+           ============================================
+        */
+
+        const orderId =
+            order.id;
+
+
+        if(
+            orderId === undefined ||
+            orderId === null
+        ){
+
+            throw new Error(
+                "ID pesanan tidak ditemukan."
+            );
+
+        }
+
+
+        /*
+           Cari nama kolom status.
+           Umumnya status.
+        */
+
+        const orderUpdateData = {
+
+            status:
+                "approved"
+
+        };
+
+
+        /*
+           Jika kolom confirmed_at tersedia
+           kita coba tambahkan.
+
+           Tetapi supaya tidak gagal karena
+           kolom mungkin tidak ada, kita
+           prioritaskan status saja.
+        */
+
+
+        const orderUpdate =
+            await supabaseClient
+                .from(
+                    "membership_orders"
+                )
+                .update(
+                    orderUpdateData
+                )
+                .eq(
+                    "id",
+                    orderId
+                );
+
+
+        if(
+            orderUpdate.error
+        ){
+
+            /*
+               Membership sudah ter-update.
+               Beri pesan jelas jika status order
+               tidak bisa diperbarui.
+            */
+
+            console.error(
+                "ORDER UPDATE ERROR:",
+                orderUpdate.error
+            );
+
+
+            throw new Error(
+                "Membership sudah diproses, tetapi " +
+                "status pesanan gagal diperbarui: " +
+                orderUpdate.error.message
+            );
+
+        }
+
+
+        /*
+           ============================================
+           5. SUKSES
+           ============================================
+        */
+
+        alert(
+
+            "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
+
+            "Member: " +
+            name +
+            "\n" +
+
+            "Paket: " +
+            paket +
+            "\n" +
+
+            "Harga: " +
+            formatRupiah(harga) +
+            "\n" +
+
+            "Durasi: " +
+            durasi +
+            " hari\n\n" +
+
+            "Membership aktif sampai:\n" +
+
+            formatTanggal(
+                berlakuSampai
+            )
+
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "CONFIRM ERROR:",
+            error
+        );
+
+
+        alert(
+            "❌ Gagal mengonfirmasi pesanan.\n\n" +
+            error.message
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "✅ Konfirmasi";
+
+    }
+
+}
+
+
+/* =====================================================
+   REJECT ORDER
+===================================================== */
+
+async function rejectOrder(
+    order,
+    button
+){
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    const name =
+        getUserName(order);
+
+
+    const paket =
+        getPackage(order);
+
+
+    const yakin =
+        confirm(
+
+            "Tolak pesanan ini?\n\n" +
+
+            "Member: " +
+            name +
+            "\n" +
+
+            "Paket: " +
+            paket +
+            "\n\n" +
+
+            "Membership tidak akan diaktifkan."
+
+        );
+
+
+    if(!yakin){
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳";
+
+
+    try{
+
+        const orderId =
+            order.id;
+
+
+        if(
+            orderId === undefined ||
+            orderId === null
+        ){
+
+            throw new Error(
+                "ID pesanan tidak ditemukan."
+            );
+
+        }
+
+
+        const result =
+            await supabaseClient
+                .from(
+                    "membership_orders"
+                )
+                .update({
+
+                    status:
+                        "rejected"
+
+                })
+                .eq(
+                    "id",
+                    orderId
+                );
+
+
+        if(
+            result.error
+        ){
+
+            throw result.error;
+
+        }
+
+
+        alert(
+            "✅ Pesanan berhasil ditolak."
+        );
+
+
+        await loadData();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "REJECT ERROR:",
+            error
+        );
+
+
+        alert(
+            "❌ Gagal menolak pesanan.\n\n" +
+            error.message
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "❌ Tolak";
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderOrders
+);
+
+
+/* =====================================================
+   STATUS FILTER
+===================================================== */
+
+statusFilter.addEventListener(
+    "change",
+    renderOrders
+);
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+refreshBtn.addEventListener(
+    "click",
+    async function(){
+
+        refreshBtn.disabled =
+            true;
+
+        refreshBtn.textContent =
+            "⏳";
+
+
+        await loadData();
+
+
+        refreshBtn.disabled =
+            false;
+
+        refreshBtn.textContent =
+            "🔄 Refresh";
+
+    }
+);
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(){
+
+        const yakin =
+            confirm(
+                "Apakah Anda ingin keluar?"
+            );
+
+
+        if(!yakin){
+
+            return;
+
+        }
+
+
+        logoutBtn.disabled =
+            true;
+
+
+        try{
+
+            const result =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+            if(
+                result.error
+            ){
+
+                throw result.error;
+
+            }
+
+
+            window.location.href =
+                "login.html";
+
+        }
+
+        catch(error){
+
+            alert(
+                "❌ Gagal logout.\n\n" +
+                error.message
+            );
+
+
+            logoutBtn.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event
+        ){
+
+            if(
+                event ===
+                "SIGNED_OUT"
+            ){
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkAdmin();
+
+</script>
+
+
+</body>
+
+</html>
