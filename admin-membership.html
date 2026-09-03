@@ -11,21 +11,30 @@
 >
 
 <meta
-    name="description"
-    content="Admin Membership NgajiPlus Akademi"
->
-
-<meta
     name="theme-color"
     content="#008f50"
 >
 
-<title>Admin Membership - NgajiPlus Akademi</title>
+<meta
+    name="description"
+    content="Admin Membership NgajiPlus Akademi"
+>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>
+    Admin Membership - NgajiPlus Akademi
+</title>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -37,9 +46,16 @@ html{
 
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4faf7;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f3faf7;
+
     color:#1e2924;
+
     line-height:1.5;
 }
 
@@ -59,569 +75,911 @@ a{
 }
 
 
-/* ================================
+/* =====================================================
    HEADER
-================================ */
+===================================================== */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
     background:white;
-    border-bottom:1px solid #dfe9e3;
+
+    border-bottom:
+        1px solid #dce9e2;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
 }
 
 .nav{
     max-width:1200px;
+
     margin:auto;
-    padding:11px 15px;
+
+    padding:
+        10px 15px;
+
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
+
+    align-items:center;
+
     gap:10px;
 }
 
 .logo{
     color:#008f50;
+
+    font-size:14px;
+
     font-weight:bold;
-    font-size:15px;
+
+    white-space:nowrap;
 }
 
-.nav-actions{
+.nav-buttons{
     display:flex;
-    gap:6px;
+
     align-items:center;
+
+    gap:6px;
 }
 
 .nav-btn{
     border:0;
+
     border-radius:7px;
-    padding:7px 11px;
+
+    padding:
+        7px 10px;
+
     font-size:9px;
+
     font-weight:bold;
+
+    white-space:nowrap;
 }
 
-.back-btn{
-    background:#eaf8f1;
+.dashboard-btn{
+    background:#e7f7ef;
+
     color:#087a47;
 }
 
 .logout-btn{
     background:#eeeeee;
+
     color:#555;
 }
 
 
-/* ================================
-   PAGE
-================================ */
+/* =====================================================
+   MAIN
+===================================================== */
 
-.container{
+main{
     max-width:1200px;
+
     margin:auto;
-    padding:25px 15px 60px;
+
+    padding:
+        25px 15px 60px;
 }
 
 
-/* ================================
-   PAGE HEADER
-================================ */
+/* =====================================================
+   HERO
+===================================================== */
 
-.page-header{
+.hero{
     background:
         linear-gradient(
             135deg,
             #008f50,
-            #00a95f
+            #00b86b
         );
 
     color:white;
-    border-radius:16px;
-    padding:24px;
+
+    border-radius:15px;
+
+    padding:
+        25px 20px;
+
     margin-bottom:15px;
 
     box-shadow:
         0 8px 25px
-        rgba(0,143,80,.15);
+        rgba(0,143,80,.16);
 }
 
-.page-header small{
-    opacity:.8;
-    font-size:9px;
+.hero-label{
+    font-size:8px;
+
+    font-weight:bold;
+
+    opacity:.9;
+
+    margin-bottom:5px;
 }
 
-.page-header h1{
-    margin:5px 0;
-    font-size:clamp(22px,4vw,34px);
+.hero h1{
+    margin:
+        0 0 5px;
+
+    font-size:
+        clamp(25px,4vw,38px);
 }
 
-.page-header p{
+.hero p{
     margin:0;
+
     font-size:9px;
+
     opacity:.9;
 }
 
 
-/* ================================
+/* =====================================================
    NOTICE
-================================ */
+===================================================== */
 
 .notice{
-    padding:10px 13px;
-    border-radius:8px;
-    margin-bottom:15px;
-    font-size:9px;
-    border:1px solid #e4ebe7;
-    background:white;
-}
+    background:#e6f8ee;
 
-.notice.success{
-    background:#e5f9ed;
-    border-color:#b9e8cc;
+    border:
+        1px solid #bce7cf;
+
     color:#087a47;
-}
 
-.notice.warning{
-    background:#fff8d9;
-    border-color:#efdf99;
-    color:#75621c;
+    border-radius:9px;
+
+    padding:
+        10px 12px;
+
+    font-size:9px;
+
+    margin-bottom:15px;
 }
 
 .notice.error{
     background:#ffe9e9;
-    border-color:#f1c4c4;
+
+    border-color:#f3c2c2;
+
     color:#b42318;
 }
 
+.notice.warning{
+    background:#fff8d9;
 
-/* ================================
+    border-color:#efdf9d;
+
+    color:#806500;
+}
+
+
+/* =====================================================
    STATS
-================================ */
+===================================================== */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
     margin-bottom:15px;
 }
 
-.stat{
+.stat-card{
     background:white;
-    border:1px solid #e0e9e4;
+
+    border:
+        1px solid #dfe9e3;
+
     border-radius:12px;
+
     padding:14px;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.03);
 }
 
 .stat-icon{
-    font-size:21px;
-    margin-bottom:4px;
+    font-size:20px;
+
+    margin-bottom:2px;
 }
 
 .stat-number{
-    font-size:22px;
-    font-weight:bold;
     color:#008f50;
+
+    font-size:23px;
+
+    font-weight:bold;
 }
 
 .stat-label{
-    color:#77837d;
+    color:#718078;
+
     font-size:8px;
 }
 
 
-/* ================================
-   TOOLS
-================================ */
+/* =====================================================
+   TOOLBAR
+===================================================== */
 
-.tools{
+.toolbar{
     background:white;
-    border:1px solid #e0e9e4;
+
+    border:
+        1px solid #dfe9e3;
+
     border-radius:12px;
-    padding:12px;
-    margin-bottom:15px;
 
-    display:grid;
-    grid-template-columns:1fr 180px 110px;
+    padding:10px;
+
+    display:flex;
+
     gap:8px;
+
+    margin-bottom:15px;
 }
 
-.input,
-.select,
-.refresh-btn{
-    width:100%;
-    padding:9px 11px;
-    border:1px solid #dbe5df;
-    border-radius:7px;
-    background:white;
-    outline:none;
+.search{
+    flex:1;
+
+    border:
+        1px solid #d8e4dd;
+
+    border-radius:8px;
+
+    padding:
+        9px 10px;
+
     font-size:9px;
+
+    outline:none;
 }
 
-.input:focus,
-.select:focus{
+.search:focus{
     border-color:#008f50;
+}
+
+.filter{
+    width:160px;
+
+    border:
+        1px solid #d8e4dd;
+
+    border-radius:8px;
+
+    padding:
+        9px 10px;
+
+    font-size:9px;
+
+    background:white;
 }
 
 .refresh-btn{
+    border:0;
+
     background:#008f50;
+
     color:white;
-    border-color:#008f50;
+
+    border-radius:8px;
+
+    padding:
+        9px 13px;
+
+    font-size:9px;
+
     font-weight:bold;
 }
 
 
-/* ================================
-   ORDERS
-================================ */
+/* =====================================================
+   SECTION TITLE
+===================================================== */
 
-.orders-title{
-    margin:0 0 10px;
-    font-size:18px;
+.section-title{
+    font-size:17px;
+
+    margin:
+        0 0 10px;
 }
+
+
+/* =====================================================
+   ORDER CARD
+===================================================== */
 
 .orders{
     display:grid;
-    gap:10px;
+
+    gap:12px;
 }
-
-
-/* ================================
-   ORDER CARD
-================================ */
 
 .order-card{
     background:white;
-    border:1px solid #dfe8e3;
-    border-radius:13px;
+
+    border:
+        1px solid #dfe9e3;
+
+    border-radius:14px;
+
     padding:15px;
 
     box-shadow:
-        0 2px 7px
-        rgba(0,0,0,.025);
+        0 4px 15px
+        rgba(0,0,0,.03);
 }
 
 .order-top{
     display:flex;
+
     justify-content:space-between;
+
     align-items:flex-start;
+
     gap:10px;
-    margin-bottom:12px;
+
+    margin-bottom:10px;
 }
 
-.order-name{
+.member-name{
     font-size:13px;
+
     font-weight:bold;
 }
 
-.order-email{
+.member-email{
     color:#7a8580;
+
     font-size:8px;
+
     margin-top:2px;
 }
 
 .status{
     display:inline-block;
-    padding:4px 8px;
+
+    padding:
+        5px 8px;
+
     border-radius:20px;
+
     font-size:8px;
+
     font-weight:bold;
+
     white-space:nowrap;
 }
 
-.status-pending{
-    background:#fff4c9;
-    color:#806400;
+.status-menunggu{
+    background:#fff3c4;
+
+    color:#806500;
 }
 
-.status-processing{
-    background:#e5efff;
-    color:#235a9f;
+.status-diproses{
+    background:#e4f1ff;
+
+    color:#1769aa;
 }
 
-.status-approved{
-    background:#dff8e9;
+.status-disetujui,
+.status-berhasil{
+    background:#dcf7e8;
+
     color:#087a47;
 }
 
-.status-rejected{
+.status-ditolak,
+.status-dibatalkan{
     background:#ffe5e5;
+
     color:#b42318;
 }
 
 
-/* ================================
+/* =====================================================
    ORDER INFO
-================================ */
+===================================================== */
 
 .order-info{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:8px;
-    margin-bottom:12px;
+
+    margin-bottom:10px;
 }
 
 .info-box{
     background:#f7faf8;
+
     border-radius:8px;
+
     padding:9px;
 }
 
 .info-label{
-    display:block;
-    color:#87918c;
+    color:#8a958f;
+
     font-size:7px;
+
     margin-bottom:2px;
 }
 
 .info-value{
-    display:block;
     font-size:9px;
+
     font-weight:bold;
 }
 
 
-/* ================================
-   ORDER ID
-================================ */
+/* =====================================================
+   ORDER FOOTER
+===================================================== */
 
-.order-id{
-    color:#9aa49f;
-    font-size:7px;
-    word-break:break-all;
-    margin-bottom:10px;
+.order-bottom{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding-top:10px;
+
+    border-top:
+        1px solid #edf1ee;
 }
 
+.order-date{
+    color:#7a8580;
 
-/* ================================
-   ACTIONS
-================================ */
+    font-size:8px;
+}
 
 .actions{
     display:flex;
-    flex-wrap:wrap;
+
     gap:6px;
+
+    flex-wrap:wrap;
+
+    justify-content:flex-end;
 }
 
 .action-btn{
     border:0;
+
     border-radius:7px;
-    padding:8px 11px;
+
+    padding:
+        7px 10px;
+
     font-size:8px;
+
     font-weight:bold;
-}
-
-.confirm-btn{
-    background:#008f50;
-    color:white;
-}
-
-.reject-btn{
-    background:#ffe8e8;
-    color:#b42318;
 }
 
 .detail-btn{
     background:#edf7f2;
+
     color:#087a47;
+}
+
+.approve-btn{
+    background:#008f50;
+
+    color:white;
+}
+
+.reject-btn{
+    background:#ffe9e9;
+
+    color:#b42318;
 }
 
 .action-btn:disabled{
     opacity:.5;
+
     cursor:not-allowed;
 }
 
 
-/* ================================
+/* =====================================================
    EMPTY
-================================ */
+===================================================== */
 
 .empty{
     background:white;
-    border:1px solid #dfe8e3;
-    border-radius:12px;
-    padding:40px 15px;
+
+    border:
+        1px solid #dfe9e3;
+
+    border-radius:14px;
+
+    padding:35px 20px;
+
     text-align:center;
-    color:#77837d;
-    font-size:10px;
+
+    color:#7a8580;
+
+    font-size:9px;
 }
 
-.loading{
-    background:white;
-    border-radius:12px;
-    padding:40px;
-    text-align:center;
-    color:#77837d;
-    font-size:10px;
-}
 
-
-/* ================================
+/* =====================================================
    MODAL
-================================ */
+===================================================== */
 
 .modal{
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:2000;
+
+    background:
+        rgba(0,0,0,.55);
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     padding:15px;
+
+    z-index:5000;
 }
 
 .modal.hidden{
     display:none;
 }
 
-.modal-box{
+.modal-card{
     width:100%;
-    max-width:500px;
-    background:white;
-    border-radius:15px;
-    padding:18px;
 
-    max-height:90vh;
+    max-width:500px;
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    max-height:
+        calc(100vh - 30px);
+
     overflow:auto;
 }
 
 .modal-title{
-    margin:0 0 12px;
-    font-size:17px;
+    margin:
+        0 0 5px;
+
+    font-size:18px;
 }
 
-.modal-content{
+.modal-description{
+    margin:
+        0 0 15px;
+
+    color:#718078;
+
     font-size:9px;
-    color:#4d5953;
 }
 
-.modal-row{
-    padding:8px 0;
-    border-bottom:1px solid #edf1ee;
+.detail-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:8px;
+
+    margin-bottom:15px;
 }
 
-.modal-row strong{
+.detail-item{
+    background:#f5faf7;
+
+    border-radius:8px;
+
+    padding:10px;
+}
+
+.detail-item strong{
     display:block;
-    color:#222;
-    margin-bottom:2px;
+
+    color:#7a8580;
+
+    font-size:7px;
+
+    margin-bottom:3px;
 }
 
-.modal-close{
-    margin-top:14px;
-    width:100%;
-    border:0;
-    background:#eeeeee;
-    color:#555;
-    border-radius:7px;
-    padding:9px;
+.detail-item span{
     font-size:9px;
+
+    font-weight:bold;
+}
+
+.modal-actions{
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:7px;
+}
+
+.close-btn{
+    border:0;
+
+    background:#eeeeee;
+
+    color:#555;
+
+    border-radius:7px;
+
+    padding:
+        8px 12px;
+
+    font-size:9px;
+
     font-weight:bold;
 }
 
 
-/* ================================
+/* =====================================================
+   APPROVAL MODAL
+===================================================== */
+
+.approval-box{
+    background:#eaf8f1;
+
+    border:
+        1px solid #c7ead7;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    margin-bottom:15px;
+}
+
+.approval-box-title{
+    color:#087a47;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+.approval-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:4px 0;
+
+    font-size:9px;
+}
+
+.approval-row span:first-child{
+    color:#718078;
+}
+
+.approval-row span:last-child{
+    font-weight:bold;
+}
+
+.warning-box{
+    background:#fff8d9;
+
+    border:
+        1px solid #efdf9d;
+
+    color:#806500;
+
+    border-radius:9px;
+
+    padding:10px;
+
+    font-size:8px;
+
+    margin-bottom:15px;
+}
+
+
+/* =====================================================
    FOOTER
-================================ */
+===================================================== */
 
 footer{
     background:#071a12;
+
     color:white;
-    padding:22px 15px;
+
+    padding:
+        22px 15px;
 }
 
 .footer-inner{
     max-width:1200px;
+
     margin:auto;
 }
 
 .footer-logo{
     color:#35b878;
-    font-weight:bold;
+
     font-size:11px;
+
+    font-weight:bold;
 }
 
 .footer-text{
-    color:#7e9188;
+    color:#809089;
+
     font-size:7px;
+
     margin-top:3px;
 }
 
 
-/* ================================
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+    text-align:center;
+
+    padding:35px;
+
+    color:#718078;
+
+    font-size:9px;
+}
+
+
+/* =====================================================
    MOBILE
-================================ */
+===================================================== */
 
 @media(max-width:800px){
 
     .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .tools{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .refresh-btn{
-        grid-column:span 2;
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .order-info{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .toolbar{
+        flex-wrap:wrap;
+    }
+
+    .search{
+        width:100%;
+
+        flex:none;
+    }
+
+    .filter{
+        flex:1;
+
+        width:auto;
     }
 
 }
 
-
-@media(max-width:500px){
+@media(max-width:550px){
 
     .nav{
-        padding:8px 10px;
+        padding:
+            8px 10px;
     }
 
     .logo{
-        font-size:11px;
+        font-size:10px;
     }
 
     .nav-btn{
-        padding:6px 7px;
-        font-size:8px;
+        padding:
+            6px 7px;
+
+        font-size:7px;
     }
 
-    .container{
-        padding:18px 10px 45px;
+    main{
+        padding:
+            20px 10px 40px;
     }
 
-    .page-header{
-        padding:18px;
+    .hero{
+        padding:
+            20px 15px;
     }
 
-    .page-header h1{
-        font-size:22px;
+    .hero h1{
+        font-size:25px;
     }
 
-    .tools{
-        grid-template-columns:1fr;
+    .stats{
+        gap:7px;
     }
 
-    .refresh-btn{
-        grid-column:auto;
+    .stat-card{
+        padding:10px;
+    }
+
+    .stat-number{
+        font-size:20px;
+    }
+
+    .order-card{
+        padding:11px;
     }
 
     .order-top{
-        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .member-name{
+        font-size:11px;
     }
 
     .order-info{
-        grid-template-columns:1fr 1fr;
+        gap:5px;
     }
 
-}
+    .info-box{
+        padding:7px;
+    }
 
+    .order-bottom{
+        flex-direction:column;
 
-.hidden{
-    display:none !important;
+        align-items:stretch;
+    }
+
+    .actions{
+        justify-content:flex-start;
+    }
+
+    .action-btn{
+        flex:1;
+
+        text-align:center;
+    }
+
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -632,6 +990,10 @@ footer{
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
 <div class="nav">
@@ -640,11 +1002,11 @@ footer{
 📖 NgajiPlus Akademi
 </div>
 
-<div class="nav-actions">
+<div class="nav-buttons">
 
 <a
     href="dashboard.html"
-    class="nav-btn back-btn"
+    class="nav-btn dashboard-btn"
 >
 ← Dashboard
 </a>
@@ -663,18 +1025,23 @@ Keluar
 </header>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<main class="container">
+<main>
 
 
-<section class="page-header">
+<!-- HERO -->
 
-<small>
+<section class="hero">
+
+<div class="hero-label">
 🔐 PANEL ADMIN
-</small>
+</div>
 
 <h1>
-📦 Pesanan Membership
+Pesanan Membership
 </h1>
 
 <p>
@@ -684,23 +1051,24 @@ Kelola pesanan membership dan aktivasi akun member.
 </section>
 
 
+<!-- NOTICE -->
 
 <div
     id="notice"
-    class="notice warning"
+    class="notice"
 >
 ⏳ Memeriksa akses admin...
 </div>
 
 
+<!-- STATS -->
 
 <section
     id="stats"
     class="stats hidden"
 >
 
-
-<div class="stat">
+<div class="stat-card">
 
 <div class="stat-icon">
 📦
@@ -720,7 +1088,7 @@ Total Pesanan
 </div>
 
 
-<div class="stat">
+<div class="stat-card">
 
 <div class="stat-icon">
 ⏳
@@ -740,10 +1108,10 @@ Menunggu / Diproses
 </div>
 
 
-<div class="stat">
+<div class="stat-card">
 
 <div class="stat-icon">
-✅
+☑️
 </div>
 
 <div
@@ -760,7 +1128,7 @@ Disetujui
 </div>
 
 
-<div class="stat">
+<div class="stat-card">
 
 <div class="stat-icon">
 ❌
@@ -779,28 +1147,26 @@ Ditolak
 
 </div>
 
-
 </section>
 
 
+<!-- TOOLBAR -->
 
 <section
-    id="tools"
-    class="tools hidden"
+    id="toolbar"
+    class="toolbar hidden"
 >
 
-
 <input
-    type="search"
     id="searchInput"
-    class="input"
+    class="search"
+    type="search"
     placeholder="🔎 Cari nama, email atau paket..."
 >
 
-
 <select
     id="statusFilter"
-    class="select"
+    class="filter"
 >
 
 <option value="">
@@ -823,8 +1189,11 @@ Disetujui
 Ditolak
 </option>
 
-</select>
+<option value="dibatalkan">
+Dibatalkan
+</option>
 
+</select>
 
 <button
     id="refreshBtn"
@@ -833,67 +1202,36 @@ Ditolak
 🔄 Refresh
 </button>
 
-
 </section>
 
 
+<!-- ORDERS -->
 
-<section
-    id="orderSection"
-    class="hidden"
+<h2
+    id="sectionTitle"
+    class="section-title hidden"
 >
-
-<h2 class="orders-title">
 📋 Daftar Pesanan
 </h2>
 
+
 <div
     id="ordersContainer"
-    class="orders"
 >
 
 <div class="loading">
-⏳ Mengambil pesanan...
+⏳ Memuat pesanan...
 </div>
 
 </div>
-
-</section>
 
 
 </main>
 
 
-
-<div
-    id="detailModal"
-    class="modal hidden"
->
-
-<div class="modal-box">
-
-<h2 class="modal-title">
-📋 Detail Pesanan
-</h2>
-
-<div
-    id="detailContent"
-    class="modal-content"
->
-</div>
-
-<button
-    id="closeModalBtn"
-    class="modal-close"
->
-Tutup
-</button>
-
-</div>
-
-</div>
-
-
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -912,6 +1250,94 @@ Panel administrasi membership NgajiPlus Akademi.
 </footer>
 
 
+<!-- =====================================================
+     DETAIL MODAL
+===================================================== -->
+
+<div
+    id="detailModal"
+    class="modal hidden"
+>
+
+<div class="modal-card">
+
+<h2 class="modal-title">
+📋 Detail Pesanan
+</h2>
+
+<p class="modal-description">
+Informasi lengkap pesanan membership.
+</p>
+
+<div
+    id="detailContent"
+>
+</div>
+
+<div class="modal-actions">
+
+<button
+    id="closeDetailBtn"
+    class="close-btn"
+>
+Tutup
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     APPROVAL MODAL
+===================================================== -->
+
+<div
+    id="approvalModal"
+    class="modal hidden"
+>
+
+<div class="modal-card">
+
+<h2 class="modal-title">
+✅ Konfirmasi Persetujuan
+</h2>
+
+<p class="modal-description">
+Pastikan data pesanan sudah benar sebelum mengaktifkan membership.
+</p>
+
+
+<div
+    id="approvalContent"
+>
+</div>
+
+
+<div class="modal-actions">
+
+<button
+    id="cancelApprovalBtn"
+    class="close-btn"
+>
+Batal
+</button>
+
+<button
+    id="confirmApprovalBtn"
+    class="action-btn approve-btn"
+>
+✅ Setujui & Aktifkan
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
@@ -922,8 +1348,10 @@ Panel administrasi membership NgajiPlus Akademi.
 const SUPABASE_URL =
     "https://ksgywgdrfskqsufchbcm.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -937,10 +1365,10 @@ const supabaseClient =
 ===================================================== */
 
 let currentUser = null;
-let currentProfile = null;
+
 let orders = [];
-let profiles = [];
-let isAdmin = false;
+
+let selectedOrder = null;
 
 
 /* =====================================================
@@ -948,40 +1376,84 @@ let isAdmin = false;
 ===================================================== */
 
 const notice =
-    document.getElementById("notice");
+    document.getElementById(
+        "notice"
+    );
 
 const stats =
-    document.getElementById("stats");
+    document.getElementById(
+        "stats"
+    );
 
-const tools =
-    document.getElementById("tools");
+const toolbar =
+    document.getElementById(
+        "toolbar"
+    );
 
-const orderSection =
-    document.getElementById("orderSection");
+const sectionTitle =
+    document.getElementById(
+        "sectionTitle"
+    );
 
 const ordersContainer =
-    document.getElementById("ordersContainer");
+    document.getElementById(
+        "ordersContainer"
+    );
 
 const searchInput =
-    document.getElementById("searchInput");
+    document.getElementById(
+        "searchInput"
+    );
 
 const statusFilter =
-    document.getElementById("statusFilter");
+    document.getElementById(
+        "statusFilter"
+    );
 
 const refreshBtn =
-    document.getElementById("refreshBtn");
+    document.getElementById(
+        "refreshBtn"
+    );
 
 const logoutBtn =
-    document.getElementById("logoutBtn");
+    document.getElementById(
+        "logoutBtn"
+    );
 
 const detailModal =
-    document.getElementById("detailModal");
+    document.getElementById(
+        "detailModal"
+    );
 
 const detailContent =
-    document.getElementById("detailContent");
+    document.getElementById(
+        "detailContent"
+    );
 
-const closeModalBtn =
-    document.getElementById("closeModalBtn");
+const closeDetailBtn =
+    document.getElementById(
+        "closeDetailBtn"
+    );
+
+const approvalModal =
+    document.getElementById(
+        "approvalModal"
+    );
+
+const approvalContent =
+    document.getElementById(
+        "approvalContent"
+    );
+
+const cancelApprovalBtn =
+    document.getElementById(
+        "cancelApprovalBtn"
+    );
+
+const confirmApprovalBtn =
+    document.getElementById(
+        "confirmApprovalBtn"
+    );
 
 
 /* =====================================================
@@ -990,12 +1462,34 @@ const closeModalBtn =
 
 function escapeHtml(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1006,15 +1500,16 @@ function escapeHtml(value){
 
 function formatRupiah(value){
 
-    const number =
-        Number(value || 0);
-
-    if(!Number.isFinite(number)){
-        return "-";
-    }
-
-    return "Rp" +
-        number.toLocaleString("id-ID");
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style:"currency",
+            currency:"IDR",
+            maximumFractionDigits:0
+        }
+    ).format(
+        Number(value || 0)
+    );
 
 }
 
@@ -1026,15 +1521,25 @@ function formatRupiah(value){
 function formatTanggal(value){
 
     if(!value){
+
         return "-";
+
     }
 
     const date =
         new Date(value);
 
-    if(isNaN(date.getTime())){
-        return String(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
     }
+
 
     return date.toLocaleDateString(
         "id-ID",
@@ -1049,194 +1554,176 @@ function formatTanggal(value){
 
 
 /* =====================================================
-   FORMAT DATETIME
+   NORMALIZE STATUS
 ===================================================== */
 
-function formatTanggalWaktu(value){
+function normalizeStatus(status){
 
-    if(!value){
-        return "-";
-    }
-
-    const date =
-        new Date(value);
-
-    if(isNaN(date.getTime())){
-        return String(value);
-    }
-
-    return date.toLocaleString(
-        "id-ID",
-        {
-            day:"numeric",
-            month:"long",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
+    return String(
+        status || ""
+    )
+    .toLowerCase()
+    .trim();
 
 }
 
 
 /* =====================================================
-   NORMALIZE
+   STATUS CLASS
 ===================================================== */
 
-function normalize(value){
+function getStatusClass(status){
 
-    return String(value ?? "")
-        .trim()
-        .toLowerCase();
+    status =
+        normalizeStatus(
+            status
+        );
+
+
+    if(
+        status === "disetujui" ||
+        status === "berhasil"
+    ){
+
+        return "status-disetujui";
+
+    }
+
+
+    if(
+        status === "diproses"
+    ){
+
+        return "status-diproses";
+
+    }
+
+
+    if(
+        status === "ditolak" ||
+        status === "dibatalkan"
+    ){
+
+        return "status-ditolak";
+
+    }
+
+
+    return "status-menunggu";
 
 }
 
 
 /* =====================================================
-   PACKAGE
+   STATUS LABEL
 ===================================================== */
 
-function getPackage(order){
+function getStatusLabel(status){
 
-    return (
-        order.paket ??
-        order.package ??
-        order.plan ??
-        order.package_name ??
-        order.nama_paket ??
-        order.duration ??
-        "-"
-    );
+    status =
+        normalizeStatus(
+            status
+        );
+
+
+    if(
+        status === "disetujui"
+    ){
+
+        return "✓ Disetujui";
+
+    }
+
+
+    if(
+        status === "berhasil"
+    ){
+
+        return "✓ Berhasil";
+
+    }
+
+
+    if(
+        status === "diproses"
+    ){
+
+        return "⏳ Diproses";
+
+    }
+
+
+    if(
+        status === "ditolak"
+    ){
+
+        return "✕ Ditolak";
+
+    }
+
+
+    if(
+        status === "dibatalkan"
+    ){
+
+        return "✕ Dibatalkan";
+
+    }
+
+
+    return "⏳ Menunggu";
 
 }
 
 
 /* =====================================================
-   PRICE
-===================================================== */
-
-function getPrice(order){
-
-    const value =
-        order.harga ??
-        order.amount ??
-        order.price ??
-        order.total ??
-        order.total_amount;
-
-    if(
-        value !== undefined &&
-        value !== null &&
-        value !== ""
-    ){
-
-        return Number(value);
-
-    }
-
-    const paket =
-        normalize(getPackage(order));
-
-
-    if(
-        paket.includes("1 tahun") ||
-        paket.includes("12 bulan") ||
-        paket.includes("1th") ||
-        paket === "tahunan"
-    ){
-
-        return 88000;
-
-    }
-
-
-    if(
-        paket.includes("6 bulan") ||
-        paket.includes("6bln")
-    ){
-
-        return 45000;
-
-    }
-
-
-    if(
-        paket.includes("3 bulan") ||
-        paket.includes("3bln")
-    ){
-
-        return 25000;
-
-    }
-
-
-    if(
-        paket.includes("1 bulan") ||
-        paket.includes("1bln") ||
-        paket.includes("bulanan")
-    ){
-
-        return 10000;
-
-    }
-
-
-    return 0;
-
-}
-
-
-/* =====================================================
-   DURATION
+   DURASI
 ===================================================== */
 
 function getDuration(order){
 
-    const value =
-        order.durasi_hari ??
-        order.duration_days ??
-        order.days ??
-        order.masa_aktif;
+    const duration =
+        Number(
+            order?.durasi_hari || 0
+        );
+
 
     if(
-        value !== undefined &&
-        value !== null &&
-        value !== ""
+        duration > 0
     ){
 
-        const number =
-            Number(value);
-
-        if(
-            Number.isFinite(number) &&
-            number > 0
-        ){
-
-            return number;
-
-        }
+        return duration;
 
     }
 
 
     const paket =
-        normalize(getPackage(order));
+        String(
+            order?.paket || ""
+        )
+        .toLowerCase();
 
 
     if(
-        paket.includes("1 tahun") ||
-        paket.includes("12 bulan") ||
-        paket.includes("1th")
+        paket.includes("1 bulan")
     ){
 
-        return 365;
+        return 30;
 
     }
 
 
     if(
-        paket.includes("6 bulan") ||
-        paket.includes("6bln")
+        paket.includes("3 bulan")
+    ){
+
+        return 90;
+
+    }
+
+
+    if(
+        paket.includes("6 bulan")
     ){
 
         return 180;
@@ -1245,11 +1732,10 @@ function getDuration(order){
 
 
     if(
-        paket.includes("3 bulan") ||
-        paket.includes("3bln")
+        paket.includes("1 tahun")
     ){
 
-        return 90;
+        return 365;
 
     }
 
@@ -1260,124 +1746,87 @@ function getDuration(order){
 
 
 /* =====================================================
-   STATUS
-   DATABASE:
-   menunggu
-   diproses
-   disetujui
-   ditolak
+   ADD DAYS
 ===================================================== */
 
-function getStatus(order){
+function addDays(
+    date,
+    days
+){
 
-    return normalize(
-        order.status || "menunggu"
+    const result =
+        new Date(
+            date
+        );
+
+
+    result.setHours(
+        23,
+        59,
+        59,
+        999
     );
+
+
+    result.setDate(
+        result.getDate() +
+        Number(days || 0)
+    );
+
+
+    return result;
 
 }
 
 
 /* =====================================================
-   USER ID
+   CALCULATE EXPIRY
 ===================================================== */
 
-function getOrderUserId(order){
+function calculateNewExpiry(
+    existingExpiry,
+    duration
+){
 
-    return (
-        order.user_id ??
-        order.userid ??
-        order.userId ??
-        order.user ??
-        null
-    );
-
-}
+    const now =
+        new Date();
 
 
-/* =====================================================
-   CREATED
-===================================================== */
-
-function getCreatedAt(order){
-
-    return (
-        order.created_at ??
-        order.createdAt ??
-        order.tanggal_pesan ??
-        order.order_date ??
-        null
-    );
-
-}
+    let baseDate =
+        now;
 
 
-/* =====================================================
-   PROFILE
-===================================================== */
+    /*
+       Jika membership lama masih aktif,
+       perpanjang dari tanggal expired lama.
+    */
 
-function getProfileById(userId){
+    if(existingExpiry){
 
-    return profiles.find(
-        function(profile){
+        const oldExpiry =
+            new Date(
+                existingExpiry
+            );
 
-            return String(profile.id) ===
-                   String(userId);
+
+        if(
+            !isNaN(
+                oldExpiry.getTime()
+            ) &&
+            oldExpiry > now
+        ){
+
+            baseDate =
+                oldExpiry;
 
         }
-    ) || null;
-
-}
-
-
-/* =====================================================
-   USER NAME
-===================================================== */
-
-function getUserName(order){
-
-    const userId =
-        getOrderUserId(order);
-
-    const profile =
-        getProfileById(userId);
-
-    if(profile){
-
-        return (
-            profile.nama ||
-            profile.name ||
-            "Member"
-        );
 
     }
 
-    return (
-        order.nama ||
-        order.name ||
-        order.customer_name ||
-        "Member"
-    );
 
-}
-
-
-/* =====================================================
-   USER EMAIL
-===================================================== */
-
-function getUserEmail(order){
-
-    const userId =
-        getOrderUserId(order);
-
-    const profile =
-        getProfileById(userId);
-
-    return (
-        order.email ||
-        order.customer_email ||
-        profile?.email ||
-        "-"
+    return addDays(
+        baseDate,
+        duration
     );
 
 }
@@ -1389,26 +1838,23 @@ function getUserEmail(order){
 
 async function checkAdmin(){
 
-    notice.className =
-        "notice warning";
-
-    notice.innerHTML =
-        "⏳ Memeriksa akses admin...";
-
-
     try{
 
-        const userResult =
-            await supabaseClient.auth.getUser();
+        const result =
+            await supabaseClient
+                .auth
+                .getUser();
 
 
-        if(userResult.error){
-            throw userResult.error;
+        if(result.error){
+
+            throw result.error;
+
         }
 
 
         currentUser =
-            userResult.data.user;
+            result.data.user;
 
 
         if(!currentUser){
@@ -1420,39 +1866,50 @@ async function checkAdmin(){
         }
 
 
+        /*
+           CEK profiles.is_admin
+        */
+
         const profileResult =
             await supabaseClient
                 .from("profiles")
-                .select("*")
-                .eq("id",currentUser.id)
+                .select(
+                    "id,nama,is_admin,status,paket,berlaku_sampai"
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
                 .maybeSingle();
 
 
         if(profileResult.error){
+
             throw profileResult.error;
+
         }
 
 
-        currentProfile =
+        const profile =
             profileResult.data;
 
 
-        if(
-            currentProfile &&
-            currentProfile.is_admin === true
-        ){
+        let isAdmin =
+            profile?.is_admin === true;
 
-            isAdmin = true;
 
-        }
-
+        /*
+           CEK admin_users JUGA
+        */
 
         if(!isAdmin){
 
             const adminResult =
                 await supabaseClient
                     .from("admin_users")
-                    .select("user_id")
+                    .select(
+                        "user_id"
+                    )
                     .eq(
                         "user_id",
                         currentUser.id
@@ -1482,19 +1939,27 @@ async function checkAdmin(){
 
 
         notice.className =
-            "notice success";
+            "notice";
 
         notice.innerHTML =
-            "✅ Login sebagai admin. " +
-            "Anda dapat mengelola pesanan membership.";
+            "✅ Login sebagai admin. Anda dapat mengelola pesanan membership.";
 
 
-        stats.classList.remove("hidden");
-        tools.classList.remove("hidden");
-        orderSection.classList.remove("hidden");
+        stats.classList.remove(
+            "hidden"
+        );
+
+        toolbar.classList.remove(
+            "hidden"
+        );
+
+        sectionTitle.classList.remove(
+            "hidden"
+        );
 
 
-        await loadData();
+        await loadOrders();
+
 
     }
 
@@ -1506,20 +1971,27 @@ async function checkAdmin(){
         );
 
 
-        isAdmin = false;
-
-
         notice.className =
             "notice error";
 
+
         notice.innerHTML =
             "❌ " +
-            escapeHtml(error.message);
+            escapeHtml(
+                error.message
+            );
 
 
-        stats.classList.add("hidden");
-        tools.classList.add("hidden");
-        orderSection.classList.add("hidden");
+        ordersContainer.innerHTML = `
+
+            <div class="empty">
+
+                🔐 Anda tidak memiliki akses
+                ke halaman admin ini.
+
+            </div>
+
+        `;
 
     }
 
@@ -1527,20 +1999,15 @@ async function checkAdmin(){
 
 
 /* =====================================================
-   LOAD DATA
+   LOAD ORDERS
 ===================================================== */
 
-async function loadData(){
-
-    if(!isAdmin){
-        return;
-    }
-
+async function loadOrders(){
 
     ordersContainer.innerHTML = `
 
         <div class="loading">
-            ⏳ Mengambil pesanan membership...
+            ⏳ Memuat pesanan...
         </div>
 
     `;
@@ -1548,10 +2015,14 @@ async function loadData(){
 
     try{
 
-        const ordersResult =
+        const result =
             await supabaseClient
-                .from("membership_orders")
-                .select("*")
+                .from(
+                    "membership_orders"
+                )
+                .select(
+                    "id,user_id,nama,email,paket,harga,durasi_hari,status,created_at"
+                )
                 .order(
                     "created_at",
                     {
@@ -1560,40 +2031,19 @@ async function loadData(){
                 );
 
 
-        if(ordersResult.error){
-            throw ordersResult.error;
+        if(result.error){
+
+            throw result.error;
+
         }
 
 
         orders =
-            ordersResult.data || [];
-
-
-        const profilesResult =
-            await supabaseClient
-                .from("profiles")
-                .select("*");
-
-
-        if(profilesResult.error){
-
-            console.warn(
-                "PROFILE LOAD ERROR:",
-                profilesResult.error
-            );
-
-            profiles = [];
-
-        }
-        else{
-
-            profiles =
-                profilesResult.data || [];
-
-        }
+            result.data || [];
 
 
         updateStats();
+
         renderOrders();
 
     }
@@ -1601,16 +2051,16 @@ async function loadData(){
     catch(error){
 
         console.error(
-            "LOAD DATA ERROR:",
+            "LOAD ORDERS ERROR:",
             error
         );
 
 
         ordersContainer.innerHTML = `
 
-            <div class="notice error">
+            <div class="empty">
 
-                ❌ Gagal mengambil pesanan.
+                ❌ Gagal mengambil data pesanan.
 
                 <br><br>
 
@@ -1633,222 +2083,134 @@ async function loadData(){
 
 function updateStats(){
 
-    const total =
-        orders.length;
+    let pending = 0;
+
+    let approved = 0;
+
+    let rejected = 0;
 
 
-    const pending =
-        orders.filter(
-            function(order){
+    orders.forEach(
+        function(order){
 
-                const status =
-                    getStatus(order);
-
-                return (
-                    status === "menunggu" ||
-                    status === "diproses"
+            const status =
+                normalizeStatus(
+                    order.status
                 );
 
-            }
-        ).length;
 
+            if(
+                status === "menunggu" ||
+                status === "diproses"
+            ){
 
-    const approved =
-        orders.filter(
-            function(order){
-
-                return getStatus(order) ===
-                       "disetujui";
+                pending++;
 
             }
-        ).length;
 
+            else if(
+                status === "disetujui" ||
+                status === "berhasil"
+            ){
 
-    const rejected =
-        orders.filter(
-            function(order){
-
-                return getStatus(order) ===
-                       "ditolak";
+                approved++;
 
             }
-        ).length;
+
+            else if(
+                status === "ditolak" ||
+                status === "dibatalkan"
+            ){
+
+                rejected++;
+
+            }
+
+        }
+    );
 
 
     document.getElementById(
         "totalOrders"
-    ).textContent = total;
+    ).textContent =
+        orders.length;
 
 
     document.getElementById(
         "pendingOrders"
-    ).textContent = pending;
+    ).textContent =
+        pending;
 
 
     document.getElementById(
         "approvedOrders"
-    ).textContent = approved;
+    ).textContent =
+        approved;
 
 
     document.getElementById(
         "rejectedOrders"
-    ).textContent = rejected;
+    ).textContent =
+        rejected;
 
 }
 
 
 /* =====================================================
-   STATUS LABEL
+   FILTER ORDERS
 ===================================================== */
 
-function statusLabel(status){
+function getFilteredOrders(){
 
-    const value =
-        normalize(status);
-
-
-    if(value === "menunggu"){
-        return "⏳ Menunggu";
-    }
-
-
-    if(value === "diproses"){
-        return "🔵 Diproses";
-    }
-
-
-    if(value === "disetujui"){
-        return "✅ Disetujui";
-    }
-
-
-    if(value === "ditolak"){
-        return "❌ Ditolak";
-    }
-
-
-    return status || "-";
-
-}
-
-
-/* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function statusClass(status){
-
-    const value =
-        normalize(status);
-
-
-    if(value === "menunggu"){
-        return "status-pending";
-    }
-
-
-    if(value === "diproses"){
-        return "status-processing";
-    }
-
-
-    if(value === "disetujui"){
-        return "status-approved";
-    }
-
-
-    if(value === "ditolak"){
-        return "status-rejected";
-    }
-
-
-    return "status-processing";
-
-}
-
-
-/* =====================================================
-   RENDER
-===================================================== */
-
-function renderOrders(){
-
-    const keyword =
-        normalize(searchInput.value);
+    const search =
+        String(
+            searchInput.value || ""
+        )
+        .toLowerCase()
+        .trim();
 
 
     const filter =
-        normalize(statusFilter.value);
-
-
-    const filtered =
-        orders.filter(
-            function(order){
-
-                const name =
-                    normalize(
-                        getUserName(order)
-                    );
-
-                const email =
-                    normalize(
-                        getUserEmail(order)
-                    );
-
-                const paket =
-                    normalize(
-                        getPackage(order)
-                    );
-
-                const status =
-                    getStatus(order);
-
-
-                const searchMatch =
-                    !keyword ||
-                    name.includes(keyword) ||
-                    email.includes(keyword) ||
-                    paket.includes(keyword);
-
-
-                const statusMatch =
-                    !filter ||
-                    status === filter;
-
-
-                return (
-                    searchMatch &&
-                    statusMatch
-                );
-
-            }
+        normalizeStatus(
+            statusFilter.value
         );
 
 
-    if(filtered.length === 0){
-
-        ordersContainer.innerHTML = `
-
-            <div class="empty">
-                📭 Belum ada pesanan
-                yang sesuai.
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    ordersContainer.innerHTML = "";
-
-
-    filtered.forEach(
+    return orders.filter(
         function(order){
 
-            ordersContainer.appendChild(
-                createOrderCard(order)
+            const text = [
+
+                order.nama,
+
+                order.email,
+
+                order.paket,
+
+                order.status
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+            const matchSearch =
+                !search ||
+                text.includes(
+                    search
+                );
+
+
+            const matchStatus =
+                !filter ||
+                normalizeStatus(
+                    order.status
+                ) === filter;
+
+
+            return (
+                matchSearch &&
+                matchStatus
             );
 
         }
@@ -1858,524 +2220,434 @@ function renderOrders(){
 
 
 /* =====================================================
-   CREATE CARD
+   RENDER ORDERS
 ===================================================== */
 
-function createOrderCard(order){
+function renderOrders(){
 
-    const card =
-        document.createElement("article");
-
-
-    card.className =
-        "order-card";
+    const filtered =
+        getFilteredOrders();
 
 
-    const userId =
-        getOrderUserId(order);
+    if(
+        filtered.length === 0
+    ){
 
-    const name =
-        getUserName(order);
+        ordersContainer.innerHTML = `
 
-    const email =
-        getUserEmail(order);
+            <div class="empty">
 
-    const paket =
-        getPackage(order);
+                📭 Tidak ada pesanan
+                yang sesuai.
 
-    const harga =
-        getPrice(order);
-
-    const durasi =
-        getDuration(order);
-
-    const status =
-        getStatus(order);
-
-    const createdAt =
-        getCreatedAt(order);
-
-    const orderId =
-        order.id ?? "-";
-
-
-    const canConfirm =
-        status === "menunggu" ||
-        status === "diproses";
-
-
-    let actions = `
-
-        <button
-            class="action-btn detail-btn"
-            data-action="detail"
-        >
-            📋 Detail
-        </button>
-
-    `;
-
-
-    if(canConfirm){
-
-        actions += `
-
-            <button
-                class="action-btn confirm-btn"
-                data-action="confirm"
-            >
-                ✅ Konfirmasi
-            </button>
-
-            <button
-                class="action-btn reject-btn"
-                data-action="reject"
-            >
-                ❌ Tolak
-            </button>
+            </div>
 
         `;
 
-    }
-
-
-    if(status === "disetujui"){
-
-        actions += `
-
-            <button
-                class="action-btn detail-btn"
-                disabled
-            >
-                ✅ Sudah Aktif
-            </button>
-
-        `;
+        return;
 
     }
 
 
-    if(status === "ditolak"){
-
-        actions += `
-
-            <button
-                class="action-btn reject-btn"
-                disabled
-            >
-                ❌ Ditolak
-            </button>
-
-        `;
-
-    }
-
-
-    card.innerHTML = `
-
-        <div class="order-top">
-
-            <div>
-
-                <div class="order-name">
-                    ${escapeHtml(name)}
-                </div>
-
-                <div class="order-email">
-                    ${escapeHtml(email)}
-                </div>
-
-            </div>
-
-
-            <span
-                class="status ${statusClass(status)}"
-            >
-                ${escapeHtml(
-                    statusLabel(status)
-                )}
-            </span>
-
-        </div>
-
-
-        <div class="order-info">
-
-
-            <div class="info-box">
-
-                <span class="info-label">
-                    Paket
-                </span>
-
-                <span class="info-value">
-                    ${escapeHtml(paket)}
-                </span>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <span class="info-label">
-                    Harga
-                </span>
-
-                <span class="info-value">
-                    ${formatRupiah(harga)}
-                </span>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <span class="info-label">
-                    Durasi
-                </span>
-
-                <span class="info-value">
-                    ${durasi} hari
-                </span>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <span class="info-label">
-                    Pesanan
-                </span>
-
-                <span class="info-value">
-                    ${escapeHtml(
-                        formatTanggal(createdAt)
-                    )}
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="order-id">
-
-            ID Pesanan:
-            ${escapeHtml(orderId)}
-
-        </div>
-
-
-        <div class="actions">
-
-            ${actions}
-
-        </div>
-
-    `;
-
-
-    const detailBtn =
-        card.querySelector(
-            "[data-action='detail']"
-        );
-
-
-    if(detailBtn){
-
-        detailBtn.addEventListener(
-            "click",
-            function(){
-
-                showDetail(order);
-
-            }
-        );
-
-    }
-
-
-    const confirmBtn =
-        card.querySelector(
-            "[data-action='confirm']"
-        );
-
-
-    if(confirmBtn){
-
-        confirmBtn.addEventListener(
-            "click",
-            async function(){
-
-                await confirmOrder(
-                    order,
-                    confirmBtn
-                );
-
-            }
-        );
-
-    }
-
-
-    const rejectBtn =
-        card.querySelector(
-            "[data-action='reject']"
-        );
-
-
-    if(rejectBtn){
-
-        rejectBtn.addEventListener(
-            "click",
-            async function(){
-
-                await rejectOrder(
-                    order,
-                    rejectBtn
-                );
-
-            }
-        );
-
-    }
-
-
-    return card;
+    ordersContainer.innerHTML =
+        filtered
+            .map(
+                function(order){
+
+                    return createOrderCard(
+                        order
+                    );
+
+                }
+            )
+            .join("");
 
 }
 
 
 /* =====================================================
-   DETAIL
+   CREATE ORDER CARD
 ===================================================== */
 
-function showDetail(order){
-
-    const userId =
-        getOrderUserId(order);
-
-    const name =
-        getUserName(order);
-
-    const email =
-        getUserEmail(order);
-
-    const paket =
-        getPackage(order);
-
-    const harga =
-        getPrice(order);
-
-    const durasi =
-        getDuration(order);
+function createOrderCard(
+    order
+){
 
     const status =
-        getStatus(order);
+        normalizeStatus(
+            order.status
+        );
 
-    const createdAt =
-        getCreatedAt(order);
 
+    const canApprove =
+        status === "menunggu" ||
+        status === "diproses";
 
-    let html = `
 
-        <div class="modal-row">
+    const canReject =
+        status === "menunggu" ||
+        status === "diproses";
 
-            <strong>
-                Nama Member
-            </strong>
 
-            ${escapeHtml(name)}
+    return `
 
-        </div>
+        <article
+            class="order-card"
+        >
 
+            <div class="order-top">
 
-        <div class="modal-row">
+                <div>
 
-            <strong>
-                Email
-            </strong>
+                    <div class="member-name">
+                        ${escapeHtml(
+                            order.nama
+                        )}
+                    </div>
 
-            ${escapeHtml(email)}
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                User ID
-            </strong>
-
-            ${escapeHtml(userId || "-")}
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                Paket
-            </strong>
-
-            ${escapeHtml(paket)}
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                Harga
-            </strong>
-
-            ${formatRupiah(harga)}
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                Durasi
-            </strong>
-
-            ${durasi} hari
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                Status
-            </strong>
-
-            ${escapeHtml(
-                statusLabel(status)
-            )}
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <strong>
-                Waktu Pesanan
-            </strong>
-
-            ${escapeHtml(
-                formatTanggalWaktu(createdAt)
-            )}
-
-        </div>
-
-    `;
-
-
-    const ignored = [
-
-        "id",
-        "user_id",
-        "paket",
-        "package",
-        "plan",
-        "package_name",
-        "nama_paket",
-        "duration",
-        "harga",
-        "amount",
-        "price",
-        "total",
-        "total_amount",
-        "durasi_hari",
-        "duration_days",
-        "days",
-        "masa_aktif",
-        "status",
-        "created_at",
-        "createdAt",
-        "tanggal_pesan",
-        "order_date"
-
-    ];
-
-
-    Object.keys(order).forEach(
-        function(key){
-
-            if(ignored.includes(key)){
-                return;
-            }
-
-
-            let value =
-                order[key];
-
-
-            if(
-                value === null ||
-                value === undefined ||
-                value === ""
-            ){
-
-                return;
-
-            }
-
-
-            if(typeof value === "object"){
-
-                try{
-
-                    value =
-                        JSON.stringify(value);
-
-                }
-                catch(error){
-
-                    value =
-                        String(value);
-
-                }
-
-            }
-
-
-            html += `
-
-                <div class="modal-row">
-
-                    <strong>
-                        ${escapeHtml(key)}
-                    </strong>
-
-                    ${escapeHtml(value)}
+                    <div class="member-email">
+                        ${escapeHtml(
+                            order.email
+                        )}
+                    </div>
 
                 </div>
 
-            `;
+
+                <span
+                    class="status ${getStatusClass(
+                        order.status
+                    )}"
+                >
+                    ${getStatusLabel(
+                        order.status
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="order-info">
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Paket
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            order.paket
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Harga
+                    </div>
+
+                    <div class="info-value">
+                        ${formatRupiah(
+                            order.harga
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Durasi
+                    </div>
+
+                    <div class="info-value">
+                        ${getDuration(
+                            order
+                        )}
+                        hari
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Pesanan
+                    </div>
+
+                    <div class="info-value">
+                        ${formatTanggal(
+                            order.created_at
+                        )}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="order-bottom">
+
+                <div class="order-date">
+
+                    ID Pesanan:
+                    ${escapeHtml(
+                        order.id
+                    )}
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="action-btn detail-btn"
+                        onclick="showDetail('${escapeHtml(
+                            order.id
+                        )}')"
+                    >
+                        🔎 Detail
+                    </button>
+
+
+                    ${
+                        canApprove
+                        ?
+                        `
+                        <button
+                            class="action-btn approve-btn"
+                            onclick="openApproval('${escapeHtml(
+                                order.id
+                            )}')"
+                        >
+                            ✓ Setujui
+                        </button>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    ${
+                        canReject
+                        ?
+                        `
+                        <button
+                            class="action-btn reject-btn"
+                            onclick="rejectOrder('${escapeHtml(
+                                order.id
+                            )}')"
+                        >
+                            ✕ Tolak
+                        </button>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   FIND ORDER
+===================================================== */
+
+function findOrder(id){
+
+    return orders.find(
+        function(order){
+
+            return String(
+                order.id
+            ) === String(id);
 
         }
     );
 
+}
 
-    detailContent.innerHTML =
-        html;
+
+/* =====================================================
+   SHOW DETAIL
+===================================================== */
+
+window.showDetail =
+function(id){
+
+    const order =
+        findOrder(id);
+
+
+    if(!order){
+
+        alert(
+            "Pesanan tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    detailContent.innerHTML = `
+
+        <div class="detail-grid">
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Nama Member
+                </strong>
+
+                <span>
+                    ${escapeHtml(
+                        order.nama
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Email
+                </strong>
+
+                <span>
+                    ${escapeHtml(
+                        order.email
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Paket
+                </strong>
+
+                <span>
+                    ${escapeHtml(
+                        order.paket
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Harga
+                </strong>
+
+                <span>
+                    ${formatRupiah(
+                        order.harga
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Durasi
+                </strong>
+
+                <span>
+                    ${getDuration(
+                        order
+                    )}
+                    hari
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Status
+                </strong>
+
+                <span>
+                    ${getStatusLabel(
+                        order.status
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    Dibuat
+                </strong>
+
+                <span>
+                    ${formatTanggal(
+                        order.created_at
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <strong>
+                    User ID
+                </strong>
+
+                <span>
+                    ${escapeHtml(
+                        order.user_id
+                    )}
+                </span>
+
+            </div>
+
+
+        </div>
+
+    `;
 
 
     detailModal.classList.remove(
         "hidden"
     );
 
-}
+};
 
 
 /* =====================================================
-   CLOSE MODAL
+   CLOSE DETAIL
 ===================================================== */
 
-closeModalBtn.addEventListener(
+closeDetailBtn.addEventListener(
     "click",
     function(){
 
@@ -2386,6 +2658,720 @@ closeModalBtn.addEventListener(
     }
 );
 
+
+/* =====================================================
+   OPEN APPROVAL
+===================================================== */
+
+window.openApproval =
+async function(id){
+
+    const order =
+        findOrder(id);
+
+
+    if(!order){
+
+        alert(
+            "Pesanan tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    selectedOrder =
+        order;
+
+
+    confirmApprovalBtn.disabled =
+        true;
+
+
+    approvalContent.innerHTML = `
+
+        <div class="loading">
+            ⏳ Memeriksa membership member...
+        </div>
+
+    `;
+
+
+    approvalModal.classList.remove(
+        "hidden"
+    );
+
+
+    try{
+
+        const profileResult =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "id,nama,status,paket,berlaku_sampai"
+                )
+                .eq(
+                    "id",
+                    order.user_id
+                )
+                .maybeSingle();
+
+
+        if(profileResult.error){
+
+            throw profileResult.error;
+
+        }
+
+
+        const profile =
+            profileResult.data;
+
+
+        const duration =
+            getDuration(
+                order
+            );
+
+
+        const oldExpiry =
+            profile?.berlaku_sampai ||
+            null;
+
+
+        const newExpiry =
+            calculateNewExpiry(
+                oldExpiry,
+                duration
+            );
+
+
+        const hasActiveMembership =
+            profile?.status === "aktif" &&
+            oldExpiry &&
+            new Date(
+                oldExpiry
+            ) >= new Date();
+
+
+        approvalContent.innerHTML = `
+
+            <div class="approval-box">
+
+                <div class="approval-box-title">
+                    💎 Informasi Aktivasi
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Member
+                    </span>
+
+                    <span>
+                        ${escapeHtml(
+                            order.nama
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Paket
+                    </span>
+
+                    <span>
+                        ${escapeHtml(
+                            order.paket
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Harga
+                    </span>
+
+                    <span>
+                        ${formatRupiah(
+                            order.harga
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Durasi
+                    </span>
+
+                    <span>
+                        ${duration}
+                        hari
+                    </span>
+
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Membership Lama
+                    </span>
+
+                    <span>
+                        ${
+                            oldExpiry
+                            ?
+                            formatTanggal(
+                                oldExpiry
+                            )
+                            :
+                            "Belum ada"
+                        }
+                    </span>
+
+                </div>
+
+
+                <div class="approval-row">
+
+                    <span>
+                        Dasar Perhitungan
+                    </span>
+
+                    <span>
+                        ${
+                            hasActiveMembership
+                            ?
+                            "Tanggal expired lama"
+                            :
+                            "Hari ini"
+                        }
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="approval-row"
+                    style="
+                        margin-top:5px;
+                        padding-top:8px;
+                        border-top:1px solid #ccebdd;
+                    "
+                >
+
+                    <span>
+                        Berlaku Sampai
+                    </span>
+
+                    <span
+                        style="
+                            color:#008f50;
+                            font-size:10px;
+                        "
+                    >
+                        ${formatTanggal(
+                            newExpiry
+                        )}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            ${
+                hasActiveMembership
+                ?
+                `
+                <div class="warning-box">
+
+                    ℹ️ Membership member masih aktif.
+                    Sistem akan memperpanjang
+                    membership dari tanggal expired
+                    lama, bukan dari hari ini.
+
+                </div>
+                `
+                :
+                `
+                <div class="warning-box">
+
+                    ℹ️ Membership akan dihitung
+                    mulai dari hari ini.
+
+                </div>
+                `
+            }
+
+        `;
+
+
+        confirmApprovalBtn.disabled =
+            false;
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "OPEN APPROVAL ERROR:",
+            error
+        );
+
+
+        approvalContent.innerHTML = `
+
+            <div class="notice error">
+
+                ❌ Gagal memeriksa profile member.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+};
+
+
+/* =====================================================
+   CANCEL APPROVAL
+===================================================== */
+
+cancelApprovalBtn.addEventListener(
+    "click",
+    function(){
+
+        selectedOrder =
+            null;
+
+        approvalModal.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CONFIRM APPROVAL
+===================================================== */
+
+confirmApprovalBtn.addEventListener(
+    "click",
+    async function(){
+
+        if(!selectedOrder){
+
+            return;
+
+        }
+
+
+        const order =
+            selectedOrder;
+
+
+        const yakin =
+            confirm(
+                "Setujui pembayaran member " +
+                order.nama +
+                "?\n\n" +
+
+                "Paket: " +
+                order.paket +
+                "\n" +
+
+                "Harga: " +
+                formatRupiah(
+                    order.harga
+                ) +
+                "\n\n" +
+
+                "Membership akan langsung diaktifkan."
+            );
+
+
+        if(!yakin){
+
+            return;
+
+        }
+
+
+        confirmApprovalBtn.disabled =
+            true;
+
+        confirmApprovalBtn.textContent =
+            "⏳ Memproses...";
+
+
+        try{
+
+            /*
+               AMBIL PROFILE TERBARU
+            */
+
+            const profileResult =
+                await supabaseClient
+                    .from("profiles")
+                    .select(
+                        "id,nama,status,paket,berlaku_sampai"
+                    )
+                    .eq(
+                        "id",
+                        order.user_id
+                    )
+                    .maybeSingle();
+
+
+            if(profileResult.error){
+
+                throw profileResult.error;
+
+            }
+
+
+            const profile =
+                profileResult.data;
+
+
+            /*
+               HITUNG DURASI
+            */
+
+            const duration =
+                getDuration(
+                    order
+                );
+
+
+            /*
+               HITUNG TANGGAL BARU
+            */
+
+            const newExpiry =
+                calculateNewExpiry(
+                    profile?.berlaku_sampai ||
+                    null,
+                    duration
+                );
+
+
+            /*
+               UPDATE PROFILE
+            */
+
+            const updateProfileResult =
+                await supabaseClient
+                    .from("profiles")
+                    .update({
+
+                        status:
+                            "aktif",
+
+                        paket:
+                            order.paket,
+
+                        berlaku_sampai:
+                            newExpiry.toISOString()
+
+                    })
+                    .eq(
+                        "id",
+                        order.user_id
+                    );
+
+
+            if(
+                updateProfileResult.error
+            ){
+
+                throw updateProfileResult.error;
+
+            }
+
+
+            /*
+               UPDATE ORDER
+            */
+
+            const updateOrderResult =
+                await supabaseClient
+                    .from(
+                        "membership_orders"
+                    )
+                    .update({
+
+                        status:
+                            "disetujui"
+
+                    })
+                    .eq(
+                        "id",
+                        order.id
+                    );
+
+
+            if(
+                updateOrderResult.error
+            ){
+
+                throw updateOrderResult.error;
+
+            }
+
+
+            /*
+               SUKSES
+            */
+
+            approvalModal.classList.add(
+                "hidden"
+            );
+
+
+            selectedOrder =
+                null;
+
+
+            alert(
+                "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
+
+                "Member: " +
+                order.nama +
+
+                "\nPaket: " +
+                order.paket +
+
+                "\nHarga: " +
+                formatRupiah(
+                    order.harga
+                ) +
+
+                "\nDurasi: " +
+                duration +
+                " hari" +
+
+                "\n\nMembership aktif sampai:\n" +
+
+                formatTanggal(
+                    newExpiry
+                )
+            );
+
+
+            await loadOrders();
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "APPROVE ERROR:",
+            error
+        );
+
+
+        alert(
+            "❌ Gagal mengaktifkan membership.\n\n" +
+            error.message
+        );
+
+    }
+
+    finally{
+
+        confirmApprovalBtn.disabled =
+            false;
+
+        confirmApprovalBtn.textContent =
+            "✅ Setujui & Aktifkan";
+
+    }
+
+});
+
+
+/* =====================================================
+   REJECT ORDER
+===================================================== */
+
+window.rejectOrder =
+async function(id){
+
+    const order =
+        findOrder(id);
+
+
+    if(!order){
+
+        alert(
+            "Pesanan tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    const yakin =
+        confirm(
+            "Tolak pesanan ini?\n\n" +
+
+            "Member: " +
+            order.nama +
+
+            "\nPaket: " +
+            order.paket +
+
+            "\nHarga: " +
+            formatRupiah(
+                order.harga
+            )
+        );
+
+
+    if(!yakin){
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from(
+                    "membership_orders"
+                )
+                .update({
+
+                    status:
+                        "ditolak"
+
+                })
+                .eq(
+                    "id",
+                    order.id
+                );
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        alert(
+            "✅ Pesanan berhasil ditolak."
+        );
+
+
+        await loadOrders();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "REJECT ERROR:",
+            error
+        );
+
+
+        alert(
+            "❌ Gagal menolak pesanan.\n\n" +
+            error.message
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        renderOrders();
+
+    }
+);
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+statusFilter.addEventListener(
+    "change",
+    function(){
+
+        renderOrders();
+
+    }
+);
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+refreshBtn.addEventListener(
+    "click",
+    async function(){
+
+        refreshBtn.disabled =
+            true;
+
+        refreshBtn.textContent =
+            "⏳ Memuat...";
+
+
+        await loadOrders();
+
+
+        refreshBtn.disabled =
+            false;
+
+        refreshBtn.textContent =
+            "🔄 Refresh";
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE MODAL CLICK OUTSIDE
+===================================================== */
 
 detailModal.addEventListener(
     "click",
@@ -2406,473 +3392,23 @@ detailModal.addEventListener(
 );
 
 
-/* =====================================================
-   CONFIRM ORDER
-===================================================== */
-
-async function confirmOrder(
-    order,
-    button
-){
-
-    if(!isAdmin){
-        return;
-    }
-
-
-    const name =
-        getUserName(order);
-
-    const paket =
-        getPackage(order);
-
-    const harga =
-        getPrice(order);
-
-    const durasi =
-        getDuration(order);
-
-    const userId =
-        getOrderUserId(order);
-
-
-    if(!userId){
-
-        alert(
-            "❌ User ID pesanan tidak ditemukan."
-        );
-
-        return;
-
-    }
-
-
-    const yakin =
-        confirm(
-
-            "Konfirmasi pembayaran?\n\n" +
-
-            "Member: " +
-            name +
-            "\n" +
-
-            "Paket: " +
-            paket +
-            "\n" +
-
-            "Harga: " +
-            formatRupiah(harga) +
-            "\n" +
-
-            "Durasi: " +
-            durasi +
-            " hari\n\n" +
-
-            "Membership member akan diaktifkan."
-
-        );
-
-
-    if(!yakin){
-        return;
-    }
-
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "⏳ Memproses...";
-
-
-    const orderId =
-        order.id;
-
-
-    try{
-
-        if(
-            orderId === undefined ||
-            orderId === null
-        ){
-
-            throw new Error(
-                "ID pesanan tidak ditemukan."
-            );
-
-        }
-
-
-        /* =================================================
-           1. UBAH PESANAN MENJADI DISETUJUI
-           ================================================= */
-
-        const orderUpdate =
-            await supabaseClient
-                .from("membership_orders")
-                .update({
-
-                    status:
-                        "disetujui"
-
-                })
-                .eq(
-                    "id",
-                    orderId
-                );
-
-
-        if(orderUpdate.error){
-
-            throw new Error(
-                "Gagal mengubah status pesanan: " +
-                orderUpdate.error.message
-            );
-
-        }
-
-
-        /* =================================================
-           2. HITUNG MASA AKTIF
-           ================================================= */
-
-        const sekarang =
-            new Date();
-
-
-        const profile =
-            getProfileById(userId);
-
-
-        let tanggalMulai =
-            new Date();
-
-
-        if(profile?.berlaku_sampai){
-
-            const tanggalLama =
-                new Date(
-                    profile.berlaku_sampai
-                );
-
-
-            if(
-                !isNaN(
-                    tanggalLama.getTime()
-                ) &&
-                tanggalLama > sekarang
-            ){
-
-                tanggalMulai =
-                    tanggalLama;
-
-            }
-
-        }
-
-
-        const berlakuSampai =
-            new Date(
-                tanggalMulai
-            );
-
-
-        berlakuSampai.setDate(
-            berlakuSampai.getDate() +
-            durasi
-        );
-
-
-        /* =================================================
-           3. AKTIFKAN PROFILE
-           ================================================= */
-
-        const profileUpdate =
-            await supabaseClient
-                .from("profiles")
-                .update({
-
-                    status:
-                        "aktif",
-
-                    paket:
-                        String(paket),
-
-                    berlaku_sampai:
-                        berlakuSampai.toISOString()
-
-                })
-                .eq(
-                    "id",
-                    userId
-                );
-
-
-        if(profileUpdate.error){
-
-            /*
-               Jika profile gagal,
-               kita coba kembalikan order
-               menjadi menunggu.
-            */
-
-            await supabaseClient
-                .from("membership_orders")
-                .update({
-
-                    status:
-                        "menunggu"
-
-                })
-                .eq(
-                    "id",
-                    orderId
-                );
-
-
-            throw new Error(
-                "Pesanan dikembalikan ke Menunggu karena " +
-                "membership gagal diaktifkan: " +
-                profileUpdate.error.message
-            );
-
-        }
-
-
-        /* =================================================
-           4. SUKSES
-           ================================================= */
-
-        alert(
-
-            "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
-
-            "Member: " +
-            name +
-            "\n" +
-
-            "Paket: " +
-            paket +
-            "\n" +
-
-            "Harga: " +
-            formatRupiah(harga) +
-            "\n" +
-
-            "Durasi: " +
-            durasi +
-            " hari\n\n" +
-
-            "Membership aktif sampai:\n" +
-
-            formatTanggal(
-                berlakuSampai
-            )
-
-        );
-
-
-        await loadData();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "CONFIRM ERROR:",
-            error
-        );
-
-
-        alert(
-
-            "❌ Gagal mengonfirmasi pesanan.\n\n" +
-            error.message
-
-        );
-
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "✅ Konfirmasi";
-
-    }
-
-}
-
-
-/* =====================================================
-   REJECT ORDER
-===================================================== */
-
-async function rejectOrder(
-    order,
-    button
-){
-
-    if(!isAdmin){
-        return;
-    }
-
-
-    const name =
-        getUserName(order);
-
-    const paket =
-        getPackage(order);
-
-
-    const yakin =
-        confirm(
-
-            "Tolak pesanan ini?\n\n" +
-
-            "Member: " +
-            name +
-            "\n" +
-
-            "Paket: " +
-            paket +
-            "\n\n" +
-
-            "Membership tidak akan diaktifkan."
-
-        );
-
-
-    if(!yakin){
-        return;
-    }
-
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "⏳";
-
-
-    try{
-
-        const orderId =
-            order.id;
-
-
-        if(
-            orderId === undefined ||
-            orderId === null
-        ){
-
-            throw new Error(
-                "ID pesanan tidak ditemukan."
-            );
-
-        }
-
-
-        const result =
-            await supabaseClient
-                .from("membership_orders")
-                .update({
-
-                    status:
-                        "ditolak"
-
-                })
-                .eq(
-                    "id",
-                    orderId
-                );
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        alert(
-            "✅ Pesanan berhasil ditolak."
-        );
-
-
-        await loadData();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "REJECT ERROR:",
-            error
-        );
-
-
-        alert(
-
-            "❌ Gagal menolak pesanan.\n\n" +
-            error.message
-
-        );
-
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "❌ Tolak";
-
-    }
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-searchInput.addEventListener(
-    "input",
-    renderOrders
-);
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-statusFilter.addEventListener(
-    "change",
-    renderOrders
-);
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-refreshBtn.addEventListener(
+approvalModal.addEventListener(
     "click",
-    async function(){
+    function(event){
 
-        refreshBtn.disabled =
-            true;
+        if(
+            event.target ===
+            approvalModal
+        ){
 
-        refreshBtn.textContent =
-            "⏳";
+            approvalModal.classList.add(
+                "hidden"
+            );
 
+            selectedOrder =
+                null;
 
-        await loadData();
-
-
-        refreshBtn.disabled =
-            false;
-
-        refreshBtn.textContent =
-            "🔄 Refresh";
+        }
 
     }
 );
@@ -2893,12 +3429,10 @@ logoutBtn.addEventListener(
 
 
         if(!yakin){
+
             return;
+
         }
-
-
-        logoutBtn.disabled =
-            true;
 
 
         try{
@@ -2910,7 +3444,9 @@ logoutBtn.addEventListener(
 
 
             if(result.error){
+
                 throw result.error;
+
             }
 
 
@@ -2922,13 +3458,9 @@ logoutBtn.addEventListener(
         catch(error){
 
             alert(
-                "❌ Gagal logout.\n\n" +
+                "❌ Gagal keluar.\n\n" +
                 error.message
             );
-
-
-            logoutBtn.disabled =
-                false;
 
         }
 
@@ -2966,7 +3498,6 @@ supabaseClient
 checkAdmin();
 
 </script>
-
 
 </body>
 
