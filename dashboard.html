@@ -11,30 +11,20 @@
 >
 
 <meta
-    name="description"
-    content="Dashboard belajar NgajiPlus Akademi"
->
-
-<meta
     name="theme-color"
     content="#008f50"
 >
 
+<meta
+    name="description"
+    content="Dashboard NgajiPlus Akademi"
+>
+
 <title>Dashboard - NgajiPlus Akademi</title>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -46,16 +36,9 @@ html{
 
 body{
     margin:0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:#f5faf7;
-
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4faf7;
     color:#202a25;
-
     line-height:1.5;
 }
 
@@ -66,6 +49,7 @@ a{
 
 button{
     font-family:inherit;
+    cursor:pointer;
 }
 
 
@@ -74,78 +58,59 @@ button{
 ===================================================== */
 
 header{
-    background:white;
-
-    border-bottom:
-        1px solid #e2ebe6;
-
+    background:#fff;
+    border-bottom:1px solid #e1ebe5;
     position:sticky;
-
     top:0;
-
     z-index:1000;
 }
 
 .nav{
-    max-width:1100px;
-
+    max-width:1200px;
     margin:auto;
-
-    padding:
-        9px 15px;
-
+    padding:10px 15px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
 }
 
 .logo{
     color:#008f50;
-
     font-weight:bold;
-
-    font-size:13px;
-
+    font-size:14px;
     white-space:nowrap;
 }
 
-.nav-right{
+.nav-buttons{
     display:flex;
-
     align-items:center;
-
     gap:6px;
 }
 
 .nav-btn{
     border:0;
-
     border-radius:7px;
-
-    padding:
-        7px 10px;
-
+    padding:7px 10px;
     font-size:9px;
-
     font-weight:bold;
-
-    cursor:pointer;
-}
-
-.home-btn{
-    background:#eaf7ef;
-
-    color:#087a47;
+    white-space:nowrap;
 }
 
 .profile-btn{
     background:#008f50;
+    color:#fff;
+}
 
-    color:white;
+.material-btn{
+    background:#eaf7ef;
+    color:#087a47;
+    border:1px solid #d2eddd;
+}
+
+.logout-btn{
+    background:#eee;
+    color:#555;
 }
 
 
@@ -154,173 +119,160 @@ header{
 ===================================================== */
 
 main{
-    max-width:1100px;
-
+    max-width:1200px;
     margin:auto;
-
-    padding:
-        25px 15px 50px;
+    padding:18px 15px 50px;
 }
 
 
 /* =====================================================
-   WELCOME
+   HERO
 ===================================================== */
 
-.welcome{
+.hero{
     background:
         linear-gradient(
             135deg,
-            #008f50,
-            #00a95f
+            #00a85a,
+            #008f50
         );
 
     color:white;
 
-    border-radius:17px;
+    border-radius:15px;
 
-    padding:25px;
-
-    margin-bottom:15px;
+    padding:28px 25px;
 
     position:relative;
 
     overflow:hidden;
+
+    margin-bottom:14px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,143,80,.12);
 }
 
-.welcome::after{
+.hero::after{
     content:"";
-
     position:absolute;
 
     width:180px;
-
     height:180px;
 
-    border-radius:50%;
+    right:-70px;
+    top:-80px;
 
     background:
         rgba(255,255,255,.08);
 
-    right:-60px;
-
-    top:-70px;
+    border-radius:50%;
 }
 
-.welcome-label{
-    font-size:9px;
-
-    opacity:.85;
-
-    margin-bottom:4px;
-}
-
-.welcome h1{
-    margin:
-        0 0 5px;
-
-    font-size:
-        clamp(22px,4vw,32px);
-
-    line-height:1.25;
-
-    position:relative;
-
-    z-index:2;
-}
-
-.welcome p{
-    margin:0;
-
-    font-size:10px;
-
-    opacity:.9;
-
-    position:relative;
-
-    z-index:2;
-}
-
-.membership-badge{
-    display:inline-block;
-
-    margin-top:13px;
-
-    padding:
-        5px 9px;
-
-    border-radius:20px;
-
-    background:
-        rgba(255,255,255,.16);
-
+.hero-label{
     font-size:8px;
-
     font-weight:bold;
+    opacity:.9;
+    margin-bottom:5px;
+}
 
-    position:relative;
+.hero h1{
+    margin:0 0 5px;
+    font-size:clamp(25px,4vw,40px);
+    line-height:1.15;
+}
 
-    z-index:2;
+.hero p{
+    margin:0 0 12px;
+    font-size:9px;
+    opacity:.9;
+}
+
+.hero-link{
+    display:inline-block;
+    background:#fff;
+    color:#008f50;
+    border-radius:7px;
+    padding:8px 11px;
+    font-size:8px;
+    font-weight:bold;
 }
 
 
 /* =====================================================
-   STATS
+   NOTICE
 ===================================================== */
 
-.stats-grid{
+.notice{
+    background:#fff8d9;
+    border:1px solid #f0df91;
+    color:#75621c;
+
+    border-radius:8px;
+
+    padding:9px 12px;
+
+    font-size:8px;
+
+    margin-bottom:14px;
+}
+
+.notice.premium{
+    background:#e5f9ed;
+    border-color:#bde8cf;
+    color:#087a47;
+}
+
+
+/* =====================================================
+   STAT GRID
+===================================================== */
+
+.stat-grid{
     display:grid;
 
     grid-template-columns:
         repeat(4,1fr);
 
-    gap:10px;
+    gap:12px;
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .stat-card{
-    background:white;
+    background:#fff;
 
-    border:
-        1px solid #e1e9e4;
+    border:1px solid #dfe9e3;
 
-    border-radius:13px;
+    border-radius:12px;
 
     padding:15px;
 
     box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.03);
+        0 4px 15px
+        rgba(0,0,0,.035);
 }
 
 .stat-icon{
-    font-size:22px;
-
-    margin-bottom:5px;
+    font-size:20px;
+    margin-bottom:4px;
 }
 
-.stat-value{
+.stat-number{
     color:#008f50;
-
-    font-size:22px;
-
+    font-size:20px;
     font-weight:bold;
-
-    line-height:1.1;
 }
 
 .stat-label{
-    color:#7a8580;
-
+    color:#718078;
     font-size:8px;
-
-    margin-top:4px;
 }
 
 
 /* =====================================================
-   DASHBOARD GRID
+   TWO COLUMN
 ===================================================== */
 
 .dashboard-grid{
@@ -329,36 +281,40 @@ main{
     grid-template-columns:
         1fr 1fr;
 
-    gap:15px;
+    gap:14px;
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
-.card{
-    background:white;
 
-    border:
-        1px solid #e1e9e4;
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+    background:#fff;
+
+    border:1px solid #dfe9e3;
 
     border-radius:14px;
 
-    padding:17px;
+    padding:18px;
 
     box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.03);
+        0 4px 18px
+        rgba(0,0,0,.035);
 }
 
 .card-title{
-    margin:
-        0 0 3px;
+    margin:0 0 3px;
 
     font-size:14px;
+
+    font-weight:bold;
 }
 
 .card-description{
-    margin:
-        0 0 13px;
+    margin:0 0 12px;
 
     color:#7a8580;
 
@@ -367,75 +323,62 @@ main{
 
 
 /* =====================================================
-   OVERALL PROGRESS
+   PROGRESS
 ===================================================== */
 
-.overall-progress{
+.progress-content{
     display:flex;
 
     align-items:center;
 
-    gap:18px;
+    gap:15px;
 }
 
 .progress-circle{
-    width:88px;
+    width:80px;
+    height:80px;
 
-    height:88px;
+    min-width:80px;
 
     border-radius:50%;
 
     background:
         conic-gradient(
-            #008f50 0deg,
-            #008f50 var(--progress-angle),
-            #e5eee9 var(--progress-angle),
-            #e5eee9 360deg
+            #008f50 var(--progress),
+            #e7f0eb 0
         );
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    flex-shrink:0;
+    position:relative;
 }
 
-.progress-circle-inner{
-    width:68px;
+.progress-circle::before{
+    content:"";
 
-    height:68px;
+    position:absolute;
+
+    width:62px;
+    height:62px;
+
+    background:#fff;
 
     border-radius:50%;
-
-    background:white;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    flex-direction:column;
 }
 
-.progress-circle-value{
+.progress-circle span{
+    position:relative;
+
+    z-index:1;
+
     color:#008f50;
 
-    font-size:17px;
+    font-size:14px;
 
     font-weight:bold;
-}
-
-.progress-circle-label{
-    color:#7a8580;
-
-    font-size:7px;
-}
-
-.progress-info{
-    flex:1;
 }
 
 .progress-info strong{
@@ -443,17 +386,15 @@ main{
 
     font-size:11px;
 
-    margin-bottom:4px;
+    margin-bottom:3px;
 }
 
 .progress-info p{
     margin:0;
 
-    color:#7a8580;
+    color:#718078;
 
     font-size:8px;
-
-    line-height:1.5;
 }
 
 
@@ -462,110 +403,169 @@ main{
 ===================================================== */
 
 .membership-card{
-    border:
-        1px solid #d7eee1;
-
     background:
-        #f4fcf7;
+        linear-gradient(
+            135deg,
+            #effcf5,
+            #e3f8ed
+        );
+
+    border-color:#c7ebd7;
+
+    position:relative;
 }
 
 .membership-status{
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
 
-    gap:10px;
+    align-items:center;
+
+    margin-bottom:8px;
+}
+
+.membership-badge{
+    background:#dff7e9;
+
+    color:#087a47;
+
+    padding:4px 7px;
+
+    border-radius:20px;
+
+    font-size:7px;
+
+    font-weight:bold;
+}
+
+.membership-package{
+    color:#008f50;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    margin-bottom:3px;
+}
+
+.membership-text{
+    color:#718078;
+
+    font-size:8px;
 
     margin-bottom:10px;
 }
 
-.membership-name{
-    font-size:15px;
+.membership-button{
+    display:inline-block;
+
+    width:100%;
+
+    text-align:center;
+
+    background:#008f50;
+
+    color:#fff;
+
+    border-radius:8px;
+
+    padding:9px;
+
+    font-size:8px;
 
     font-weight:bold;
+
+    transition:.2s;
+}
+
+.membership-button:hover{
+    background:#007b45;
+}
+
+.membership-button.active{
+    background:#e1f4e9;
 
     color:#087a47;
-}
 
-.status-active{
-    background:#dcf8e7;
-
-    color:#087a45;
-
-    padding:
-        4px 8px;
-
-    border-radius:20px;
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-.status-inactive{
-    background:#eeeeee;
-
-    color:#666;
-
-    padding:
-        4px 8px;
-
-    border-radius:20px;
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-.membership-info{
-    color:#68736d;
-
-    font-size:8px;
-
-    line-height:1.7;
-}
-
-.membership-info strong{
-    color:#202a25;
+    border:1px solid #c4e8d3;
 }
 
 
 /* =====================================================
-   CONTINUE LEARNING
+   CONTINUE
 ===================================================== */
 
 .continue-card{
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
-.material-item{
-    display:flex;
+.empty{
+    text-align:center;
 
-    align-items:center;
+    padding:20px;
 
-    gap:11px;
+    color:#7a8580;
 
-    padding:
-        10px 0;
-
-    border-bottom:
-        1px solid #edf1ee;
+    font-size:8px;
 }
 
-.material-item:last-child{
-    border-bottom:0;
+.continue-button{
+    display:inline-block;
+
+    margin-top:8px;
+
+    background:#008f50;
+
+    color:#fff;
+
+    border-radius:7px;
+
+    padding:8px 12px;
+
+    font-size:8px;
+
+    font-weight:bold;
 }
 
-.material-icon{
-    width:48px;
 
-    height:48px;
+/* =====================================================
+   MATERIAL
+===================================================== */
 
-    border-radius:9px;
+.material-list{
+    display:grid;
 
-    background:#e7f8ef;
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.material-card{
+    background:#fff;
+
+    border:1px solid #dfe9e3;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.2s;
+}
+
+.material-card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.06);
+}
+
+.material-image{
+    height:120px;
+
+    background:#dff6eb;
 
     display:flex;
 
@@ -573,196 +573,71 @@ main{
 
     justify-content:center;
 
-    font-size:21px;
-
-    flex-shrink:0;
-
     overflow:hidden;
 }
 
-.material-icon img{
+.material-image img{
     width:100%;
-
     height:100%;
-
     object-fit:cover;
 }
 
-.material-info{
-    flex:1;
-
-    min-width:0;
+.material-placeholder{
+    font-size:32px;
 }
 
-.material-info h3{
-    margin:
-        0 0 3px;
+.material-body{
+    padding:11px;
+}
 
+.material-type{
+    color:#008f50;
+
+    font-size:7px;
+
+    font-weight:bold;
+
+    margin-bottom:4px;
+}
+
+.material-title{
     font-size:10px;
 
-    white-space:nowrap;
+    font-weight:bold;
 
-    overflow:hidden;
+    margin-bottom:3px;
 
-    text-overflow:ellipsis;
+    min-height:30px;
 }
 
-.material-meta{
+.material-description{
     color:#7a8580;
 
     font-size:7px;
 
-    margin-bottom:5px;
+    margin-bottom:8px;
+
+    min-height:22px;
 }
 
-.small-progress{
-    height:5px;
+.material-button{
+    display:block;
 
-    background:#e5eee9;
+    width:100%;
 
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.small-progress-fill{
-    height:100%;
+    text-align:center;
 
     background:#008f50;
 
-    border-radius:20px;
-}
-
-.material-percent{
-    font-size:7px;
-
-    color:#008f50;
-
-    font-weight:bold;
-
-    margin-top:3px;
-}
-
-.continue-btn{
-    background:#008f50;
-
-    color:white;
-
-    border:0;
+    color:#fff;
 
     border-radius:7px;
 
-    padding:
-        7px 9px;
+    padding:7px;
 
     font-size:7px;
 
     font-weight:bold;
-
-    cursor:pointer;
-
-    flex-shrink:0;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-    text-align:center;
-
-    padding:
-        20px 10px;
-
-    color:#7a8580;
-
-    font-size:9px;
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.primary-btn{
-    display:inline-block;
-
-    background:#008f50;
-
-    color:white;
-
-    border:0;
-
-    border-radius:8px;
-
-    padding:
-        9px 13px;
-
-    font-size:9px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.secondary-btn{
-    display:inline-block;
-
-    background:#eaf7ef;
-
-    color:#087a47;
-
-    border:0;
-
-    border-radius:8px;
-
-    padding:
-        9px 13px;
-
-    font-size:9px;
-
-    font-weight:bold;
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-.loading{
-    background:white;
-
-    border-radius:14px;
-
-    padding:
-        40px 15px;
-
-    text-align:center;
-
-    color:#777;
-
-    font-size:10px;
-}
-
-
-/* =====================================================
-   ERROR
-===================================================== */
-
-.error{
-    background:#fff0f0;
-
-    border:
-        1px solid #f3c2c2;
-
-    color:#b42318;
-
-    border-radius:12px;
-
-    padding:15px;
-
-    font-size:9px;
 }
 
 
@@ -771,16 +646,15 @@ main{
 ===================================================== */
 
 footer{
-    background:#0d1712;
+    background:#071b12;
 
-    color:white;
+    color:#fff;
 
-    padding:
-        25px 15px;
+    padding:25px 15px;
 }
 
 .footer-inner{
-    max-width:1100px;
+    max-width:1200px;
 
     margin:auto;
 }
@@ -803,12 +677,21 @@ footer{
 
 
 /* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden{
+    display:none !important;
+}
+
+
+/* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:800px){
+@media(max-width:900px){
 
-    .stats-grid{
+    .stat-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
@@ -817,40 +700,52 @@ footer{
         grid-template-columns:1fr;
     }
 
+    .material-list{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
 }
+
 
 @media(max-width:550px){
 
     .nav{
-        padding:
-            8px 10px;
+        padding:8px 10px;
     }
 
     .logo{
-        font-size:10px;
+        font-size:11px;
+    }
+
+    .nav-buttons{
+        gap:3px;
     }
 
     .nav-btn{
-        padding:
-            6px 8px;
-
+        padding:6px 7px;
         font-size:8px;
     }
 
     main{
         padding:
-            18px 12px 40px;
+            12px 10px 35px;
     }
 
-    .welcome{
-        padding:20px;
+    .hero{
+        padding:
+            22px 16px;
     }
 
-    .welcome h1{
-        font-size:23px;
+    .hero h1{
+        font-size:26px;
     }
 
-    .stats-grid{
+    .hero p{
+        font-size:8px;
+    }
+
+    .stat-grid{
         gap:8px;
     }
 
@@ -858,33 +753,22 @@ footer{
         padding:12px;
     }
 
-    .stat-value{
-        font-size:20px;
+    .stat-number{
+        font-size:17px;
     }
 
-    .overall-progress{
-        gap:12px;
+    .card{
+        padding:14px;
     }
 
-    .progress-circle{
-        width:78px;
-        height:78px;
+    .material-list{
+        grid-template-columns:1fr;
     }
 
-    .progress-circle-inner{
-        width:60px;
-        height:60px;
+    .material-image{
+        height:150px;
     }
 
-}
-
-
-/* =====================================================
-   HIDDEN
-===================================================== */
-
-.hidden{
-    display:none !important;
 }
 
 </style>
@@ -907,23 +791,29 @@ footer{
 📖 NgajiPlus Akademi
 </div>
 
-
-<div class="nav-right">
+<div class="nav-buttons">
 
 <a
-    href="index.html"
-    class="nav-btn home-btn"
+    href="materi.html"
+    class="nav-btn material-btn"
 >
 ← Materi
 </a>
 
-
 <a
     href="profile.html"
     class="nav-btn profile-btn"
+    id="profileBtn"
 >
 👤 Profil
 </a>
+
+<button
+    id="logoutBtn"
+    class="nav-btn logout-btn"
+>
+Keluar
+</button>
 
 </div>
 
@@ -932,76 +822,55 @@ footer{
 </header>
 
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main>
 
 
 <!-- =====================================================
-     LOADING
+     HERO
 ===================================================== -->
 
-<div
-    id="loading"
-    class="loading"
->
-⏳ Memuat dashboard...
-</div>
+<section class="hero">
 
-
-
-<!-- =====================================================
-     DASHBOARD CONTENT
-===================================================== -->
-
-<div
-    id="dashboardContent"
-    class="hidden"
->
-
-
-<!-- =====================================================
-     WELCOME
-===================================================== -->
-
-<section class="welcome">
-
-<div class="welcome-label">
+<div class="hero-label">
 📚 Dashboard Belajar
 </div>
 
-
-<h1 id="welcomeName">
+<h1 id="welcomeText">
 Assalamu'alaikum
 </h1>
 
-
-<p>
+<p id="welcomeDescription">
 Selamat datang di NgajiPlus Akademi.
 Mari lanjutkan perjalanan belajar Anda.
 </p>
 
-
-<div
-    id="membershipBadge"
-    class="membership-badge"
+<a
+    href="materi.html"
+    class="hero-link"
 >
-Memeriksa membership...
-</div>
+▶ Akses materi gratis
+</a>
 
 </section>
 
 
-
 <!-- =====================================================
-     STATS
+     NOTICE
 ===================================================== -->
 
-<section class="stats-grid">
+<div
+    id="notice"
+    class="notice"
+>
+⏳ Memuat informasi akun...
+</div>
 
+
+<!-- =====================================================
+     STAT
+===================================================== -->
+
+<section class="stat-grid">
 
 <div class="stat-card">
 
@@ -1010,8 +879,8 @@ Memeriksa membership...
 </div>
 
 <div
-    id="totalMaterials"
-    class="stat-value"
+    id="totalMaterial"
+    class="stat-number"
 >
 0
 </div>
@@ -1023,7 +892,6 @@ Materi Tersedia
 </div>
 
 
-
 <div class="stat-card">
 
 <div class="stat-icon">
@@ -1031,8 +899,8 @@ Materi Tersedia
 </div>
 
 <div
-    id="startedMaterials"
-    class="stat-value"
+    id="startedMaterial"
+    class="stat-number"
 >
 0
 </div>
@@ -1044,7 +912,6 @@ Sedang Dipelajari
 </div>
 
 
-
 <div class="stat-card">
 
 <div class="stat-icon">
@@ -1052,8 +919,8 @@ Sedang Dipelajari
 </div>
 
 <div
-    id="completedMaterials"
-    class="stat-value"
+    id="completedMaterial"
+    class="stat-number"
 >
 0
 </div>
@@ -1065,7 +932,6 @@ Materi Selesai
 </div>
 
 
-
 <div class="stat-card">
 
 <div class="stat-icon">
@@ -1073,8 +939,8 @@ Materi Selesai
 </div>
 
 <div
-    id="overallPercent"
-    class="stat-value"
+    id="overallProgress"
+    class="stat-number"
 >
 0%
 </div>
@@ -1085,21 +951,17 @@ Progress Keseluruhan
 
 </div>
 
-
 </section>
 
 
-
 <!-- =====================================================
-     TWO CARDS
+     PROGRESS + MEMBERSHIP
 ===================================================== -->
 
 <section class="dashboard-grid">
 
 
-<!-- =====================================================
-     OVERALL PROGRESS
-===================================================== -->
+<!-- PROGRESS -->
 
 <div class="card">
 
@@ -1111,29 +973,17 @@ Progress Keseluruhan
 Ringkasan perkembangan belajar Anda.
 </p>
 
-
-<div class="overall-progress">
+<div class="progress-content">
 
 <div
     id="progressCircle"
     class="progress-circle"
-    style="--progress-angle:0deg"
+    style="--progress:0%"
 >
 
-<div class="progress-circle-inner">
-
-<div
-    id="circlePercent"
-    class="progress-circle-value"
->
+<span id="progressCircleText">
 0%
-</div>
-
-<div class="progress-circle-label">
-Progress
-</div>
-
-</div>
+</span>
 
 </div>
 
@@ -1146,7 +996,7 @@ Mulai perjalanan belajar
 
 <p id="progressDescription">
 Belum ada materi yang dipelajari.
-Yuk mulai belajar dari materi yang tersedia.
+Yuk mulai belajar sekarang.
 </p>
 
 </div>
@@ -1156,69 +1006,66 @@ Yuk mulai belajar dari materi yang tersedia.
 </div>
 
 
+<!-- MEMBERSHIP -->
 
-<!-- =====================================================
-     MEMBERSHIP
-===================================================== -->
-
-<div class="card membership-card">
-
-<h2 class="card-title">
-🔐 Membership
-</h2>
-
-<p class="card-description">
-Status akses materi premium Anda.
-</p>
-
+<div
+    class="card membership-card"
+>
 
 <div class="membership-status">
 
-<div
-    id="packageName"
-    class="membership-name"
+<h2 class="card-title">
+💎 Membership
+</h2>
+
+<span
+    id="membershipBadge"
+    class="membership-badge"
 >
 Gratis
-</div>
-
-
-<div
-    id="membershipStatus"
-    class="status-inactive"
->
-Tidak Aktif
-</div>
+</span>
 
 </div>
 
 
 <div
-    id="membershipInfo"
-    class="membership-info"
+    id="membershipPackage"
+    class="membership-package"
 >
-Membership premium belum aktif.
+Member Gratis
 </div>
 
 
-<br>
+<div
+    id="membershipText"
+    class="membership-text"
+>
+Membership Premium belum aktif.
+Materi gratis tetap dapat dipelajari.
+</div>
 
+
+<!--
+=====================================================
+TOMBOL MEMBERSHIP
+=====================================================
+-->
 
 <a
-    href="profile.html"
-    class="secondary-btn"
+    id="membershipButton"
+    href="membership.html"
+    class="membership-button"
 >
-👤 Lihat Profil
+💎 Lihat Membership Premium
 </a>
 
 </div>
 
-
 </section>
 
 
-
 <!-- =====================================================
-     CONTINUE LEARNING
+     CONTINUE
 ===================================================== -->
 
 <section class="card continue-card">
@@ -1231,11 +1078,12 @@ Membership premium belum aktif.
 Materi yang sedang Anda pelajari.
 </p>
 
-
-<div id="continueContainer">
+<div
+    id="continueContainer"
+>
 
 <div class="empty">
-Belum ada materi yang sedang dipelajari.
+⏳ Memuat...
 </div>
 
 </div>
@@ -1243,9 +1091,8 @@ Belum ada materi yang sedang dipelajari.
 </section>
 
 
-
 <!-- =====================================================
-     START LEARNING
+     MATERIAL
 ===================================================== -->
 
 <section class="card">
@@ -1258,21 +1105,21 @@ Belum ada materi yang sedang dipelajari.
 Jelajahi seluruh materi pembelajaran NgajiPlus Akademi.
 </p>
 
-
-<a
-    href="index.html#materi"
-    class="primary-btn"
+<div
+    id="materialContainer"
+    class="material-list"
 >
-🚀 Lihat Semua Materi
-</a>
+
+<div class="empty">
+⏳ Memuat materi...
+</div>
+
+</div>
 
 </section>
 
 
-</div>
-
 </main>
-
 
 
 <!-- =====================================================
@@ -1296,7 +1143,6 @@ Platform pembelajaran Islam berupa Video, Audio dan PDF.
 </footer>
 
 
-
 <script>
 
 /* =====================================================
@@ -1306,10 +1152,8 @@ Platform pembelajaran Islam berupa Video, Audio dan PDF.
 const SUPABASE_URL =
     "https://ksgywgdrfskqsufchbcm.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1323,66 +1167,58 @@ const supabaseClient =
 ===================================================== */
 
 let currentUser = null;
-
 let currentProfile = null;
-
 let materials = [];
-
-let progressRows = [];
+let progressData = [];
 
 
 /* =====================================================
    ELEMENTS
 ===================================================== */
 
-const loading =
+const welcomeText =
     document.getElementById(
-        "loading"
+        "welcomeText"
     );
 
-const dashboardContent =
+const welcomeDescription =
     document.getElementById(
-        "dashboardContent"
+        "welcomeDescription"
     );
 
-const welcomeName =
+const notice =
     document.getElementById(
-        "welcomeName"
+        "notice"
     );
 
-const membershipBadge =
+const totalMaterial =
     document.getElementById(
-        "membershipBadge"
+        "totalMaterial"
     );
 
-const totalMaterials =
+const startedMaterial =
     document.getElementById(
-        "totalMaterials"
+        "startedMaterial"
     );
 
-const startedMaterials =
+const completedMaterial =
     document.getElementById(
-        "startedMaterials"
+        "completedMaterial"
     );
 
-const completedMaterials =
+const overallProgress =
     document.getElementById(
-        "completedMaterials"
-    );
-
-const overallPercent =
-    document.getElementById(
-        "overallPercent"
-    );
-
-const circlePercent =
-    document.getElementById(
-        "circlePercent"
+        "overallProgress"
     );
 
 const progressCircle =
     document.getElementById(
         "progressCircle"
+    );
+
+const progressCircleText =
+    document.getElementById(
+        "progressCircleText"
     );
 
 const progressTitle =
@@ -1395,19 +1231,24 @@ const progressDescription =
         "progressDescription"
     );
 
-const packageName =
+const membershipBadge =
     document.getElementById(
-        "packageName"
+        "membershipBadge"
     );
 
-const membershipStatus =
+const membershipPackage =
     document.getElementById(
-        "membershipStatus"
+        "membershipPackage"
     );
 
-const membershipInfo =
+const membershipText =
     document.getElementById(
-        "membershipInfo"
+        "membershipText"
+    );
+
+const membershipButton =
+    document.getElementById(
+        "membershipButton"
     );
 
 const continueContainer =
@@ -1415,41 +1256,29 @@ const continueContainer =
         "continueContainer"
     );
 
+const materialContainer =
+    document.getElementById(
+        "materialContainer"
+    );
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
 
 /* =====================================================
-   ESCAPE HTML
+   ESCAPE
 ===================================================== */
 
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1466,10 +1295,8 @@ function formatTanggal(value){
 
     }
 
-
     const date =
         new Date(value);
-
 
     if(
         isNaN(
@@ -1480,7 +1307,6 @@ function formatTanggal(value){
         return "-";
 
     }
-
 
     return date.toLocaleDateString(
         "id-ID",
@@ -1495,10 +1321,11 @@ function formatTanggal(value){
 
 
 /* =====================================================
-   MATERIAL TYPE
+   GET TYPE
+   PRIORITASKAN "tipe"
 ===================================================== */
 
-function getMaterialType(item){
+function getType(item){
 
     const tipe =
         String(
@@ -1507,7 +1334,6 @@ function getMaterialType(item){
         .toLowerCase()
         .trim();
 
-
     const type =
         String(
             item.type || ""
@@ -1515,132 +1341,46 @@ function getMaterialType(item){
         .toLowerCase()
         .trim();
 
-
-    /*
-       PRIORITAS TIPE
-    */
-
-    if(
-        tipe === "audio" ||
-        tipe === "mp3" ||
-        tipe === "murottal"
-    ){
-
-        return "audio";
-
-    }
-
-
-    if(
-        tipe === "video" ||
-        tipe === "youtube"
-    ){
-
-        return "video";
-
-    }
-
-
-    if(
-        tipe === "pdf" ||
-        tipe === "ebook" ||
-        tipe === "dokumen"
-    ){
-
-        return "pdf";
-
-    }
-
-
-    /*
-       FALLBACK TYPE
-    */
-
-    if(
-        type === "audio" ||
-        type === "mp3"
-    ){
-
-        return "audio";
-
-    }
-
-
-    if(
-        type === "video" ||
-        type === "youtube"
-    ){
-
-        return "video";
-
-    }
-
-
-    if(
-        type === "pdf" ||
-        type === "ebook" ||
-        type === "dokumen"
-    ){
-
-        return "pdf";
-
-    }
-
-
-    return "video";
+    return tipe || type;
 
 }
 
 
 /* =====================================================
-   MATERIAL ICON
+   GET MATERIAL URL
 ===================================================== */
 
-function getMaterialIcon(item){
+function getMaterialUrl(material){
 
-    const type =
-        getMaterialType(item);
+    const id =
+        material.id;
 
-
-    if(type === "audio"){
-
-        return "🎧";
-
-    }
-
-
-    if(type === "pdf"){
-
-        return "📄";
-
-    }
-
-
-    return "🎥";
+    return (
+        "player.html?id=" +
+        encodeURIComponent(id)
+    );
 
 }
 
 
 /* =====================================================
-   MEMBERSHIP ACTIVE
+   CHECK MEMBERSHIP
 ===================================================== */
 
-function isMembershipActive(){
+function isMembershipActive(profile){
 
-    if(!currentProfile){
+    if(!profile){
 
         return false;
 
     }
 
-
     const status =
         String(
-            currentProfile.status || ""
+            profile.status || ""
         )
         .toLowerCase()
         .trim();
-
 
     if(
         status !== "aktif"
@@ -1650,59 +1390,55 @@ function isMembershipActive(){
 
     }
 
-
     if(
-        !currentProfile.berlaku_sampai
+        !profile.berlaku_sampai
     ){
 
-        return true;
+        return false;
 
     }
 
-
     const expiry =
         new Date(
-            currentProfile.berlaku_sampai
+            profile.berlaku_sampai
         );
 
-
-    const now =
-        new Date();
-
-
-    return (
-        !isNaN(
+    if(
+        isNaN(
             expiry.getTime()
-        ) &&
-        expiry >= now
-    );
+        )
+    ){
+
+        return false;
+
+    }
+
+    return expiry >= new Date();
 
 }
 
 
 /* =====================================================
-   LOAD USER
+   CHECK USER
 ===================================================== */
 
-async function loadUser(){
+async function checkUser(){
 
-    const {
-        data,
-        error
-    } =
+    const result =
         await supabaseClient
             .auth
             .getUser();
 
+    if(result.error){
 
-    if(error){
-
-        throw error;
+        throw result.error;
 
     }
 
+    currentUser =
+        result.data.user;
 
-    if(!data.user){
+    if(!currentUser){
 
         window.location.href =
             "login.html";
@@ -1711,16 +1447,22 @@ async function loadUser(){
 
     }
 
+    return true;
 
-    currentUser =
-        data.user;
+}
 
 
-    const profileResult =
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+async function loadProfile(){
+
+    const result =
         await supabaseClient
             .from("profiles")
             .select(
-                "id,nama,status,paket,berlaku_sampai,avatar_url"
+                "id,nama,status,paket,berlaku_sampai"
             )
             .eq(
                 "id",
@@ -1728,28 +1470,137 @@ async function loadUser(){
             )
             .maybeSingle();
 
+    if(result.error){
 
-    if(profileResult.error){
+        throw result.error;
 
-        console.warn(
-            "PROFILE ERROR:",
-            profileResult.error
+    }
+
+    currentProfile =
+        result.data || null;
+
+}
+
+
+/* =====================================================
+   RENDER USER
+===================================================== */
+
+function renderUser(){
+
+    const nama =
+        currentProfile?.nama ||
+        currentUser.user_metadata?.full_name ||
+        currentUser.email?.split("@")[0] ||
+        "Member";
+
+    welcomeText.textContent =
+        "Assalamu'alaikum, " +
+        nama;
+
+}
+
+
+/* =====================================================
+   RENDER MEMBERSHIP
+===================================================== */
+
+function renderMembership(){
+
+    const active =
+        isMembershipActive(
+            currentProfile
         );
 
-        currentProfile =
-            null;
+
+    if(active){
+
+        membershipBadge.textContent =
+            "✓ Premium Aktif";
+
+        membershipPackage.textContent =
+            currentProfile.paket ||
+            "Premium";
+
+        membershipText.innerHTML =
+            "Membership aktif sampai <strong>" +
+            escapeHtml(
+                formatTanggal(
+                    currentProfile.berlaku_sampai
+                )
+            ) +
+            ".";
+
+
+        membershipButton.textContent =
+            "✓ Membership Aktif";
+
+        membershipButton.classList.add(
+            "active"
+        );
+
+        /*
+         * Tetap menuju membership.html
+         * supaya user dapat melihat masa aktif
+         * dan riwayat membership.
+         */
+
+        membershipButton.href =
+            "membership.html";
+
+
+        notice.className =
+            "notice premium";
+
+        notice.innerHTML =
+            "✅ Selamat datang, " +
+            escapeHtml(
+                currentProfile?.nama ||
+                "Member"
+            ) +
+            ". Membership Premium Anda aktif " +
+            "sampai <strong>" +
+            escapeHtml(
+                formatTanggal(
+                    currentProfile.berlaku_sampai
+                )
+            ) +
+            "</strong>.";
 
     }
 
     else{
 
-        currentProfile =
-            profileResult.data;
+        membershipBadge.textContent =
+            "Tidak Aktif";
+
+        membershipPackage.textContent =
+            "Member Gratis";
+
+        membershipText.textContent =
+            "Membership Premium belum aktif. " +
+            "Materi gratis tetap dapat dipelajari.";
+
+        membershipButton.textContent =
+            "💎 Daftar Membership Premium";
+
+        membershipButton.classList.remove(
+            "active"
+        );
+
+        membershipButton.href =
+            "membership.html";
+
+
+        notice.className =
+            "notice";
+
+        notice.innerHTML =
+            "💎 Anda sedang menggunakan akun Gratis. " +
+            "Materi gratis tetap dapat dipelajari. " +
+            "Aktifkan membership untuk membuka materi Premium.";
 
     }
-
-
-    return true;
 
 }
 
@@ -1764,15 +1615,14 @@ async function loadMaterials(){
         await supabaseClient
             .from("materials")
             .select(
-                "id,judul,deskripsi,kategori,tipe,type,url,thumbnail,premium"
+                "id,judul,deskripsi,kategori,tipe,type,url,thumbnail,premium,created_at"
             )
             .order(
-                "id",
+                "created_at",
                 {
                     ascending:false
                 }
             );
-
 
     if(result.error){
 
@@ -1780,9 +1630,11 @@ async function loadMaterials(){
 
     }
 
-
     materials =
         result.data || [];
+
+    totalMaterial.textContent =
+        materials.length;
 
 }
 
@@ -1797,7 +1649,7 @@ async function loadProgress(){
         await supabaseClient
             .from("learning_progress")
             .select(
-                "id,user_id,material_id,status,progress,last_watched_at,completed_at"
+                "id,material_id,status,progress,last_watched_at,completed_at,updated_at"
             )
             .eq(
                 "user_id",
@@ -1810,16 +1662,158 @@ async function loadProgress(){
                 }
             );
 
-
     if(result.error){
 
         throw result.error;
 
     }
 
-
-    progressRows =
+    progressData =
         result.data || [];
+
+
+    const started =
+        progressData.filter(
+            item =>
+                Number(
+                    item.progress || 0
+                ) > 0 &&
+                Number(
+                    item.progress || 0
+                ) < 100
+        ).length;
+
+
+    const completed =
+        progressData.filter(
+            item =>
+                Number(
+                    item.progress || 0
+                ) >= 100 ||
+                item.status === "completed"
+        ).length;
+
+
+    startedMaterial.textContent =
+        started;
+
+    completedMaterial.textContent =
+        completed;
+
+
+    /*
+     * HITUNG PROGRESS KESELURUHAN
+     */
+
+    let average = 0;
+
+    if(materials.length > 0){
+
+        const progressMap =
+            new Map();
+
+        progressData.forEach(
+            item => {
+
+                progressMap.set(
+                    String(
+                        item.material_id
+                    ),
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            Number(
+                                item.progress || 0
+                            )
+                        )
+                    )
+                );
+
+            }
+        );
+
+
+        let totalProgress = 0;
+
+        materials.forEach(
+            material => {
+
+                totalProgress +=
+                    progressMap.get(
+                        String(
+                            material.id
+                        )
+                    ) || 0;
+
+            }
+        );
+
+
+        average =
+            Math.round(
+                totalProgress /
+                materials.length
+            );
+
+    }
+
+
+    overallProgress.textContent =
+        average + "%";
+
+
+    progressCircle.style.setProperty(
+        "--progress",
+        average + "%"
+    );
+
+    progressCircleText.textContent =
+        average + "%";
+
+
+    if(average >= 100){
+
+        progressTitle.textContent =
+            "MasyaAllah! Semua selesai.";
+
+        progressDescription.textContent =
+            "Anda telah menyelesaikan seluruh materi.";
+
+    }
+
+    else if(completed > 0){
+
+        progressTitle.textContent =
+            "Teruskan perjalanan belajar.";
+
+        progressDescription.textContent =
+            completed +
+            " materi sudah selesai.";
+
+    }
+
+    else if(started > 0){
+
+        progressTitle.textContent =
+            "Lanjutkan belajar.";
+
+        progressDescription.textContent =
+            started +
+            " materi sedang Anda pelajari.";
+
+    }
+
+    else{
+
+        progressTitle.textContent =
+            "Mulai perjalanan belajar.";
+
+        progressDescription.textContent =
+            "Belum ada materi yang dipelajari. " +
+            "Yuk mulai belajar sekarang.";
+
+    }
 
 }
 
@@ -1828,379 +1822,17 @@ async function loadProgress(){
    GET PROGRESS
 ===================================================== */
 
-function getProgressForMaterial(
-    materialId
-){
+function getProgress(materialId){
 
-    const row =
-        progressRows.find(
-            function(item){
-
-                return (
-                    String(
-                        item.material_id
-                    ) ===
-                    String(
-                        materialId
-                    )
-                );
-
-            }
-        );
-
-
-    return row || null;
-
-}
-
-
-/* =====================================================
-   NORMALIZE PROGRESS
-===================================================== */
-
-function normalizeProgress(
-    value
-){
-
-    const number =
-        Number(value || 0);
-
-
-    return Math.max(
-        0,
-        Math.min(
-            100,
-            Math.round(number)
-        )
+    return progressData.find(
+        item =>
+            String(
+                item.material_id
+            ) ===
+            String(
+                materialId
+            )
     );
-
-}
-
-
-/* =====================================================
-   GET PACKAGE NAME
-===================================================== */
-
-function getPackageName(){
-
-    const active =
-        isMembershipActive();
-
-
-    const paket =
-        String(
-            currentProfile?.paket || ""
-        )
-        .trim();
-
-
-    /*
-       Jika membership aktif tetapi
-       paket kosong atau tertulis Gratis,
-       tampilkan Member.
-
-       Ini mencegah dashboard
-       menampilkan:
-
-       Gratis
-       ✓ Aktif
-
-       yang membingungkan.
-    */
-
-    if(
-        active &&
-        (
-            !paket ||
-            paket.toLowerCase() === "gratis"
-        )
-    ){
-
-        return "Member";
-
-    }
-
-
-    return paket ||
-        "Gratis";
-
-}
-
-
-/* =====================================================
-   RENDER WELCOME
-===================================================== */
-
-function renderWelcome(){
-
-    const metadata =
-        currentUser?.user_metadata || {};
-
-
-    const name =
-        currentProfile?.nama ||
-        metadata.full_name ||
-        metadata.name ||
-        metadata.nama ||
-        currentUser?.email?.split("@")[0] ||
-        "Pengguna";
-
-
-    welcomeName.textContent =
-        "Assalamu'alaikum, " +
-        name;
-
-
-    const active =
-        isMembershipActive();
-
-
-    if(active){
-
-        membershipBadge.innerHTML =
-            "⭐ " +
-            escapeHtml(
-                getPackageName()
-            ) +
-            " • Aktif sampai " +
-            formatTanggal(
-                currentProfile.berlaku_sampai
-            );
-
-    }
-
-    else{
-
-        membershipBadge.textContent =
-            "📚 Akses materi gratis";
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER STATS
-===================================================== */
-
-function renderStats(){
-
-    const total =
-        materials.length;
-
-
-    let started = 0;
-
-    let completed = 0;
-
-    let totalProgress = 0;
-
-
-    materials.forEach(
-        function(material){
-
-            const row =
-                getProgressForMaterial(
-                    material.id
-                );
-
-
-            const progress =
-                normalizeProgress(
-                    row?.progress
-                );
-
-
-            totalProgress +=
-                progress;
-
-
-            /*
-               SEDANG DIPELAJARI
-
-               Hanya 1 sampai 99%.
-
-               0%:
-               belum dimulai.
-
-               1-99%:
-               sedang dipelajari.
-
-               100%:
-               selesai.
-            */
-
-            if(
-                progress > 0 &&
-                progress < 100 &&
-                row?.status !== "completed"
-            ){
-
-                started++;
-
-            }
-
-
-            /*
-               SELESAI
-            */
-
-            if(
-                progress >= 100 ||
-                row?.status === "completed"
-            ){
-
-                completed++;
-
-            }
-
-        }
-    );
-
-
-    const average =
-        total > 0
-
-        ?
-
-        Math.round(
-            totalProgress /
-            total
-        )
-
-        :
-
-        0;
-
-
-    totalMaterials.textContent =
-        total;
-
-
-    startedMaterials.textContent =
-        started;
-
-
-    completedMaterials.textContent =
-        completed;
-
-
-    overallPercent.textContent =
-        average + "%";
-
-
-    circlePercent.textContent =
-        average + "%";
-
-
-    progressCircle.style
-        .setProperty(
-            "--progress-angle",
-            (
-                average * 3.6
-            ) + "deg"
-        );
-
-
-    if(
-        average >= 100
-    ){
-
-        progressTitle.textContent =
-            "🎉 Semua materi selesai!";
-
-
-        progressDescription.textContent =
-            "MasyaAllah, seluruh materi yang tersedia telah Anda selesaikan.";
-
-    }
-
-    else if(
-        average > 0
-    ){
-
-        progressTitle.textContent =
-            "Terus lanjutkan belajar!";
-
-
-        progressDescription.textContent =
-            "Progress Anda sudah berjalan. Jangan berhenti sampai selesai.";
-
-    }
-
-    else{
-
-        progressTitle.textContent =
-            "Mulai perjalanan belajar";
-
-
-        progressDescription.textContent =
-            "Belum ada materi yang dipelajari. Yuk mulai belajar sekarang.";
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER MEMBERSHIP
-===================================================== */
-
-function renderMembership(){
-
-    const active =
-        isMembershipActive();
-
-
-    packageName.textContent =
-        getPackageName();
-
-
-    if(active){
-
-        membershipStatus.textContent =
-            "✓ Aktif";
-
-
-        membershipStatus.className =
-            "status-active";
-
-
-        membershipInfo.innerHTML =
-            "Membership Anda aktif sampai " +
-
-            "<strong>" +
-
-            formatTanggal(
-                currentProfile.berlaku_sampai
-            ) +
-
-            "</strong>." +
-
-            "<br>" +
-
-            "Anda dapat mengakses materi premium.";
-
-    }
-
-    else{
-
-        membershipStatus.textContent =
-            "Tidak Aktif";
-
-
-        membershipStatus.className =
-            "status-inactive";
-
-
-        membershipInfo.innerHTML =
-            "Membership premium belum aktif." +
-
-            "<br>" +
-
-            "Materi gratis tetap dapat dipelajari.";
-
-    }
 
 }
 
@@ -2209,32 +1841,23 @@ function renderMembership(){
    GET THUMBNAIL
 ===================================================== */
 
-function getThumbnail(item){
+function getThumbnail(material){
 
-    /*
-       Thumbnail database
-    */
+    if(material.thumbnail){
 
-    if(item.thumbnail){
-
-        return item.thumbnail;
+        return material.thumbnail;
 
     }
 
-
     const url =
         String(
-            item.url || ""
+            material.url || ""
         );
 
 
-    /*
-       YouTube
-    */
-
     const match =
         url.match(
-            /(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/
         );
 
 
@@ -2248,8 +1871,33 @@ function getThumbnail(item){
 
     }
 
+    return "";
 
-    return null;
+}
+
+
+/* =====================================================
+   TYPE LABEL
+===================================================== */
+
+function typeLabel(material){
+
+    const type =
+        getType(material);
+
+    if(type === "audio"){
+
+        return "🎧 Audio";
+
+    }
+
+    if(type === "pdf"){
+
+        return "📄 PDF";
+
+    }
+
+    return "🎥 Video";
 
 }
 
@@ -2260,81 +1908,37 @@ function getThumbnail(item){
 
 function renderContinue(){
 
-    /*
-       HANYA progress 1-99%.
-
-       Materi 100% tidak masuk
-       ke daftar "Lanjutkan Belajar".
-    */
-
-    const activeRows =
-        progressRows
+    const activeProgress =
+        progressData
             .filter(
-                function(row){
-
-                    const progress =
-                        normalizeProgress(
-                            row.progress
-                        );
-
-
-                    return (
-                        progress > 0 &&
-                        progress < 100 &&
-                        row.status !== "completed"
-                    );
-
-                }
+                item =>
+                    Number(
+                        item.progress || 0
+                    ) > 0 &&
+                    Number(
+                        item.progress || 0
+                    ) < 100
             )
-            .slice(
-                0,
-                5
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    new Date(
+                        b.last_watched_at ||
+                        b.updated_at ||
+                        0
+                    ) -
+                    new Date(
+                        a.last_watched_at ||
+                        a.updated_at ||
+                        0
+                    )
             );
 
 
-    /*
-       Jika tidak ada progress 1-99%,
-       tampilkan progress terakhir
-       yang belum selesai.
-    */
-
-    let rows =
-        activeRows;
-
-
     if(
-        rows.length === 0
-    ){
-
-        rows =
-            progressRows
-                .filter(
-                    function(row){
-
-                        const progress =
-                            normalizeProgress(
-                                row.progress
-                            );
-
-
-                        return (
-                            progress >= 0 &&
-                            progress < 100 &&
-                            row.status !== "completed"
-                        );
-
-                    }
-                )
-                .slice(
-                    0,
-                    3
-                );
-
-    }
-
-
-    if(
-        rows.length === 0
+        activeProgress.length === 0
     ){
 
         continueContainer.innerHTML = `
@@ -2343,13 +1947,13 @@ function renderContinue(){
 
                 📚 Belum ada materi yang sedang dipelajari.
 
-                <br><br>
+                <br>
 
                 <a
-                    href="index.html#materi"
-                    class="primary-btn"
+                    href="materi.html"
+                    class="continue-button"
                 >
-                    🚀 Mulai Belajar
+                    Mulai Belajar
                 </a>
 
             </div>
@@ -2361,62 +1965,28 @@ function renderContinue(){
     }
 
 
-    const availableItems =
-        [];
+    const progress =
+        activeProgress[0];
 
 
-    rows.forEach(
-        function(row){
-
-            const material =
-                materials.find(
-                    function(item){
-
-                        return (
-                            String(
-                                item.id
-                            ) ===
-                            String(
-                                row.material_id
-                            )
-                        );
-
-                    }
-                );
+    const material =
+        materials.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                String(
+                    progress.material_id
+                )
+        );
 
 
-            if(material){
-
-                availableItems.push({
-
-                    material:
-
-                        material,
-
-                    progress:
-
-                        normalizeProgress(
-                            row.progress
-                        )
-
-                });
-
-            }
-
-        }
-    );
-
-
-    if(
-        availableItems.length === 0
-    ){
+    if(!material){
 
         continueContainer.innerHTML = `
 
             <div class="empty">
-
-                📚 Belum ada materi yang sedang dipelajari.
-
+                📚 Silakan pilih materi untuk mulai belajar.
             </div>
 
         `;
@@ -2426,17 +1996,207 @@ function renderContinue(){
     }
 
 
-    continueContainer.innerHTML =
-        availableItems
+    const percentage =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Number(
+                    progress.progress || 0
+                )
+            )
+        );
+
+
+    continueContainer.innerHTML = `
+
+        <div
+            style="
+                display:flex;
+                gap:12px;
+                align-items:center;
+                flex-wrap:wrap;
+            "
+        >
+
+            <div
+                style="
+                    width:90px;
+                    height:65px;
+                    border-radius:8px;
+                    overflow:hidden;
+                    background:#dff6eb;
+                    flex-shrink:0;
+                "
+            >
+
+                ${
+                    getThumbnail(material)
+                    ?
+                    `
+                    <img
+                        src="${escapeHtml(
+                            getThumbnail(material)
+                        )}"
+                        alt="${escapeHtml(
+                            material.judul
+                        )}"
+                        style="
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                        "
+                    >
+                    `
+                    :
+                    `
+                    <div
+                        style="
+                            width:100%;
+                            height:100%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:25px;
+                        "
+                    >
+                        ${
+                            getType(material) === "audio"
+                            ? "🎧"
+                            : getType(material) === "pdf"
+                            ? "📄"
+                            : "🎥"
+                        }
+                    </div>
+                    `
+                }
+
+            </div>
+
+
+            <div
+                style="
+                    flex:1;
+                    min-width:180px;
+                "
+            >
+
+                <strong
+                    style="
+                        display:block;
+                        font-size:10px;
+                        margin-bottom:3px;
+                    "
+                >
+                    ${escapeHtml(
+                        material.judul
+                    )}
+                </strong>
+
+                <div
+                    style="
+                        font-size:7px;
+                        color:#7a8580;
+                        margin-bottom:5px;
+                    "
+                >
+                    ${typeLabel(material)}
+                    •
+                    ${percentage}%
+                </div>
+
+                <div
+                    style="
+                        width:100%;
+                        height:5px;
+                        background:#e5eee9;
+                        border-radius:20px;
+                        overflow:hidden;
+                    "
+                >
+
+                    <div
+                        style="
+                            width:${percentage}%;
+                            height:100%;
+                            background:#008f50;
+                        "
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="${getMaterialUrl(material)}"
+                class="continue-button"
+            >
+                Lanjutkan
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   RENDER MATERIALS
+===================================================== */
+
+function renderMaterials(){
+
+    /*
+     * Dashboard hanya menampilkan
+     * beberapa materi terbaru.
+     */
+
+    const latest =
+        materials.slice(
+            0,
+            6
+        );
+
+
+    if(
+        latest.length === 0
+    ){
+
+        materialContainer.innerHTML = `
+
+            <div class="empty">
+                📚 Belum ada materi.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const active =
+        isMembershipActive(
+            currentProfile
+        );
+
+
+    materialContainer.innerHTML =
+        latest
             .map(
-                function(item){
+                function(material){
 
-                    const material =
-                        item.material;
+                    const premium =
+                        Boolean(
+                            material.premium
+                        );
 
 
-                    const progress =
-                        item.progress;
+                    const locked =
+                        premium &&
+                        !active;
 
 
                     const thumbnail =
@@ -2445,101 +2205,141 @@ function renderContinue(){
                         );
 
 
-                    const icon =
-                        getMaterialIcon(
-                            material
+                    const progress =
+                        getProgress(
+                            material.id
                         );
 
 
-                    const iconHTML =
-                        thumbnail
-
+                    const percentage =
+                        progress
                         ?
-
-                        `
-
-                            <img
-                                src="${escapeHtml(
-                                    thumbnail
-                                )}"
-                                alt=""
-                            >
-
-                        `
-
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                Number(
+                                    progress.progress || 0
+                                )
+                            )
+                        )
                         :
-
-                        icon;
+                        0;
 
 
                     return `
 
-                        <div class="material-item">
+                        <div class="material-card">
 
-                            <div class="material-icon">
+                            <div class="material-image">
 
-                                ${iconHTML}
+                                ${
+                                    thumbnail
+                                    ?
+                                    `
+                                    <img
+                                        src="${escapeHtml(
+                                            thumbnail
+                                        )}"
+                                        alt="${escapeHtml(
+                                            material.judul
+                                        )}"
+                                        loading="lazy"
+                                    >
+                                    `
+                                    :
+                                    `
+                                    <div class="material-placeholder">
+                                        ${
+                                            getType(material) === "audio"
+                                            ? "🎧"
+                                            : getType(material) === "pdf"
+                                            ? "📄"
+                                            : "🎥"
+                                        }
+                                    </div>
+                                    `
+                                }
 
                             </div>
 
 
-                            <div class="material-info">
+                            <div class="material-body">
 
-                                <h3>
+                                <div class="material-type">
 
+                                    ${typeLabel(material)}
+
+                                    ${
+                                        premium
+                                        ?
+                                        " • 💎 Premium"
+                                        :
+                                        " • ✓ Gratis"
+                                    }
+
+                                </div>
+
+
+                                <div class="material-title">
                                     ${escapeHtml(
-                                        material.judul ||
-                                        "Tanpa Judul"
+                                        material.judul
                                     )}
+                                </div>
 
-                                </h3>
 
-
-                                <div class="material-meta">
-
-                                    ${escapeHtml(
-                                        material.kategori ||
-                                        "Materi"
-                                    )}
-
-                                    •
+                                <div class="material-description">
 
                                     ${escapeHtml(
-                                        getMaterialType(
-                                            material
-                                        )
+                                        material.deskripsi ||
+                                        "Materi pembelajaran NgajiPlus Akademi."
                                     )}
 
                                 </div>
 
 
-                                <div class="small-progress">
-
+                                ${
+                                    percentage > 0
+                                    ?
+                                    `
                                     <div
-                                        class="small-progress-fill"
-                                        style="width:${progress}%"
-                                    ></div>
+                                        style="
+                                            font-size:7px;
+                                            color:#008f50;
+                                            margin-bottom:5px;
+                                        "
+                                    >
+                                        Progress ${percentage}%
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
 
-                                </div>
 
-
-                                <div class="material-percent">
-
-                                    ${progress}%
-
-                                </div>
+                                ${
+                                    locked
+                                    ?
+                                    `
+                                    <a
+                                        href="membership.html"
+                                        class="material-button"
+                                    >
+                                        🔒 Buka Membership
+                                    </a>
+                                    `
+                                    :
+                                    `
+                                    <a
+                                        href="${getMaterialUrl(material)}"
+                                        class="material-button"
+                                    >
+                                        📖 Buka Materi
+                                    </a>
+                                    `
+                                }
 
                             </div>
-
-
-                            <button
-                                class="continue-btn"
-                                data-material-id="${escapeHtml(
-                                    material.id
-                                )}"
-                            >
-                                Lanjut
-                            </button>
 
                         </div>
 
@@ -2549,90 +2349,99 @@ function renderContinue(){
             )
             .join("");
 
-
-    /*
-       EVENT BUTTON
-    */
-
-    continueContainer
-        .querySelectorAll(
-            ".continue-btn"
-        )
-        .forEach(
-            function(button){
-
-                button.addEventListener(
-                    "click",
-                    function(){
-
-                        openMaterial(
-                            button.dataset.materialId
-                        );
-
-                    }
-                );
-
-            }
-        );
-
 }
 
 
 /* =====================================================
-   OPEN MATERIAL
+   LOGOUT
 ===================================================== */
 
-function openMaterial(id){
+logoutBtn.addEventListener(
+    "click",
+    async function(){
 
-    if(!id){
+        const yakin =
+            confirm(
+                "Apakah Anda ingin keluar?"
+            );
 
-        return;
+        if(!yakin){
+
+            return;
+
+        }
+
+
+        logoutBtn.disabled =
+            true;
+
+        logoutBtn.textContent =
+            "⏳";
+
+
+        const result =
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+        if(result.error){
+
+            logoutBtn.disabled =
+                false;
+
+            logoutBtn.textContent =
+                "Keluar";
+
+            alert(
+                "❌ Gagal keluar.\n\n" +
+                result.error.message
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            "login.html";
 
     }
-
-
-    window.location.href =
-        "player.html?id=" +
-        encodeURIComponent(
-            id
-        );
-
-}
+);
 
 
 /* =====================================================
-   SHOW DASHBOARD
+   AUTH STATE
 ===================================================== */
 
-function showDashboard(){
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(event){
 
-    loading.classList.add(
-        "hidden"
+            if(
+                event === "SIGNED_OUT"
+            ){
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+        }
     );
-
-
-    dashboardContent.classList.remove(
-        "hidden"
-    );
-
-}
 
 
 /* =====================================================
-   START
+   START DASHBOARD
 ===================================================== */
 
-async function start(){
+async function startDashboard(){
 
     try{
 
-        /*
-           1.
-           Ambil user
-        */
-
         const loggedIn =
-            await loadUser();
+            await checkUser();
 
 
         if(!loggedIn){
@@ -2642,42 +2451,21 @@ async function start(){
         }
 
 
-        /*
-           2.
-           Ambil materi
-        */
+        await loadProfile();
+
+        renderUser();
+
+        renderMembership();
+
 
         await loadMaterials();
-
-
-        /*
-           3.
-           Ambil progress
-        */
 
         await loadProgress();
 
 
-        /*
-           4.
-           Render dashboard
-        */
-
-        renderWelcome();
-
-        renderStats();
-
-        renderMembership();
-
         renderContinue();
 
-
-        /*
-           5.
-           Tampilkan
-        */
-
-        showDashboard();
+        renderMaterials();
 
     }
 
@@ -2689,45 +2477,21 @@ async function start(){
         );
 
 
-        loading.innerHTML = `
+        notice.className =
+            "notice";
 
-            <div class="error">
-
-                ❌ Dashboard gagal dimuat.
-
-                <br><br>
-
-                ${escapeHtml(
-                    error.message ||
-                    "Terjadi kesalahan."
-                )}
-
-                <br><br>
-
-                <a
-                    href="index.html"
-                    class="secondary-btn"
-                >
-                    ← Kembali ke Materi
-                </a>
-
-            </div>
-
-        `;
+        notice.innerHTML =
+            "⚠️ Dashboard gagal memuat sebagian data. " +
+            "Silakan refresh halaman.";
 
     }
 
 }
 
 
-/* =====================================================
-   START APP
-===================================================== */
-
-start();
+startDashboard();
 
 </script>
-
 
 </body>
 
