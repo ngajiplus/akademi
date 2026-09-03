@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#008f50"
+>
+
+<meta
+    name="description"
+    content="Membership Premium NgajiPlus Akademi"
+>
+
+<title>Membership - NgajiPlus Akademi</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f4faf7;
+
+    color:#202a25;
+
+    line-height:1.5;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+    background:white;
+
+    border-bottom:
+        1px solid #e1ebe5;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+.nav{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        10px 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.logo{
+    color:#008f50;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+    white-space:nowrap;
+}
+
+.nav-buttons{
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+}
+
+.nav-btn{
+    border:0;
+
+    border-radius:7px;
+
+    padding:
+        7px 10px;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+}
+
+.back-btn{
+    background:#eaf7ef;
+
+    color:#087a47;
+
+    border:
+        1px solid #d2eddd;
+}
+
+.profile-btn{
+    background:#008f50;
+
+    color:white;
+}
+
+.logout-btn{
+    background:#eeeeee;
+
+    color:#555;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        35px 15px 20px;
+
+    text-align:center;
+}
+
+.hero-label{
+    display:inline-block;
+
+    background:#e6f8ef;
+
+    color:#008f50;
+
+    border-radius:20px;
+
+    padding:
+        5px 9px;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    margin-bottom:9px;
+}
+
+.hero h1{
+    margin:
+        0 0 8px;
+
+    font-size:
+        clamp(27px,4vw,44px);
+
+    line-height:1.1;
+}
+
+.hero h1 span{
+    color:#008f50;
+}
+
+.hero p{
+    max-width:650px;
+
+    margin:
+        0 auto;
+
+    color:#718078;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   NOTICE
+===================================================== */
+
+.notice{
+    max-width:1200px;
+
+    margin:
+        0 auto 20px;
+
+    padding:
+        11px 14px;
+
+    border-radius:9px;
+
+    font-size:9px;
+
+    border:
+        1px solid #f0df91;
+
+    background:#fff8d9;
+
+    color:#75621c;
+}
+
+.notice.success{
+    background:#e5f9ed;
+
+    border-color:#bde8cf;
+
+    color:#087a47;
+}
+
+.notice.error{
+    background:#ffe9e9;
+
+    border-color:#f3c2c2;
+
+    color:#b42318;
+}
+
+
+/* =====================================================
+   PACKAGE AREA
+===================================================== */
+
+.package-area{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        0 15px 50px;
+}
+
+.package-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+}
+
+
+/* =====================================================
+   PACKAGE CARD
+===================================================== */
+
+.package-card{
+    background:white;
+
+    border:
+        1px solid #dfe9e3;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    position:relative;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.04);
+
+    transition:.2s;
+}
+
+.package-card:hover{
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.07);
+}
+
+.package-card.featured{
+    border:
+        2px solid #008f50;
+
+    transform:
+        translateY(-5px);
+}
+
+.package-card.featured:hover{
+    transform:
+        translateY(-8px);
+}
+
+.package-popular{
+    position:absolute;
+
+    top:-11px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    background:#008f50;
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:
+        4px 10px;
+
+    font-size:8px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+}
+
+.package-icon{
+    font-size:30px;
+
+    margin-bottom:7px;
+}
+
+.package-name{
+    font-size:16px;
+
+    font-weight:bold;
+
+    margin-bottom:3px;
+}
+
+.package-duration{
+    color:#7a8580;
+
+    font-size:9px;
+
+    margin-bottom:13px;
+}
+
+.package-price{
+    color:#008f50;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+.package-price small{
+    font-size:9px;
+
+    color:#7a8580;
+
+    font-weight:normal;
+}
+
+.package-features{
+    list-style:none;
+
+    padding:0;
+
+    margin:
+        0 0 18px;
+}
+
+.package-features li{
+    font-size:9px;
+
+    color:#5f6b64;
+
+    margin-bottom:7px;
+}
+
+.package-features li::before{
+    content:"✓";
+
+    color:#008f50;
+
+    font-weight:bold;
+
+    margin-right:6px;
+}
+
+.package-button{
+    width:100%;
+
+    border:0;
+
+    border-radius:8px;
+
+    padding:10px;
+
+    background:#008f50;
+
+    color:white;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.package-button:hover{
+    background:#007b45;
+}
+
+.package-button:disabled{
+    background:#b8c8bf;
+
+    cursor:not-allowed;
+}
+
+
+/* =====================================================
+   ORDER
+===================================================== */
+
+.order-area{
+    max-width:700px;
+
+    margin:
+        0 auto 50px;
+
+    padding:
+        0 15px;
+}
+
+.order-card{
+    background:white;
+
+    border:
+        1px solid #dfe9e3;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.04);
+}
+
+.order-title{
+    margin:
+        0 0 5px;
+
+    font-size:17px;
+}
+
+.order-description{
+    margin:
+        0 0 15px;
+
+    color:#7a8580;
+
+    font-size:9px;
+}
+
+.selected-package{
+    background:#eaf8f1;
+
+    border:
+        1px solid #ccebdd;
+
+    border-radius:10px;
+
+    padding:13px;
+
+    margin-bottom:15px;
+}
+
+.selected-label{
+    color:#718078;
+
+    font-size:8px;
+}
+
+.selected-name{
+    color:#008f50;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+.selected-price{
+    color:#087a47;
+
+    font-size:10px;
+
+    margin-top:2px;
+}
+
+.order-button{
+    width:100%;
+
+    border:0;
+
+    border-radius:8px;
+
+    padding:11px;
+
+    background:#008f50;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.order-button:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history-area{
+    max-width:900px;
+
+    margin:
+        0 auto 50px;
+
+    padding:
+        0 15px;
+}
+
+.history-card{
+    background:white;
+
+    border:
+        1px solid #dfe9e3;
+
+    border-radius:15px;
+
+    padding:18px;
+}
+
+.history-title{
+    margin:
+        0 0 12px;
+
+    font-size:16px;
+}
+
+.order-item{
+    border-bottom:
+        1px solid #edf1ee;
+
+    padding:
+        11px 0;
+}
+
+.order-item:last-child{
+    border-bottom:0;
+}
+
+.order-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    align-items:center;
+}
+
+.order-package{
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+.order-date{
+    color:#7a8580;
+
+    font-size:8px;
+}
+
+.status{
+    display:inline-block;
+
+    padding:
+        4px 7px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:bold;
+}
+
+.status-menunggu{
+    background:#fff4c8;
+
+    color:#806500;
+}
+
+.status-berhasil{
+    background:#dff7e9;
+
+    color:#087a47;
+}
+
+.status-diproses{
+    background:#e3f1ff;
+
+    color:#1769aa;
+}
+
+.status-ditolak,
+.status-dibatalkan{
+    background:#ffe5e5;
+
+    color:#b42318;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    background:#0b1812;
+
+    color:white;
+
+    padding:
+        25px 15px;
+}
+
+.footer-inner{
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.footer-logo{
+    color:#35b878;
+
+    font-weight:bold;
+
+    font-size:12px;
+}
+
+.footer-text{
+    color:#87948d;
+
+    font-size:8px;
+
+    margin-top:3px;
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden{
+    display:none !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px){
+
+    .package-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:550px){
+
+    .nav{
+        padding:
+            8px 10px;
+    }
+
+    .logo{
+        font-size:11px;
+    }
+
+    .nav-buttons{
+        gap:3px;
+    }
+
+    .nav-btn{
+        padding:
+            6px 7px;
+
+        font-size:8px;
+    }
+
+    .hero{
+        padding:
+            25px 12px 18px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .hero p{
+        font-size:9px;
+    }
+
+    .package-area{
+        padding:
+            0 12px 40px;
+    }
+
+    .package-grid{
+        grid-template-columns:1fr;
+
+        gap:13px;
+    }
+
+    .package-card.featured{
+        transform:none;
+    }
+
+    .package-card.featured:hover{
+        transform:translateY(-3px);
+    }
+
+    .order-area,
+    .history-area{
+        padding:
+            0 12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+📖 NgajiPlus Akademi
+</div>
+
+<div class="nav-buttons">
+
+<a
+    href="dashboard.html"
+    class="nav-btn back-btn"
+>
+← Dashboard
+</a>
+
+<a
+    href="profile.html"
+    class="nav-btn profile-btn"
+>
+👤 Profil
+</a>
+
+<button
+    id="logoutBtn"
+    class="nav-btn logout-btn"
+>
+Keluar
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+<div class="hero-label">
+💎 MEMBERSHIP NGajiPLUS
+</div>
+
+<h1>
+Belajar Lebih Banyak,
+<span>Lebih Dalam.</span>
+</h1>
+
+<p>
+Aktifkan membership Premium untuk mendapatkan akses
+ke seluruh materi Premium NgajiPlus Akademi.
+</p>
+
+</section>
+
+
+<!-- =====================================================
+     NOTICE
+===================================================== -->
+
+<div
+    id="notice"
+    class="notice"
+>
+⏳ Memeriksa akun...
+</div>
+
+
+<!-- =====================================================
+     PACKAGE
+===================================================== -->
+
+<section class="package-area">
+
+<div class="package-grid">
+
+
+<!-- 1 BULAN -->
+
+<div class="package-card">
+
+<div class="package-icon">
+🌱
+</div>
+
+<div class="package-name">
+1 Bulan
+</div>
+
+<div class="package-duration">
+30 hari akses Premium
+</div>
+
+<div class="package-price">
+Rp25.000
+<small>/30 hari</small>
+</div>
+
+<ul class="package-features">
+
+<li>
+Semua materi gratis
+</li>
+
+<li>
+Materi Premium
+</li>
+
+<li>
+Video & Audio
+</li>
+
+<li>
+Progress belajar
+</li>
+
+</ul>
+
+<button
+    class="package-button"
+    data-package="1 Bulan"
+    data-duration="30"
+    data-price="25000"
+>
+Pilih Paket
+</button>
+
+</div>
+
+
+<!-- 3 BULAN -->
+
+<div class="package-card featured">
+
+<div class="package-popular">
+⭐ PALING POPULER
+</div>
+
+<div class="package-icon">
+⭐
+</div>
+
+<div class="package-name">
+3 Bulan
+</div>
+
+<div class="package-duration">
+90 hari akses Premium
+</div>
+
+<div class="package-price">
+Rp60.000
+<small>/90 hari</small>
+</div>
+
+<ul class="package-features">
+
+<li>
+Semua materi gratis
+</li>
+
+<li>
+Semua materi Premium
+</li>
+
+<li>
+Video & Audio
+</li>
+
+<li>
+Progress belajar
+</li>
+
+</ul>
+
+<button
+    class="package-button"
+    data-package="3 Bulan"
+    data-duration="90"
+    data-price="60000"
+>
+Pilih Paket
+</button>
+
+</div>
+
+
+<!-- 6 BULAN -->
+
+<div class="package-card">
+
+<div class="package-icon">
+💎
+</div>
+
+<div class="package-name">
+6 Bulan
+</div>
+
+<div class="package-duration">
+180 hari akses Premium
+</div>
+
+<div class="package-price">
+Rp100.000
+<small>/180 hari</small>
+</div>
+
+<ul class="package-features">
+
+<li>
+Semua materi gratis
+</li>
+
+<li>
+Semua materi Premium
+</li>
+
+<li>
+Video & Audio
+</li>
+
+<li>
+Progress belajar
+</li>
+
+</ul>
+
+<button
+    class="package-button"
+    data-package="6 Bulan"
+    data-duration="180"
+    data-price="100000"
+>
+Pilih Paket
+</button>
+
+</div>
+
+
+<!-- 1 TAHUN -->
+
+<div class="package-card">
+
+<div class="package-icon">
+👑
+</div>
+
+<div class="package-name">
+1 Tahun
+</div>
+
+<div class="package-duration">
+365 hari akses Premium
+</div>
+
+<div class="package-price">
+Rp180.000
+<small>/365 hari</small>
+</div>
+
+<ul class="package-features">
+
+<li>
+Semua materi gratis
+</li>
+
+<li>
+Semua materi Premium
+</li>
+
+<li>
+Video & Audio
+</li>
+
+<li>
+Progress belajar
+</li>
+
+</ul>
+
+<button
+    class="package-button"
+    data-package="1 Tahun"
+    data-duration="365"
+    data-price="180000"
+>
+Pilih Paket
+</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ORDER CONFIRMATION
+===================================================== -->
+
+<section
+    id="orderArea"
+    class="order-area hidden"
+>
+
+<div class="order-card">
+
+<h2 class="order-title">
+🛒 Konfirmasi Pesanan
+</h2>
+
+<p class="order-description">
+Pastikan paket yang Anda pilih sudah benar.
+</p>
+
+
+<div class="selected-package">
+
+<div class="selected-label">
+Paket yang dipilih
+</div>
+
+<div
+    id="selectedPackage"
+    class="selected-name"
+>
+-
+</div>
+
+<div
+    id="selectedPrice"
+    class="selected-price"
+>
+-
+</div>
+
+</div>
+
+
+<button
+    id="createOrderBtn"
+    class="order-button"
+>
+✅ Buat Pesanan
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+
+<section class="history-area">
+
+<div class="history-card">
+
+<h2 class="history-title">
+📋 Pesanan Saya
+</h2>
+
+<div id="historyContainer">
+
+<div class="order-date">
+⏳ Memuat pesanan...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="footer-inner">
+
+<div class="footer-logo">
+📖 NgajiPlus Akademi
+</div>
+
+<div class="footer-text">
+Platform pembelajaran Islam berupa Video, Audio dan PDF.
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://ksgywgdrfskqsufchbcm.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let selectedPackage = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const notice =
+    document.getElementById(
+        "notice"
+    );
+
+const orderArea =
+    document.getElementById(
+        "orderArea"
+    );
+
+const selectedPackageElement =
+    document.getElementById(
+        "selectedPackage"
+    );
+
+const selectedPriceElement =
+    document.getElementById(
+        "selectedPrice"
+    );
+
+const createOrderBtn =
+    document.getElementById(
+        "createOrderBtn"
+    );
+
+const historyContainer =
+    document.getElementById(
+        "historyContainer"
+    );
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   FORMAT RUPIAH
+===================================================== */
+
+function formatRupiah(value){
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style:"currency",
+            currency:"IDR",
+            maximumFractionDigits:0
+        }
+    ).format(
+        Number(value || 0)
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatTanggal(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
+    }
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CHECK USER
+===================================================== */
+
+async function checkUser(){
+
+    try{
+
+        const result =
+            await supabaseClient
+                .auth
+                .getUser();
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        currentUser =
+            result.data.user;
+
+
+        if(!currentUser){
+
+            notice.className =
+                "notice error";
+
+            notice.innerHTML =
+                "🔐 Anda harus login terlebih dahulu.";
+
+            document
+                .querySelectorAll(
+                    ".package-button"
+                )
+                .forEach(
+                    button => {
+                        button.disabled = true;
+                    }
+                );
+
+            return false;
+
+        }
+
+
+        /*
+           PROFILE
+        */
+
+        const profileResult =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "id,nama,status,paket,berlaku_sampai"
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(profileResult.error){
+
+            throw profileResult.error;
+
+        }
+
+
+        currentProfile =
+            profileResult.data;
+
+
+        /*
+           CEK MEMBERSHIP
+        */
+
+        let active = false;
+
+
+        if(currentProfile){
+
+            const status =
+                String(
+                    currentProfile.status || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            if(
+                status === "aktif" &&
+                currentProfile.berlaku_sampai
+            ){
+
+                const expiry =
+                    new Date(
+                        currentProfile.berlaku_sampai
+                    );
+
+
+                active =
+                    !isNaN(
+                        expiry.getTime()
+                    ) &&
+                    expiry >= new Date();
+
+            }
+
+        }
+
+
+        /*
+           JIKA SUDAH PREMIUM
+        */
+
+        if(active){
+
+            notice.className =
+                "notice success";
+
+            notice.innerHTML =
+                "✅ Membership Anda sedang aktif sampai " +
+
+                "<strong>" +
+
+                escapeHtml(
+                    formatTanggal(
+                        currentProfile.berlaku_sampai
+                    )
+                ) +
+
+                "</strong>. " +
+
+                "Anda sudah memiliki akses Premium.";
+
+        }
+
+        else{
+
+            notice.className =
+                "notice";
+
+            notice.innerHTML =
+                "💎 Pilih paket membership yang sesuai " +
+                "untuk mendapatkan akses materi Premium.";
+
+        }
+
+
+        await loadHistory();
+
+        return true;
+
+    }
+
+    catch(error){
+
+        console.error(
+            "CHECK USER ERROR:",
+            error
+        );
+
+
+        notice.className =
+            "notice error";
+
+
+        notice.innerHTML =
+            "❌ Gagal memeriksa akun: " +
+
+            escapeHtml(
+                error.message
+            );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT PACKAGE
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".package-button"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    selectedPackage = {
+
+                        nama:
+                            button.dataset.package,
+
+                        durasi:
+                            Number(
+                                button.dataset.duration
+                            ),
+
+                        harga:
+                            Number(
+                                button.dataset.price
+                            )
+
+                    };
+
+
+                    selectedPackageElement.textContent =
+                        selectedPackage.nama;
+
+
+                    selectedPriceElement.textContent =
+                        formatRupiah(
+                            selectedPackage.harga
+                        );
+
+
+                    orderArea.classList.remove(
+                        "hidden"
+                    );
+
+
+                    orderArea.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   CREATE ORDER
+===================================================== */
+
+createOrderBtn.addEventListener(
+    "click",
+    async function(){
+
+        if(!currentUser){
+
+            alert(
+                "Silakan login terlebih dahulu."
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        if(!selectedPackage){
+
+            alert(
+                "Silakan pilih paket terlebih dahulu."
+            );
+
+            return;
+
+        }
+
+
+        const yakin =
+            confirm(
+                "Buat pesanan " +
+                selectedPackage.nama +
+                " dengan harga " +
+                formatRupiah(
+                    selectedPackage.harga
+                ) +
+                "?"
+            );
+
+
+        if(!yakin){
+
+            return;
+
+        }
+
+
+        createOrderBtn.disabled =
+            true;
+
+
+        createOrderBtn.textContent =
+            "⏳ Membuat pesanan...";
+
+
+        try{
+
+            /*
+               AMBIL DATA USER
+            */
+
+            const nama =
+                currentProfile?.nama ||
+                currentUser.user_metadata?.full_name ||
+                currentUser.email?.split("@")[0] ||
+                "Member";
+
+
+            const email =
+                currentUser.email ||
+                "";
+
+
+            /*
+               INSERT PESANAN
+            */
+
+            const result =
+                await supabaseClient
+                    .from(
+                        "membership_orders"
+                    )
+                    .insert({
+
+                        user_id:
+                            currentUser.id,
+
+                        nama:
+                            nama,
+
+                        email:
+                            email,
+
+                        paket:
+                            selectedPackage.nama,
+
+                        durasi_hari:
+                            selectedPackage.durasi,
+
+                        harga:
+                            selectedPackage.harga,
+
+                        status:
+                            "menunggu"
+
+                    })
+                    .select()
+                    .single();
+
+
+            if(result.error){
+
+                throw result.error;
+
+            }
+
+
+            alert(
+                "✅ Pesanan berhasil dibuat!\n\n" +
+                "Paket: " +
+                selectedPackage.nama +
+                "\nHarga: " +
+                formatRupiah(
+                    selectedPackage.harga
+                ) +
+                "\n\nStatus: Menunggu."
+            );
+
+
+            orderArea.classList.add(
+                "hidden"
+            );
+
+
+            selectedPackage =
+                null;
+
+
+            await loadHistory();
+
+        }
+
+        catch(error){
+
+            console.error(
+                "CREATE ORDER ERROR:",
+                error
+            );
+
+
+            alert(
+                "❌ Gagal membuat pesanan.\n\n" +
+                error.message
+            );
+
+        }
+
+        finally{
+
+            createOrderBtn.disabled =
+                false;
+
+            createOrderBtn.textContent =
+                "✅ Buat Pesanan";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOAD HISTORY
+===================================================== */
+
+async function loadHistory(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    historyContainer.innerHTML = `
+
+        <div class="order-date">
+            ⏳ Memuat pesanan...
+        </div>
+
+    `;
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from(
+                    "membership_orders"
+                )
+                .select(
+                    "id,paket,durasi_hari,harga,status,created_at"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(result.error){
+
+            throw result.error;
+
+        }
+
+
+        const orders =
+            result.data || [];
+
+
+        if(
+            orders.length === 0
+        ){
+
+            historyContainer.innerHTML = `
+
+                <div class="order-date">
+                    📭 Belum ada pesanan membership.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        historyContainer.innerHTML =
+            orders
+                .map(
+                    function(order){
+
+                        const status =
+                            String(
+                                order.status || ""
+                            )
+                            .toLowerCase();
+
+
+                        let statusClass =
+                            "status-menunggu";
+
+
+                        if(
+                            status === "berhasil"
+                        ){
+
+                            statusClass =
+                                "status-berhasil";
+
+                        }
+
+                        else if(
+                            status === "diproses"
+                        ){
+
+                            statusClass =
+                                "status-diproses";
+
+                        }
+
+                        else if(
+                            status === "ditolak" ||
+                            status === "dibatalkan"
+                        ){
+
+                            statusClass =
+                                "status-ditolak";
+
+                        }
+
+
+                        return `
+
+                            <div class="order-item">
+
+                                <div class="order-row">
+
+                                    <div>
+
+                                        <div class="order-package">
+                                            ${escapeHtml(
+                                                order.paket
+                                            )}
+                                        </div>
+
+                                        <div class="order-date">
+                                            ${formatRupiah(
+                                                order.harga
+                                            )}
+                                            •
+                                            ${formatTanggal(
+                                                order.created_at
+                                            )}
+                                        </div>
+
+                                    </div>
+
+
+                                    <span
+                                        class="status ${statusClass}"
+                                    >
+                                        ${escapeHtml(
+                                            order.status
+                                        )}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "LOAD HISTORY ERROR:",
+            error
+        );
+
+
+        historyContainer.innerHTML = `
+
+            <div class="order-date">
+                ❌ Gagal mengambil riwayat pesanan.
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(){
+
+        const yakin =
+            confirm(
+                "Apakah Anda ingin keluar?"
+            );
+
+
+        if(!yakin){
+
+            return;
+
+        }
+
+
+        try{
+
+            const result =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+            if(result.error){
+
+                throw result.error;
+
+            }
+
+
+            window.location.href =
+                "index.html";
+
+        }
+
+        catch(error){
+
+            alert(
+                "❌ Gagal keluar.\n\n" +
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event
+        ){
+
+            if(
+                event === "SIGNED_OUT"
+            ){
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkUser();
+
+</script>
+
+</body>
+
+</html>
