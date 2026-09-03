@@ -28,10 +28,6 @@
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
     box-sizing:border-box;
 }
@@ -57,7 +53,6 @@ body{
 
 a{
     text-decoration:none;
-
     color:inherit;
 }
 
@@ -241,11 +236,11 @@ header{
     font-size:9px;
 
     border:
-        1px solid #dfe9e3;
+        1px solid #f0df91;
 
-    background:white;
+    background:#fff8d9;
 
-    color:#59665f;
+    color:#75621c;
 }
 
 .notice.success{
@@ -264,24 +259,16 @@ header{
     color:#b42318;
 }
 
-.notice.warning{
-    background:#fff8d9;
-
-    border-color:#f0df91;
-
-    color:#75621c;
-}
-
 
 /* =====================================================
    ACTIVE MEMBERSHIP
 ===================================================== */
 
-.active-area{
+.active-membership{
     max-width:1200px;
 
     margin:
-        0 auto 18px;
+        0 auto 20px;
 
     padding:
         0 15px;
@@ -291,28 +278,28 @@ header{
     background:
         linear-gradient(
             135deg,
-            #e9fff3,
+            #e5fbef,
             #f7fffa
         );
 
     border:
-        1px solid #bcebd0;
+        1px solid #bdebd0;
 
     border-radius:15px;
 
-    padding:17px;
+    padding:18px;
 
     box-shadow:
         0 5px 20px
-        rgba(0,143,80,.06);
+        rgba(0,143,80,.05);
 }
 
 .active-top{
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
+
+    align-items:center;
 
     gap:10px;
 
@@ -340,25 +327,26 @@ header{
     font-size:8px;
 
     font-weight:bold;
-
-    white-space:nowrap;
 }
 
-.active-grid{
+.active-info{
     display:grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:8px;
+    gap:9px;
 }
 
-.active-info{
+.active-box{
     background:white;
 
     border-radius:9px;
 
     padding:10px;
+
+    border:
+        1px solid #e2f0e8;
 }
 
 .active-label{
@@ -374,9 +362,9 @@ header{
 .active-value{
     display:block;
 
-    color:#087a47;
+    color:#202a25;
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:bold;
 }
@@ -448,18 +436,6 @@ header{
 .package-card.featured:hover{
     transform:
         translateY(-8px);
-}
-
-.package-card.active{
-    border:
-        2px solid #9fc9b2;
-
-    background:
-        linear-gradient(
-            180deg,
-            #f1fff7,
-            #ffffff
-        );
 }
 
 .package-popular{
@@ -580,11 +556,7 @@ header{
 .package-button:disabled{
     background:#b8c8bf;
 
-    color:white;
-
     cursor:not-allowed;
-
-    opacity:1;
 }
 
 
@@ -716,14 +688,18 @@ header{
     border-radius:15px;
 
     padding:18px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.03);
 }
 
 .history-header{
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
+
+    align-items:center;
 
     gap:10px;
 
@@ -736,39 +712,44 @@ header{
     font-size:16px;
 }
 
-.history-refresh{
+.refresh-history{
     border:0;
-
-    background:#eaf8f1;
-
-    color:#087a47;
 
     border-radius:7px;
 
     padding:
-        6px 8px;
+        6px 9px;
+
+    background:#eaf8f1;
+
+    color:#087a47;
 
     font-size:8px;
 
     font-weight:bold;
 }
 
-.history-refresh:disabled{
+.refresh-history:disabled{
     opacity:.6;
 
     cursor:not-allowed;
 }
 
 .order-item{
-    border-bottom:
+    border:
         1px solid #edf1ee;
 
-    padding:
-        11px 0;
+    border-radius:10px;
+
+    padding:12px;
+
+    margin-bottom:8px;
+
+    background:#fbfdfc;
 }
 
 .order-item:last-child{
-    border-bottom:0;
+    margin-bottom:0;
 }
 
 .order-row{
@@ -785,6 +766,8 @@ header{
     font-size:10px;
 
     font-weight:bold;
+
+    color:#202a25;
 }
 
 .order-date{
@@ -792,22 +775,22 @@ header{
 
     font-size:8px;
 
-    margin-top:2px;
+    margin-top:3px;
 }
 
-.order-duration{
-    color:#5f6b64;
+.order-extra{
+    color:#6f7c75;
 
     font-size:8px;
 
-    margin-top:2px;
+    margin-top:5px;
 }
 
 .status{
     display:inline-block;
 
     padding:
-        4px 7px;
+        5px 8px;
 
     border-radius:20px;
 
@@ -824,16 +807,10 @@ header{
     color:#806500;
 }
 
-.status-disetujui{
+.status-berhasil{
     background:#dff7e9;
 
     color:#087a47;
-}
-
-.status-ditolak{
-    background:#ffe5e5;
-
-    color:#b42318;
 }
 
 .status-diproses{
@@ -842,24 +819,40 @@ header{
     color:#1769aa;
 }
 
+.status-ditolak{
+    background:#ffe5e5;
+
+    color:#b42318;
+}
+
 .status-lain{
     background:#eeeeee;
 
     color:#555;
 }
 
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
 .empty-history{
+    padding:
+        25px 10px;
+
     text-align:center;
 
-    padding:
-        20px 10px;
-
     color:#7a8580;
+
+    font-size:9px;
+}
+
+.history-error{
+    background:#fff0f0;
+
+    border:
+        1px solid #f2c4c4;
+
+    color:#b42318;
+
+    border-radius:9px;
+
+    padding:12px;
 
     font-size:9px;
 }
@@ -923,7 +916,6 @@ footer{
 
 }
 
-
 @media(max-width:550px){
 
     .nav{
@@ -959,13 +951,20 @@ footer{
         font-size:9px;
     }
 
-    .active-area{
+    .active-membership{
         padding:
             0 12px;
     }
 
-    .active-grid{
-        grid-template-columns:1fr;
+    .active-top{
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
+    .active-info{
+        grid-template-columns:
+            1fr;
     }
 
     .package-area{
@@ -993,36 +992,16 @@ footer{
             0 12px;
     }
 
+    .history-header{
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
     .order-row{
         align-items:flex-start;
-    }
 
-}
-
-
-/* =====================================================
-   VERY SMALL SCREEN
-===================================================== */
-
-@media(max-width:360px){
-
-    .logo{
-        font-size:10px;
-    }
-
-    .nav-btn{
-        padding:
-            5px 6px;
-
-        font-size:7px;
-    }
-
-    .package-name{
-        font-size:15px;
-    }
-
-    .package-price{
-        font-size:22px;
+        flex-direction:column;
     }
 
 }
@@ -1047,7 +1026,6 @@ footer{
 📖 NgajiPlus Akademi
 </div>
 
-
 <div class="nav-buttons">
 
 <a
@@ -1057,14 +1035,12 @@ footer{
 ← Dashboard
 </a>
 
-
 <a
     href="profile.html"
     class="nav-btn profile-btn"
 >
 👤 Profil
 </a>
-
 
 <button
     id="logoutBtn"
@@ -1080,7 +1056,6 @@ Keluar
 </header>
 
 
-
 <!-- =====================================================
      HERO
 ===================================================== -->
@@ -1088,15 +1063,13 @@ Keluar
 <section class="hero">
 
 <div class="hero-label">
-💎 MEMBERSHIP NGajiPLUS
+💎 MEMBERSHIP NGAJIPLUS
 </div>
-
 
 <h1>
 Belajar Lebih Banyak,
 <span>Lebih Dalam.</span>
 </h1>
-
 
 <p>
 Aktifkan membership Premium untuk mendapatkan akses
@@ -1104,7 +1077,6 @@ ke seluruh materi Premium NgajiPlus Akademi.
 </p>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1119,14 +1091,13 @@ ke seluruh materi Premium NgajiPlus Akademi.
 </div>
 
 
-
 <!-- =====================================================
      ACTIVE MEMBERSHIP
 ===================================================== -->
 
 <section
-    id="activeArea"
-    class="active-area hidden"
+    id="activeMembership"
+    class="active-membership hidden"
 >
 
 <div class="active-card">
@@ -1137,7 +1108,6 @@ ke seluruh materi Premium NgajiPlus Akademi.
 💎 Membership Aktif
 </div>
 
-
 <div class="active-badge">
 ✓ PREMIUM AKTIF
 </div>
@@ -1145,10 +1115,10 @@ ke seluruh materi Premium NgajiPlus Akademi.
 </div>
 
 
-<div class="active-grid">
-
-
 <div class="active-info">
+
+
+<div class="active-box">
 
 <span class="active-label">
 Paket
@@ -1164,7 +1134,7 @@ Premium
 </div>
 
 
-<div class="active-info">
+<div class="active-box">
 
 <span class="active-label">
 Berlaku Sampai
@@ -1180,7 +1150,7 @@ Berlaku Sampai
 </div>
 
 
-<div class="active-info">
+<div class="active-box">
 
 <span class="active-label">
 Status
@@ -1203,9 +1173,8 @@ Aktif
 </section>
 
 
-
 <!-- =====================================================
-     PACKAGE AREA
+     PACKAGE
 ===================================================== -->
 
 <section class="package-area">
@@ -1213,35 +1182,26 @@ Aktif
 <div class="package-grid">
 
 
-<!-- ===================================================
-     1 BULAN
-=================================================== -->
+<!-- 1 BULAN -->
 
-<div
-    class="package-card"
-    data-package-card="1 Bulan"
->
+<div class="package-card">
 
 <div class="package-icon">
 🌱
 </div>
 
-
 <div class="package-name">
 1 Bulan
 </div>
-
 
 <div class="package-duration">
 30 hari akses Premium
 </div>
 
-
 <div class="package-price">
 Rp10.000
 <small>/30 hari</small>
 </div>
-
 
 <ul class="package-features">
 
@@ -1263,7 +1223,6 @@ Progress belajar
 
 </ul>
 
-
 <button
     class="package-button"
     data-package="1 Bulan"
@@ -1276,41 +1235,30 @@ Pilih Paket
 </div>
 
 
+<!-- 3 BULAN -->
 
-<!-- ===================================================
-     3 BULAN
-=================================================== -->
-
-<div
-    class="package-card featured"
-    data-package-card="3 Bulan"
->
+<div class="package-card featured">
 
 <div class="package-popular">
 ⭐ PALING POPULER
 </div>
 
-
 <div class="package-icon">
 ⭐
 </div>
-
 
 <div class="package-name">
 3 Bulan
 </div>
 
-
 <div class="package-duration">
 90 hari akses Premium
 </div>
-
 
 <div class="package-price">
 Rp25.000
 <small>/90 hari</small>
 </div>
-
 
 <ul class="package-features">
 
@@ -1331,7 +1279,6 @@ Progress belajar
 </li>
 
 </ul>
-
 
 <button
     class="package-button"
@@ -1345,36 +1292,26 @@ Pilih Paket
 </div>
 
 
+<!-- 6 BULAN -->
 
-<!-- ===================================================
-     6 BULAN
-=================================================== -->
-
-<div
-    class="package-card"
-    data-package-card="6 Bulan"
->
+<div class="package-card">
 
 <div class="package-icon">
 💎
 </div>
 
-
 <div class="package-name">
 6 Bulan
 </div>
-
 
 <div class="package-duration">
 180 hari akses Premium
 </div>
 
-
 <div class="package-price">
 Rp45.000
 <small>/180 hari</small>
 </div>
-
 
 <ul class="package-features">
 
@@ -1395,7 +1332,6 @@ Progress belajar
 </li>
 
 </ul>
-
 
 <button
     class="package-button"
@@ -1409,36 +1345,26 @@ Pilih Paket
 </div>
 
 
+<!-- 1 TAHUN -->
 
-<!-- ===================================================
-     1 TAHUN
-=================================================== -->
-
-<div
-    class="package-card"
-    data-package-card="1 Tahun"
->
+<div class="package-card">
 
 <div class="package-icon">
 👑
 </div>
 
-
 <div class="package-name">
 1 Tahun
 </div>
-
 
 <div class="package-duration">
 365 hari akses Premium
 </div>
 
-
 <div class="package-price">
 Rp88.000
 <small>/365 hari</small>
 </div>
-
 
 <ul class="package-features">
 
@@ -1459,7 +1385,6 @@ Progress belajar
 </li>
 
 </ul>
-
 
 <button
     class="package-button"
@@ -1478,7 +1403,6 @@ Pilih Paket
 </section>
 
 
-
 <!-- =====================================================
      ORDER CONFIRMATION
 ===================================================== -->
@@ -1490,11 +1414,9 @@ Pilih Paket
 
 <div class="order-card">
 
-
 <h2 class="order-title">
 🛒 Konfirmasi Pesanan
 </h2>
-
 
 <p class="order-description">
 Pastikan paket yang Anda pilih sudah benar.
@@ -1507,14 +1429,12 @@ Pastikan paket yang Anda pilih sudah benar.
 Paket yang dipilih
 </div>
 
-
 <div
     id="selectedPackage"
     class="selected-name"
 >
 -
 </div>
-
 
 <div
     id="selectedPrice"
@@ -1533,11 +1453,9 @@ Paket yang dipilih
 ✅ Buat Pesanan
 </button>
 
-
 </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1548,17 +1466,15 @@ Paket yang dipilih
 
 <div class="history-card">
 
-
 <div class="history-header">
 
 <h2 class="history-title">
 📋 Pesanan Saya
 </h2>
 
-
 <button
-    id="historyRefreshBtn"
-    class="history-refresh"
+    id="refreshHistoryBtn"
+    class="refresh-history"
 >
 🔄 Refresh
 </button>
@@ -1574,11 +1490,9 @@ Paket yang dipilih
 
 </div>
 
-
 </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -1593,7 +1507,6 @@ Paket yang dipilih
 📖 NgajiPlus Akademi
 </div>
 
-
 <div class="footer-text">
 Platform pembelajaran Islam berupa Video, Audio dan PDF.
 </div>
@@ -1601,7 +1514,6 @@ Platform pembelajaran Islam berupa Video, Audio dan PDF.
 </div>
 
 </footer>
-
 
 
 <script>
@@ -1635,8 +1547,6 @@ let currentProfile = null;
 
 let selectedPackage = null;
 
-let userOrders = [];
-
 let membershipActive = false;
 
 
@@ -1649,66 +1559,55 @@ const notice =
         "notice"
     );
 
-
-const activeArea =
+const activeMembership =
     document.getElementById(
-        "activeArea"
+        "activeMembership"
     );
-
 
 const activePackage =
     document.getElementById(
         "activePackage"
     );
 
-
 const activeExpiry =
     document.getElementById(
         "activeExpiry"
     );
-
 
 const activeStatus =
     document.getElementById(
         "activeStatus"
     );
 
-
 const orderArea =
     document.getElementById(
         "orderArea"
     );
-
 
 const selectedPackageElement =
     document.getElementById(
         "selectedPackage"
     );
 
-
 const selectedPriceElement =
     document.getElementById(
         "selectedPrice"
     );
-
 
 const createOrderBtn =
     document.getElementById(
         "createOrderBtn"
     );
 
-
 const historyContainer =
     document.getElementById(
         "historyContainer"
     );
 
-
-const historyRefreshBtn =
+const refreshHistoryBtn =
     document.getElementById(
-        "historyRefreshBtn"
+        "refreshHistoryBtn"
     );
-
 
 const logoutBtn =
     document.getElementById(
@@ -1763,20 +1662,14 @@ function formatRupiah(value){
     const number =
         Number(value || 0);
 
-
-    if(
-        !Number.isFinite(number)
-    ){
-
-        return "Rp0";
-
-    }
-
-
-    return "Rp" +
-        number.toLocaleString(
-            "id-ID"
-        );
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style:"currency",
+            currency:"IDR",
+            maximumFractionDigits:0
+        }
+    ).format(number);
 
 }
 
@@ -1822,10 +1715,52 @@ function formatTanggal(value){
 
 
 /* =====================================================
-   NORMALIZE
+   FORMAT DATETIME
 ===================================================== */
 
-function normalize(value){
+function formatTanggalWaktu(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleString(
+        "id-ID",
+        {
+            day:"numeric",
+            month:"long",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NORMALIZE STATUS
+===================================================== */
+
+function normalizeStatus(value){
 
     return String(
         value ?? ""
@@ -1837,13 +1772,13 @@ function normalize(value){
 
 
 /* =====================================================
-   GET STATUS LABEL
+   STATUS LABEL
 ===================================================== */
 
 function getStatusLabel(status){
 
     const value =
-        normalize(status);
+        normalizeStatus(status);
 
 
     if(
@@ -1859,30 +1794,16 @@ function getStatusLabel(status){
 
 
     if(
-        value === "approved" ||
         value === "disetujui" ||
-        value === "paid" ||
+        value === "approved" ||
         value === "berhasil" ||
+        value === "paid" ||
         value === "success" ||
         value === "lunas" ||
         value === "aktif"
     ){
 
         return "✅ Disetujui";
-
-    }
-
-
-    if(
-        value === "rejected" ||
-        value === "ditolak" ||
-        value === "cancelled" ||
-        value === "canceled" ||
-        value === "dibatalkan" ||
-        value === "failed"
-    ){
-
-        return "❌ Ditolak";
 
     }
 
@@ -1897,19 +1818,33 @@ function getStatusLabel(status){
     }
 
 
+    if(
+        value === "ditolak" ||
+        value === "rejected" ||
+        value === "cancelled" ||
+        value === "canceled" ||
+        value === "dibatalkan" ||
+        value === "failed"
+    ){
+
+        return "❌ Ditolak";
+
+    }
+
+
     return status || "-";
 
 }
 
 
 /* =====================================================
-   GET STATUS CLASS
+   STATUS CLASS
 ===================================================== */
 
 function getStatusClass(status){
 
     const value =
-        normalize(status);
+        normalizeStatus(status);
 
 
     if(
@@ -1925,30 +1860,16 @@ function getStatusClass(status){
 
 
     if(
-        value === "approved" ||
         value === "disetujui" ||
-        value === "paid" ||
+        value === "approved" ||
         value === "berhasil" ||
+        value === "paid" ||
         value === "success" ||
         value === "lunas" ||
         value === "aktif"
     ){
 
-        return "status-disetujui";
-
-    }
-
-
-    if(
-        value === "rejected" ||
-        value === "ditolak" ||
-        value === "cancelled" ||
-        value === "canceled" ||
-        value === "dibatalkan" ||
-        value === "failed"
-    ){
-
-        return "status-ditolak";
+        return "status-berhasil";
 
     }
 
@@ -1963,87 +1884,38 @@ function getStatusClass(status){
     }
 
 
+    if(
+        value === "ditolak" ||
+        value === "rejected" ||
+        value === "cancelled" ||
+        value === "canceled" ||
+        value === "dibatalkan" ||
+        value === "failed"
+    ){
+
+        return "status-ditolak";
+
+    }
+
+
     return "status-lain";
 
 }
 
 
 /* =====================================================
-   IS APPROVED
+   CHECK MEMBERSHIP ACTIVE
 ===================================================== */
 
-function isApprovedStatus(status){
-
-    const value =
-        normalize(status);
-
-
-    return (
-        value === "approved" ||
-        value === "disetujui" ||
-        value === "paid" ||
-        value === "berhasil" ||
-        value === "success" ||
-        value === "lunas" ||
-        value === "aktif"
-    );
-
-}
-
-
-/* =====================================================
-   IS PENDING
-===================================================== */
-
-function isPendingStatus(status){
-
-    const value =
-        normalize(status);
-
-
-    return (
-        value === "menunggu" ||
-        value === "pending" ||
-        value === "waiting" ||
-        value === "unpaid"
-    );
-
-}
-
-
-/* =====================================================
-   IS REJECTED
-===================================================== */
-
-function isRejectedStatus(status){
-
-    const value =
-        normalize(status);
-
-
-    return (
-        value === "rejected" ||
-        value === "ditolak" ||
-        value === "cancelled" ||
-        value === "canceled" ||
-        value === "dibatalkan" ||
-        value === "failed"
-    );
-
-}
-
-
-/* =====================================================
-   CHECK MEMBERSHIP
-===================================================== */
-
-function checkMembership(){
+function checkMembershipActive(){
 
     membershipActive =
         false;
 
 
-    if(!currentProfile){
+    if(
+        !currentProfile
+    ){
 
         return false;
 
@@ -2051,18 +1923,22 @@ function checkMembership(){
 
 
     const status =
-        normalize(
+        normalizeStatus(
             currentProfile.status
         );
 
 
-    const expiryValue =
-        currentProfile.berlaku_sampai;
+    if(
+        status !== "aktif"
+    ){
+
+        return false;
+
+    }
 
 
     if(
-        status !== "aktif" ||
-        !expiryValue
+        !currentProfile.berlaku_sampai
     ){
 
         return false;
@@ -2072,7 +1948,7 @@ function checkMembership(){
 
     const expiry =
         new Date(
-            expiryValue
+            currentProfile.berlaku_sampai
         );
 
 
@@ -2087,12 +1963,8 @@ function checkMembership(){
     }
 
 
-    const sekarang =
-        new Date();
-
-
     membershipActive =
-        expiry >= sekarang;
+        expiry >= new Date();
 
 
     return membershipActive;
@@ -2101,143 +1973,87 @@ function checkMembership(){
 
 
 /* =====================================================
-   UPDATE MEMBERSHIP UI
+   DISPLAY MEMBERSHIP
 ===================================================== */
 
-function updateMembershipUI(){
+function displayMembership(){
 
     const active =
-        checkMembership();
+        checkMembershipActive();
 
 
-    const buttons =
-        document.querySelectorAll(
-            ".package-button"
-        );
+    if(!active){
 
-
-    if(active){
-
-        activeArea.classList.remove(
+        activeMembership.classList.add(
             "hidden"
         );
 
+        return;
 
-        activePackage.textContent =
-            currentProfile.paket ||
-            "Premium";
+    }
 
 
-        activeExpiry.textContent =
+    activeMembership.classList.remove(
+        "hidden"
+    );
+
+
+    activePackage.textContent =
+        currentProfile.paket ||
+        "Premium";
+
+
+    activeExpiry.textContent =
+        formatTanggal(
+            currentProfile.berlaku_sampai
+        );
+
+
+    activeStatus.textContent =
+        "Aktif";
+
+
+    notice.className =
+        "notice success";
+
+
+    notice.innerHTML =
+        "✅ Membership Anda sedang aktif sampai " +
+
+        "<strong>" +
+
+        escapeHtml(
             formatTanggal(
                 currentProfile.berlaku_sampai
-            );
+            )
+        ) +
+
+        "</strong>. " +
+
+        "Anda sudah memiliki akses Premium.";
 
 
-        activeStatus.textContent =
-            "Aktif";
+    /*
+       Tombol paket tidak membuat
+       pesanan baru ketika Premium
+       masih aktif.
+    */
 
-
-        notice.className =
-            "notice success";
-
-
-        notice.innerHTML =
-            "✅ Membership Anda sedang aktif sampai " +
-
-            "<strong>" +
-
-            escapeHtml(
-                formatTanggal(
-                    currentProfile.berlaku_sampai
-                )
-            ) +
-
-            "</strong>. " +
-
-            "Anda sudah memiliki akses Premium.";
-
-
-        buttons.forEach(
+    document
+        .querySelectorAll(
+            ".package-button"
+        )
+        .forEach(
             function(button){
 
                 button.disabled =
                     true;
 
-
                 button.textContent =
                     "✓ Premium Aktif";
 
-
-                const card =
-                    button.closest(
-                        ".package-card"
-                    );
-
-
-                if(card){
-
-                    card.classList.add(
-                        "active"
-                    );
-
-                }
-
             }
         );
-
-
-        orderArea.classList.add(
-            "hidden"
-        );
-
-    }
-
-    else{
-
-        activeArea.classList.add(
-            "hidden"
-        );
-
-
-        notice.className =
-            "notice";
-
-
-        notice.innerHTML =
-            "💎 Pilih paket membership yang sesuai " +
-            "untuk mendapatkan akses materi Premium.";
-
-
-        buttons.forEach(
-            function(button){
-
-                button.disabled =
-                    false;
-
-
-                button.textContent =
-                    "Pilih Paket";
-
-
-                const card =
-                    button.closest(
-                        ".package-card"
-                    );
-
-
-                if(card){
-
-                    card.classList.remove(
-                        "active"
-                    );
-
-                }
-
-            }
-        );
-
-    }
 
 }
 
@@ -2248,65 +2064,96 @@ function updateMembershipUI(){
 
 async function checkUser(){
 
+    notice.className =
+        "notice warning";
+
+    notice.innerHTML =
+        "⏳ Memeriksa akun...";
+
+
     try{
 
-        notice.className =
-            "notice warning";
+        /*
+           ============================================
+           AMBIL SESSION
+           ============================================
+        */
+
+        const sessionResult =
+            await supabaseClient
+                .auth
+                .getSession();
 
 
-        notice.innerHTML =
-            "⏳ Memeriksa akun...";
+        if(
+            sessionResult.error
+        ){
+
+            throw sessionResult.error;
+
+        }
 
 
-        const result =
+        const session =
+            sessionResult
+                .data
+                .session;
+
+
+        if(!session){
+
+            throw new Error(
+                "Anda belum login."
+            );
+
+        }
+
+
+        /*
+           ============================================
+           AMBIL USER
+           ============================================
+        */
+
+        const userResult =
             await supabaseClient
                 .auth
                 .getUser();
 
 
-        if(result.error){
+        if(
+            userResult.error
+        ){
 
-            throw result.error;
+            throw userResult.error;
 
         }
 
 
         currentUser =
-            result.data.user;
+            userResult.data.user;
 
 
         if(!currentUser){
 
-            notice.className =
-                "notice error";
-
-
-            notice.innerHTML =
-                "🔐 Anda harus login terlebih dahulu.";
-
-
-            document
-                .querySelectorAll(
-                    ".package-button"
-                )
-                .forEach(
-                    function(button){
-
-                        button.disabled =
-                            true;
-
-                    }
-                );
-
-
-            return false;
+            throw new Error(
+                "Data akun tidak ditemukan."
+            );
 
         }
 
 
-        /* =============================================
+        console.log(
+            "MEMBERSHIP USER ID:",
+            currentUser.id
+        );
+
+
+        /*
+           ============================================
            PROFILE
-        ============================================= */
+           ============================================
+        */
 
         const profileResult =
             await supabaseClient
@@ -2321,7 +2168,9 @@ async function checkUser(){
                 .maybeSingle();
 
 
-        if(profileResult.error){
+        if(
+            profileResult.error
+        ){
 
             throw profileResult.error;
 
@@ -2332,21 +2181,37 @@ async function checkUser(){
             profileResult.data;
 
 
-        if(!currentProfile){
+        /*
+           ============================================
+           TAMPILKAN MEMBERSHIP
+           ============================================
+        */
+
+        if(
+            currentProfile
+        ){
+
+            displayMembership();
+
+        }
+
+        else{
 
             notice.className =
-                "notice warning";
-
+                "notice";
 
             notice.innerHTML =
-                "⚠️ Profil Anda belum ditemukan. " +
-                "Silakan lengkapi profil terlebih dahulu.";
+                "💎 Pilih paket membership yang sesuai " +
+                "untuk mendapatkan akses materi Premium.";
 
         }
 
 
-        updateMembershipUI();
-
+        /*
+           ============================================
+           LOAD HISTORY
+           ============================================
+        */
 
         await loadHistory();
 
@@ -2373,6 +2238,23 @@ async function checkUser(){
             escapeHtml(
                 error.message
             );
+
+
+        historyContainer.innerHTML = `
+
+            <div class="history-error">
+
+                ❌ Tidak dapat memuat data akun.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
 
 
         return false;
@@ -2404,7 +2286,7 @@ document
                         alert(
                             "Membership Anda masih aktif sampai " +
                             formatTanggal(
-                                currentProfile?.berlaku_sampai
+                                currentProfile.berlaku_sampai
                             ) +
                             "."
                         );
@@ -2460,70 +2342,6 @@ document
 
 
 /* =====================================================
-   CHECK PENDING ORDER
-===================================================== */
-
-async function hasPendingOrder(){
-
-    if(!currentUser){
-
-        return false;
-
-    }
-
-
-    const result =
-        await supabaseClient
-            .from(
-                "membership_orders"
-            )
-            .select(
-                "id,status,created_at"
-            )
-            .eq(
-                "user_id",
-                currentUser.id
-            )
-            .in(
-                "status",
-                [
-                    "menunggu",
-                    "pending",
-                    "waiting",
-                    "unpaid"
-                ]
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            )
-            .limit(1);
-
-
-    if(result.error){
-
-        console.warn(
-            "PENDING ORDER CHECK:",
-            result.error
-        );
-
-
-        return false;
-
-    }
-
-
-    return (
-        result.data &&
-        result.data.length > 0
-    );
-
-}
-
-
-/* =====================================================
    CREATE ORDER
 ===================================================== */
 
@@ -2537,10 +2355,8 @@ createOrderBtn.addEventListener(
                 "Silakan login terlebih dahulu."
             );
 
-
             window.location.href =
                 "login.html";
-
 
             return;
 
@@ -2554,11 +2370,10 @@ createOrderBtn.addEventListener(
             alert(
                 "Membership Anda masih aktif sampai " +
                 formatTanggal(
-                    currentProfile?.berlaku_sampai
+                    currentProfile.berlaku_sampai
                 ) +
                 "."
             );
-
 
             return;
 
@@ -2571,75 +2386,60 @@ createOrderBtn.addEventListener(
                 "Silakan pilih paket terlebih dahulu."
             );
 
+            return;
+
+        }
+
+
+        const yakin =
+            confirm(
+
+                "Buat pesanan " +
+
+                selectedPackage.nama +
+
+                " dengan harga " +
+
+                formatRupiah(
+                    selectedPackage.harga
+                ) +
+
+                "?"
+
+            );
+
+
+        if(!yakin){
 
             return;
 
         }
 
 
-        /*
-           CEK PESANAN MENUNGGU
-        */
-
         createOrderBtn.disabled =
             true;
 
 
         createOrderBtn.textContent =
-            "⏳ Memeriksa...";
+            "⏳ Membuat pesanan...";
 
 
         try{
 
-            const pending =
-                await hasPendingOrder();
-
-
-            if(pending){
-
-                alert(
-                    "⚠️ Anda masih memiliki pesanan " +
-                    "yang sedang menunggu konfirmasi admin.\n\n" +
-                    "Silakan tunggu pesanan tersebut diproses."
-                );
-
-
-                return;
-
-            }
-
-
-            const yakin =
-                confirm(
-                    "Buat pesanan " +
-                    selectedPackage.nama +
-                    " dengan harga " +
-                    formatRupiah(
-                        selectedPackage.harga
-                    ) +
-                    "?"
-                );
-
-
-            if(!yakin){
-
-                return;
-
-            }
-
-
-            createOrderBtn.textContent =
-                "⏳ Membuat pesanan...";
-
-
             /*
+               ========================================
                DATA USER
+               ========================================
             */
 
             const nama =
                 currentProfile?.nama ||
-                currentUser.user_metadata?.full_name ||
-                currentUser.email?.split("@")[0] ||
+                currentUser
+                    .user_metadata
+                    ?.full_name ||
+                currentUser
+                    .email
+                    ?.split("@")[0] ||
                 "Member";
 
 
@@ -2649,7 +2449,9 @@ createOrderBtn.addEventListener(
 
 
             /*
-               INSERT
+               ========================================
+               INSERT ORDER
+               ========================================
             */
 
             const result =
@@ -2685,7 +2487,9 @@ createOrderBtn.addEventListener(
                     .single();
 
 
-            if(result.error){
+            if(
+                result.error
+            ){
 
                 throw result.error;
 
@@ -2693,22 +2497,21 @@ createOrderBtn.addEventListener(
 
 
             alert(
-                "✅ PESANAN BERHASIL DIBUAT\n\n" +
+
+                "✅ Pesanan berhasil dibuat!\n\n" +
 
                 "Paket: " +
-                selectedPackage.nama +
-                "\n" +
 
-                "Harga: " +
+                selectedPackage.nama +
+
+                "\nHarga: " +
+
                 formatRupiah(
                     selectedPackage.harga
                 ) +
-                "\n\n" +
 
-                "Status: Menunggu\n\n" +
+                "\n\nStatus: Menunggu."
 
-                "Silakan tunggu admin " +
-                "mengonfirmasi pembayaran Anda."
             );
 
 
@@ -2719,14 +2522,6 @@ createOrderBtn.addEventListener(
 
             selectedPackage =
                 null;
-
-
-            selectedPackageElement.textContent =
-                "-";
-
-
-            selectedPriceElement.textContent =
-                "-";
 
 
             await loadHistory();
@@ -2742,8 +2537,11 @@ createOrderBtn.addEventListener(
 
 
             alert(
+
                 "❌ Gagal membuat pesanan.\n\n" +
+
                 error.message
+
             );
 
         }
@@ -2752,7 +2550,6 @@ createOrderBtn.addEventListener(
 
             createOrderBtn.disabled =
                 false;
-
 
             createOrderBtn.textContent =
                 "✅ Buat Pesanan";
@@ -2771,6 +2568,16 @@ async function loadHistory(){
 
     if(!currentUser){
 
+        historyContainer.innerHTML = `
+
+            <div class="empty-history">
+
+                🔐 Silakan login terlebih dahulu.
+
+            </div>
+
+        `;
+
         return;
 
     }
@@ -2779,7 +2586,9 @@ async function loadHistory(){
     historyContainer.innerHTML = `
 
         <div class="empty-history">
-            ⏳ Memuat pesanan...
+
+            ⏳ Mengambil riwayat pesanan...
+
         </div>
 
     `;
@@ -2787,13 +2596,19 @@ async function loadHistory(){
 
     try{
 
+        /*
+           ============================================
+           QUERY KHUSUS USER LOGIN
+           ============================================
+        */
+
         const result =
             await supabaseClient
                 .from(
                     "membership_orders"
                 )
                 .select(
-                    "id,paket,durasi_hari,harga,status,created_at"
+                    "id,user_id,nama,email,paket,harga,durasi_hari,status,created_at"
                 )
                 .eq(
                     "user_id",
@@ -2807,98 +2622,147 @@ async function loadHistory(){
                 );
 
 
-        if(result.error){
+        if(
+            result.error
+        ){
 
             throw result.error;
 
         }
 
 
-        userOrders =
+        const orders =
             result.data || [];
 
 
+        console.log(
+            "MEMBERSHIP ORDERS:",
+            orders
+        );
+
+
+        /*
+           ============================================
+           TIDAK ADA PESANAN
+           ============================================
+        */
+
         if(
-            userOrders.length === 0
+            orders.length === 0
         ){
 
             historyContainer.innerHTML = `
 
                 <div class="empty-history">
+
                     📭 Belum ada pesanan membership.
+
                 </div>
 
             `;
-
 
             return;
 
         }
 
 
+        /*
+           ============================================
+           RENDER PESANAN
+           ============================================
+        */
+
         historyContainer.innerHTML =
-            userOrders
+            orders
                 .map(
                     function(order){
 
                         const status =
-                            order.status ||
-                            "menunggu";
+                            normalizeStatus(
+                                order.status
+                            );
+
+
+                        const statusText =
+                            getStatusLabel(
+                                order.status
+                            );
+
+
+                        const statusClass =
+                            getStatusClass(
+                                order.status
+                            );
 
 
                         return `
 
-                            <div class="order-item">
+                            <div
+                                class="order-item"
+                            >
 
-                                <div class="order-row">
+                                <div
+                                    class="order-row"
+                                >
 
                                     <div>
 
-                                        <div class="order-package">
-
-                                            ${escapeHtml(
+                                        <div
+                                            class="order-package"
+                                        >
+                                            💎 ${escapeHtml(
                                                 order.paket ||
-                                                "Membership"
+                                                "-"
                                             )}
-
                                         </div>
 
 
-                                        <div class="order-date">
-
-                                            ${formatRupiah(
-                                                order.harga
+                                        <div
+                                            class="order-date"
+                                        >
+                                            ${escapeHtml(
+                                                formatRupiah(
+                                                    order.harga
+                                                )
                                             )}
 
                                             •
 
-                                            ${formatTanggal(
-                                                order.created_at
+                                            ${escapeHtml(
+                                                formatTanggal(
+                                                    order.created_at
+                                                )
                                             )}
-
                                         </div>
 
 
-                                        <div class="order-duration">
-
-                                            ${Number(
-                                                order.durasi_hari || 0
+                                        <div
+                                            class="order-extra"
+                                        >
+                                            Durasi:
+                                            ${escapeHtml(
+                                                order.durasi_hari ||
+                                                0
                                             )}
                                             hari
 
+                                            <br>
+
+                                            ID Pesanan:
+                                            ${escapeHtml(
+                                                order.id
+                                            )}
                                         </div>
 
                                     </div>
 
 
                                     <span
-                                        class="status ${getStatusClass(status)}"
+                                        class="status ${statusClass}"
                                     >
-
                                         ${escapeHtml(
-                                            getStatusLabel(status)
+                                            statusText
                                         )}
-
                                     </span>
 
                                 </div>
@@ -2923,14 +2787,28 @@ async function loadHistory(){
 
         historyContainer.innerHTML = `
 
-            <div class="empty-history">
+            <div
+                class="history-error"
+            >
 
                 ❌ Gagal mengambil riwayat pesanan.
+
+                <br><br>
+
+                <strong>
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </strong>
+
+                <br><br>
+
+                User ID:
 
                 <br>
 
                 ${escapeHtml(
-                    error.message
+                    currentUser.id
                 )}
 
             </div>
@@ -2946,75 +2824,24 @@ async function loadHistory(){
    REFRESH HISTORY
 ===================================================== */
 
-historyRefreshBtn.addEventListener(
+refreshHistoryBtn.addEventListener(
     "click",
     async function(){
 
-        historyRefreshBtn.disabled =
+        refreshHistoryBtn.disabled =
             true;
 
-
-        historyRefreshBtn.textContent =
-            "⏳";
-
-
-        try{
-
-            /*
-               Ambil profile terbaru juga
-               agar status membership
-               langsung diperbarui.
-            */
-
-            if(currentUser){
-
-                const profileResult =
-                    await supabaseClient
-                        .from("profiles")
-                        .select(
-                            "id,nama,status,paket,berlaku_sampai"
-                        )
-                        .eq(
-                            "id",
-                            currentUser.id
-                        )
-                        .maybeSingle();
+        refreshHistoryBtn.textContent =
+            "⏳ Memuat...";
 
 
-                if(
-                    !profileResult.error
-                ){
-
-                    currentProfile =
-                        profileResult.data;
+        await loadHistory();
 
 
-                    updateMembershipUI();
-
-                }
-
-            }
-
-
-            await loadHistory();
-
-        }
-
-        catch(error){
-
-            console.error(
-                "REFRESH ERROR:",
-                error
-            );
-
-        }
-
-
-        historyRefreshBtn.disabled =
+        refreshHistoryBtn.disabled =
             false;
 
-
-        historyRefreshBtn.textContent =
+        refreshHistoryBtn.textContent =
             "🔄 Refresh";
 
     }
@@ -3054,7 +2881,9 @@ logoutBtn.addEventListener(
                     .signOut();
 
 
-            if(result.error){
+            if(
+                result.error
+            ){
 
                 throw result.error;
 
@@ -3069,8 +2898,11 @@ logoutBtn.addEventListener(
         catch(error){
 
             alert(
+
                 "❌ Gagal keluar.\n\n" +
+
                 error.message
+
             );
 
 
