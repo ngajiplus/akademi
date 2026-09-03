@@ -1,1297 +1,814 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<meta
-    name="description"
-    content="NgajiPlus Akademi - Perpustakaan Pembelajaran Islam"
->
-
-<meta
-    name="theme-color"
-    content="#008f50"
->
-
-<title>NgajiPlus Akademi</title>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NgajiPlus - Platform pembelajaran berupa video, audio dan materi PDF.">
+<meta name="theme-color" content="#238b57">
+<title>NgajiPlus - Perpustakaan Pembelajaran</title>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth
 }
 
 body{
-    margin:0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:#f5faf7;
-
-    color:#202a25;
-
-    line-height:1.5;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f7faf8;
+  color:#1f2933;
+  line-height:1.6
 }
 
 a{
-    text-decoration:none;
-    color:inherit;
+  text-decoration:none;
+  color:inherit
 }
 
-button,
-input,
-select{
-    font-family:inherit;
+button,input,select{
+  font:inherit
 }
 
-
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
-header{
-    background:white;
-
-    border-bottom:
-        1px solid #e2ebe6;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #e8ece9
 }
 
-.nav{
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        9px 15px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:8px;
+.nav-container{
+  max-width:1150px;
+  margin:auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px
 }
 
 .logo{
-    color:#008f50;
-
-    font-weight:bold;
-
-    font-size:14px;
-
-    white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#238b57;
+  font-weight:bold;
+  font-size:19px
 }
 
-
-/* =====================================================
-   NAV BUTTONS
-===================================================== */
-
-.nav-buttons{
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    margin-left:auto;
+.logo-icon{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eaf6ef;
+  border-radius:10px;
+  font-size:20px
 }
 
-.nav-btn{
-    border:0;
-
-    border-radius:7px;
-
-    padding:
-        7px 10px;
-
-    font-size:9px;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-
-    cursor:pointer;
+.nav-menu{
+  display:flex;
+  align-items:center;
+  gap:5px
 }
 
-.login-btn{
-    background:white;
-
-    color:#008f50;
-
-    border:
-        1px solid #008f50;
+.nav-menu a{
+  padding:8px 11px;
+  color:#4b5563;
+  border-radius:8px;
+  font-size:13px
 }
 
-.register-btn{
-    background:#008f50;
-
-    color:white;
+.nav-menu a:hover{
+  background:#eef7f1;
+  color:#238b57
 }
 
-.account-btn{
-    background:#eaf7ef;
-
-    color:#087a47;
-
-    border:
-        1px solid #d2eddd;
-
-    max-width:155px;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
+.nav-login{
+  border:1px solid #238b57;
+  color:#238b57!important
 }
 
-.dashboard-btn{
-    background:#008f50;
-
-    color:white;
+.nav-register{
+  background:#238b57;
+  color:#fff!important
 }
 
-.logout-btn{
-    background:#eeeeee;
-
-    color:#555;
-}
-
-
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+========================= */
 
 .hero{
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        35px 15px 20px;
-
-    display:grid;
-
-    grid-template-columns:
-        1.15fr .85fr;
-
-    gap:25px;
-
-    align-items:center;
+  max-width:1150px;
+  margin:auto;
+  padding:65px 20px 55px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:45px;
+  align-items:center
 }
 
-.hero-left{
-    min-width:0;
-}
-
-.hero-label{
-    display:inline-block;
-
-    padding:
-        4px 7px;
-
-    border-radius:20px;
-
-    background:#e7f8ef;
-
-    color:#008f50;
-
-    font-size:8px;
-
-    font-weight:bold;
-
-    margin-bottom:8px;
+.hero-badge{
+  display:inline-block;
+  padding:6px 11px;
+  background:#eaf6ef;
+  color:#238b57;
+  border-radius:50px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:13px
 }
 
 .hero h1{
-    margin:
-        0 0 10px;
-
-    font-size:
-        clamp(28px,4vw,48px);
-
-    line-height:1.08;
-
-    letter-spacing:-1px;
+  margin:0 0 15px;
+  font-size:clamp(36px,6vw,60px);
+  line-height:1.08
 }
 
 .hero h1 span{
-    color:#008f50;
+  color:#238b57
 }
 
-.hero p{
-    margin:0 0 15px;
-
-    max-width:650px;
-
-    color:#718078;
-
-    font-size:11px;
-
-    line-height:1.7;
+.hero-description{
+  max-width:620px;
+  color:#667085;
+  font-size:16px;
+  margin:0 0 25px
 }
 
 .hero-buttons{
-    display:flex;
-
-    gap:7px;
-
-    flex-wrap:wrap;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap
 }
 
-.hero-btn{
-    display:inline-block;
-
-    padding:
-        9px 13px;
-
-    border-radius:8px;
-
-    font-size:9px;
-
-    font-weight:bold;
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:11px 17px;
+  border-radius:10px;
+  font-weight:bold;
+  border:none;
+  cursor:pointer
 }
 
-.hero-primary{
-    background:#008f50;
-
-    color:white;
+.btn-primary{
+  background:#238b57;
+  color:white
 }
 
-.hero-secondary{
-    background:white;
-
-    color:#008f50;
-
-    border:
-        1px solid #008f50;
+.btn-secondary{
+  background:white;
+  color:#238b57;
+  border:1px solid #238b57
 }
 
-
-/* =====================================================
+/* =========================
    HERO CARD
-===================================================== */
+========================= */
 
 .hero-card{
-    background:white;
-
-    border:
-        1px solid #e1e9e4;
-
-    border-radius:17px;
-
-    padding:13px;
-
-    box-shadow:
-        0 8px 30px
-        rgba(0,0,0,.04);
+  background:#fff;
+  border:1px solid #e5ebe7;
+  border-radius:25px;
+  padding:23px;
+  box-shadow:0 18px 50px rgba(35,139,87,.10)
 }
 
-.hero-card-title{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    color:#008f50;
-
-    font-size:10px;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
+.hero-screen{
+  background:#f1f7f3;
+  border-radius:18px;
+  padding:18px
 }
 
-.hero-avatar{
-    width:24px;
-
-    height:24px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    background:#e8f7ef;
+.hero-screen-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px
 }
 
-.hero-video{
-    height:170px;
-
-    border-radius:10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00a95f,
-            #008f50
-        );
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    color:white;
-
-    font-size:40px;
+.mini-logo{
+  color:#238b57;
+  font-weight:bold
 }
 
-.hero-card-text{
-    padding-top:8px;
-
-    font-size:10px;
-
-    font-weight:bold;
+.mini-avatar{
+  width:33px;
+  height:33px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:white
 }
 
-.hero-card-meta{
-    color:#7a8580;
-
-    font-size:8px;
-
-    margin-top:3px;
+.featured-video{
+  height:170px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#238b57,#75b893);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:48px
 }
 
-
-/* =====================================================
-   NOTICE
-===================================================== */
-
-.notice{
-    max-width:1200px;
-
-    margin:
-        0 auto 15px;
-
-    padding:
-        9px 12px;
-
-    border-radius:7px;
-
-    font-size:9px;
-
-    border:
-        1px solid #f0df91;
-
-    background:#fff8d9;
-
-    color:#75621c;
+.mini-title{
+  font-weight:bold;
+  margin:13px 0 3px
 }
 
-.notice.success{
-    background:#e5f9ed;
-
-    border-color:#bde8cf;
-
-    color:#087a47;
+.mini-text{
+  color:#7a8580;
+  font-size:12px
 }
 
-.notice.warning{
-    background:#fff8d9;
+/* =========================
+   FEATURES
+========================= */
 
-    border-color:#f0df91;
-
-    color:#75621c;
+.features{
+  max-width:1150px;
+  margin:auto;
+  padding:10px 20px 60px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
 }
 
-.notice.error{
-    background:#ffe9e9;
-
-    border-color:#f3c2c2;
-
-    color:#b42318;
-}
-
-
-/* =====================================================
-   FEATURE
-===================================================== */
-
-.feature-area{
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        0 15px 25px;
-}
-
-.feature-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:10px;
-}
-
-.feature-card{
-    background:white;
-
-    border:
-        1px solid #e1e9e4;
-
-    border-radius:12px;
-
-    padding:15px;
+.feature{
+  background:white;
+  border:1px solid #e7ece9;
+  padding:18px;
+  border-radius:16px
 }
 
 .feature-icon{
-    font-size:25px;
-
-    margin-bottom:5px;
+  font-size:26px;
+  margin-bottom:5px
 }
 
-.feature-card h3{
-    margin:
-        0 0 3px;
-
-    font-size:11px;
+.feature h3{
+  margin:0 0 4px;
+  font-size:15px
 }
 
-.feature-card p{
-    margin:0;
-
-    color:#7a8580;
-
-    font-size:8px;
+.feature p{
+  margin:0;
+  color:#7a8580;
+  font-size:12px
 }
 
+/* =========================
+   SECTION
+========================= */
 
-/* =====================================================
+.section{
+  max-width:1150px;
+  margin:auto;
+  padding:55px 20px
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  margin-bottom:22px
+}
+
+.section-header h2{
+  margin:0;
+  font-size:29px
+}
+
+.section-header p{
+  margin:5px 0 0;
+  color:#7a8580;
+  font-size:14px
+}
+
+/* =========================
    CATEGORY
-===================================================== */
-
-.category-area{
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        10px 15px 30px;
-}
-
-.section-title{
-    margin:
-        0 0 4px;
-
-    font-size:18px;
-}
-
-.section-description{
-    margin:
-        0 0 12px;
-
-    color:#7a8580;
-
-    font-size:9px;
-}
+========================= */
 
 .category-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:10px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
 }
 
 .category-card{
-    background:white;
-
-    border:
-        1px solid #e1e9e4;
-
-    border-radius:12px;
-
-    padding:14px;
-
-    transition:.2s;
+  min-height:145px;
+  padding:20px;
+  border-radius:17px;
+  background:white;
+  border:1px solid #e7ece9;
+  transition:.2s
 }
 
 .category-card:hover{
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 7px 20px
-        rgba(0,0,0,.05);
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.06)
 }
 
 .category-icon{
-    font-size:23px;
-
-    margin-bottom:6px;
+  font-size:30px;
+  margin-bottom:7px
 }
 
 .category-card h3{
-    margin:
-        0 0 3px;
-
-    font-size:10px;
+  margin:0 0 3px;
+  font-size:16px
 }
 
 .category-card p{
-    margin:0;
-
-    color:#7a8580;
-
-    font-size:8px;
+  margin:0;
+  color:#7a8580;
+  font-size:12px
 }
 
+/* =========================
+   MATERIAL
+========================= */
 
-/* =====================================================
-   MATERIAL AREA
-===================================================== */
-
-.material-area{
-    background:#eaf8f1;
-
-    padding:
-        25px 15px 55px;
+.material-section{
+  background:#eef7f1;
+  max-width:none
 }
 
 .material-inner{
-    max-width:1200px;
-
-    margin:auto;
+  max-width:1150px;
+  margin:auto;
+  padding:55px 20px
 }
 
-.material-heading{
-    margin-bottom:12px;
+.material-tools{
+  display:grid;
+  grid-template-columns:1fr 190px;
+  gap:10px;
+  margin-bottom:25px
 }
 
-.material-heading h2{
-    margin:0;
-
-    font-size:19px;
+.search-box,
+.category-select{
+  width:100%;
+  border:1px solid #dce5df;
+  background:white;
+  border-radius:10px;
+  padding:11px 13px;
+  outline:none
 }
 
-.material-heading p{
-    margin:
-        3px 0 0;
-
-    color:#7a8580;
-
-    font-size:9px;
+.search-box:focus,
+.category-select:focus{
+  border-color:#238b57
 }
-
-
-/* =====================================================
-   TOOLS
-===================================================== */
-
-.tools{
-    display:grid;
-
-    grid-template-columns:
-        1fr 170px;
-
-    gap:8px;
-
-    margin-bottom:14px;
-}
-
-.search,
-.filter{
-    width:100%;
-
-    border:
-        1px solid #dce5df;
-
-    border-radius:8px;
-
-    background:white;
-
-    padding:
-        10px 12px;
-
-    outline:none;
-
-    font-size:9px;
-}
-
-.search:focus,
-.filter:focus{
-    border-color:#008f50;
-}
-
-
-/* =====================================================
-   MATERIAL GRID
-===================================================== */
 
 .material-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:13px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px
 }
-
-
-/* =====================================================
-   MATERIAL CARD
-===================================================== */
 
 .material-card{
-    background:white;
-
-    border:
-        1px solid #dfe8e3;
-
-    border-radius:13px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 1px 3px
-        rgba(0,0,0,.03);
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid #e0e9e3;
+  display:flex;
+  flex-direction:column;
+  min-width:0
 }
 
-
-/* =====================================================
-   THUMBNAIL
-===================================================== */
-
-.material-thumb{
-    height:165px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d9f5e6,
-            #c3ead4
-        );
-
-    position:relative;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
+.material-image{
+  height:175px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#dff1e6;
+  overflow:hidden
 }
 
-
-/*
-   SEMUA THUMBNAIL OTOMATIS
-*/
-
-.material-thumb img{
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
+.material-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block
 }
 
-
-/*
-   Icon fallback
-*/
-
-.thumb-icon{
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:43px;
+.image-placeholder{
+  font-size:48px
 }
 
+/* =========================
+   PREMIUM LOCK
+========================= */
 
-/*
-   Tombol play di thumbnail video
-*/
-
-.thumbnail-play{
-    position:absolute;
-
-    left:50%;
-
-    top:50%;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    width:48px;
-
-    height:48px;
-
-    border-radius:50%;
-
-    background:
-        rgba(0,0,0,.75);
-
-    color:white;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:20px;
-
-    padding-left:3px;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.3);
+.premium-lock{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(23,35,28,.88);
+  font-size:45px;
+  color:white
 }
 
-
-/*
-   Lock premium
-*/
-
-.material-lock{
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        rgba(0,0,0,.30);
-
-    font-size:40px;
+.premium-label{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#202a24;
+  color:white;
+  padding:4px 8px;
+  border-radius:50px;
+  font-size:10px;
+  font-weight:bold;
+  z-index:2
 }
-
-
-/* =====================================================
-   CARD CONTENT
-===================================================== */
 
 .material-content{
-    padding:12px;
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  flex:1
 }
 
 .material-type{
-    display:inline-block;
-
-    padding:
-        3px 6px;
-
-    border-radius:20px;
-
-    background:#edf8f2;
-
-    color:#008f50;
-
-    font-size:8px;
-
-    font-weight:bold;
-
-    margin-bottom:5px;
+  display:inline-block;
+  align-self:flex-start;
+  font-size:10px;
+  padding:4px 8px;
+  border-radius:50px;
+  background:#eef7f1;
+  color:#238b57;
+  font-weight:bold;
+  margin-bottom:7px
 }
 
-.material-content h3{
-    margin:
-        0 0 4px;
-
-    font-size:12px;
-
-    line-height:1.3;
+.material-card h3{
+  margin:0 0 5px;
+  font-size:16px
 }
 
-.material-description{
-    color:#7a8580;
-
-    font-size:8px;
-
-    min-height:28px;
-
-    margin-bottom:8px;
+.material-card p{
+  margin:0 0 12px;
+  color:#7a8580;
+  font-size:12px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden
 }
 
 .material-meta{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:5px;
-
-    margin-bottom:9px;
-
-    font-size:8px;
-
-    color:#68736d;
+  font-size:11px;
+  color:#7a8580;
+  margin-top:auto;
+  margin-bottom:10px
 }
 
-.badge{
-    padding:
-        3px 6px;
-
-    border-radius:20px;
-
-    font-size:8px;
-
-    font-weight:bold;
-
-    white-space:nowrap;
+.material-status{
+  font-size:11px;
+  margin-bottom:10px;
+  font-weight:bold
 }
 
-.badge-free{
-    background:#dcf8e7;
-
-    color:#087a45;
+.free-status{
+  color:#238b57
 }
 
-.badge-premium{
-    background:#fff0b7;
-
-    color:#846400;
+.premium-status{
+  color:#a67c00
 }
-
-
-/* =====================================================
-   MATERIAL BUTTON
-===================================================== */
 
 .material-button{
-    width:100%;
-
-    border:0;
-
-    border-radius:7px;
-
-    padding:9px;
-
-    background:#008f50;
-
-    color:white;
-
-    font-size:9px;
-
-    font-weight:bold;
-
-    cursor:pointer;
+  display:block;
+  text-align:center;
+  padding:10px;
+  background:#238b57;
+  color:white;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px
 }
 
-.material-button:hover{
-    background:#007d46;
+.material-button.disabled{
+  background:#f0f0f0;
+  color:#777
 }
 
-.material-button.locked{
-    background:#eeeeee;
-
-    color:#777;
-
-    cursor:not-allowed;
+.empty-material,
+.loading{
+  grid-column:1/-1;
+  text-align:center;
+  padding:45px 15px;
+  color:#7a8580;
+  background:rgba(255,255,255,.65);
+  border-radius:15px
 }
 
-
-/* =====================================================
-   LOADING / EMPTY / ERROR
-===================================================== */
-
-.loading,
-.empty,
-.material-error{
-    background:white;
-
-    border-radius:12px;
-
-    padding:
-        30px 15px;
-
-    text-align:center;
-
-    font-size:10px;
-
-    color:#777;
+.error-box{
+  grid-column:1/-1;
+  padding:20px;
+  background:#fff1f1;
+  border:1px solid #ffd0d0;
+  border-radius:12px;
+  color:#a33
 }
 
-.material-error{
-    color:#b42318;
+/* =========================
+   MEMBER BOX
+========================= */
 
-    border:
-        1px solid #f2c4c4;
+.member-box{
+  max-width:1110px;
+  margin:55px auto;
+  padding:38px;
+  border-radius:23px;
+  background:#17231c;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px
 }
 
+.member-box h2{
+  margin:0 0 7px;
+  font-size:27px
+}
 
-/* =====================================================
+.member-box p{
+  margin:0;
+  color:#c8d2cc
+}
+
+.member-button{
+  background:white;
+  color:#17231c;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  white-space:nowrap
+}
+
+/* =========================
    FOOTER
-===================================================== */
+========================= */
 
 footer{
-    background:#0d1712;
-
-    color:white;
-
-    padding:
-        25px 15px;
+  background:#111814;
+  color:white;
+  margin-top:60px
 }
 
-.footer-inner{
-    max-width:1200px;
-
-    margin:auto;
+.footer-container{
+  max-width:1150px;
+  margin:auto;
+  padding:40px 20px 22px
 }
 
-.footer-logo{
-    color:#35b878;
-
-    font-weight:bold;
-
-    font-size:12px;
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:30px
 }
 
-.footer-text{
-    color:#87948d;
-
-    font-size:8px;
-
-    margin-top:3px;
+.footer-brand{
+  color:#a8b5ad;
+  max-width:450px
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:800px){
-
-    .hero{
-        grid-template-columns:1fr;
-
-        padding-top:25px;
-
-        gap:15px;
-    }
-
-    .hero-card{
-        max-width:500px;
-
-        width:100%;
-
-        margin:auto;
-    }
-
-    .feature-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .category-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .material-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+.footer-title{
+  font-weight:bold;
+  margin-bottom:10px
 }
 
-@media(max-width:550px){
-
-    .nav{
-        padding:
-            8px 10px;
-    }
-
-    .logo{
-        font-size:11px;
-    }
-
-    .nav-buttons{
-        gap:3px;
-    }
-
-    .nav-btn{
-        padding:
-            6px 7px;
-
-        font-size:8px;
-    }
-
-    .account-btn{
-        max-width:120px;
-    }
-
-    .hero{
-        padding:
-            25px 12px 15px;
-    }
-
-    .hero h1{
-        font-size:29px;
-    }
-
-    .hero p{
-        font-size:9px;
-    }
-
-    .hero-video{
-        height:150px;
-    }
-
-    .feature-area{
-        padding:
-            0 12px 20px;
-    }
-
-    .feature-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .category-area{
-        padding:
-            10px 12px 25px;
-    }
-
-    .category-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .material-area{
-        padding:
-            22px 12px 45px;
-    }
-
-    .tools{
-        grid-template-columns:
-            1fr 125px;
-    }
-
-    .material-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:9px;
-    }
-
-    .material-thumb{
-        height:125px;
-    }
-
-    .material-content{
-        padding:9px;
-    }
-
-    .material-content h3{
-        font-size:10px;
-    }
-
-    .material-description{
-        font-size:7px;
-
-        min-height:25px;
-    }
-
-    .material-meta{
-        font-size:7px;
-    }
-
-    .material-button{
-        padding:8px 5px;
-
-        font-size:8px;
-    }
-
+.footer-links a{
+  display:block;
+  color:#a8b5ad;
+  margin-bottom:7px;
+  font-size:13px
 }
 
-@media(max-width:380px){
-
-    .material-grid{
-        grid-template-columns:1fr;
-    }
-
-    .material-thumb{
-        height:170px;
-    }
-
+.footer-bottom{
+  border-top:1px solid #2a332e;
+  margin-top:25px;
+  padding-top:17px;
+  color:#849088;
+  font-size:12px
 }
 
+/* =========================
+   RESPONSIVE
+========================= */
 
-/* =====================================================
-   HIDDEN
-===================================================== */
+@media(max-width:850px){
 
-.hidden{
-    display:none !important;
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:45px
+  }
+
+  .features{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .material-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .member-box{
+    margin-left:20px;
+    margin-right:20px;
+    padding:30px;
+    flex-direction:column;
+    align-items:flex-start
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr
+  }
 }
 
+@media(max-width:600px){
+
+  .nav-container{
+    padding:8px 14px
+  }
+
+  .logo{
+    font-size:17px
+  }
+
+  .nav-menu a{
+    padding:7px 8px;
+    font-size:11px
+  }
+
+  .nav-menu a[href="#kategori"]{
+    display:none
+  }
+
+  .hero{
+    padding:35px 15px
+  }
+
+  .hero h1{
+    font-size:38px
+  }
+
+  .features{
+    grid-template-columns:1fr;
+    padding-left:15px;
+    padding-right:15px
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px
+  }
+
+  .category-card{
+    padding:15px;
+    min-height:130px
+  }
+
+  .section{
+    padding:40px 15px
+  }
+
+  .material-inner{
+    padding:40px 15px
+  }
+
+  .material-grid{
+    grid-template-columns:1fr
+  }
+
+  .material-tools{
+    grid-template-columns:1fr
+  }
+
+  .section-header{
+    align-items:flex-start;
+    flex-direction:column
+  }
+
+  .hero-buttons{
+    flex-direction:column
+  }
+
+  .btn{
+    width:100%
+  }
+
+  .member-button{
+    width:100%;
+    text-align:center
+  }
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
+<!-- =========================
      HEADER
-===================================================== -->
+========================= -->
 
-<header>
+<header class="site-header">
 
-<div class="nav">
+<div class="nav-container">
 
-
-<div class="logo">
-📖 NgajiPlus Akademi
-</div>
-
-
-<div
-    class="nav-buttons"
-    id="navButtons"
->
-
-
-<a
-    href="login.html"
-    id="loginBtn"
-    class="nav-btn login-btn"
->
-🔐 Login
+<a href="index.html" class="logo">
+  <span class="logo-icon">📖</span>
+  <span>NgajiPlus</span>
 </a>
 
+<nav class="nav-menu">
 
-<a
-    href="daftar.html"
-    id="registerBtn"
-    class="nav-btn register-btn"
->
-Daftar
+<a href="#beranda">
+  Beranda
 </a>
 
-
-<a
-    href="profile.html"
-    id="accountBtn"
-    class="nav-btn account-btn hidden"
->
-👤 <span id="accountName">Akun</span>
+<a href="#kategori">
+  Kategori
 </a>
 
-
-<a
-    href="dashboard.html"
-    id="dashboardBtn"
-    class="nav-btn dashboard-btn hidden"
->
-📊 Dashboard
+<a href="#materi">
+  Materi
 </a>
 
+<a href="login.html" class="nav-login">
+  Login
+</a>
 
-<button
-    id="logoutBtn"
-    class="nav-btn logout-btn hidden"
->
-Keluar
-</button>
+<a href="daftar.html" class="nav-register">
+  Daftar
+</a>
 
-
-</div>
+</nav>
 
 </div>
 
 </header>
 
+<!-- =========================
+     MAIN
+========================= -->
 
+<main>
 
-<!-- =====================================================
+<!-- =========================
      HERO
-===================================================== -->
+========================= -->
 
-<section class="hero">
+<section class="hero" id="beranda">
 
+<div>
 
-<div class="hero-left">
-
-<div class="hero-label">
-📚 Perpustakaan Pembelajaran Islam
-</div>
-
+<span class="hero-badge">
+  📚 Perpustakaan Pembelajaran Islam
+</span>
 
 <h1>
-Belajar Lebih Mudah,
-<span>Ngaji Lebih Menyenangkan.</span>
+  Belajar Lebih Mudah,
+  <span>Ngaji Lebih Menyenangkan.</span>
 </h1>
 
-
-<p>
-NgajiPlus menyediakan kumpulan video, audio dan materi PDF
-pembelajaran Islam dalam berbagai tema yang tersusun rapi
-dan mudah dipelajari kapan saja.
+<p class="hero-description">
+  NgajiPlus menyediakan kumpulan video, audio dan materi PDF
+  pembelajaran Islam dalam berbagai tema yang tersusun rapi
+  dan mudah dipelajari kapan saja.
 </p>
-
 
 <div class="hero-buttons">
 
-<a
-    href="#materi"
-    class="hero-btn hero-primary"
->
-🚀 Mulai Belajar
+<a href="daftar.html" class="btn btn-primary">
+  🚀 Mulai Belajar
 </a>
 
-
-<a
-    href="#kategori"
-    class="hero-btn hero-secondary"
->
-📚 Lihat Kategori
+<a href="#materi" class="btn btn-secondary">
+  📚 Lihat Materi
 </a>
 
 </div>
@@ -1301,380 +818,388 @@ dan mudah dipelajari kapan saja.
 
 <div class="hero-card">
 
-<div class="hero-card-title">
+<div class="hero-screen">
 
-<span>
-NgajiPlus
-</span>
+<div class="hero-screen-top">
 
-
-<img
-    id="heroAvatar"
-    class="hero-avatar"
-    src=""
-    alt="Akun"
->
-
+<div class="mini-logo">
+  NgajiPlus
 </div>
 
-
-<div class="hero-video">
-▶
-</div>
-
-
-<div class="hero-card-text">
-Kajian & Pembelajaran Islam
-</div>
-
-
-<div class="hero-card-meta">
-🎥 Video &nbsp; • &nbsp;
-🎧 Audio &nbsp; • &nbsp;
-📄 PDF
+<div class="mini-avatar">
+  👤
 </div>
 
 </div>
 
-
-</section>
-
-
-
-<!-- =====================================================
-     NOTICE
-===================================================== -->
-
-<div
-    id="notice"
-    class="notice warning"
->
-⏳ Memeriksa status akun...
+<div class="featured-video">
+  ▶
 </div>
 
-
-
-<!-- =====================================================
-     FEATURE
-===================================================== -->
-
-<section class="feature-area">
-
-<div class="feature-grid">
-
-
-<div class="feature-card">
-
-<div class="feature-icon">
-🎥
+<div class="mini-title">
+  Kajian & Pembelajaran Islam
 </div>
 
-<h3>
-Video Pembelajaran
-</h3>
-
-<p>
-Belajar melalui video yang mudah dipahami.
-</p>
-
+<div class="mini-text">
+  🎥 Video &nbsp;•&nbsp;
+  🎧 Audio &nbsp;•&nbsp;
+  📄 PDF
 </div>
 
-
-<div class="feature-card">
-
-<div class="feature-icon">
-🎧
 </div>
-
-<h3>
-Audio Pembelajaran
-</h3>
-
-<p>
-Dengarkan materi kapan saja.
-</p>
-
-</div>
-
-
-<div class="feature-card">
-
-<div class="feature-icon">
-📄
-</div>
-
-<h3>
-Materi PDF
-</h3>
-
-<p>
-Download modul pembelajaran.
-</p>
-
-</div>
-
-
-<div class="feature-card">
-
-<div class="feature-icon">
-🔐
-</div>
-
-<h3>
-Member Premium
-</h3>
-
-<p>
-Akses materi khusus member.
-</p>
-
-</div>
-
 
 </div>
 
 </section>
 
 
+<!-- =========================
+     FEATURES
+========================= -->
 
-<!-- =====================================================
+<section class="features">
+
+<div class="feature">
+
+<div class="feature-icon">
+  🎥
+</div>
+
+<h3>
+  Video Pembelajaran
+</h3>
+
+<p>
+  Belajar melalui video yang mudah dipahami.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+  🎧
+</div>
+
+<h3>
+  Audio Pembelajaran
+</h3>
+
+<p>
+  Dengarkan materi kapan saja dan di mana saja.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+  📄
+</div>
+
+<h3>
+  Materi PDF
+</h3>
+
+<p>
+  Download modul untuk dipelajari kembali.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+  🔐
+</div>
+
+<h3>
+  Member Premium
+</h3>
+
+<p>
+  Akses materi premium khusus untuk member.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
      CATEGORY
-===================================================== -->
+========================= -->
 
-<section
-    class="category-area"
-    id="kategori"
->
+<section class="section" id="kategori">
 
-<h2 class="section-title">
-Jelajahi Kategori
+<div class="section-header">
+
+<div>
+
+<h2>
+  Jelajahi Kategori
 </h2>
 
-
-<p class="section-description">
-Pilihan tema pembelajaran yang ingin Anda pelajari.
+<p>
+  Pilih tema pembelajaran yang ingin Anda pelajari.
 </p>
+
+</div>
+
+</div>
 
 
 <div class="category-grid">
 
-
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Al-Qur'an & Tahsin"
+  class="category-card"
+>
 
 <div class="category-icon">
-📖
+  📖
 </div>
 
 <h3>
-Al-Qur'an & Tahsin
+  Al-Qur'an & Tahsin
 </h3>
 
 <p>
-Membaca dan memahami Al-Qur'an.
+  Membaca dan memahami Al-Qur'an.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Fiqih"
+  class="category-card"
+>
 
 <div class="category-icon">
-🕌
+  🕌
 </div>
 
 <h3>
-Fiqih
+  Fiqih
 </h3>
 
 <p>
-Belajar hukum-hukum dalam kehidupan.
+  Belajar hukum-hukum dalam kehidupan.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Aqidah"
+  class="category-card"
+>
 
 <div class="category-icon">
-💎
+  💎
 </div>
 
 <h3>
-Aqidah
+  Aqidah
 </h3>
 
 <p>
-Memperkuat dasar keimanan.
+  Memperkuat dasar keimanan.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Akhlak & Adab"
+  class="category-card"
+>
 
 <div class="category-icon">
-🌿
+  🌿
 </div>
 
 <h3>
-Akhlak & Adab
+  Akhlak & Adab
 </h3>
 
 <p>
-Membentuk pribadi yang baik.
+  Membentuk pribadi yang baik.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Bahasa Arab"
+  class="category-card"
+>
 
 <div class="category-icon">
-🇸🇦
+  🇸🇦
 </div>
 
 <h3>
-Bahasa Arab
+  Bahasa Arab
 </h3>
 
 <p>
-Belajar Bahasa Arab secara bertahap.
+  Belajar bahasa Arab secara bertahap.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Hadits"
+  class="category-card"
+>
 
 <div class="category-icon">
-📜
+  📜
 </div>
 
 <h3>
-Hadits
+  Hadits
 </h3>
 
 <p>
-Mengenal dan mempelajari hadits Nabi ﷺ.
+  Mengenal dan mempelajari hadits Nabi ﷺ.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Tafsir"
+  class="category-card"
+>
 
 <div class="category-icon">
-📚
+  📚
 </div>
 
 <h3>
-Tafsir
+  Tafsir
 </h3>
 
 <p>
-Memahami kandungan Al-Qur'an.
+  Memahami kandungan Al-Qur'an.
 </p>
 
-</div>
+</a>
 
 
-<div class="category-card">
+<a
+  href="#materi"
+  data-category-link="Sejarah Islam"
+  class="category-card"
+>
 
 <div class="category-icon">
-🏛️
+  🏛️
 </div>
 
 <h3>
-Sejarah Islam
+  Sejarah Islam
 </h3>
 
 <p>
-Mempelajari perjalanan sejarah Islam.
+  Mempelajari perjalanan sejarah Islam.
 </p>
 
-</div>
-
+</a>
 
 </div>
 
 </section>
 
 
-
-<!-- =====================================================
+<!-- =========================
      MATERIAL
-===================================================== -->
+========================= -->
 
-<section
-    class="material-area"
-    id="materi"
->
+<section class="material-section" id="materi">
 
 <div class="material-inner">
 
+<div class="section-header">
 
-<div class="material-heading">
+<div>
 
 <h2>
-📚 Materi Terbaru
+  📚 Materi Terbaru
 </h2>
 
 <p>
-Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
+  Temukan berbagai materi pembelajaran yang tersedia di NgajiPlus.
 </p>
 
 </div>
 
+</div>
 
-<div class="tools">
+
+<div class="material-tools">
 
 <input
-    type="search"
-    id="searchInput"
-    class="search"
-    placeholder="🔎 Cari materi..."
+  id="searchInput"
+  class="search-box"
+  type="search"
+  placeholder="🔎 Cari materi..."
 >
 
 
 <select
-    id="categoryFilter"
-    class="filter"
+  id="categoryFilter"
+  class="category-select"
 >
 
 <option value="">
-Semua Kategori
+  Semua Kategori
 </option>
 
-<option value="Al-Qur'an & Tahsin">
-Al-Qur'an & Tahsin
+<option>
+  Al-Qur'an & Tahsin
 </option>
 
-<option value="Fiqih">
-Fiqih
+<option>
+  Fiqih
 </option>
 
-<option value="Aqidah">
-Aqidah
+<option>
+  Aqidah
 </option>
 
-<option value="Akhlak & Adab">
-Akhlak & Adab
+<option>
+  Akhlak & Adab
 </option>
 
-<option value="Bahasa Arab">
-Bahasa Arab
+<option>
+  Bahasa Arab
 </option>
 
-<option value="Hadits">
-Hadits
+<option>
+  Hadits
 </option>
 
-<option value="Tafsir">
-Tafsir
+<option>
+  Tafsir
 </option>
 
-<option value="Sejarah Islam">
-Sejarah Islam
+<option>
+  Sejarah Islam
 </option>
 
 </select>
@@ -1682,35 +1207,127 @@ Sejarah Islam
 </div>
 
 
-<div id="materialContainer">
+<div
+  id="materialsGrid"
+  class="material-grid"
+>
 
 <div class="loading">
-⏳ Mengambil materi...
+  ⏳ Mengambil materi...
 </div>
 
 </div>
-
 
 </div>
 
 </section>
 
 
+<!-- =========================
+     MEMBER BOX
+========================= -->
 
-<!-- =====================================================
+<section class="member-box">
+
+<div>
+
+<h2>
+  🔐 Ingin mengakses semua materi?
+</h2>
+
+<p>
+  Daftar sebagai member untuk membuka materi premium NgajiPlus.
+</p>
+
+</div>
+
+<a
+  href="daftar.html"
+  class="member-button"
+>
+  🚀 Daftar Member
+</a>
+
+</section>
+
+</main>
+
+
+<!-- =========================
      FOOTER
-===================================================== -->
+========================= -->
 
 <footer>
 
-<div class="footer-inner">
+<div class="footer-container">
 
-<div class="footer-logo">
-📖 NgajiPlus Akademi
+<div class="footer-grid">
+
+<div>
+
+<div class="logo">
+  📖 NgajiPlus
 </div>
 
-<div class="footer-text">
-Platform pembelajaran Islam berupa Video, Audio dan PDF.
+<p class="footer-brand">
+  Platform pembelajaran Islam untuk membantu belajar
+  Al-Qur'an, Fiqih, Aqidah, Akhlak, Bahasa Arab,
+  Hadits, Tafsir dan Sejarah Islam.
+</p>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+  Menu
+</div>
+
+<div class="footer-links">
+
+<a href="#beranda">
+  Beranda
+</a>
+
+<a href="#kategori">
+  Kategori
+</a>
+
+<a href="#materi">
+  Materi
+</a>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+  Akun
+</div>
+
+<div class="footer-links">
+
+<a href="login.html">
+  Login
+</a>
+
+<a href="daftar.html">
+  Daftar
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+  © 2026 NgajiPlus. Semua hak dilindungi.
 </div>
 
 </div>
@@ -1718,1748 +1335,1059 @@ Platform pembelajaran Islam berupa Video, Audio dan PDF.
 </footer>
 
 
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-/* =====================================================
+/* =========================================================
    SUPABASE
-===================================================== */
+   ========================================================= */
 
 const SUPABASE_URL =
-    "https://ksgywgdrfskqsufchbcm.supabase.co";
+  "GANTI_DENGAN_SUPABASE_URL_ANDA";
 
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+const SUPABASE_ANON_KEY =
+  "GANTI_DENGAN_SUPABASE_PUBLISHABLE_KEY_ANDA";
 
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 
-/* =====================================================
-   VARIABLES
-===================================================== */
+/* =========================================================
+   VARIABLE
+   ========================================================= */
+
+let allMaterials = [];
 
 let currentUser = null;
 
-let currentProfile = null;
-
 let membershipActive = false;
 
-let materials = [];
+let currentProfile = null;
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const loginBtn =
-    document.getElementById("loginBtn");
-
-const registerBtn =
-    document.getElementById("registerBtn");
-
-const accountBtn =
-    document.getElementById("accountBtn");
-
-const accountName =
-    document.getElementById("accountName");
-
-const dashboardBtn =
-    document.getElementById("dashboardBtn");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-const heroAvatar =
-    document.getElementById("heroAvatar");
-
-const notice =
-    document.getElementById("notice");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const categoryFilter =
-    document.getElementById("categoryFilter");
-
-const materialContainer =
-    document.getElementById("materialContainer");
-
-
-/* =====================================================
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+   ========================================================= */
 
 function escapeHtml(value){
 
-    return String(value ?? "")
-
-        .replace(/&/g,"&amp;")
-
-        .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
-   ESCAPE ATTRIBUTE
-===================================================== */
+/* =========================================================
+   CHECK MEMBERSHIP
+   ========================================================= */
 
-function escapeAttribute(value){
+async function checkMembership(){
 
-    return escapeHtml(value);
+  membershipActive = false;
 
-}
+  currentProfile = null;
+
+  try{
+
+    const {
+      data: { user },
+      error: userError
+    } =
+      await supabaseClient.auth.getUser();
 
 
-/* =====================================================
-   FORMAT DATE
-===================================================== */
+    if(userError){
 
-function formatTanggal(value){
+      console.error(
+        "USER ERROR:",
+        userError
+      );
 
-    if(!value){
-
-        return "-";
+      return;
 
     }
 
-    const date =
-        new Date(value);
 
-    if(
-        isNaN(
-            date.getTime()
+    currentUser = user;
+
+
+    /* =========================
+       BELUM LOGIN
+    ========================= */
+
+    if(!currentUser){
+
+      membershipActive = false;
+
+      return;
+
+    }
+
+
+    /* =========================
+       AMBIL PROFILE
+    ========================= */
+
+    const {
+      data: profile,
+      error: profileError
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id,nama,status,paket,berlaku_sampai"
         )
-    ){
-
-        return String(value);
-
-    }
-
-    return date.toLocaleDateString(
-        "id-ID",
-        {
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   YOUTUBE VIDEO ID
-===================================================== */
-
-/*
-   Fungsi ini membaca URL YouTube
-   dan mengambil ID videonya.
-
-   Contoh yang didukung:
-
-   https://www.youtube.com/watch?v=XXXXXXXXXXX
-
-   https://youtu.be/XXXXXXXXXXX
-
-   https://www.youtube.com/shorts/XXXXXXXXXXX
-
-   https://www.youtube.com/embed/XXXXXXXXXXX
-
-   https://www.youtube.com/live/XXXXXXXXXXX
-*/
-
-function getYouTubeId(value){
-
-    if(!value){
-
-        return null;
-
-    }
-
-    let text =
-        String(value)
-            .trim();
-
-
-    /*
-       Kalau langsung ID YouTube
-    */
-
-    if(
-        /^[a-zA-Z0-9_-]{11}$/.test(
-            text
+        .eq(
+          "id",
+          currentUser.id
         )
-    ){
+        .maybeSingle();
 
-        return text;
+
+    if(profileError){
+
+      console.error(
+        "PROFILE ERROR:",
+        profileError
+      );
+
+      membershipActive = false;
+
+      return;
 
     }
 
 
-    /*
-       Tambahkan protocol
-       jika belum ada
-    */
+    currentProfile = profile;
+
+
+    if(!currentProfile){
+
+      membershipActive = false;
+
+      return;
+
+    }
+
+
+    /* =========================
+       CEK STATUS
+    ========================= */
+
+    const status =
+      String(
+        currentProfile.status || ""
+      )
+      .toLowerCase()
+      .trim();
+
+
+    const statusAktif =
+      status === "aktif";
+
+
+    /* =========================
+       CEK TANGGAL
+    ========================= */
+
+    let tanggalAktif = false;
+
 
     if(
-        !text.startsWith("http://") &&
-        !text.startsWith("https://")
+      currentProfile.berlaku_sampai
     ){
 
-        text =
-            "https://" +
-            text;
-
-    }
-
-
-    try{
-
-        const url =
-            new URL(text);
-
-
-        const hostname =
-            url.hostname
-                .toLowerCase();
-
-
-        /*
-           youtube.com
-        */
-
-        if(
-            hostname === "youtube.com" ||
-            hostname === "www.youtube.com" ||
-            hostname.endsWith(".youtube.com")
-        ){
-
-            /*
-               watch?v=
-            */
-
-            const v =
-                url.searchParams.get("v");
-
-
-            if(
-                v &&
-                /^[a-zA-Z0-9_-]{11}$/.test(v)
-            ){
-
-                return v;
-
-            }
-
-
-            /*
-               Path
-            */
-
-            const parts =
-                url.pathname
-                    .split("/")
-                    .filter(Boolean);
-
-
-            const types = [
-                "embed",
-                "shorts",
-                "live"
-            ];
-
-
-            for(
-                const type of types
-            ){
-
-                const index =
-                    parts.indexOf(type);
-
-
-                if(
-                    index !== -1 &&
-                    parts[index + 1]
-                ){
-
-                    const id =
-                        parts[index + 1];
-
-
-                    if(
-                        /^[a-zA-Z0-9_-]{11}$/.test(id)
-                    ){
-
-                        return id;
-
-                    }
-
-                }
-
-            }
-
-        }
-
-
-        /*
-           youtu.be
-        */
-
-        if(
-            hostname === "youtu.be" ||
-            hostname.endsWith(".youtu.be")
-        ){
-
-            const id =
-                url.pathname
-                    .replace(/^\/+/,"")
-                    .split("/")[0];
-
-
-            if(
-                id &&
-                /^[a-zA-Z0-9_-]{11}$/.test(id)
-            ){
-
-                return id;
-
-            }
-
-        }
-
-    }
-
-    catch(error){
-
-        console.warn(
-            "URL YouTube tidak valid:",
-            value,
-            error
+      const tanggal =
+        new Date(
+          currentProfile.berlaku_sampai
         );
 
-    }
+
+      const sekarang =
+        new Date();
 
 
-    return null;
-
-}
-
-
-/* =====================================================
-   GET AUTOMATIC THUMBNAIL
-===================================================== */
-
-function getAutomaticThumbnail(item){
-
-    const type =
-        String(
-            item.tipe ||
-            item.type ||
-            "video"
-        )
-        .toLowerCase()
-        .trim();
-
-
-    const url =
-        item.url ||
-        "";
-
-
-    /*
-       VIDEO YOUTUBE
-    */
-
-    if(
-        type.includes("video")
-    ){
-
-        const youtubeId =
-            getYouTubeId(
-                url
-            );
-
-
-        if(youtubeId){
-
-            /*
-               maxresdefault biasanya
-               kualitas paling tinggi.
-
-               Jika tidak tersedia,
-               browser akan mencoba
-               fallback ke hqdefault.
-            */
-
-            return {
-
-                type:"youtube",
-
-                id:youtubeId,
-
-                src:
-                    "https://img.youtube.com/vi/" +
-                    youtubeId +
-                    "/maxresdefault.jpg",
-
-                fallback:
-                    "https://img.youtube.com/vi/" +
-                    youtubeId +
-                    "/hqdefault.jpg"
-
-            };
-
-        }
+      tanggalAktif =
+        !isNaN(
+          tanggal.getTime()
+        ) &&
+        tanggal >= sekarang;
 
     }
 
 
-    /*
-       Kalau bukan YouTube,
-       gunakan thumbnail database
-       jika memang ada.
-
-       Jadi thumbnail database
-       sekarang hanya sebagai
-       fallback, bukan kewajiban.
-    */
-
-    if(item.thumbnail){
-
-        return {
-
-            type:"image",
-
-            id:null,
-
-            src:item.thumbnail,
-
-            fallback:null
-
-        };
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =====================================================
-   DEFAULT NAV
-===================================================== */
-
-function setLoggedOutUI(){
-
-    loginBtn.classList.remove(
-        "hidden"
-    );
-
-    registerBtn.classList.remove(
-        "hidden"
-    );
-
-    accountBtn.classList.add(
-        "hidden"
-    );
-
-    dashboardBtn.classList.add(
-        "hidden"
-    );
-
-    logoutBtn.classList.add(
-        "hidden"
-    );
-
-
-    accountName.textContent =
-        "Akun";
-
-
-    heroAvatar.removeAttribute(
-        "src"
-    );
-
-}
-
-
-/* =====================================================
-   LOGGED IN NAV
-===================================================== */
-
-function setLoggedInUI(){
-
-    loginBtn.classList.add(
-        "hidden"
-    );
-
-    registerBtn.classList.add(
-        "hidden"
-    );
-
-    accountBtn.classList.remove(
-        "hidden"
-    );
-
-    dashboardBtn.classList.remove(
-        "hidden"
-    );
-
-    logoutBtn.classList.remove(
-        "hidden"
-    );
-
-
-    const metadata =
-        currentUser?.user_metadata || {};
-
-
-    const name =
-        currentProfile?.nama ||
-        metadata.full_name ||
-        metadata.name ||
-        metadata.nama ||
-        currentUser?.email?.split("@")[0] ||
-        "Akun";
-
-
-    accountName.textContent =
-        name;
-
-
-    const avatar =
-        currentProfile?.avatar_url ||
-        "";
-
-
-    if(avatar){
-
-        heroAvatar.src =
-            avatar;
-
-    }
-
-    else{
-
-        heroAvatar.removeAttribute(
-            "src"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   CHECK USER
-===================================================== */
-
-async function checkUser(){
+    /* =========================
+       MEMBERSHIP FINAL
+    ========================= */
 
     membershipActive =
-        false;
+      statusAktif &&
+      tanggalAktif;
 
-    currentProfile =
-        null;
 
+    console.log(
+      "Membership aktif:",
+      membershipActive
+    );
 
-    try{
 
-        const result =
-            await supabaseClient
-                .auth
-                .getUser();
+  }catch(error){
 
+    console.error(
+      "CHECK MEMBERSHIP ERROR:",
+      error
+    );
 
-        if(result.error){
 
-            throw result.error;
+    membershipActive = false;
 
-        }
-
-
-        currentUser =
-            result.data.user;
-
-
-        /*
-           BELUM LOGIN
-        */
-
-        if(!currentUser){
-
-            setLoggedOutUI();
-
-
-            notice.className =
-                "notice warning";
-
-
-            notice.innerHTML =
-                "🔐 Anda belum login. " +
-                "Materi gratis dapat dipelajari. " +
-                "Materi premium memerlukan membership aktif.";
-
-
-            return;
-
-        }
-
-
-        /*
-           SUDAH LOGIN
-        */
-
-        setLoggedInUI();
-
-
-        /*
-           LOAD PROFILE
-        */
-
-        const profileResult =
-            await supabaseClient
-                .from("profiles")
-                .select(
-                    "id,nama,status,paket,berlaku_sampai,avatar_url"
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
-
-
-        if(profileResult.error){
-
-            console.error(
-                "PROFILE ERROR:",
-                profileResult.error
-            );
-
-
-            membershipActive =
-                false;
-
-
-            notice.className =
-                "notice error";
-
-
-            notice.innerHTML =
-                "⚠️ Akun berhasil login, tetapi " +
-                "data profil belum dapat dibaca.";
-
-
-            return;
-
-        }
-
-
-        currentProfile =
-            profileResult.data;
-
-
-        /*
-           PROFILE TIDAK ADA
-        */
-
-        if(!currentProfile){
-
-            membershipActive =
-                false;
-
-
-            setLoggedInUI();
-
-
-            notice.className =
-                "notice warning";
-
-
-            notice.innerHTML =
-                "👤 Anda sudah login. " +
-                "Profil belum tersedia. " +
-                "Silakan lengkapi profil Anda.";
-
-
-            return;
-
-        }
-
-
-        setLoggedInUI();
-
-
-        /*
-           STATUS MEMBERSHIP
-        */
-
-        const status =
-            String(
-                currentProfile.status || ""
-            )
-            .toLowerCase()
-            .trim();
-
-
-        const statusAktif =
-            status === "aktif";
-
-
-        let tanggalAktif =
-            false;
-
-
-        if(
-            currentProfile.berlaku_sampai
-        ){
-
-            const tanggal =
-                new Date(
-                    currentProfile.berlaku_sampai
-                );
-
-
-            const sekarang =
-                new Date();
-
-
-            tanggalAktif =
-                !isNaN(
-                    tanggal.getTime()
-                ) &&
-                tanggal >= sekarang;
-
-        }
-
-
-        membershipActive =
-            statusAktif &&
-            tanggalAktif;
-
-
-        /*
-           NOTICE
-        */
-
-        if(membershipActive){
-
-            notice.className =
-                "notice success";
-
-
-            notice.innerHTML =
-                "✅ Selamat datang, <strong>" +
-
-                escapeHtml(
-                    currentProfile.nama ||
-                    "Member"
-                ) +
-
-                "</strong>. Membership " +
-
-                "<strong>" +
-
-                escapeHtml(
-                    currentProfile.paket ||
-                    "Premium"
-                ) +
-
-                "</strong> aktif sampai " +
-
-                "<strong>" +
-
-                formatTanggal(
-                    currentProfile.berlaku_sampai
-                ) +
-
-                "</strong>. Semua materi premium dapat diakses.";
-
-        }
-
-        else{
-
-            notice.className =
-                "notice warning";
-
-
-            notice.innerHTML =
-                "👤 Selamat datang, <strong>" +
-
-                escapeHtml(
-                    currentProfile.nama ||
-                    "Member"
-                ) +
-
-                "</strong>. Membership premium belum aktif. " +
-                "Materi gratis tetap dapat dipelajari.";
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(
-            "CHECK USER ERROR:",
-            error
-        );
-
-
-        currentUser =
-            null;
-
-        currentProfile =
-            null;
-
-        membershipActive =
-            false;
-
-
-        setLoggedOutUI();
-
-
-        notice.className =
-            "notice error";
-
-
-        notice.innerHTML =
-            "⚠️ Gagal memeriksa status akun.";
-
-    }
+  }
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   CEK PREMIUM
+   ========================================================= */
+
+function isPremium(material){
+
+  return (
+    material.premium === true ||
+    material.premium === "true" ||
+    material.is_premium === true ||
+    material.is_premium === "true"
+  );
+
+}
+
+
+/* =========================================================
+   GET TITLE
+   ========================================================= */
+
+function getTitle(m){
+
+  return (
+    m.judul ||
+    m.title ||
+    "Tanpa Judul"
+  );
+
+}
+
+
+/* =========================================================
+   GET DESCRIPTION
+   ========================================================= */
+
+function getDescription(m){
+
+  return (
+    m.deskripsi ||
+    m.description ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   GET CATEGORY
+   ========================================================= */
+
+function getCategory(m){
+
+  return (
+    m.kategori ||
+    m.category ||
+    "Umum"
+  );
+
+}
+
+
+/* =========================================================
+   GET TYPE
+   ========================================================= */
+
+function getType(m){
+
+  return String(
+    m.tipe ||
+    m.type ||
+    m.jenis ||
+    "video"
+  ).toLowerCase();
+
+}
+
+
+/* =========================================================
+   GET URL
+   ========================================================= */
+
+function getUrl(m){
+
+  return (
+    m.url_materi ||
+    m.url ||
+    m.video_url ||
+    m.audio_url ||
+    m.pdf_url ||
+    m.link ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   GET THUMBNAIL
+   ========================================================= */
+
+function getThumbnail(m){
+
+  return (
+    m.thumbnail ||
+    m.thumbnail_url ||
+    m.gambar ||
+    m.image_url ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   YOUTUBE ID
+   ========================================================= */
+
+function getYoutubeId(url){
+
+  if(!url)
+    return null;
+
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+
+    const host =
+      parsed.hostname.toLowerCase();
+
+
+    if(
+      host.includes("youtu.be")
+    ){
+
+      return parsed.pathname
+        .replace("/","")
+        .split("?")[0];
+
+    }
+
+
+    if(
+      host.includes("youtube.com")
+    ){
+
+      if(
+        parsed.searchParams.get("v")
+      ){
+
+        return parsed.searchParams.get("v");
+
+      }
+
+
+      const parts =
+        parsed.pathname.split("/");
+
+
+      const embed =
+        parts.indexOf("embed");
+
+
+      if(
+        embed !== -1 &&
+        parts[embed + 1]
+      ){
+
+        return parts[
+          embed + 1
+        ];
+
+      }
+
+
+      const shorts =
+        parts.indexOf("shorts");
+
+
+      if(
+        shorts !== -1 &&
+        parts[shorts + 1]
+      ){
+
+        return parts[
+          shorts + 1
+        ];
+
+      }
+
+    }
+
+
+  }catch(e){}
+
+
+  return null;
+
+}
+
+
+/* =========================================================
+   BEST THUMBNAIL
+   ========================================================= */
+
+function getBestThumbnail(m){
+
+  const custom =
+    getThumbnail(m).trim();
+
+
+  if(custom)
+    return custom;
+
+
+  const youtubeId =
+    getYoutubeId(
+      getUrl(m)
+    );
+
+
+  if(youtubeId){
+
+    return (
+      "https://img.youtube.com/vi/" +
+      youtubeId +
+      "/hqdefault.jpg"
+    );
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =========================================================
+   TYPE ICON
+   ========================================================= */
+
+function typeIcon(type){
+
+  if(
+    type.includes("audio")
+  )
+    return "🎧";
+
+
+  if(
+    type.includes("pdf")
+  )
+    return "📄";
+
+
+  return "🎥";
+
+}
+
+
+/* =========================================================
    LOAD MATERIALS
-===================================================== */
+   ========================================================= */
 
 async function loadMaterials(){
 
-    materialContainer.innerHTML = `
-
-        <div class="loading">
-            ⏳ Mengambil materi...
-        </div>
-
-    `;
+  const grid =
+    document.getElementById(
+      "materialsGrid"
+    );
 
 
-    try{
-
-        /*
-           Coba RPC dahulu
-        */
-
-        let result =
-            await supabaseClient
-                .rpc(
-                    "get_available_materials"
-                );
+  grid.innerHTML =
+    '<div class="loading">' +
+    '⏳ Mengambil materi...' +
+    '</div>';
 
 
-        /*
-           Jika RPC tidak tersedia,
-           gunakan query biasa.
-        */
+  try{
 
-        if(result.error){
+    if(
+      SUPABASE_URL.includes(
+        "GANTI_DENGAN"
+      ) ||
+      SUPABASE_ANON_KEY.includes(
+        "GANTI_DENGAN"
+      )
+    ){
 
-            console.warn(
-                "RPC tidak tersedia:",
-                result.error.message
-            );
-
-
-            result =
-                await supabaseClient
-                    .from("materials")
-                    .select(
-                        "id,judul,deskripsi,kategori,tipe,url,thumbnail,premium"
-                    )
-                    .order(
-                        "id",
-                        {
-                            ascending:false
-                        }
-                    );
-
-        }
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        materials =
-            result.data || [];
-
-
-        renderMaterials();
+      throw new Error(
+        "URL Supabase dan Publishable/Anon Key belum dimasukkan."
+      );
 
     }
 
-    catch(error){
 
-        console.error(
-            "LOAD MATERIAL ERROR:",
-            error
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("materials")
+        .select("*");
+
+
+    if(error)
+      throw error;
+
+
+    allMaterials =
+      data || [];
+
+
+    allMaterials.sort(
+      function(a,b){
+
+        return (
+          Number(b.id || 0) -
+          Number(a.id || 0)
         );
 
+      }
+    );
 
-        materialContainer.innerHTML = `
 
-            <div class="material-error">
+    renderMaterials();
 
-                ❌ Gagal mengambil materi.
 
-                <br><br>
+  }catch(error){
 
-                ${escapeHtml(
-                    error.message
-                )}
+    console.error(error);
 
-            </div>
 
-        `;
+    grid.innerHTML =
+      '<div class="error-box">' +
 
-    }
+      '<strong>' +
+      '❌ Gagal mengambil materi.' +
+      '</strong>' +
+
+      '<br><br>' +
+
+      escapeHtml(
+        error.message ||
+        "Terjadi kesalahan."
+      ) +
+
+      '<br><br>' +
+
+      'Periksa Supabase URL, Publishable/Anon Key, ' +
+      'dan RLS policy tabel ' +
+      '<strong>materials</strong>.' +
+
+      '</div>';
+
+  }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    RENDER MATERIALS
-===================================================== */
+   ========================================================= */
 
 function renderMaterials(){
 
-    const keyword =
-        searchInput.value
-            .trim()
+  const grid =
+    document.getElementById(
+      "materialsGrid"
+    );
+
+
+  const search =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const category =
+    document
+      .getElementById(
+        "categoryFilter"
+      )
+      .value;
+
+
+  const filtered =
+    allMaterials.filter(
+      function(m){
+
+        const title =
+          getTitle(m)
             .toLowerCase();
 
 
-    const category =
-        categoryFilter.value;
+        const description =
+          getDescription(m)
+            .toLowerCase();
 
 
-    const filtered =
-        materials.filter(
-            function(item){
-
-                const title =
-                    String(
-                        item.judul || ""
-                    )
-                    .toLowerCase();
+        const cat =
+          getCategory(m)
+            .toLowerCase();
 
 
-                const description =
-                    String(
-                        item.deskripsi || ""
-                    )
-                    .toLowerCase();
+        const matchesSearch =
+          !search ||
+          title.includes(search) ||
+          description.includes(search) ||
+          cat.includes(search);
 
 
-                const kategori =
-                    String(
-                        item.kategori || ""
-                    );
+        const matchesCategory =
+          !category ||
+          getCategory(m) === category;
 
 
-                const cocokSearch =
-                    !keyword ||
-                    title.includes(keyword) ||
-                    description.includes(keyword);
+        return (
+          matchesSearch &&
+          matchesCategory
+        );
+
+      }
+    );
 
 
-                const cocokKategori =
-                    !category ||
-                    kategori === category;
+  if(!filtered.length){
+
+    grid.innerHTML =
+      '<div class="empty-material">' +
+      '📚 Tidak ada materi yang ditemukan.' +
+      '</div>';
+
+    return;
+
+  }
 
 
-                return (
-                    cocokSearch &&
-                    cocokKategori
-                );
+  grid.innerHTML =
+    filtered
+      .map(
+        function(m){
+
+          const title =
+            getTitle(m);
+
+
+          const description =
+            getDescription(m);
+
+
+          const categoryName =
+            getCategory(m);
+
+
+          const type =
+            getType(m);
+
+
+          const url =
+            getUrl(m);
+
+
+          const thumbnail =
+            getBestThumbnail(m);
+
+
+          const premium =
+            isPremium(m);
+
+
+          const icon =
+            typeIcon(type);
+
+
+          let imageHtml = "";
+
+
+          /* =========================
+             IMAGE
+          ========================= */
+
+          if(thumbnail){
+
+            imageHtml =
+              '<img src="' +
+              escapeHtml(thumbnail) +
+              '" alt="' +
+              escapeHtml(title) +
+              '" loading="lazy" ' +
+
+              'onerror="' +
+              "this.style.display='none';" +
+              "this.nextElementSibling.style.display='flex';" +
+              '">' +
+
+              '<div class="image-placeholder" ' +
+              'style="display:none">' +
+
+              icon +
+
+              '</div>';
+
+          }else{
+
+            imageHtml =
+              '<div class="image-placeholder">' +
+              icon +
+              '</div>';
+
+          }
+
+
+          /* =========================
+             PREMIUM LOCK
+          ========================= */
+
+          if(
+            premium &&
+            !membershipActive
+          ){
+
+            imageHtml +=
+              '<div class="premium-lock">' +
+              '🔐' +
+              '</div>' +
+
+              '<div class="premium-label">' +
+              '🔐 PREMIUM' +
+              '</div>';
+
+          }
+
+
+          /* =========================
+             PREMIUM ACTIVE
+          ========================= */
+
+          else if(
+            premium &&
+            membershipActive
+          ){
+
+            imageHtml +=
+              '<div class="premium-label">' +
+              '👑 PREMIUM AKTIF' +
+              '</div>';
+
+          }
+
+
+          /* =========================
+             BUTTON
+          ========================= */
+
+          let buttonHtml = "";
+
+
+          /* =========================
+             PREMIUM
+          ========================= */
+
+          if(premium){
+
+            /* MEMBER PREMIUM */
+
+            if(
+              membershipActive &&
+              url
+            ){
+
+              buttonHtml =
+                '<a href="' +
+                escapeHtml(url) +
+                '" target="_blank" ' +
+                'rel="noopener noreferrer" ' +
+                'class="material-button">' +
+
+                '👑 Buka Materi Premium' +
+
+                '</a>';
 
             }
-        );
 
 
-    if(
-        filtered.length === 0
-    ){
+            /* MEMBER GRATIS */
 
-        materialContainer.innerHTML = `
+            else{
 
-            <div class="empty">
+              buttonHtml =
+                '<a href="membership.html" ' +
+                'class="material-button disabled">' +
 
-                📚 Materi tidak ditemukan.
+                '🔐 Aktifkan Membership' +
 
-            </div>
+                '</a>';
 
-        `;
+            }
 
-        return;
+          }
 
-    }
 
+          /* =========================
+             GRATIS
+          ========================= */
 
-    const grid =
-        document.createElement(
-            "div"
-        );
+          else if(url){
 
+            buttonHtml =
+              '<a href="' +
+              escapeHtml(url) +
+              '" target="_blank" ' +
+              'rel="noopener noreferrer" ' +
+              'class="material-button">' +
 
-    grid.className =
-        "material-grid";
+              '▶️ Mulai Belajar' +
 
+              '</a>';
 
-    filtered.forEach(
-        function(item){
+          }
 
-            grid.appendChild(
-                createMaterialCard(
-                    item
-                )
-            );
 
-        }
-    );
+          /* =========================
+             LINK KOSONG
+          ========================= */
 
+          else{
 
-    materialContainer.innerHTML =
-        "";
+            buttonHtml =
+              '<span class="material-button disabled">' +
 
+              '🔗 Link belum tersedia' +
 
-    materialContainer.appendChild(
-        grid
-    );
+              '</span>';
 
-}
+          }
 
 
-/* =====================================================
-   CREATE MATERIAL CARD
-===================================================== */
+          /* =========================
+             CARD
+          ========================= */
 
-function createMaterialCard(item){
+          return (
 
-    const card =
-        document.createElement(
-            "article"
-        );
+            '<article class="material-card">' +
 
+              '<div class="material-image">' +
 
-    card.className =
-        "material-card";
+                imageHtml +
 
+              '</div>' +
 
-    const isPremium =
-        item.premium === true ||
-        item.premium === "true";
 
+              '<div class="material-content">' +
 
-    const canOpen =
-        !isPremium ||
-        membershipActive;
+                '<span class="material-type">' +
 
+                  escapeHtml(
+                    categoryName
+                  ) +
 
-    const type =
-        String(
-            item.tipe ||
-            item.type ||
-            "video"
-        );
+                '</span>' +
 
 
-    const typeLower =
-        type.toLowerCase();
+                '<h3>' +
 
+                  escapeHtml(
+                    title
+                  ) +
 
-    const title =
-        item.judul ||
-        "Tanpa Judul";
+                '</h3>' +
 
 
-    const description =
-        item.deskripsi ||
-        "Materi pembelajaran Islam.";
+                '<p>' +
 
-
-    const kategori =
-        item.kategori ||
-        "Umum";
-
-
-    /*
-       AMBIL THUMBNAIL OTOMATIS
-    */
-
-    const thumbnail =
-        getAutomaticThumbnail(
-            item
-        );
-
-
-    /* =================================================
-       ICON
-    ================================================= */
-
-    let icon =
-        "🎥";
-
-
-    if(
-        typeLower.includes("audio")
-    ){
-
-        icon =
-            "🎧";
-
-    }
-
-    else if(
-        typeLower.includes("pdf")
-    ){
-
-        icon =
-            "📄";
-
-    }
-
-
-    /* =================================================
-       THUMBNAIL HTML
-    ================================================= */
-
-    let thumbnailHTML = `
-
-        <div class="thumb-icon">
-            ${icon}
-        </div>
-
-    `;
-
-
-    /*
-       Jika ada thumbnail
-    */
-
-    if(thumbnail){
-
-        const fallbackSrc =
-            thumbnail.fallback || "";
-
-
-        thumbnailHTML = `
-
-            <img
-                src="${escapeAttribute(thumbnail.src)}"
-                alt="${escapeAttribute(title)}"
-                loading="lazy"
-                data-fallback="${escapeAttribute(fallbackSrc)}"
-                onerror="handleThumbnailError(this)"
-            >
-
-        `;
-
-
-        /*
-           Hanya video YouTube
-           yang diberi tombol play
-        */
-
-        if(
-            thumbnail.type === "youtube"
-        ){
-
-            thumbnailHTML += `
-
-                <div class="thumbnail-play">
-                    ▶
-                </div>
-
-            `;
-
-        }
-
-    }
-
-
-    /* =================================================
-       LOCK
-    ================================================= */
-
-    let lockHTML =
-        "";
-
-
-    if(
-        isPremium &&
-        !canOpen
-    ){
-
-        lockHTML = `
-
-            <div class="material-lock">
-                🔐
-            </div>
-
-        `;
-
-    }
-
-
-    /* =================================================
-       BADGE
-    ================================================= */
-
-    const badgeHTML =
-        isPremium
-
-        ?
-
-        `
-
-            <span class="badge badge-premium">
-                🔐 Premium
-            </span>
-
-        `
-
-        :
-
-        `
-
-            <span class="badge badge-free">
-                ✓ Gratis
-            </span>
-
-        `;
-
-
-    /* =================================================
-       BUTTON
-    ================================================= */
-
-    let buttonHTML;
-
-
-    if(canOpen){
-
-        buttonHTML = `
-
-            <button
-                class="material-button"
-                data-action="open"
-                data-id="${escapeAttribute(item.id)}"
-            >
-                📖 Buka Materi
-            </button>
-
-        `;
-
-    }
-
-    else{
-
-        buttonHTML = `
-
-            <button
-                class="material-button locked"
-                disabled
-            >
-                🔐 Membership Diperlukan
-            </button>
-
-        `;
-
-    }
-
-
-    /* =================================================
-       CARD
-    ================================================= */
-
-    card.innerHTML = `
-
-        <div class="material-thumb">
-
-            ${thumbnailHTML}
-
-            ${lockHTML}
-
-        </div>
-
-
-        <div class="material-content">
-
-            <span class="material-type">
-
-                ${icon}
-
-                ${escapeHtml(type)}
-
-            </span>
-
-
-            <h3>
-                ${escapeHtml(title)}
-            </h3>
-
-
-            <div class="material-description">
-
-                ${escapeHtml(
+                  escapeHtml(
                     description
-                )}
+                  ) +
 
-            </div>
-
-
-            <div class="material-meta">
-
-                <span>
-
-                    📚
-
-                    ${escapeHtml(
-                        kategori
-                    )}
-
-                </span>
+                '</p>' +
 
 
-                ${badgeHTML}
+                '<div class="material-meta">' +
 
-            </div>
+                  icon +
+                  ' ' +
+                  escapeHtml(type) +
 
-
-            ${buttonHTML}
-
-        </div>
-
-    `;
+                '</div>' +
 
 
-    /*
-       OPEN BUTTON
-    */
+                '<div class="material-status ' +
 
-    const openButton =
-        card.querySelector(
-            "[data-action='open']"
-        );
+                  (
+                    premium
+                    ? "premium-status"
+                    : "free-status"
+                  ) +
 
+                '">' +
 
-    if(openButton){
+                  (
+                    premium
+                    ? "🔐 Materi Premium"
+                    : "🟢 Materi Gratis"
+                  ) +
 
-        openButton.addEventListener(
-            "click",
-            function(){
-
-                openMaterial(
-                    item
-                );
-
-            }
-        );
-
-    }
+                '</div>' +
 
 
-    return card;
+                buttonHtml +
+
+
+              '</div>' +
+
+            '</article>'
+
+          );
+
+        }
+      )
+      .join("");
 
 }
 
 
-/* =====================================================
-   THUMBNAIL ERROR HANDLER
-===================================================== */
-
-function handleThumbnailError(img){
-
-    const fallback =
-        img.dataset.fallback;
-
-
-    /*
-       Jika maxresdefault gagal,
-       coba hqdefault.
-    */
-
-    if(
-        fallback &&
-        img.src !== fallback
-    ){
-
-        img.src =
-            fallback;
-
-
-        img.dataset.fallback =
-            "";
-
-
-        return;
-
-    }
-
-
-    /*
-       Jika semuanya gagal,
-       sembunyikan gambar.
-
-       Parent akan menampilkan
-       background/icon fallback.
-    */
-
-    img.style.display =
-        "none";
-
-
-    const parent =
-        img.parentElement;
-
-
-    if(parent){
-
-        const fallbackIcon =
-            document.createElement(
-                "div"
-            );
-
-
-        fallbackIcon.className =
-            "thumb-icon";
-
-
-        fallbackIcon.textContent =
-            "🎥";
-
-
-        parent.insertBefore(
-            fallbackIcon,
-            img
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   OPEN MATERIAL
-===================================================== */
-
-function openMaterial(item){
-
-    if(!item){
-
-        alert(
-            "Materi tidak ditemukan."
-        );
-
-        return;
-
-    }
-
-
-    const isPremium =
-        item.premium === true ||
-        item.premium === "true";
-
-
-    /*
-       PREMIUM CHECK
-    */
-
-    if(
-        isPremium &&
-        !membershipActive
-    ){
-
-        alert(
-            "🔐 Materi ini khusus member premium.\n\n" +
-            "Silakan aktifkan membership terlebih dahulu."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       URL CHECK
-    */
-
-    if(!item.url){
-
-        alert(
-            "Materi ini belum memiliki URL."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       PLAYER
-    */
-
-    window.location.href =
-        "player.html?id=" +
-        encodeURIComponent(
-            item.id
-        );
-
-}
-
-
-/* =====================================================
+/* =========================================================
    SEARCH
-===================================================== */
+========================================================= */
 
-searchInput.addEventListener(
+document
+  .getElementById("searchInput")
+  .addEventListener(
     "input",
     renderMaterials
-);
+  );
 
 
-/* =====================================================
-   CATEGORY
-===================================================== */
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
 
-categoryFilter.addEventListener(
+document
+  .getElementById("categoryFilter")
+  .addEventListener(
     "change",
     renderMaterials
-);
+  );
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* =========================================================
+   CATEGORY LINKS
+========================================================= */
 
-logoutBtn.addEventListener(
-    "click",
-    async function(){
+document
+  .querySelectorAll(
+    "[data-category-link]"
+  )
+  .forEach(
+    function(link){
 
-        const yakin =
-            confirm(
-                "Apakah Anda ingin keluar dari akun?"
+      link.addEventListener(
+        "click",
+        function(){
+
+          const category =
+            this.dataset.categoryLink;
+
+
+          const filter =
+            document.getElementById(
+              "categoryFilter"
             );
 
 
-        if(!yakin){
-
-            return;
-
-        }
+          filter.value =
+            category;
 
 
-        logoutBtn.disabled =
-            true;
+          setTimeout(
+            function(){
 
+              renderMaterials();
 
-        logoutBtn.textContent =
-            "⏳";
-
-
-        try{
-
-            const result =
-                await supabaseClient
-                    .auth
-                    .signOut();
-
-
-            if(result.error){
-
-                throw result.error;
-
-            }
-
-
-            window.location.href =
-                "index.html";
+            },
+            50
+          );
 
         }
-
-        catch(error){
-
-            console.error(
-                "LOGOUT ERROR:",
-                error
-            );
-
-
-            alert(
-                "❌ Gagal keluar dari akun.\n\n" +
-                error.message
-            );
-
-
-            logoutBtn.disabled =
-                false;
-
-
-            logoutBtn.textContent =
-                "Keluar";
-
-        }
+      );
 
     }
-);
+  );
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+/* =========================================================
+   INIT
+========================================================= */
 
-supabaseClient
-    .auth
-    .onAuthStateChange(
-        function(
-            event,
-            session
-        ){
+async function init(){
 
-            console.log(
-                "AUTH EVENT:",
-                event
-            );
+  /*
+   * Pertama cek login &
+   * membership.
+   */
+
+  await checkMembership();
 
 
-            if(
-                event ===
-                "SIGNED_OUT"
-            ){
+  /*
+   * Setelah status membership
+   * diketahui, baru tampilkan materi.
+   */
 
-                currentUser =
-                    null;
-
-                currentProfile =
-                    null;
-
-                membershipActive =
-                    false;
-
-
-                setLoggedOutUI();
-
-
-                notice.className =
-                    "notice warning";
-
-
-                notice.innerHTML =
-                    "🔐 Anda telah keluar. " +
-                    "Silakan login untuk mengakses akun.";
-
-
-                renderMaterials();
-
-            }
-
-
-            if(
-                event ===
-                "SIGNED_IN"
-            ){
-
-                setTimeout(
-                    async function(){
-
-                        await checkUser();
-
-                        renderMaterials();
-
-                    },
-                    0
-                );
-
-            }
-
-
-            if(
-                event ===
-                "TOKEN_REFRESHED"
-            ){
-
-                setTimeout(
-                    async function(){
-
-                        await checkUser();
-
-                        renderMaterials();
-
-                    },
-                    0
-                );
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   START
-===================================================== */
-
-async function start(){
-
-    /*
-       UI awal
-    */
-
-    setLoggedOutUI();
-
-
-    /*
-       Cek user
-    */
-
-    await checkUser();
-
-
-    /*
-       Ambil materi
-    */
-
-    await loadMaterials();
+  await loadMaterials();
 
 }
 
 
-start();
+init();
 
 </script>
 
-
 </body>
-
 </html>
