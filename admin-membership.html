@@ -22,15 +22,10 @@
 
 <title>Admin Membership - NgajiPlus Akademi</title>
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -42,16 +37,9 @@ html{
 
 body{
     margin:0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family:Arial,Helvetica,sans-serif;
     background:#f4faf7;
-
     color:#1e2924;
-
     line-height:1.5;
 }
 
@@ -71,99 +59,73 @@ a{
 }
 
 
-/* =====================================================
+/* ================================
    HEADER
-===================================================== */
+================================ */
 
 header{
     position:sticky;
-
     top:0;
-
     z-index:1000;
-
     background:white;
-
-    border-bottom:
-        1px solid #dfe9e3;
+    border-bottom:1px solid #dfe9e3;
 }
 
 .nav{
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        11px 15px;
-
+    padding:11px 15px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
 }
 
 .logo{
     color:#008f50;
-
     font-weight:bold;
-
     font-size:15px;
 }
 
 .nav-actions{
     display:flex;
-
     gap:6px;
-
     align-items:center;
 }
 
 .nav-btn{
     border:0;
-
     border-radius:7px;
-
-    padding:
-        7px 11px;
-
+    padding:7px 11px;
     font-size:9px;
-
     font-weight:bold;
 }
 
 .back-btn{
     background:#eaf8f1;
-
     color:#087a47;
 }
 
 .logout-btn{
     background:#eeeeee;
-
     color:#555;
 }
 
 
-/* =====================================================
+/* ================================
    PAGE
-===================================================== */
+================================ */
 
 .container{
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        25px 15px 60px;
+    padding:25px 15px 60px;
 }
 
 
-/* =====================================================
+/* ================================
    PAGE HEADER
-===================================================== */
+================================ */
 
 .page-header{
     background:
@@ -174,12 +136,8 @@ header{
         );
 
     color:white;
-
     border-radius:16px;
-
-    padding:
-        24px;
-
+    padding:24px;
     margin-bottom:15px;
 
     box-shadow:
@@ -189,140 +147,101 @@ header{
 
 .page-header small{
     opacity:.8;
-
     font-size:9px;
 }
 
 .page-header h1{
-    margin:
-        5px 0;
-
-    font-size:
-        clamp(22px,4vw,34px);
+    margin:5px 0;
+    font-size:clamp(22px,4vw,34px);
 }
 
 .page-header p{
     margin:0;
-
     font-size:9px;
-
     opacity:.9;
 }
 
 
-/* =====================================================
+/* ================================
    NOTICE
-===================================================== */
+================================ */
 
 .notice{
-    padding:
-        10px 13px;
-
+    padding:10px 13px;
     border-radius:8px;
-
     margin-bottom:15px;
-
     font-size:9px;
-
-    border:
-        1px solid #e4ebe7;
-
+    border:1px solid #e4ebe7;
     background:white;
 }
 
 .notice.success{
     background:#e5f9ed;
-
     border-color:#b9e8cc;
-
     color:#087a47;
 }
 
 .notice.warning{
     background:#fff8d9;
-
     border-color:#efdf99;
-
     color:#75621c;
 }
 
 .notice.error{
     background:#ffe9e9;
-
     border-color:#f1c4c4;
-
     color:#b42318;
 }
 
 
-/* =====================================================
-   STATISTICS
-===================================================== */
+/* ================================
+   STATS
+================================ */
 
 .stats{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:10px;
-
     margin-bottom:15px;
 }
 
 .stat{
     background:white;
-
-    border:
-        1px solid #e0e9e4;
-
+    border:1px solid #e0e9e4;
     border-radius:12px;
-
     padding:14px;
 }
 
 .stat-icon{
     font-size:21px;
-
     margin-bottom:4px;
 }
 
 .stat-number{
     font-size:22px;
-
     font-weight:bold;
-
     color:#008f50;
 }
 
 .stat-label{
     color:#77837d;
-
     font-size:8px;
 }
 
 
-/* =====================================================
+/* ================================
    TOOLS
-===================================================== */
+================================ */
 
 .tools{
     background:white;
-
-    border:
-        1px solid #e0e9e4;
-
+    border:1px solid #e0e9e4;
     border-radius:12px;
-
     padding:12px;
-
     margin-bottom:15px;
 
     display:grid;
-
-    grid-template-columns:
-        1fr 180px 110px;
-
+    grid-template-columns:1fr 180px 110px;
     gap:8px;
 }
 
@@ -330,19 +249,11 @@ header{
 .select,
 .refresh-btn{
     width:100%;
-
-    padding:
-        9px 11px;
-
-    border:
-        1px solid #dbe5df;
-
+    padding:9px 11px;
+    border:1px solid #dbe5df;
     border-radius:7px;
-
     background:white;
-
     outline:none;
-
     font-size:9px;
 }
 
@@ -353,45 +264,35 @@ header{
 
 .refresh-btn{
     background:#008f50;
-
     color:white;
-
     border-color:#008f50;
-
     font-weight:bold;
 }
 
 
-/* =====================================================
+/* ================================
    ORDERS
-===================================================== */
+================================ */
 
 .orders-title{
-    margin:
-        0 0 10px;
-
+    margin:0 0 10px;
     font-size:18px;
 }
 
 .orders{
     display:grid;
-
     gap:10px;
 }
 
 
-/* =====================================================
+/* ================================
    ORDER CARD
-===================================================== */
+================================ */
 
 .order-card{
     background:white;
-
-    border:
-        1px solid #dfe8e3;
-
+    border:1px solid #dfe8e3;
     border-radius:13px;
-
     padding:15px;
 
     box-shadow:
@@ -401,244 +302,171 @@ header{
 
 .order-top{
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
-
     gap:10px;
-
     margin-bottom:12px;
 }
 
 .order-name{
     font-size:13px;
-
     font-weight:bold;
 }
 
 .order-email{
     color:#7a8580;
-
     font-size:8px;
-
     margin-top:2px;
 }
 
 .status{
     display:inline-block;
-
-    padding:
-        4px 8px;
-
+    padding:4px 8px;
     border-radius:20px;
-
     font-size:8px;
-
     font-weight:bold;
-
     white-space:nowrap;
 }
 
 .status-pending{
     background:#fff4c9;
-
     color:#806400;
-}
-
-.status-paid,
-.status-approved,
-.status-success,
-.status-lunas,
-.status-aktif{
-    background:#dff8e9;
-
-    color:#087a47;
-}
-
-.status-rejected,
-.status-cancelled,
-.status-canceled,
-.status-failed{
-    background:#ffe5e5;
-
-    color:#b42318;
 }
 
 .status-processing{
     background:#e5efff;
-
     color:#235a9f;
 }
 
+.status-approved{
+    background:#dff8e9;
+    color:#087a47;
+}
 
-/* =====================================================
+.status-rejected{
+    background:#ffe5e5;
+    color:#b42318;
+}
+
+
+/* ================================
    ORDER INFO
-===================================================== */
+================================ */
 
 .order-info{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:8px;
-
     margin-bottom:12px;
 }
 
 .info-box{
     background:#f7faf8;
-
     border-radius:8px;
-
     padding:9px;
 }
 
 .info-label{
     display:block;
-
     color:#87918c;
-
     font-size:7px;
-
     margin-bottom:2px;
 }
 
 .info-value{
     display:block;
-
     font-size:9px;
-
     font-weight:bold;
 }
 
 
-/* =====================================================
+/* ================================
    ORDER ID
-===================================================== */
+================================ */
 
 .order-id{
     color:#9aa49f;
-
     font-size:7px;
-
     word-break:break-all;
-
     margin-bottom:10px;
 }
 
 
-/* =====================================================
+/* ================================
    ACTIONS
-===================================================== */
+================================ */
 
 .actions{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:6px;
 }
 
 .action-btn{
     border:0;
-
     border-radius:7px;
-
-    padding:
-        8px 11px;
-
+    padding:8px 11px;
     font-size:8px;
-
     font-weight:bold;
 }
 
 .confirm-btn{
     background:#008f50;
-
     color:white;
 }
 
 .reject-btn{
     background:#ffe8e8;
-
     color:#b42318;
 }
 
 .detail-btn{
     background:#edf7f2;
-
     color:#087a47;
 }
 
 .action-btn:disabled{
     opacity:.5;
-
     cursor:not-allowed;
 }
 
 
-/* =====================================================
+/* ================================
    EMPTY
-===================================================== */
+================================ */
 
 .empty{
     background:white;
-
-    border:
-        1px solid #dfe8e3;
-
+    border:1px solid #dfe8e3;
     border-radius:12px;
-
-    padding:
-        40px 15px;
-
+    padding:40px 15px;
     text-align:center;
-
     color:#77837d;
-
     font-size:10px;
 }
-
-
-/* =====================================================
-   LOADING
-===================================================== */
 
 .loading{
     background:white;
-
     border-radius:12px;
-
     padding:40px;
-
     text-align:center;
-
     color:#77837d;
-
     font-size:10px;
 }
 
 
-/* =====================================================
+/* ================================
    MODAL
-===================================================== */
+================================ */
 
 .modal{
     position:fixed;
-
     inset:0;
-
-    background:
-        rgba(0,0,0,.55);
-
+    background:rgba(0,0,0,.55);
     z-index:2000;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     padding:15px;
@@ -650,130 +478,97 @@ header{
 
 .modal-box{
     width:100%;
-
     max-width:500px;
-
     background:white;
-
     border-radius:15px;
-
     padding:18px;
 
     max-height:90vh;
-
     overflow:auto;
 }
 
 .modal-title{
-    margin:
-        0 0 12px;
-
+    margin:0 0 12px;
     font-size:17px;
 }
 
 .modal-content{
     font-size:9px;
-
     color:#4d5953;
 }
 
 .modal-row{
-    padding:
-        8px 0;
-
-    border-bottom:
-        1px solid #edf1ee;
+    padding:8px 0;
+    border-bottom:1px solid #edf1ee;
 }
 
 .modal-row strong{
     display:block;
-
     color:#222;
-
     margin-bottom:2px;
 }
 
 .modal-close{
     margin-top:14px;
-
     width:100%;
-
     border:0;
-
     background:#eeeeee;
-
     color:#555;
-
     border-radius:7px;
-
     padding:9px;
-
     font-size:9px;
-
     font-weight:bold;
 }
 
 
-/* =====================================================
+/* ================================
    FOOTER
-===================================================== */
+================================ */
 
 footer{
     background:#071a12;
-
     color:white;
-
-    padding:
-        22px 15px;
+    padding:22px 15px;
 }
 
 .footer-inner{
     max-width:1200px;
-
     margin:auto;
 }
 
 .footer-logo{
     color:#35b878;
-
     font-weight:bold;
-
     font-size:11px;
 }
 
 .footer-text{
     color:#7e9188;
-
     font-size:7px;
-
     margin-top:3px;
 }
 
 
-/* =====================================================
+/* ================================
    MOBILE
-===================================================== */
+================================ */
 
 @media(max-width:800px){
 
     .stats{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .tools{
-        grid-template-columns:
-            1fr 1fr;
+        grid-template-columns:1fr 1fr;
     }
 
     .refresh-btn{
-        grid-column:
-            span 2;
+        grid-column:span 2;
     }
 
     .order-info{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -782,8 +577,7 @@ footer{
 @media(max-width:500px){
 
     .nav{
-        padding:
-            8px 10px;
+        padding:8px 10px;
     }
 
     .logo{
@@ -791,15 +585,12 @@ footer{
     }
 
     .nav-btn{
-        padding:
-            6px 7px;
-
+        padding:6px 7px;
         font-size:8px;
     }
 
     .container{
-        padding:
-            18px 10px 45px;
+        padding:18px 10px 45px;
     }
 
     .page-header{
@@ -811,8 +602,7 @@ footer{
     }
 
     .tools{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
 
     .refresh-btn{
@@ -824,16 +614,11 @@ footer{
     }
 
     .order-info{
-        grid-template-columns:
-            1fr 1fr;
+        grid-template-columns:1fr 1fr;
     }
 
 }
 
-
-/* =====================================================
-   HIDDEN
-===================================================== */
 
 .hidden{
     display:none !important;
@@ -847,10 +632,6 @@ footer{
 <body>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
 
 <div class="nav">
@@ -858,7 +639,6 @@ footer{
 <div class="logo">
 📖 NgajiPlus Akademi
 </div>
-
 
 <div class="nav-actions">
 
@@ -868,7 +648,6 @@ footer{
 >
 ← Dashboard
 </a>
-
 
 <button
     id="logoutBtn"
@@ -885,16 +664,8 @@ Keluar
 
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="container">
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <section class="page-header">
 
@@ -914,10 +685,6 @@ Kelola pesanan membership dan aktivasi akun member.
 
 
 
-<!-- =====================================================
-     NOTICE
-===================================================== -->
-
 <div
     id="notice"
     class="notice warning"
@@ -926,10 +693,6 @@ Kelola pesanan membership dan aktivasi akun member.
 </div>
 
 
-
-<!-- =====================================================
-     STATS
-===================================================== -->
 
 <section
     id="stats"
@@ -971,7 +734,7 @@ Total Pesanan
 </div>
 
 <div class="stat-label">
-Menunggu
+Menunggu / Diproses
 </div>
 
 </div>
@@ -1021,10 +784,6 @@ Ditolak
 
 
 
-<!-- =====================================================
-     TOOLS
-===================================================== -->
-
 <section
     id="tools"
     class="tools hidden"
@@ -1048,19 +807,19 @@ Ditolak
 Semua Status
 </option>
 
-<option value="pending">
+<option value="menunggu">
 Menunggu
 </option>
 
-<option value="paid">
-Dibayar
+<option value="diproses">
+Diproses
 </option>
 
-<option value="approved">
+<option value="disetujui">
 Disetujui
 </option>
 
-<option value="rejected">
+<option value="ditolak">
 Ditolak
 </option>
 
@@ -1079,10 +838,6 @@ Ditolak
 
 
 
-<!-- =====================================================
-     ORDER LIST
-===================================================== -->
-
 <section
     id="orderSection"
     class="hidden"
@@ -1091,7 +846,6 @@ Ditolak
 <h2 class="orders-title">
 📋 Daftar Pesanan
 </h2>
-
 
 <div
     id="ordersContainer"
@@ -1111,10 +865,6 @@ Ditolak
 
 
 
-<!-- =====================================================
-     DETAIL MODAL
-===================================================== -->
-
 <div
     id="detailModal"
     class="modal hidden"
@@ -1126,13 +876,11 @@ Ditolak
 📋 Detail Pesanan
 </h2>
 
-
 <div
     id="detailContent"
     class="modal-content"
 >
 </div>
-
 
 <button
     id="closeModalBtn"
@@ -1146,10 +894,6 @@ Tutup
 </div>
 
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
 <footer>
 
@@ -1178,10 +922,8 @@ Panel administrasi membership NgajiPlus Akademi.
 const SUPABASE_URL =
     "https://ksgywgdrfskqsufchbcm.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1195,13 +937,9 @@ const supabaseClient =
 ===================================================== */
 
 let currentUser = null;
-
 let currentProfile = null;
-
 let orders = [];
-
 let profiles = [];
-
 let isAdmin = false;
 
 
@@ -1210,64 +948,40 @@ let isAdmin = false;
 ===================================================== */
 
 const notice =
-    document.getElementById(
-        "notice"
-    );
+    document.getElementById("notice");
 
 const stats =
-    document.getElementById(
-        "stats"
-    );
+    document.getElementById("stats");
 
 const tools =
-    document.getElementById(
-        "tools"
-    );
+    document.getElementById("tools");
 
 const orderSection =
-    document.getElementById(
-        "orderSection"
-    );
+    document.getElementById("orderSection");
 
 const ordersContainer =
-    document.getElementById(
-        "ordersContainer"
-    );
+    document.getElementById("ordersContainer");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+    document.getElementById("searchInput");
 
 const statusFilter =
-    document.getElementById(
-        "statusFilter"
-    );
+    document.getElementById("statusFilter");
 
 const refreshBtn =
-    document.getElementById(
-        "refreshBtn"
-    );
+    document.getElementById("refreshBtn");
 
 const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
+    document.getElementById("logoutBtn");
 
 const detailModal =
-    document.getElementById(
-        "detailModal"
-    );
+    document.getElementById("detailModal");
 
 const detailContent =
-    document.getElementById(
-        "detailContent"
-    );
+    document.getElementById("detailContent");
 
 const closeModalBtn =
-    document.getElementById(
-        "closeModalBtn"
-    );
+    document.getElementById("closeModalBtn");
 
 
 /* =====================================================
@@ -1276,34 +990,12 @@ const closeModalBtn =
 
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -1317,18 +1009,12 @@ function formatRupiah(value){
     const number =
         Number(value || 0);
 
-    if(
-        !Number.isFinite(number)
-    ){
-
+    if(!Number.isFinite(number)){
         return "-";
-
     }
 
     return "Rp" +
-        number.toLocaleString(
-            "id-ID"
-        );
+        number.toLocaleString("id-ID");
 
 }
 
@@ -1340,22 +1026,14 @@ function formatRupiah(value){
 function formatTanggal(value){
 
     if(!value){
-
         return "-";
-
     }
 
     const date =
         new Date(value);
 
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-
+    if(isNaN(date.getTime())){
         return String(value);
-
     }
 
     return date.toLocaleDateString(
@@ -1377,22 +1055,14 @@ function formatTanggal(value){
 function formatTanggalWaktu(value){
 
     if(!value){
-
         return "-";
-
     }
 
     const date =
         new Date(value);
 
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-
+    if(isNaN(date.getTime())){
         return String(value);
-
     }
 
     return date.toLocaleString(
@@ -1410,22 +1080,20 @@ function formatTanggalWaktu(value){
 
 
 /* =====================================================
-   NORMALIZE VALUE
+   NORMALIZE
 ===================================================== */
 
 function normalize(value){
 
-    return String(
-        value ?? ""
-    )
-    .trim()
-    .toLowerCase();
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
 
 }
 
 
 /* =====================================================
-   GET PACKAGE NAME
+   PACKAGE
 ===================================================== */
 
 function getPackage(order){
@@ -1444,7 +1112,7 @@ function getPackage(order){
 
 
 /* =====================================================
-   GET PRICE
+   PRICE
 ===================================================== */
 
 function getPrice(order){
@@ -1456,7 +1124,6 @@ function getPrice(order){
         order.total ??
         order.total_amount;
 
-
     if(
         value !== undefined &&
         value !== null &&
@@ -1467,15 +1134,8 @@ function getPrice(order){
 
     }
 
-
-    /*
-       Fallback harga paket
-    */
-
     const paket =
-        normalize(
-            getPackage(order)
-        );
+        normalize(getPackage(order));
 
 
     if(
@@ -1527,7 +1187,7 @@ function getPrice(order){
 
 
 /* =====================================================
-   GET DURATION
+   DURATION
 ===================================================== */
 
 function getDuration(order){
@@ -1538,7 +1198,6 @@ function getDuration(order){
         order.days ??
         order.masa_aktif;
 
-
     if(
         value !== undefined &&
         value !== null &&
@@ -1547,7 +1206,6 @@ function getDuration(order){
 
         const number =
             Number(value);
-
 
         if(
             Number.isFinite(number) &&
@@ -1562,9 +1220,7 @@ function getDuration(order){
 
 
     const paket =
-        normalize(
-            getPackage(order)
-        );
+        normalize(getPackage(order));
 
 
     if(
@@ -1604,21 +1260,25 @@ function getDuration(order){
 
 
 /* =====================================================
-   GET STATUS
+   STATUS
+   DATABASE:
+   menunggu
+   diproses
+   disetujui
+   ditolak
 ===================================================== */
 
 function getStatus(order){
 
     return normalize(
-        order.status ||
-        "pending"
+        order.status || "menunggu"
     );
 
 }
 
 
 /* =====================================================
-   GET USER ID
+   USER ID
 ===================================================== */
 
 function getOrderUserId(order){
@@ -1635,7 +1295,7 @@ function getOrderUserId(order){
 
 
 /* =====================================================
-   GET ORDER CREATED
+   CREATED
 ===================================================== */
 
 function getCreatedAt(order){
@@ -1652,7 +1312,7 @@ function getCreatedAt(order){
 
 
 /* =====================================================
-   GET PROFILE
+   PROFILE
 ===================================================== */
 
 function getProfileById(userId){
@@ -1660,11 +1320,8 @@ function getProfileById(userId){
     return profiles.find(
         function(profile){
 
-            return String(
-                profile.id
-            ) === String(
-                userId
-            );
+            return String(profile.id) ===
+                   String(userId);
 
         }
     ) || null;
@@ -1673,7 +1330,7 @@ function getProfileById(userId){
 
 
 /* =====================================================
-   GET USER NAME
+   USER NAME
 ===================================================== */
 
 function getUserName(order){
@@ -1681,12 +1338,8 @@ function getUserName(order){
     const userId =
         getOrderUserId(order);
 
-
     const profile =
-        getProfileById(
-            userId
-        );
-
+        getProfileById(userId);
 
     if(profile){
 
@@ -1697,7 +1350,6 @@ function getUserName(order){
         );
 
     }
-
 
     return (
         order.nama ||
@@ -1710,7 +1362,7 @@ function getUserName(order){
 
 
 /* =====================================================
-   GET USER EMAIL
+   USER EMAIL
 ===================================================== */
 
 function getUserEmail(order){
@@ -1718,12 +1370,8 @@ function getUserEmail(order){
     const userId =
         getOrderUserId(order);
 
-
     const profile =
-        getProfileById(
-            userId
-        );
-
+        getProfileById(userId);
 
     return (
         order.email ||
@@ -1751,17 +1399,11 @@ async function checkAdmin(){
     try{
 
         const userResult =
-            await supabaseClient
-                .auth
-                .getUser();
+            await supabaseClient.auth.getUser();
 
 
-        if(
-            userResult.error
-        ){
-
+        if(userResult.error){
             throw userResult.error;
-
         }
 
 
@@ -1778,27 +1420,16 @@ async function checkAdmin(){
         }
 
 
-        /*
-           CEK PROFILE IS_ADMIN
-        */
-
         const profileResult =
             await supabaseClient
                 .from("profiles")
                 .select("*")
-                .eq(
-                    "id",
-                    currentUser.id
-                )
+                .eq("id",currentUser.id)
                 .maybeSingle();
 
 
-        if(
-            profileResult.error
-        ){
-
+        if(profileResult.error){
             throw profileResult.error;
-
         }
 
 
@@ -1811,25 +1442,17 @@ async function checkAdmin(){
             currentProfile.is_admin === true
         ){
 
-            isAdmin =
-                true;
+            isAdmin = true;
 
         }
 
-
-        /*
-           CEK admin_users
-           jika profile belum memberi akses
-        */
 
         if(!isAdmin){
 
             const adminResult =
                 await supabaseClient
                     .from("admin_users")
-                    .select(
-                        "user_id"
-                    )
+                    .select("user_id")
                     .eq(
                         "user_id",
                         currentUser.id
@@ -1842,17 +1465,12 @@ async function checkAdmin(){
                 adminResult.data
             ){
 
-                isAdmin =
-                    true;
+                isAdmin = true;
 
             }
 
         }
 
-
-        /*
-           TIDAK ADMIN
-        */
 
         if(!isAdmin){
 
@@ -1863,10 +1481,6 @@ async function checkAdmin(){
         }
 
 
-        /*
-           ADMIN
-        */
-
         notice.className =
             "notice success";
 
@@ -1875,17 +1489,9 @@ async function checkAdmin(){
             "Anda dapat mengelola pesanan membership.";
 
 
-        stats.classList.remove(
-            "hidden"
-        );
-
-        tools.classList.remove(
-            "hidden"
-        );
-
-        orderSection.classList.remove(
-            "hidden"
-        );
+        stats.classList.remove("hidden");
+        tools.classList.remove("hidden");
+        orderSection.classList.remove("hidden");
 
 
         await loadData();
@@ -1900,32 +1506,20 @@ async function checkAdmin(){
         );
 
 
-        isAdmin =
-            false;
+        isAdmin = false;
 
 
         notice.className =
             "notice error";
 
-
         notice.innerHTML =
             "❌ " +
-            escapeHtml(
-                error.message
-            );
+            escapeHtml(error.message);
 
 
-        stats.classList.add(
-            "hidden"
-        );
-
-        tools.classList.add(
-            "hidden"
-        );
-
-        orderSection.classList.add(
-            "hidden"
-        );
+        stats.classList.add("hidden");
+        tools.classList.add("hidden");
+        orderSection.classList.add("hidden");
 
     }
 
@@ -1939,9 +1533,7 @@ async function checkAdmin(){
 async function loadData(){
 
     if(!isAdmin){
-
         return;
-
     }
 
 
@@ -1956,15 +1548,9 @@ async function loadData(){
 
     try{
 
-        /*
-           LOAD ORDERS
-        */
-
         const ordersResult =
             await supabaseClient
-                .from(
-                    "membership_orders"
-                )
+                .from("membership_orders")
                 .select("*")
                 .order(
                     "created_at",
@@ -1974,12 +1560,8 @@ async function loadData(){
                 );
 
 
-        if(
-            ordersResult.error
-        ){
-
+        if(ordersResult.error){
             throw ordersResult.error;
-
         }
 
 
@@ -1987,30 +1569,22 @@ async function loadData(){
             ordersResult.data || [];
 
 
-        /*
-           LOAD PROFILES
-        */
-
         const profilesResult =
             await supabaseClient
                 .from("profiles")
                 .select("*");
 
 
-        if(
-            profilesResult.error
-        ){
+        if(profilesResult.error){
 
             console.warn(
                 "PROFILE LOAD ERROR:",
                 profilesResult.error
             );
 
-            profiles =
-                [];
+            profiles = [];
 
         }
-
         else{
 
             profiles =
@@ -2020,7 +1594,6 @@ async function loadData(){
 
 
         updateStats();
-
         renderOrders();
 
     }
@@ -2072,10 +1645,8 @@ function updateStats(){
                     getStatus(order);
 
                 return (
-                    status === "pending" ||
                     status === "menunggu" ||
-                    status === "waiting" ||
-                    status === "unpaid"
+                    status === "diproses"
                 );
 
             }
@@ -2086,16 +1657,8 @@ function updateStats(){
         orders.filter(
             function(order){
 
-                const status =
-                    getStatus(order);
-
-                return (
-                    status === "approved" ||
-                    status === "paid" ||
-                    status === "success" ||
-                    status === "lunas" ||
-                    status === "aktif"
-                );
+                return getStatus(order) ===
+                       "disetujui";
 
             }
         ).length;
@@ -2105,16 +1668,8 @@ function updateStats(){
         orders.filter(
             function(order){
 
-                const status =
-                    getStatus(order);
-
-                return (
-                    status === "rejected" ||
-                    status === "ditolak" ||
-                    status === "cancelled" ||
-                    status === "canceled" ||
-                    status === "failed"
-                );
+                return getStatus(order) ===
+                       "ditolak";
 
             }
         ).length;
@@ -2122,26 +1677,22 @@ function updateStats(){
 
     document.getElementById(
         "totalOrders"
-    ).textContent =
-        total;
+    ).textContent = total;
 
 
     document.getElementById(
         "pendingOrders"
-    ).textContent =
-        pending;
+    ).textContent = pending;
 
 
     document.getElementById(
         "approvedOrders"
-    ).textContent =
-        approved;
+    ).textContent = approved;
 
 
     document.getElementById(
         "rejectedOrders"
-    ).textContent =
-        rejected;
+    ).textContent = rejected;
 
 }
 
@@ -2156,38 +1707,23 @@ function statusLabel(status){
         normalize(status);
 
 
-    if(
-        value === "pending" ||
-        value === "menunggu" ||
-        value === "waiting" ||
-        value === "unpaid"
-    ){
-
+    if(value === "menunggu"){
         return "⏳ Menunggu";
-
     }
 
 
-    if(
-        value === "approved" ||
-        value === "paid" ||
-        value === "success" ||
-        value === "lunas" ||
-        value === "aktif"
-    ){
+    if(value === "diproses"){
+        return "🔵 Diproses";
+    }
 
+
+    if(value === "disetujui"){
         return "✅ Disetujui";
-
     }
 
 
-    if(
-        value === "rejected" ||
-        value === "ditolak"
-    ){
-
+    if(value === "ditolak"){
         return "❌ Ditolak";
-
     }
 
 
@@ -2206,41 +1742,23 @@ function statusClass(status){
         normalize(status);
 
 
-    if(
-        value === "pending" ||
-        value === "menunggu" ||
-        value === "waiting" ||
-        value === "unpaid"
-    ){
-
+    if(value === "menunggu"){
         return "status-pending";
-
     }
 
 
-    if(
-        value === "approved" ||
-        value === "paid" ||
-        value === "success" ||
-        value === "lunas" ||
-        value === "aktif"
-    ){
+    if(value === "diproses"){
+        return "status-processing";
+    }
 
+
+    if(value === "disetujui"){
         return "status-approved";
-
     }
 
 
-    if(
-        value === "rejected" ||
-        value === "ditolak" ||
-        value === "cancelled" ||
-        value === "canceled" ||
-        value === "failed"
-    ){
-
+    if(value === "ditolak"){
         return "status-rejected";
-
     }
 
 
@@ -2250,21 +1768,17 @@ function statusClass(status){
 
 
 /* =====================================================
-   RENDER ORDERS
+   RENDER
 ===================================================== */
 
 function renderOrders(){
 
     const keyword =
-        normalize(
-            searchInput.value
-        );
+        normalize(searchInput.value);
 
 
     const filter =
-        normalize(
-            statusFilter.value
-        );
+        normalize(statusFilter.value);
 
 
     const filtered =
@@ -2276,18 +1790,15 @@ function renderOrders(){
                         getUserName(order)
                     );
 
-
                 const email =
                     normalize(
                         getUserEmail(order)
                     );
 
-
                 const paket =
                     normalize(
                         getPackage(order)
                     );
-
 
                 const status =
                     getStatus(order);
@@ -2314,17 +1825,13 @@ function renderOrders(){
         );
 
 
-    if(
-        filtered.length === 0
-    ){
+    if(filtered.length === 0){
 
         ordersContainer.innerHTML = `
 
             <div class="empty">
-
                 📭 Belum ada pesanan
                 yang sesuai.
-
             </div>
 
         `;
@@ -2341,9 +1848,7 @@ function renderOrders(){
         function(order){
 
             ordersContainer.appendChild(
-                createOrderCard(
-                    order
-                )
+                createOrderCard(order)
             );
 
         }
@@ -2353,15 +1858,13 @@ function renderOrders(){
 
 
 /* =====================================================
-   CREATE ORDER CARD
+   CREATE CARD
 ===================================================== */
 
 function createOrderCard(order){
 
     const card =
-        document.createElement(
-            "article"
-        );
+        document.createElement("article");
 
 
     card.className =
@@ -2371,61 +1874,34 @@ function createOrderCard(order){
     const userId =
         getOrderUserId(order);
 
-
     const name =
         getUserName(order);
-
 
     const email =
         getUserEmail(order);
 
-
     const paket =
         getPackage(order);
-
 
     const harga =
         getPrice(order);
 
-
     const durasi =
         getDuration(order);
-
 
     const status =
         getStatus(order);
 
-
     const createdAt =
         getCreatedAt(order);
 
-
     const orderId =
-        order.id ??
-        "-";
+        order.id ?? "-";
 
 
-    const isPending =
-        status === "pending" ||
+    const canConfirm =
         status === "menunggu" ||
-        status === "waiting" ||
-        status === "unpaid";
-
-
-    const isRejected =
-        status === "rejected" ||
-        status === "ditolak" ||
-        status === "cancelled" ||
-        status === "canceled" ||
-        status === "failed";
-
-
-    const isApproved =
-        status === "approved" ||
-        status === "paid" ||
-        status === "success" ||
-        status === "lunas" ||
-        status === "aktif";
+        status === "diproses";
 
 
     let actions = `
@@ -2440,7 +1916,7 @@ function createOrderCard(order){
     `;
 
 
-    if(isPending){
+    if(canConfirm){
 
         actions += `
 
@@ -2463,7 +1939,7 @@ function createOrderCard(order){
     }
 
 
-    if(isApproved){
+    if(status === "disetujui"){
 
         actions += `
 
@@ -2479,7 +1955,7 @@ function createOrderCard(order){
     }
 
 
-    if(isRejected){
+    if(status === "ditolak"){
 
         actions += `
 
@@ -2573,14 +2049,11 @@ function createOrderCard(order){
 
                 <span class="info-value">
                     ${escapeHtml(
-                        formatTanggal(
-                            createdAt
-                        )
+                        formatTanggal(createdAt)
                     )}
                 </span>
 
             </div>
-
 
         </div>
 
@@ -2602,10 +2075,6 @@ function createOrderCard(order){
     `;
 
 
-    /*
-       DETAIL
-    */
-
     const detailBtn =
         card.querySelector(
             "[data-action='detail']"
@@ -2618,19 +2087,13 @@ function createOrderCard(order){
             "click",
             function(){
 
-                showDetail(
-                    order
-                );
+                showDetail(order);
 
             }
         );
 
     }
 
-
-    /*
-       CONFIRM
-    */
 
     const confirmBtn =
         card.querySelector(
@@ -2654,10 +2117,6 @@ function createOrderCard(order){
 
     }
 
-
-    /*
-       REJECT
-    */
 
     const rejectBtn =
         card.querySelector(
@@ -2688,7 +2147,7 @@ function createOrderCard(order){
 
 
 /* =====================================================
-   SHOW DETAIL
+   DETAIL
 ===================================================== */
 
 function showDetail(order){
@@ -2696,39 +2155,29 @@ function showDetail(order){
     const userId =
         getOrderUserId(order);
 
-
     const name =
         getUserName(order);
-
 
     const email =
         getUserEmail(order);
 
-
     const paket =
         getPackage(order);
-
 
     const harga =
         getPrice(order);
 
-
     const durasi =
         getDuration(order);
 
-
     const status =
         getStatus(order);
-
 
     const createdAt =
         getCreatedAt(order);
 
 
-    let html = "";
-
-
-    html += `
+    let html = `
 
         <div class="modal-row">
 
@@ -2758,9 +2207,7 @@ function showDetail(order){
                 User ID
             </strong>
 
-            ${escapeHtml(
-                userId || "-"
-            )}
+            ${escapeHtml(userId || "-")}
 
         </div>
 
@@ -2818,9 +2265,7 @@ function showDetail(order){
             </strong>
 
             ${escapeHtml(
-                formatTanggalWaktu(
-                    createdAt
-                )
+                formatTanggalWaktu(createdAt)
             )}
 
         </div>
@@ -2828,12 +2273,8 @@ function showDetail(order){
     `;
 
 
-    /*
-       Tampilkan semua field tambahan
-       dari membership_orders
-    */
-
     const ignored = [
+
         "id",
         "user_id",
         "paket",
@@ -2856,18 +2297,15 @@ function showDetail(order){
         "createdAt",
         "tanggal_pesan",
         "order_date"
+
     ];
 
 
     Object.keys(order).forEach(
         function(key){
 
-            if(
-                ignored.includes(key)
-            ){
-
+            if(ignored.includes(key)){
                 return;
-
             }
 
 
@@ -2886,19 +2324,14 @@ function showDetail(order){
             }
 
 
-            if(
-                typeof value === "object"
-            ){
+            if(typeof value === "object"){
 
                 try{
 
                     value =
-                        JSON.stringify(
-                            value
-                        );
+                        JSON.stringify(value);
 
                 }
-
                 catch(error){
 
                     value =
@@ -2983,27 +2416,21 @@ async function confirmOrder(
 ){
 
     if(!isAdmin){
-
         return;
-
     }
 
 
     const name =
         getUserName(order);
 
-
     const paket =
         getPackage(order);
-
 
     const harga =
         getPrice(order);
 
-
     const durasi =
         getDuration(order);
-
 
     const userId =
         getOrderUserId(order);
@@ -3047,54 +2474,81 @@ async function confirmOrder(
 
 
     if(!yakin){
-
         return;
-
     }
 
 
     button.disabled =
         true;
 
-
     button.textContent =
         "⏳ Memproses...";
 
 
+    const orderId =
+        order.id;
+
+
     try{
 
-        /*
-           ============================================
-           1. TENTUKAN TANGGAL MULAI
-           ============================================
-        */
+        if(
+            orderId === undefined ||
+            orderId === null
+        ){
+
+            throw new Error(
+                "ID pesanan tidak ditemukan."
+            );
+
+        }
+
+
+        /* =================================================
+           1. UBAH PESANAN MENJADI DISETUJUI
+           ================================================= */
+
+        const orderUpdate =
+            await supabaseClient
+                .from("membership_orders")
+                .update({
+
+                    status:
+                        "disetujui"
+
+                })
+                .eq(
+                    "id",
+                    orderId
+                );
+
+
+        if(orderUpdate.error){
+
+            throw new Error(
+                "Gagal mengubah status pesanan: " +
+                orderUpdate.error.message
+            );
+
+        }
+
+
+        /* =================================================
+           2. HITUNG MASA AKTIF
+           ================================================= */
 
         const sekarang =
             new Date();
 
 
-        /*
-           Kalau member masih aktif,
-           perpanjangan dimulai dari
-           tanggal berlaku_sampai lama.
-
-           Kalau sudah habis,
-           mulai dari hari ini.
-        */
-
         const profile =
-            getProfileById(
-                userId
-            );
+            getProfileById(userId);
 
 
         let tanggalMulai =
             new Date();
 
 
-        if(
-            profile?.berlaku_sampai
-        ){
+        if(profile?.berlaku_sampai){
 
             const tanggalLama =
                 new Date(
@@ -3117,12 +2571,6 @@ async function confirmOrder(
         }
 
 
-        /*
-           ============================================
-           2. HITUNG BERLAKU SAMPAI
-           ============================================
-        */
-
         const berlakuSampai =
             new Date(
                 tanggalMulai
@@ -3135,11 +2583,9 @@ async function confirmOrder(
         );
 
 
-        /*
-           ============================================
-           3. UPDATE PROFILES
-           ============================================
-        */
+        /* =================================================
+           3. AKTIFKAN PROFILE
+           ================================================= */
 
         const profileUpdate =
             await supabaseClient
@@ -3150,13 +2596,10 @@ async function confirmOrder(
                         "aktif",
 
                     paket:
-                        String(
-                            paket
-                        ),
+                        String(paket),
 
                     berlaku_sampai:
-                        berlakuSampai
-                            .toISOString()
+                        berlakuSampai.toISOString()
 
                 })
                 .eq(
@@ -3165,107 +2608,40 @@ async function confirmOrder(
                 );
 
 
-        if(
-            profileUpdate.error
-        ){
+        if(profileUpdate.error){
 
-            throw new Error(
-                "Gagal mengaktifkan membership: " +
-                profileUpdate.error.message
-            );
+            /*
+               Jika profile gagal,
+               kita coba kembalikan order
+               menjadi menunggu.
+            */
 
-        }
-
-
-        /*
-           ============================================
-           4. UPDATE STATUS ORDER
-           ============================================
-        */
-
-        const orderId =
-            order.id;
-
-
-        if(
-            orderId === undefined ||
-            orderId === null
-        ){
-
-            throw new Error(
-                "ID pesanan tidak ditemukan."
-            );
-
-        }
-
-
-        /*
-           Cari nama kolom status.
-           Umumnya status.
-        */
-
-        const orderUpdateData = {
-
-            status:
-                "approved"
-
-        };
-
-
-        /*
-           Jika kolom confirmed_at tersedia
-           kita coba tambahkan.
-
-           Tetapi supaya tidak gagal karena
-           kolom mungkin tidak ada, kita
-           prioritaskan status saja.
-        */
-
-
-        const orderUpdate =
             await supabaseClient
-                .from(
-                    "membership_orders"
-                )
-                .update(
-                    orderUpdateData
-                )
+                .from("membership_orders")
+                .update({
+
+                    status:
+                        "menunggu"
+
+                })
                 .eq(
                     "id",
                     orderId
                 );
 
 
-        if(
-            orderUpdate.error
-        ){
-
-            /*
-               Membership sudah ter-update.
-               Beri pesan jelas jika status order
-               tidak bisa diperbarui.
-            */
-
-            console.error(
-                "ORDER UPDATE ERROR:",
-                orderUpdate.error
-            );
-
-
             throw new Error(
-                "Membership sudah diproses, tetapi " +
-                "status pesanan gagal diperbarui: " +
-                orderUpdate.error.message
+                "Pesanan dikembalikan ke Menunggu karena " +
+                "membership gagal diaktifkan: " +
+                profileUpdate.error.message
             );
 
         }
 
 
-        /*
-           ============================================
-           5. SUKSES
-           ============================================
-        */
+        /* =================================================
+           4. SUKSES
+           ================================================= */
 
         alert(
 
@@ -3309,14 +2685,15 @@ async function confirmOrder(
 
 
         alert(
+
             "❌ Gagal mengonfirmasi pesanan.\n\n" +
             error.message
+
         );
 
 
         button.disabled =
             false;
-
 
         button.textContent =
             "✅ Konfirmasi";
@@ -3336,15 +2713,12 @@ async function rejectOrder(
 ){
 
     if(!isAdmin){
-
         return;
-
     }
 
 
     const name =
         getUserName(order);
-
 
     const paket =
         getPackage(order);
@@ -3369,15 +2743,12 @@ async function rejectOrder(
 
 
     if(!yakin){
-
         return;
-
     }
 
 
     button.disabled =
         true;
-
 
     button.textContent =
         "⏳";
@@ -3403,13 +2774,11 @@ async function rejectOrder(
 
         const result =
             await supabaseClient
-                .from(
-                    "membership_orders"
-                )
+                .from("membership_orders")
                 .update({
 
                     status:
-                        "rejected"
+                        "ditolak"
 
                 })
                 .eq(
@@ -3418,9 +2787,7 @@ async function rejectOrder(
                 );
 
 
-        if(
-            result.error
-        ){
+        if(result.error){
 
             throw result.error;
 
@@ -3445,14 +2812,15 @@ async function rejectOrder(
 
 
         alert(
+
             "❌ Gagal menolak pesanan.\n\n" +
             error.message
+
         );
 
 
         button.disabled =
             false;
-
 
         button.textContent =
             "❌ Tolak";
@@ -3473,7 +2841,7 @@ searchInput.addEventListener(
 
 
 /* =====================================================
-   STATUS FILTER
+   FILTER
 ===================================================== */
 
 statusFilter.addEventListener(
@@ -3525,9 +2893,7 @@ logoutBtn.addEventListener(
 
 
         if(!yakin){
-
             return;
-
         }
 
 
@@ -3543,12 +2909,8 @@ logoutBtn.addEventListener(
                     .signOut();
 
 
-            if(
-                result.error
-            ){
-
+            if(result.error){
                 throw result.error;
-
             }
 
 
@@ -3581,9 +2943,7 @@ logoutBtn.addEventListener(
 supabaseClient
     .auth
     .onAuthStateChange(
-        function(
-            event
-        ){
+        function(event){
 
             if(
                 event ===
