@@ -687,6 +687,7 @@ footer{
 
 </style>
 
+  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -2359,284 +2360,116 @@ async function approveOrder(orderId){
 
     const order =
         allOrders.find(
-            item =>
-                Number(item.id) ===
-                Number(orderId)
+            item => Number(item.id) === Number(orderId)
         );
-
 
     if(!order){
-
-        alert(
-            "Pesanan tidak ditemukan."
-        );
-
+        alert("Pesanan tidak ditemukan.");
         return;
-
     }
 
+    const status = normalizeStatus(order.status);
 
-    const status =
-        normalizeStatus(
-            order.status
-        );
-
-
-    if(
-        status !== "menunggu" &&
-        status !== "diproses"
-    ){
-
-        alert(
-            "Pesanan ini sudah diproses."
-        );
-
+    if(status !== "menunggu" && status !== "diproses"){
+        alert("Pesanan ini sudah diproses.");
         return;
-
     }
-
 
     /*
-       AMBIL PROFILE MEMBER
+       PERHITUNGAN PREVIEW SAJA.
+       Tanggal final tetap dihitung ulang oleh PostgreSQL
+       melalui function approve_membership_order().
     */
-
-    let profile = null;
-
+    let previewExpiry = null;
 
     try{
-
-        const profileResult =
+        const { data: profile, error: profileError } =
             await supabaseClient
                 .from("profiles")
-                .select(
-                    "id,nama,status,paket,berlaku_sampai"
-                )
-                .eq(
-                    "id",
-                    order.user_id
-                )
+                .select("id,nama,status,paket,berlaku_sampai")
+                .eq("id", order.user_id)
                 .maybeSingle();
 
+        if(profileError) throw profileError;
 
-        if(profileResult.error){
+        const calculation = calculateNewExpiry(
+            profile?.berlaku_sampai,
+            order.durasi_hari
+        );
 
-            throw profileResult.error;
+        previewExpiry = calculation.expiryDate;
 
-        }
-
-
-        profile =
-            profileResult.data;
-
-
-        /*
-           KONFIRMASI TANGGAL
-        */
-
-        const calculation =
-            calculateNewExpiry(
-                profile?.berlaku_sampai,
-                order.durasi_hari
-            );
-
-
-        const oldExpiry =
-            parseDateOnly(
-                profile?.berlaku_sampai
-            );
-
-
-        const today =
-            getTodayDateOnly();
-
+        const oldExpiry = parseDateOnly(profile?.berlaku_sampai);
+        const today = getTodayDateOnly();
 
         let message = "";
 
-
-        if(
-            oldExpiry &&
-            oldExpiry > today
-        ){
-
+        if(oldExpiry && oldExpiry > today){
             message =
                 "Membership lama masih aktif sampai " +
-                formatTanggal(
-                    oldExpiry
-                ) +
+                formatTanggal(oldExpiry) +
                 ".\n\n" +
-
-                "Durasi " +
-                order.durasi_hari +
+                "Durasi " + order.durasi_hari +
                 " hari akan ditambahkan setelah tanggal tersebut.\n\n";
-
-        }
-
-        else{
-
+        }else{
             message =
                 "Membership akan dimulai dari hari ini.\n\n";
-
         }
-
 
         message +=
-            "Member: " +
-            order.nama +
-            "\n" +
-
-            "Paket: " +
-            order.paket +
-            "\n" +
-
-            "Harga: " +
-            formatRupiah(
-                order.harga
-            ) +
-            "\n" +
-
-            "Durasi: " +
-            order.durasi_hari +
-            " hari\n\n" +
-
-            "Membership aktif sampai:\n" +
-
-            formatTanggal(
-                calculation.expiryDate
-            ) +
-
+            "Member: " + order.nama + "\n" +
+            "Paket: " + order.paket + "\n" +
+            "Harga: " + formatRupiah(order.harga) + "\n" +
+            "Durasi: " + order.durasi_hari + " hari\n\n" +
+            "Perkiraan membership aktif sampai:\n" +
+            formatTanggal(previewExpiry) +
             "\n\n" +
-
+            "Tanggal final akan dihitung otomatis oleh sistem.\n\n" +
             "Setujui pesanan ini?";
 
+        if(!confirm(message)) return;
 
-        const yakin =
-            confirm(
-                message
+        /*
+           APPROVAL FINAL DILAKUKAN DI DATABASE.
+           Ini mencegah profile dan order ter-update sebagian.
+        */
+        const { data: result, error } =
+            await supabaseClient.rpc(
+                "approve_membership_order",
+                {
+                    p_order_id: Number(order.id)
+                }
             );
 
+        if(error) throw error;
 
-        if(!yakin){
-
-            return;
-
-        }
-
-
-        /*
-           UPDATE PROFILE
-        */
-
-        const profileUpdate =
-            await supabaseClient
-                .from("profiles")
-                .update({
-
-                    status:
-                        "aktif",
-
-                    paket:
-                        "Premium",
-
-                    berlaku_sampai:
-                        dateToYMD(
-                            calculation.expiryDate
-                        )
-
-                })
-                .eq(
-                    "id",
-                    order.user_id
-                );
-
-
-        if(profileUpdate.error){
-
-            throw profileUpdate.error;
-
-        }
-
-
-        /*
-           UPDATE ORDER
-        */
-
-        const orderUpdate =
-            await supabaseClient
-                .from(
-                    "membership_orders"
-                )
-                .update({
-
-                    status:
-                        "disetujui"
-
-                })
-                .eq(
-                    "id",
-                    order.id
-                );
-
-
-        if(orderUpdate.error){
-
-            throw orderUpdate.error;
-
-        }
-
+        const finalResult = Array.isArray(result)
+            ? result[0]
+            : result;
 
         alert(
-
             "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
-
-            "Member: " +
-            order.nama +
-            "\n" +
-
-            "Paket: " +
-            order.paket +
-            "\n" +
-
-            "Harga: " +
-            formatRupiah(
-                order.harga
-            ) +
-            "\n" +
-
-            "Durasi: " +
-            order.durasi_hari +
-            " hari\n\n" +
-
+            "Member: " + order.nama + "\n" +
+            "Paket: " + order.paket + "\n" +
+            "Harga: " + formatRupiah(order.harga) + "\n" +
+            "Durasi: " + order.durasi_hari + " hari\n\n" +
             "Membership aktif sampai:\n" +
-
             formatTanggal(
-                calculation.expiryDate
+                finalResult?.tanggal_baru || previewExpiry
             )
-
         );
-
 
         await loadOrders();
 
-    }
+    }catch(error){
 
-    catch(error){
-
-        console.error(
-            "APPROVE ORDER ERROR:",
-            error
-        );
-
+        console.error("APPROVE ORDER ERROR:", error);
 
         alert(
-
             "❌ Gagal menyetujui pesanan.\n\n" +
-
-            error.message
-
+            (error?.message || "Terjadi kesalahan pada server.")
         );
-
     }
-
 }
 
 
@@ -2939,6 +2772,7 @@ checkAdmin();
 
 </script>
 
+  <script src="theme.js"></script>
 </body>
 
 </html>
