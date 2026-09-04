@@ -1,268 +1,758 @@
-
 /* =========================================================
-   NGajiPlus GLOBAL DARK / LIGHT MODE
-   Dipakai oleh seluruh halaman
+   NGAJIPLUS AKADEMI
+   GLOBAL THEME CSS
+   Versi 1.0
 ========================================================= */
 
-html { color-scheme: light; }
 
-body.dark-mode,
-body.dark {
-  color-scheme: dark;
-  background: #111815 !important;
-  color: #e8f0eb !important;
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root {
+
+    --np-bg: #f5faf7;
+
+    --np-surface: #ffffff;
+
+    --np-surface-2: #eef9f3;
+
+    --np-text: #17231d;
+
+    --np-muted: #718078;
+
+    --np-border: #dbe9e2;
+
+    --np-green: #009b59;
+
+    --np-green-dark: #007d48;
+
+    --np-premium: #c69b00;
+
+    --np-premium-bg: #fff6cc;
+
+    --np-danger: #c62828;
+
+    --np-success-bg: #e5f9ed;
+
+    --np-success-border: #bde8cf;
+
+    --np-success-text: #087a47;
+
+    --np-warning-bg: #fff8d9;
+
+    --np-warning-border: #eadb91;
+
+    --np-warning-text: #75621c;
+
+    --np-error-bg: #ffe9e9;
+
+    --np-error-border: #f3c2c2;
+
+    --np-error-text: #b42318;
+
+    --np-footer: #071b12;
+
+    --np-shadow:
+        0 5px 18px rgba(0,70,40,.07);
+
 }
 
-/* Header / navigation */
-body.dark-mode header,
-body.dark-mode .header,
-body.dark-mode .site-header,
-body.dark-mode .topbar,
-body.dark-mode nav,
-body.dark header,
-body.dark .header,
-body.dark .site-header,
-body.dark .topbar,
-body.dark nav {
-  background: #17211c !important;
-  color: #e8f0eb !important;
-  border-color: #2d3932 !important;
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+html[data-theme="dark"] {
+
+    --np-bg: #07120d;
+
+    --np-surface: #0d2118;
+
+    --np-surface-2: #0a1a13;
+
+    --np-text: #e8f5ee;
+
+    --np-muted: #91a69b;
+
+    --np-border: #1b3c2d;
+
+    --np-green: #00bd6a;
+
+    --np-green-dark: #009b59;
+
+    --np-premium: #f1cf32;
+
+    --np-premium-bg: #302a0d;
+
+    --np-danger: #ff9d9d;
+
+    --np-success-bg: #0d3020;
+
+    --np-success-border: #1d6242;
+
+    --np-success-text: #73dfaa;
+
+    --np-warning-bg: #302b12;
+
+    --np-warning-border: #665b1e;
+
+    --np-warning-text: #e8d879;
+
+    --np-error-bg: #351919;
+
+    --np-error-border: #6b2b2b;
+
+    --np-error-text: #ff9b9b;
+
+    --np-footer: #030a06;
+
+    --np-shadow:
+        0 7px 22px rgba(0,0,0,.28);
+
 }
 
-/* Main surfaces / cards */
-body.dark-mode .card,
-body.dark-mode .box,
-body.dark-mode .container,
-body.dark-mode .auth-box,
-body.dark-mode .login-card,
-body.dark-mode .admin-box,
-body.dark-mode .member-box,
-body.dark-mode .membership-card,
-body.dark-mode .package-card,
-body.dark-mode .order-card,
-body.dark-mode .profile-header,
-body.dark-mode .profile-card,
-body.dark-mode .progress-card,
-body.dark-mode .history-card,
-body.dark-mode .material-card,
-body.dark-mode .category-card,
-body.dark-mode .player-card,
-body.dark-mode .pdf-card,
-body.dark-mode .audio-player,
-body.dark-mode .info-box,
-body.dark-mode .notice,
-body.dark-mode .modal-box,
-body.dark-mode .modal,
-body.dark .card,
-body.dark .box,
-body.dark .container,
-body.dark .auth-box,
-body.dark .login-card,
-body.dark .admin-box,
-body.dark .member-box,
-body.dark .membership-card,
-body.dark .package-card,
-body.dark .order-card,
-body.dark .profile-header,
-body.dark .profile-card,
-body.dark .progress-card,
-body.dark .history-card,
-body.dark .material-card,
-body.dark .category-card,
-body.dark .player-card,
-body.dark .pdf-card,
-body.dark .audio-player,
-body.dark .info-box,
-body.dark .notice,
-body.dark .modal-box,
-body.dark .modal {
-  background: #1a241f !important;
-  color: #e8f0eb !important;
-  border-color: #334139 !important;
+
+/* =========================================================
+   BODY
+========================================================= */
+
+html,
+body {
+
+    background:
+        var(--np-bg);
+
+    color:
+        var(--np-text);
+
+    transition:
+        background-color .2s ease,
+        color .2s ease;
+
 }
 
-/* Common text */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6,
-body.dark-mode p,
-body.dark-mode label,
-body.dark-mode span,
-body.dark-mode .title,
-body.dark-mode .subtitle,
-body.dark-mode .description,
-body.dark-mode .card-title,
-body.dark-mode .card-description,
-body.dark-mode .material-title,
-body.dark-mode .material-description,
-body.dark-mode .material-desc,
-body.dark-mode .page-title,
-body.dark-mode .section-title,
-body.dark-mode .footer-text,
-body.dark-mode .footer-title,
-body.dark-mode .hint,
-body.dark-mode .help,
+
+/* =========================================================
+   LINK
+========================================================= */
+
+a {
+
+    color:
+        inherit;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text);
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav {
+
+    color:
+        var(--np-text);
+
+}
+
+
+/* Logo */
+
+.logo,
+.footer-logo {
+
+    color:
+        var(--np-green) !important;
+
+}
+
+
+/* =========================================================
+   TOMBOL TEMA
+========================================================= */
+
+#themeBtn,
+.theme-btn,
+.themebtn,
+.theme {
+
+    background:
+        var(--np-surface-2) !important;
+
+    color:
+        var(--np-text) !important;
+
+    border:
+        1px solid var(--np-border) !important;
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+input,
+select,
+textarea {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text) !important;
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+input::placeholder,
+textarea::placeholder {
+
+    color:
+        var(--np-muted) !important;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card,
+.stat-card,
+.material-card,
+.material-box,
+.membership-card,
+.progress-card,
+.continue-card,
+.section-card {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text);
+
+    border-color:
+        var(--np-border) !important;
+
+    box-shadow:
+        var(--np-shadow);
+
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.card-title,
+.material-title,
+.material-name,
+.title,
+h1,
+h2,
+h3,
+strong {
+
+    color:
+        var(--np-text);
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.card-description,
+.material-description,
+.description,
+.subtitle,
+.muted,
+.small-text {
+
+    color:
+        var(--np-muted);
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+.search,
+.filter,
+.toolbar .search,
+.toolbar .select {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text) !important;
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+/* =========================================================
+   NOTICE
+========================================================= */
+
+.notice {
+
+    color:
+        var(--np-text);
+
+    border-color:
+        var(--np-border);
+
+    background:
+        var(--np-surface-2);
+
+}
+
+
+.notice.success {
+
+    background:
+        var(--np-success-bg);
+
+    border-color:
+        var(--np-success-border);
+
+    color:
+        var(--np-success-text);
+
+}
+
+
+.notice.warning {
+
+    background:
+        var(--np-warning-bg);
+
+    border-color:
+        var(--np-warning-border);
+
+    color:
+        var(--np-warning-text);
+
+}
+
+
+.notice.error {
+
+    background:
+        var(--np-error-bg);
+
+    border-color:
+        var(--np-error-border);
+
+    color:
+        var(--np-error-text);
+
+}
+
+
+/* =========================================================
+   MATERIAL AREA
+========================================================= */
+
+.material-area {
+
+    color:
+        var(--np-text);
+
+}
+
+
+/* =========================================================
+   MATERIAL CARD
+========================================================= */
+
+.material-card {
+
+    overflow:
+        hidden;
+
+}
+
+
+.material-card .material-body {
+
+    background:
+        var(--np-surface);
+
+    color:
+        var(--np-text);
+
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.info-badge,
+.badge,
+.material-badge {
+
+    border-color:
+        var(--np-border);
+
+}
+
+
+.info-free,
+.free-badge {
+
+    background:
+        var(--np-success-bg) !important;
+
+    color:
+        var(--np-success-text) !important;
+
+}
+
+
+.info-premium,
+.premium-badge {
+
+    background:
+        var(--np-premium-bg) !important;
+
+    color:
+        var(--np-premium) !important;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+button,
+.nav-btn,
+.navbtn {
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease;
+
+}
+
+
+/* Tombol hijau tetap hijau */
+
+.green,
+.greenbtn,
+.green-btn,
+.dashboard-btn,
+.profile-btn,
+.material-button,
+.save-button,
+.membership-button {
+
+    background:
+        var(--np-green);
+
+}
+
+
+/* =========================================================
+   MEMBERSHIP
+========================================================= */
+
+.membership-card {
+
+    background:
+        var(--np-surface) !important;
+
+}
+
+
+.membership-package {
+
+    color:
+        var(--np-green) !important;
+
+}
+
+
+.membership-text {
+
+    color:
+        var(--np-muted) !important;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-info,
+.progress-content {
+
+    color:
+        var(--np-text);
+
+}
+
+
+.progress-description {
+
+    color:
+        var(--np-muted);
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading,
+.empty {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-muted) !important;
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+/* =========================================================
+   LOCK BOX
+========================================================= */
+
+.lock-box {
+
+    background:
+        var(--np-warning-bg) !important;
+
+    border-color:
+        var(--np-warning-border) !important;
+
+}
+
+
+.lock-text {
+
+    color:
+        var(--np-warning-text) !important;
+
+}
+
+
+/* =========================================================
+   ADMIN BOX
+========================================================= */
+
+.admin-box {
+
+    background:
+        #12313e !important;
+
+    border-color:
+        #1e5365 !important;
+
+    color:
+        #bce9f8 !important;
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-card,
+.profile-header,
+.profile-section,
+.profile-info {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text);
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+/* Form profile */
+
+.form-group label,
+.form-label {
+
+    color:
+        var(--np-text);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    background:
+        var(--np-footer) !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+.footer-text,
+.footertext {
+
+    color:
+        #91a098 !important;
+
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player-card,
+.video-container,
+.audio-container,
+.pdf-container {
+
+    background:
+        var(--np-surface) !important;
+
+    color:
+        var(--np-text);
+
+    border-color:
+        var(--np-border) !important;
+
+}
+
+
+/* =========================================================
+   BODY CLASS LAMA
+   Kompatibilitas dengan halaman lama
+========================================================= */
+
 body.dark,
-body.dark h1,
-body.dark h2,
-body.dark h3,
-body.dark h4,
-body.dark h5,
-body.dark h6,
-body.dark p,
-body.dark label,
-body.dark span,
-body.dark .title,
-body.dark .subtitle,
-body.dark .description,
-body.dark .card-title,
-body.dark .card-description,
-body.dark .material-title,
-body.dark .material-description,
-body.dark .material-desc,
-body.dark .page-title,
-body.dark .section-title,
-body.dark .footer-text,
-body.dark .footer-title,
-body.dark .hint,
-body.dark .help {
-  color: inherit;
+body.dark-mode {
+
+    background:
+        var(--np-bg) !important;
+
+    color:
+        var(--np-text) !important;
+
 }
 
-/* Secondary text */
-body.dark-mode small,
-body.dark-mode .meta,
-body.dark-mode .material-meta,
-body.dark-mode .category,
-body.dark-mode .free-label,
-body.dark-mode .membership-text,
-body.dark-mode .order-description,
-body.dark-mode .photo-info,
-body.dark .meta,
-body.dark .material-meta,
-body.dark .category,
-body.dark .free-label,
-body.dark .membership-text,
-body.dark .order-description,
-body.dark .photo-info {
-  color: #b7c5bc !important;
+
+body.dark header,
+body.dark-mode header {
+
+    background:
+        var(--np-surface) !important;
+
 }
 
-/* Inputs */
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea,
-body.dark .input,
-body.dark input,
-body.dark select,
-body.dark textarea {
-  background: #111915 !important;
-  color: #eef5f0 !important;
-  border-color: #3a4a40 !important;
+
+/* =========================================================
+   TRANSISI
+========================================================= */
+
+body,
+header,
+.card,
+.stat-card,
+.material-card,
+.material-box,
+.membership-card,
+input,
+select,
+textarea,
+.notice,
+footer {
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
 }
 
-body.dark-mode input::placeholder,
-body.dark input::placeholder {
-  color: #8e9d94 !important;
-}
 
-/* Tables */
-body.dark-mode table,
-body.dark-mode th,
-body.dark-mode td,
-body.dark table,
-body.dark th,
-body.dark td {
-  background: #1a241f !important;
-  color: #e8f0eb !important;
-  border-color: #334139 !important;
-}
+/* =========================================================
+   MOBILE
+========================================================= */
 
-/* Links — keep green branding */
-body.dark-mode a,
-body.dark a {
-  color: #73d9a0;
-}
+@media(max-width:600px){
 
-body.dark-mode .logo,
-body.dark .logo {
-  color: #73d9a0 !important;
-}
+    #themeBtn,
+    .theme-btn,
+    .themebtn {
 
-/* Footer */
-body.dark-mode footer,
-body.dark-mode .footer,
-body.dark footer,
-body.dark .footer {
-  background: #0e1511 !important;
-  color: #dce7e0 !important;
-  border-color: #29352e !important;
-}
+        min-width:
+            30px;
 
-/* Common white surfaces that otherwise stay glaringly white */
-body.dark-mode .hero-card,
-body.dark-mode .hero-screen,
-body.dark-mode .featured-video,
-body.dark-mode .continue-card,
-body.dark-mode .stat-card,
-body.dark-mode .feature,
-body.dark-mode .search-box,
-body.dark-mode .filter-box,
-body.dark-mode .lock-card,
-body.dark-mode .error-card,
-body.dark-mode .empty-material,
-body.dark-mode .loading-player,
-body.dark-mode .preview-box,
-body.dark-mode .open-source,
-body.dark-mode .active-card,
-body.dark-mode .account-notice-free,
-body.dark-mode .account-notice-premium,
-body.dark .hero-card,
-body.dark .hero-screen,
-body.dark .featured-video,
-body.dark .continue-card,
-body.dark .stat-card,
-body.dark .feature,
-body.dark .search-box,
-body.dark .filter-box,
-body.dark .lock-card,
-body.dark .error-card,
-body.dark .empty-material,
-body.dark .loading-player,
-body.dark .preview-box,
-body.dark .open-source,
-body.dark .active-card,
-body.dark .account-notice-free,
-body.dark .account-notice-premium {
-  background: #1a241f !important;
-  color: #e8f0eb !important;
-  border-color: #334139 !important;
-}
+        min-height:
+            29px;
 
-/* Universal theme button for pages that do not already have one */
-.ngp-theme-floating {
-  position: fixed !important;
-  right: 16px !important;
-  bottom: 16px !important;
-  z-index: 99999 !important;
-  width: 44px !important;
-  height: 44px !important;
-  border: 1px solid #cfd8d2 !important;
-  border-radius: 50% !important;
-  background: #ffffff !important;
-  color: #1d2a23 !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,.15) !important;
-  cursor: pointer !important;
-  font-size: 20px !important;
-  line-height: 1 !important;
-}
+    }
 
-body.dark-mode .ngp-theme-floating,
-body.dark .ngp-theme-floating {
-  background: #1f2b24 !important;
-  color: #ffffff !important;
-  border-color: #425248 !important;
 }
