@@ -1,85 +1,223 @@
+/* =========================================================
+   NGAJIPLUS AKADEMI
+   GLOBAL THEME SYSTEM
+   Versi 1.0
+========================================================= */
 
 (function () {
-  "use strict";
 
-  const KEY = "ngajiplus-theme";
+    const STORAGE_KEY = "ngajiplus-theme";
 
-  function isDark() {
-    return document.body.classList.contains("dark-mode") ||
-           document.body.classList.contains("dark");
-  }
+    /* =====================================================
+       AMBIL TEMA
+    ===================================================== */
 
-  function applySavedTheme() {
-    const saved = localStorage.getItem(KEY);
-    if (saved === "dark") {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
+    function getSavedTheme() {
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (
+            saved === "dark" ||
+            saved === "light"
+        ) {
+            return saved;
+        }
+
+        if (
+            window.matchMedia &&
+            window.matchMedia(
+                "(prefers-color-scheme: dark)"
+            ).matches
+        ) {
+            return "dark";
+        }
+
+        return "light";
     }
-    updateButton();
-  }
 
-  function updateButton() {
-    const buttons = document.querySelectorAll(
-      "#themeToggle, #themeBtn, .theme-toggle, .theme-btn, .ngp-theme-floating"
+
+    /* =====================================================
+       TERAPKAN TEMA
+    ===================================================== */
+
+    function applyGlobalTheme(theme) {
+
+        if (theme !== "dark") {
+            theme = "light";
+        }
+
+        /* HTML */
+
+        document.documentElement
+            .setAttribute(
+                "data-theme",
+                theme
+            );
+
+
+        /* BODY
+           Dipertahankan agar halaman lama
+           yang memakai body.dark tetap kompatibel.
+        */
+
+        if (document.body) {
+
+            document.body.classList.toggle(
+                "dark",
+                theme === "dark"
+            );
+
+            document.body.classList.toggle(
+                "dark-mode",
+                theme === "dark"
+            );
+
+        }
+
+
+        /* Simpan */
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            theme
+        );
+
+
+        /* Theme color browser */
+
+        const themeColor =
+            document.getElementById(
+                "themeColor"
+            );
+
+        if (themeColor) {
+
+            themeColor.setAttribute(
+                "content",
+                theme === "dark"
+                    ? "#07120d"
+                    : "#009b59"
+            );
+
+        }
+
+
+        /* Semua tombol tema */
+
+        document
+            .querySelectorAll(
+                "#themeBtn, .theme-btn, .themebtn"
+            )
+            .forEach(function (button) {
+
+                button.textContent =
+                    theme === "dark"
+                        ? "☀️"
+                        : "🌙";
+
+                button.title =
+                    theme === "dark"
+                        ? "Mode terang"
+                        : "Mode gelap";
+
+                button.setAttribute(
+                    "aria-label",
+                    theme === "dark"
+                        ? "Aktifkan mode terang"
+                        : "Aktifkan mode gelap"
+                );
+
+            });
+
+
+        /* Event untuk komponen lain */
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "ngajiplus-theme-change",
+                {
+                    detail: {
+                        theme: theme
+                    }
+                }
+            )
+        );
+
+    }
+
+
+    /* =====================================================
+       TOGGLE
+    ===================================================== */
+
+    function toggleGlobalTheme() {
+
+        const current =
+            document.documentElement
+                .getAttribute("data-theme") ||
+            "light";
+
+        applyGlobalTheme(
+            current === "dark"
+                ? "light"
+                : "dark"
+        );
+
+    }
+
+
+    /* =====================================================
+       FUNGSI GLOBAL
+       Kompatibel dengan kode lama
+    ===================================================== */
+
+    window.applyGlobalTheme =
+        applyGlobalTheme;
+
+    window.toggleGlobalTheme =
+        toggleGlobalTheme;
+
+    window.toggleTheme =
+        toggleGlobalTheme;
+
+    window.toggleDashboardTheme =
+        toggleGlobalTheme;
+
+
+    /* =====================================================
+       TERAPKAN SECEPAT MUNGKIN
+    ===================================================== */
+
+    applyGlobalTheme(
+        getSavedTheme()
     );
-    buttons.forEach(function (btn) {
-      const dark = isDark();
-      btn.textContent = dark ? "☀️" : "🌙";
-      btn.title = dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
-      btn.setAttribute("aria-label", dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap");
-    });
-  }
 
-  function toggleTheme() {
-    const nextDark = !isDark();
 
-    document.body.classList.toggle("dark-mode", nextDark);
+    /* =====================================================
+       SINKRONISASI ANTAR TAB
+    ===================================================== */
 
-    // Beberapa halaman lama memakai class "dark".
-    // Jangan menghapusnya; samakan agar semua halaman tetap kompatibel.
-    if (document.body.classList.contains("dark")) {
-      document.body.classList.toggle("dark", nextDark);
-    }
+    window.addEventListener(
+        "storage",
+        function (event) {
 
-    localStorage.setItem(KEY, nextDark ? "dark" : "light");
-    updateButton();
-  }
+            if (
+                event.key === STORAGE_KEY &&
+                (
+                    event.newValue === "dark" ||
+                    event.newValue === "light"
+                )
+            ) {
 
-  function setup() {
-    applySavedTheme();
+                applyGlobalTheme(
+                    event.newValue
+                );
 
-    let buttons = document.querySelectorAll(
-      "#themeToggle, #themeBtn, .theme-toggle, .theme-btn"
+            }
+
+        }
     );
 
-    // Halaman lama tanpa tombol tema diberi tombol universal.
-    if (!buttons.length) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "ngp-theme-floating";
-      btn.textContent = isDark() ? "☀️" : "🌙";
-      btn.title = isDark() ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
-      document.body.appendChild(btn);
-      buttons = document.querySelectorAll(".ngp-theme-floating");
-    }
 
-    // Tombol lama (#themeToggle / #themeBtn) sudah mempunyai
-    // handler sendiri. Kita hanya memasang handler pada tombol
-    // universal yang dibuat oleh script ini.
-    document.querySelectorAll(".ngp-theme-floating").forEach(function (btn) {
-      if (btn.dataset.ngpThemeBound === "1") return;
-      btn.dataset.ngpThemeBound = "1";
-      btn.addEventListener("click", toggleTheme);
-    });
-
-    updateButton();
-  }
-
-  // Jalankan setelah body tersedia.
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setup);
-  } else {
-    setup();
-  }
 })();
