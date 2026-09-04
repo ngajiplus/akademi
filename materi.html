@@ -640,6 +640,7 @@ body.dark .admin-box{
 
 </style>
 
+  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -1422,6 +1423,11 @@ async function loadMaterial(){
 
     if(!materialId){
 
+        /* Tidak ada ID berarti halaman dibuka sebagai halaman daftar.
+           Kembalikan pengguna ke Akademi agar tidak muncul error. */
+        window.location.replace("akademi.html");
+        return;
+
         content.innerHTML = `
 
             <div class="error">
@@ -2088,6 +2094,7 @@ supabaseClient
 </script>
 
 
+  <script src="theme.js"></script>
 </body>
 
 </html>
