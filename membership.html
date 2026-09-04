@@ -559,6 +559,78 @@ header{
 
 
 /* =====================================================
+   HOW IT WORKS
+===================================================== */
+
+.how-area{
+    max-width:900px;
+    margin:0 auto 25px;
+    padding:0 15px;
+}
+
+.how-card{
+    background:white;
+    border:1px solid #dfe9e3;
+    border-radius:15px;
+    padding:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
+}
+
+.how-title{
+    margin:0 0 13px;
+    font-size:16px;
+}
+
+.how-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.how-step{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:#f8fcfa;
+    border:1px solid #e3eee8;
+    border-radius:10px;
+    padding:11px;
+}
+
+.how-number{
+    flex:0 0 25px;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#008f50;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.how-step strong{
+    display:block;
+    font-size:10px;
+    margin-bottom:2px;
+}
+
+.how-step span{
+    display:block;
+    color:#718078;
+    font-size:8px;
+    line-height:1.6;
+}
+
+.theme-btn{
+    background:#eaf8f1;
+    color:#087a47;
+    min-width:30px;
+}
+
+/* =====================================================
    ORDER
 ===================================================== */
 
@@ -985,6 +1057,14 @@ footer{
         transform:translateY(-3px);
     }
 
+    .how-area{
+        padding:0 12px;
+    }
+
+    .how-grid{
+        grid-template-columns:1fr;
+    }
+
     .order-area,
     .history-area{
         padding:
@@ -999,6 +1079,7 @@ footer{
 
 </style>
 
+  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -1032,6 +1113,16 @@ footer{
 >
 👤 Profil
 </a>
+
+<button
+    id="themeBtn"
+    class="nav-btn theme-btn"
+    type="button"
+    onclick="window.toggleTheme && window.toggleTheme()"
+    aria-label="Ganti tema"
+>
+🌙
+</button>
 
 <button
     id="logoutBtn"
@@ -1386,6 +1477,57 @@ Pilih Paket
 
 </div>
 
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="how-area">
+
+<div class="how-card">
+
+<h2 class="how-title">📌 Cara Aktivasi Membership</h2>
+
+<div class="how-grid">
+
+<div class="how-step">
+<div class="how-number">1</div>
+<div>
+<strong>Pilih paket</strong>
+<span>Pilih masa membership yang Anda inginkan.</span>
+</div>
+</div>
+
+<div class="how-step">
+<div class="how-number">2</div>
+<div>
+<strong>Buat pesanan</strong>
+<span>Pesanan masuk ke sistem dengan status <b>Menunggu</b>.</span>
+</div>
+</div>
+
+<div class="how-step">
+<div class="how-number">3</div>
+<div>
+<strong>Admin memproses</strong>
+<span>Setelah pembayaran dikonfirmasi, membership diaktifkan oleh admin.</span>
+</div>
+</div>
+
+<div class="how-step">
+<div class="how-number">4</div>
+<div>
+<strong>Akses Premium</strong>
+<span>Setelah aktif, seluruh materi Premium dapat dibuka.</span>
+</div>
+</div>
+
+</div>
 
 </div>
 
@@ -2703,6 +2845,7 @@ checkUser();
 
 </script>
 
+  <script src="theme.js"></script>
 </body>
 
 </html>
