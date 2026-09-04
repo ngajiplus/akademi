@@ -1,223 +1,76 @@
-/* =========================================================
-   NGAJIPLUS AKADEMI
-   GLOBAL THEME SYSTEM
-   Versi 1.0
-========================================================= */
-
 (function () {
+  "use strict";
 
-    const STORAGE_KEY = "ngajiplus-theme";
+  const KEY = "ngajiplus-theme";
 
-    /* =====================================================
-       AMBIL TEMA
-    ===================================================== */
+  function isDark() {
+    return document.body.classList.contains("dark-mode") ||
+           document.body.classList.contains("dark");
+  }
 
-    function getSavedTheme() {
+  function updateButtons() {
+    const dark = isDark();
+    document.querySelectorAll(
+      "#themeToggle, #themeBtn, .theme-toggle, .theme-btn, .ngp-theme-floating"
+    ).forEach(function (btn) {
+      btn.textContent = dark ? "☀️" : "🌙";
+      btn.title = dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
+      btn.setAttribute("aria-label", dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap");
+    });
+  }
 
-        const saved =
-            localStorage.getItem(STORAGE_KEY);
+  function applyTheme(theme) {
+    const dark = theme === "dark";
+    document.body.classList.toggle("dark-mode", dark);
+    document.body.classList.toggle("dark", dark);
+    localStorage.setItem(KEY, dark ? "dark" : "light");
+    updateButtons();
+  }
 
-        if (
-            saved === "dark" ||
-            saved === "light"
-        ) {
-            return saved;
-        }
+  function toggleTheme() {
+    applyTheme(isDark() ? "light" : "dark");
+  }
 
-        if (
-            window.matchMedia &&
-            window.matchMedia(
-                "(prefers-color-scheme: dark)"
-            ).matches
-        ) {
-            return "dark";
-        }
+  window.toggleTheme = toggleTheme;
+  window.toggleDashboardTheme = toggleTheme;
 
-        return "light";
+  function setup() {
+    const saved = localStorage.getItem(KEY) || "light";
+    applyTheme(saved);
+
+    document.querySelectorAll(
+      "#themeToggle, #themeBtn, .theme-toggle, .theme-btn"
+    ).forEach(function (btn) {
+      if (btn.dataset.ngpThemeBound === "1") return;
+      btn.dataset.ngpThemeBound = "1";
+      btn.addEventListener("click", function (event) {
+        // Buttons with an inline onclick are intentionally allowed to work once.
+        if (btn.getAttribute("onclick")) return;
+        event.preventDefault();
+        toggleTheme();
+      });
+    });
+
+    if (!document.querySelector("#themeToggle, #themeBtn, .theme-toggle, .theme-btn, .ngp-theme-floating")) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ngp-theme-floating";
+      btn.addEventListener("click", toggleTheme);
+      document.body.appendChild(btn);
     }
 
+    updateButtons();
+  }
 
-    /* =====================================================
-       TERAPKAN TEMA
-    ===================================================== */
-
-    function applyGlobalTheme(theme) {
-
-        if (theme !== "dark") {
-            theme = "light";
-        }
-
-        /* HTML */
-
-        document.documentElement
-            .setAttribute(
-                "data-theme",
-                theme
-            );
-
-
-        /* BODY
-           Dipertahankan agar halaman lama
-           yang memakai body.dark tetap kompatibel.
-        */
-
-        if (document.body) {
-
-            document.body.classList.toggle(
-                "dark",
-                theme === "dark"
-            );
-
-            document.body.classList.toggle(
-                "dark-mode",
-                theme === "dark"
-            );
-
-        }
-
-
-        /* Simpan */
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            theme
-        );
-
-
-        /* Theme color browser */
-
-        const themeColor =
-            document.getElementById(
-                "themeColor"
-            );
-
-        if (themeColor) {
-
-            themeColor.setAttribute(
-                "content",
-                theme === "dark"
-                    ? "#07120d"
-                    : "#009b59"
-            );
-
-        }
-
-
-        /* Semua tombol tema */
-
-        document
-            .querySelectorAll(
-                "#themeBtn, .theme-btn, .themebtn"
-            )
-            .forEach(function (button) {
-
-                button.textContent =
-                    theme === "dark"
-                        ? "☀️"
-                        : "🌙";
-
-                button.title =
-                    theme === "dark"
-                        ? "Mode terang"
-                        : "Mode gelap";
-
-                button.setAttribute(
-                    "aria-label",
-                    theme === "dark"
-                        ? "Aktifkan mode terang"
-                        : "Aktifkan mode gelap"
-                );
-
-            });
-
-
-        /* Event untuk komponen lain */
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "ngajiplus-theme-change",
-                {
-                    detail: {
-                        theme: theme
-                    }
-                }
-            )
-        );
-
+  window.addEventListener("storage", function (event) {
+    if (event.key === KEY && event.newValue) {
+      applyTheme(event.newValue);
     }
+  });
 
-
-    /* =====================================================
-       TOGGLE
-    ===================================================== */
-
-    function toggleGlobalTheme() {
-
-        const current =
-            document.documentElement
-                .getAttribute("data-theme") ||
-            "light";
-
-        applyGlobalTheme(
-            current === "dark"
-                ? "light"
-                : "dark"
-        );
-
-    }
-
-
-    /* =====================================================
-       FUNGSI GLOBAL
-       Kompatibel dengan kode lama
-    ===================================================== */
-
-    window.applyGlobalTheme =
-        applyGlobalTheme;
-
-    window.toggleGlobalTheme =
-        toggleGlobalTheme;
-
-    window.toggleTheme =
-        toggleGlobalTheme;
-
-    window.toggleDashboardTheme =
-        toggleGlobalTheme;
-
-
-    /* =====================================================
-       TERAPKAN SECEPAT MUNGKIN
-    ===================================================== */
-
-    applyGlobalTheme(
-        getSavedTheme()
-    );
-
-
-    /* =====================================================
-       SINKRONISASI ANTAR TAB
-    ===================================================== */
-
-    window.addEventListener(
-        "storage",
-        function (event) {
-
-            if (
-                event.key === STORAGE_KEY &&
-                (
-                    event.newValue === "dark" ||
-                    event.newValue === "light"
-                )
-            ) {
-
-                applyGlobalTheme(
-                    event.newValue
-                );
-
-            }
-
-        }
-    );
-
-
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setup);
+  } else {
+    setup();
+  }
 })();
