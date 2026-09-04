@@ -605,6 +605,10 @@ audio{
     padding:35px 20px;
 
     text-align:center;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.03);
 }
 
 .lock-icon{
@@ -629,6 +633,14 @@ audio{
     color:#777;
 
     font-size:9px;
+
+    line-height:1.7;
+}
+
+.lock-premium{
+    color:#846400;
+
+    font-weight:bold;
 }
 
 
@@ -751,14 +763,12 @@ footer{
 
 <div class="nav">
 
-
 <div class="logo">
 📖 NgajiPlus Akademi
 </div>
 
 
 <div class="nav-right">
-
 
 <a
     href="index.html"
@@ -800,12 +810,7 @@ Keluar
 <main>
 
 
-<!-- =====================================================
-     MATERIAL AREA
-===================================================== -->
-
 <div id="materialArea">
-
 
 <div class="material-header">
 
@@ -847,7 +852,6 @@ Memuat materi...
 
 </div>
 
-
 </div>
 
 
@@ -861,9 +865,7 @@ Memuat materi...
     class="hidden"
 >
 
-
 <div class="progress-card">
-
 
 <div class="progress-top">
 
@@ -899,13 +901,11 @@ Progress Materi
 Belum dimulai
 </div>
 
-
 </div>
 
 
 
 <div class="actions">
-
 
 <button
     id="completeBtn"
@@ -930,12 +930,9 @@ Belum dimulai
 📊 Dashboard
 </a>
 
-
 </div>
 
-
 </div>
-
 
 
 </main>
@@ -994,6 +991,15 @@ let currentUser =
 
 let currentMaterial =
     null;
+
+let currentProfile =
+    null;
+
+let membershipActive =
+    false;
+
+let isAdmin =
+    false;
 
 let currentProgress =
     0;
@@ -1097,22 +1103,19 @@ function escapeHtml(value){
 
 
 /* =====================================================
-   GET TYPE
+   GET MATERIAL TYPE
 ===================================================== */
 
 function getMaterialType(item){
 
     /*
-       Prioritaskan tipe.
+       Prioritaskan "tipe".
 
        Ini penting karena sebelumnya
        Al-Fatihah mempunyai:
 
        tipe = audio
        type = video
-
-       sehingga audio harus membaca
-       field tipe terlebih dahulu.
     */
 
     return String(
@@ -1122,6 +1125,477 @@ function getMaterialType(item){
     )
     .toLowerCase()
     .trim();
+
+}
+
+
+/* =====================================================
+   CHECK PREMIUM VALUE
+===================================================== */
+
+function isPremiumMaterial(item){
+
+    return (
+        item?.premium === true ||
+        String(
+            item?.premium || ""
+        )
+        .toLowerCase()
+        .trim() === "true"
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT TANGGAL
+===================================================== */
+
+function formatTanggal(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "id-ID",
+        {
+            day:"2-digit",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CHECK MEMBERSHIP
+===================================================== */
+
+async function checkMembership(){
+
+    /*
+       Belum login
+    */
+
+    if(!currentUser){
+
+        currentProfile =
+            null;
+
+        membershipActive =
+            false;
+
+        isAdmin =
+            false;
+
+        return false;
+
+    }
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "id,nama,status,paket,berlaku_sampai,is_admin"
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if(result.error){
+
+            console.error(
+                "PROFILE ERROR:",
+                result.error
+            );
+
+            currentProfile =
+                null;
+
+            membershipActive =
+                false;
+
+            isAdmin =
+                false;
+
+            return false;
+
+        }
+
+
+        currentProfile =
+            result.data;
+
+
+        if(!currentProfile){
+
+            membershipActive =
+                false;
+
+            isAdmin =
+                false;
+
+            return false;
+
+        }
+
+
+        /*
+           ADMIN
+
+           Admin tetap boleh membuka
+           materi Premium.
+        */
+
+        isAdmin =
+            currentProfile.is_admin === true ||
+            String(
+                currentProfile.is_admin || ""
+            )
+            .toLowerCase()
+            .trim() === "true";
+
+
+        if(isAdmin){
+
+            membershipActive =
+                true;
+
+            return true;
+
+        }
+
+
+        /*
+           STATUS
+        */
+
+        const status =
+            String(
+                currentProfile.status || ""
+            )
+            .toLowerCase()
+            .trim();
+
+
+        const statusAktif =
+            status === "aktif";
+
+
+        /*
+           TANGGAL BERLAKU
+        */
+
+        let tanggalAktif =
+            false;
+
+
+        if(
+            currentProfile.berlaku_sampai
+        ){
+
+            const tanggal =
+                new Date(
+                    currentProfile.berlaku_sampai
+                );
+
+
+            const sekarang =
+                new Date();
+
+
+            tanggalAktif =
+                !isNaN(
+                    tanggal.getTime()
+                ) &&
+                tanggal >= sekarang;
+
+        }
+
+
+        /*
+           MEMBERSHIP FINAL
+        */
+
+        membershipActive =
+            statusAktif &&
+            tanggalAktif;
+
+
+        return membershipActive;
+
+    }
+
+    catch(error){
+
+        console.error(
+            "CHECK MEMBERSHIP ERROR:",
+            error
+        );
+
+
+        currentProfile =
+            null;
+
+        membershipActive =
+            false;
+
+        isAdmin =
+            false;
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK MATERIAL ACCESS
+===================================================== */
+
+async function checkMaterialAccess(){
+
+    if(!currentMaterial){
+
+        return false;
+
+    }
+
+
+    /*
+       Materi GRATIS
+       selalu boleh dibuka.
+    */
+
+    if(
+        !isPremiumMaterial(
+            currentMaterial
+        )
+    ){
+
+        return true;
+
+    }
+
+
+    /*
+       Materi PREMIUM
+       harus login.
+    */
+
+    if(!currentUser){
+
+        showPremiumLocked(
+            "Silakan login terlebih dahulu untuk mengakses materi Premium."
+        );
+
+        return false;
+
+    }
+
+
+    /*
+       Cek membership
+    */
+
+    const active =
+        await checkMembership();
+
+
+    if(active){
+
+        return true;
+
+    }
+
+
+    /*
+       Membership tidak aktif
+    */
+
+    let message =
+        "Membership Premium Anda belum aktif.";
+
+
+    if(
+        currentProfile &&
+        currentProfile.berlaku_sampai
+    ){
+
+        const tanggal =
+            new Date(
+                currentProfile.berlaku_sampai
+            );
+
+
+        const sekarang =
+            new Date();
+
+
+        if(
+            !isNaN(
+                tanggal.getTime()
+            ) &&
+            tanggal < sekarang
+        ){
+
+            message =
+                "Masa berlaku membership Anda telah berakhir pada " +
+                formatTanggal(
+                    currentProfile.berlaku_sampai
+                ) +
+                ".";
+
+        }
+
+        else if(
+            String(
+                currentProfile.status || ""
+            )
+            .toLowerCase()
+            .trim() !== "aktif"
+        ){
+
+            message =
+                "Status membership Anda saat ini tidak aktif.";
+
+        }
+
+    }
+
+
+    showPremiumLocked(
+        message
+    );
+
+
+    return false;
+
+}
+
+
+/* =====================================================
+   SHOW PREMIUM LOCK
+===================================================== */
+
+function showPremiumLocked(
+    message
+){
+
+    stopYouTubeProgressTracking();
+
+
+    youtubePlayer =
+        null;
+
+
+    playerType =
+        null;
+
+
+    materialArea.innerHTML = `
+
+        <div class="lock-card">
+
+            <div class="lock-icon">
+                🔐
+            </div>
+
+
+            <h2>
+                Materi Premium Terkunci
+            </h2>
+
+
+            <p>
+
+                Materi
+                <strong>
+                    ${escapeHtml(
+                        currentMaterial?.judul ||
+                        "ini"
+                    )}
+                </strong>
+                hanya dapat diakses oleh
+                member Premium dengan membership
+                yang masih aktif.
+
+            </p>
+
+
+            <p class="lock-premium">
+
+                ${escapeHtml(
+                    message ||
+                    "Membership Premium diperlukan."
+                )}
+
+            </p>
+
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:center;
+                    flex-wrap:wrap;
+                    gap:7px;
+                    margin-top:15px;
+                "
+            >
+
+                <a
+                    href="index.html#materi"
+                    class="action-btn materials-btn"
+                >
+                    ← Kembali ke Materi
+                </a>
+
+
+                <a
+                    href="profile.html"
+                    class="action-btn complete-btn"
+                >
+                    👤 Cek Membership
+                </a>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    progressArea.classList.add(
+        "hidden"
+    );
 
 }
 
@@ -1432,42 +1906,64 @@ function updateProgressUI(value){
 
 async function loadCurrentUser(){
 
-    const result =
-        await supabaseClient
-            .auth
-            .getUser();
+    try{
+
+        const result =
+            await supabaseClient
+                .auth
+                .getUser();
 
 
-    if(result.error){
+        if(result.error){
+
+            console.error(
+                "GET USER ERROR:",
+                result.error
+            );
+
+            currentUser =
+                null;
+
+            return null;
+
+        }
+
+
+        currentUser =
+            result.data.user || null;
+
+
+        if(currentUser){
+
+            profileBtn.classList.remove(
+                "hidden"
+            );
+
+            logoutBtn.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        return currentUser;
+
+    }
+
+    catch(error){
 
         console.error(
-            "GET USER ERROR:",
-            result.error
+            "LOAD USER ERROR:",
+            error
         );
+
+        currentUser =
+            null;
+
 
         return null;
 
     }
-
-
-    currentUser =
-        result.data.user || null;
-
-
-    if(currentUser){
-
-        profileBtn.classList.remove(
-            "hidden"
-        );
-
-        logoutBtn.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    return currentUser;
 
 }
 
@@ -1495,13 +1991,6 @@ async function loadMaterial(){
 
     try{
 
-        /*
-           Query berdasarkan ID.
-
-           RLS akan menentukan apakah
-           akun boleh melihat materi tersebut.
-        */
-
         const result =
             await supabaseClient
                 .from("materials")
@@ -1522,16 +2011,6 @@ async function loadMaterial(){
         }
 
 
-        /*
-           Jika null:
-
-           bisa berarti materi tidak ada
-           ATAU RLS menolak akses.
-
-           Kita sengaja tidak membocorkan
-           detail Premium.
-        */
-
         if(!result.data){
 
             showLockedOrNotFound();
@@ -1545,18 +2024,45 @@ async function loadMaterial(){
             result.data;
 
 
+        /*
+           =================================================
+           PENTING
+           =================================================
+
+           JANGAN tampilkan player dahulu.
+
+           Pertama-tama cek apakah user
+           memiliki hak akses.
+        */
+
+        const allowed =
+            await checkMaterialAccess();
+
+
+        if(!allowed){
+
+            return;
+
+        }
+
+
+        /*
+           Kalau lolos pemeriksaan,
+           baru tampilkan informasi materi.
+        */
+
         renderMaterialHeader();
 
 
         /*
-           Cek progress user
+           Load progress
         */
 
         await loadProgress();
 
 
         /*
-           Tampilkan player
+           Baru render player
         */
 
         renderPlayer();
@@ -1625,8 +2131,9 @@ function renderMaterialHeader(){
 
 
     const premium =
-        item.premium === true ||
-        item.premium === "true";
+        isPremiumMaterial(
+            item
+        );
 
 
     const premiumHTML =
@@ -1803,14 +2310,6 @@ function showError(message){
 
 async function loadProgress(){
 
-    /*
-       Belum login:
-
-       materi tetap dapat dimainkan
-       jika gratis, tetapi progress
-       tidak dapat disimpan.
-    */
-
     if(!currentUser){
 
         updateProgressUI(0);
@@ -1930,11 +2429,6 @@ async function saveProgress(
         );
 
 
-    /*
-       Jangan terlalu sering
-       mengirim request yang sama.
-    */
-
     if(
         !completed &&
         value === lastSavedProgress
@@ -1983,10 +2477,6 @@ async function saveProgress(
 
                     :
 
-                value > 0
-                    ?
-                "started"
-                    :
                 "started",
 
             progress:
@@ -2158,6 +2648,30 @@ completeBtn.addEventListener(
 
 function renderPlayer(){
 
+    /*
+       Pengaman kedua.
+
+       Jangan pernah render player Premium
+       jika membership tidak aktif.
+    */
+
+    if(
+        isPremiumMaterial(
+            currentMaterial
+        ) &&
+        !membershipActive &&
+        !isAdmin
+    ){
+
+        showPremiumLocked(
+            "Membership Premium Anda tidak aktif."
+        );
+
+        return;
+
+    }
+
+
     const item =
         currentMaterial;
 
@@ -2265,10 +2779,6 @@ function renderYouTube(){
 
 function loadYouTubeAPI(){
 
-    /*
-       Jika API sudah tersedia
-    */
-
     if(
         window.YT &&
         window.YT.Player
@@ -2280,10 +2790,6 @@ function loadYouTubeAPI(){
 
     }
 
-
-    /*
-       Callback global
-    */
 
     window.onYouTubeIframeAPIReady =
         function(){
@@ -2316,6 +2822,28 @@ function loadYouTubeAPI(){
 
 function createYouTubePlayer(){
 
+    /*
+       Pengaman terakhir sebelum
+       YouTube benar-benar dibuat.
+    */
+
+    if(
+        isPremiumMaterial(
+            currentMaterial
+        ) &&
+        !membershipActive &&
+        !isAdmin
+    ){
+
+        showPremiumLocked(
+            "Membership Premium Anda tidak aktif."
+        );
+
+        return;
+
+    }
+
+
     const container =
         document.getElementById(
             "youtubePlayerContainer"
@@ -2328,14 +2856,6 @@ function createYouTubePlayer(){
 
     }
 
-
-    const oldContent =
-        container.innerHTML;
-
-
-    /*
-       Bersihkan loader
-    */
 
     container.innerHTML = "";
 
@@ -2404,10 +2924,6 @@ function createYouTubePlayer(){
 
 function onYouTubeReady(event){
 
-    /*
-       Lanjutkan dari progress
-    */
-
     if(
         currentProgress > 0 &&
         currentProgress < 100
@@ -2429,10 +2945,6 @@ function onYouTubeReady(event){
                     100
                 );
 
-
-            /*
-               Jangan langsung 100%
-            */
 
             event.target.seekTo(
                 startSeconds,
@@ -2458,10 +2970,6 @@ function onYouTubeReady(event){
 
 function onYouTubeStateChange(event){
 
-    /*
-       PLAYING
-    */
-
     if(
         event.data ===
         YT.PlayerState.PLAYING
@@ -2471,10 +2979,6 @@ function onYouTubeStateChange(event){
 
     }
 
-
-    /*
-       ENDED
-    */
 
     if(
         event.data ===
@@ -2551,6 +3055,51 @@ function startYouTubeProgressTracking(){
                 }
 
 
+                /*
+                   Cek membership lagi setiap
+                   kali progress berjalan.
+
+                   Jika Premium dicabut ketika
+                   video sedang terbuka,
+                   player langsung dihentikan.
+                */
+
+                if(
+                    isPremiumMaterial(
+                        currentMaterial
+                    ) &&
+                    !membershipActive &&
+                    !isAdmin
+                ){
+
+                    stopYouTubeProgressTracking();
+
+
+                    try{
+
+                        youtubePlayer.stopVideo();
+
+                    }
+
+                    catch(error){
+
+                        console.error(
+                            error
+                        );
+
+                    }
+
+
+                    showPremiumLocked(
+                        "Membership Premium Anda tidak lagi aktif."
+                    );
+
+
+                    return;
+
+                }
+
+
                 const currentTime =
                     youtubePlayer
                         .getCurrentTime();
@@ -2579,11 +3128,6 @@ function startYouTubeProgressTracking(){
                     100;
 
 
-                /*
-                   Jangan anggap selesai
-                   hanya karena hampir selesai.
-                */
-
                 if(
                     percent >= 98
                 ){
@@ -2604,11 +3148,6 @@ function startYouTubeProgressTracking(){
                     percent
                 );
 
-
-                /*
-                   Simpan setiap perubahan
-                   minimal 1%.
-                */
 
                 if(
                     percent > 0 &&
@@ -2711,11 +3250,6 @@ function renderAudio(){
         currentMaterial.url;
 
 
-    /*
-       Setelah metadata tersedia,
-       lanjutkan posisi berdasarkan progress.
-    */
-
     audio.addEventListener(
         "loadedmetadata",
         function(){
@@ -2740,10 +3274,6 @@ function renderAudio(){
     );
 
 
-    /*
-       Mulai
-    */
-
     audio.addEventListener(
         "play",
         function(){
@@ -2754,10 +3284,6 @@ function renderAudio(){
     );
 
 
-    /*
-       Progress
-    */
-
     audio.addEventListener(
         "timeupdate",
         function(){
@@ -2766,6 +3292,32 @@ function renderAudio(){
                 !audio.duration ||
                 !isFinite(audio.duration)
             ){
+
+                return;
+
+            }
+
+
+            /*
+               Jika Premium dicabut,
+               hentikan audio.
+            */
+
+            if(
+                isPremiumMaterial(
+                    currentMaterial
+                ) &&
+                !membershipActive &&
+                !isAdmin
+            ){
+
+                audio.pause();
+
+
+                showPremiumLocked(
+                    "Membership Premium Anda tidak lagi aktif."
+                );
+
 
                 return;
 
@@ -2802,11 +3354,6 @@ function renderAudio(){
             );
 
 
-            /*
-               Simpan maksimal
-               setiap perubahan persen.
-            */
-
             if(
                 percent > 0 &&
                 percent !== lastSavedProgress
@@ -2822,10 +3369,6 @@ function renderAudio(){
         }
     );
 
-
-    /*
-       Audio selesai
-    */
 
     audio.addEventListener(
         "ended",
@@ -2855,18 +3398,6 @@ function renderPDF(){
     const pdfUrl =
         currentMaterial.url;
 
-
-    /*
-       Google Drive
-
-       Format:
-
-       https://drive.google.com/file/d/FILE_ID/view
-
-       akan diubah menjadi:
-
-       https://drive.google.com/file/d/FILE_ID/preview
-    */
 
     let viewerUrl =
         pdfUrl;
@@ -2923,10 +3454,6 @@ function renderPDF(){
     );
 
 
-    /*
-       PDF dibuka = mulai belajar
-    */
-
     markStarted();
 
 }
@@ -2972,9 +3499,7 @@ logoutBtn.addEventListener(
 supabaseClient
     .auth
     .onAuthStateChange(
-        function(
-            event
-        ){
+        function(event){
 
             console.log(
                 "AUTH EVENT:",
@@ -3006,15 +3531,20 @@ async function start(){
     }
 
 
+    /*
+       1. Cek login
+    */
+
     await loadCurrentUser();
 
+
+    /*
+       2. Ambil materi
+    */
 
     await loadMaterial();
 
 }
-
-
-start();
 
 
 /* =====================================================
@@ -3024,12 +3554,6 @@ start();
 window.addEventListener(
     "beforeunload",
     function(){
-
-        /*
-           Untuk YouTube,
-           simpan progress terakhir
-           jika memungkinkan.
-        */
 
         if(
             playerType === "video" &&
@@ -3060,13 +3584,6 @@ window.addEventListener(
                     );
 
 
-                /*
-                   Tidak menggunakan await
-                   karena beforeunload.
-                   Progress periodik sudah
-                   disimpan setiap beberapa detik.
-                */
-
                 console.log(
                     "Last video progress:",
                     percent
@@ -3078,6 +3595,13 @@ window.addEventListener(
 
     }
 );
+
+
+/* =====================================================
+   RUN
+===================================================== */
+
+start();
 
 </script>
 
