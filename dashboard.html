@@ -113,6 +113,18 @@ header{
     color:#555;
 }
 
+.theme-btn{
+    background:#eef7f1;
+    color:#087a47;
+    border:1px solid #d2e9dc;
+    min-width:34px;
+    padding:7px 8px;
+}
+
+.theme-btn:hover{
+    transform:translateY(-1px);
+}
+
 
 /* =====================================================
    MAIN
@@ -773,6 +785,7 @@ footer{
 
 </style>
 
+  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -794,7 +807,7 @@ footer{
 <div class="nav-buttons">
 
 <a
-    href="materi.html"
+    href="akademi.html"
     class="nav-btn material-btn"
 >
 ← Materi
@@ -813,6 +826,17 @@ footer{
     class="nav-btn logout-btn"
 >
 Keluar
+</button>
+
+<button
+    id="themeBtn"
+    class="nav-btn theme-btn"
+    type="button"
+    onclick="toggleDashboardTheme()"
+    aria-label="Ganti mode tampilan"
+    title="Mode gelap"
+>
+🌙
 </button>
 
 </div>
@@ -845,7 +869,7 @@ Mari lanjutkan perjalanan belajar Anda.
 </p>
 
 <a
-    href="materi.html"
+    href="akademi.html"
     class="hero-link"
 >
 ▶ Akses materi gratis
@@ -1265,6 +1289,59 @@ const logoutBtn =
     document.getElementById(
         "logoutBtn"
     );
+
+
+/* =====================================================
+   DARK / LIGHT MODE
+===================================================== */
+
+function applyDashboardTheme(){
+
+    const saved =
+        localStorage.getItem("ngajiplus-theme") ||
+        "light";
+
+    const dark =
+        saved === "dark";
+
+    document.body.classList.toggle(
+        "dark-mode",
+        dark
+    );
+
+    document.body.classList.toggle(
+        "dark",
+        dark
+    );
+
+    const button =
+        document.getElementById("themeBtn");
+
+    if(button){
+        button.textContent =
+            dark ? "☀️" : "🌙";
+
+        button.title =
+            dark ? "Mode terang" : "Mode gelap";
+    }
+
+}
+
+function toggleDashboardTheme(){
+
+    const dark =
+        document.body.classList.contains("dark-mode");
+
+    localStorage.setItem(
+        "ngajiplus-theme",
+        dark ? "light" : "dark"
+    );
+
+    applyDashboardTheme();
+
+}
+
+applyDashboardTheme();
 
 
 /* =====================================================
@@ -1950,7 +2027,7 @@ function renderContinue(){
                 <br>
 
                 <a
-                    href="materi.html"
+                    href="akademi.html"
                     class="continue-button"
                 >
                     Mulai Belajar
@@ -2493,6 +2570,7 @@ startDashboard();
 
 </script>
 
+  <script src="theme.js"></script>
 </body>
 
 </html>
