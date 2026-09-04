@@ -266,3 +266,147 @@ body.dark .ngp-theme-floating {
   color: #ffffff !important;
   border-color: #425248 !important;
 }
+
+
+/* =========================================================
+   ADMIN MEMBERSHIP - DARK OVERRIDES
+========================================================= */
+body.dark-mode .dashboard-btn,
+body.dark .dashboard-btn {
+  background:#20332a !important;
+  color:#8de2b1 !important;
+  border:1px solid #365143 !important;
+}
+
+body.dark-mode .logout-btn,
+body.dark .logout-btn {
+  background:#26302b !important;
+  color:#d7e2dc !important;
+  border:1px solid #3b4942 !important;
+}
+
+body.dark-mode .refresh-btn,
+body.dark .refresh-btn {
+  background:#00a85a !important;
+  color:#fff !important;
+}
+
+body.dark-mode .status-menunggu,
+body.dark .status-menunggu {
+  background:#4a3b08 !important;
+  color:#ffe48a !important;
+  border:1px solid #6d5a12 !important;
+}
+
+body.dark-mode .status-diproses,
+body.dark .status-diproses {
+  background:#17344d !important;
+  color:#9bd3ff !important;
+  border:1px solid #275477 !important;
+}
+
+body.dark-mode .status-disetujui,
+body.dark .status-disetujui {
+  background:#153b29 !important;
+  color:#8de2b1 !important;
+  border:1px solid #276342 !important;
+}
+
+body.dark-mode .status-ditolak,
+body.dark .status-ditolak,
+body.dark-mode .status-dibatalkan,
+body.dark .status-dibatalkan {
+  background:#401d1d !important;
+  color:#ffaaa6 !important;
+  border:1px solid #683131 !important;
+}
+
+body.dark-mode .detail-btn,
+body.dark .detail-btn {
+  background:#20332a !important;
+  color:#8de2b1 !important;
+  border:1px solid #365143 !important;
+}
+
+body.dark-mode .approve-btn,
+body.dark .approve-btn {
+  background:#00a85a !important;
+  color:#fff !important;
+}
+
+body.dark-mode .reject-btn,
+body.dark .reject-btn {
+  background:#401d1d !important;
+  color:#ffaaa6 !important;
+  border:1px solid #683131 !important;
+}
+
+body.dark-mode .close-btn,
+body.dark .close-btn {
+  background:#26302b !important;
+  color:#e8f0eb !important;
+  border:1px solid #3b4942 !important;
+}
+
+body.dark-mode .date-preview,
+body.dark .date-preview {
+  background:#153b29 !important;
+  color:#8de2b1 !important;
+  border-color:#276342 !important;
+}
+
+body.dark-mode .order-bottom,
+body.dark .order-bottom {
+  border-top-color:#334139 !important;
+}
+
+body.dark-mode .hero,
+body.dark .hero {
+  box-shadow:0 8px 25px rgba(0,0,0,.30) !important;
+}
+
+body.dark-mode .toolbar,
+body.dark .toolbar,
+body.dark-mode .empty,
+body.dark .empty,
+body.dark-mode .stat-card,
+body.dark .stat-card,
+body.dark-mode .order-card,
+body.dark .order-card {
+  background:#1a241f !important;
+  color:#e8f0eb !important;
+  border-color:#334139 !important;
+}
+
+body.dark-mode .info-box,
+body.dark .info-box {
+  background:#111915 !important;
+  color:#e8f0eb !important;
+  border:1px solid #2d3932 !important;
+}
+
+body.dark-mode .member-email,
+body.dark .member-email,
+body.dark-mode .info-label,
+body.dark .info-label,
+body.dark-mode .order-id,
+body.dark .order-id,
+body.dark-mode .section-count,
+body.dark .section-count,
+body.dark-mode .stat-label,
+body.dark .stat-label,
+body.dark-mode .loading,
+body.dark .loading {
+  color:#9eaea4 !important;
+}
+
+body.dark-mode .section-title h2,
+body.dark .section-title h2,
+body.dark-mode .member-name,
+body.dark .member-name,
+body.dark-mode .info-value,
+body.dark .info-value,
+body.dark-mode .modal-title,
+body.dark .modal-title {
+  color:#e8f0eb !important;
+}
