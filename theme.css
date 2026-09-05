@@ -410,3 +410,251 @@ body.dark-mode .modal-title,
 body.dark .modal-title {
   color:#e8f0eb !important;
 }
+
+/* =========================================================
+   DARK MODE FINAL - KONTRAS TOTAL ADMIN MEMBERSHIP
+   Menimpa style putih bawaan halaman agar tidak ada
+   komponen terang yang tersisa saat body.dark-mode aktif.
+========================================================= */
+
+body.dark-mode,
+body.dark {
+  background:#07110d !important;
+  color:#e8f5ee !important;
+}
+
+body.dark-mode .topbar,
+body.dark .topbar,
+body.dark-mode header,
+body.dark header,
+body.dark-mode nav,
+body.dark nav {
+  background:#0b1812 !important;
+  color:#e8f5ee !important;
+  border-color:#20382c !important;
+}
+
+body.dark-mode .toolbar,
+body.dark .toolbar {
+  background:#121f19 !important;
+  border:1px solid #2c4035 !important;
+  box-shadow:none !important;
+}
+
+body.dark-mode .search,
+body.dark .search,
+body.dark-mode .filter,
+body.dark .filter {
+  background:transparent !important;
+}
+
+body.dark-mode .search input,
+body.dark .search input,
+body.dark-mode .filter select,
+body.dark .filter select {
+  background:#0a1510 !important;
+  color:#e8f5ee !important;
+  border:1px solid #355044 !important;
+  outline:none !important;
+  color-scheme:dark;
+}
+
+body.dark-mode .search input::placeholder,
+body.dark .search input::placeholder {
+  color:#8da198 !important;
+  opacity:1 !important;
+}
+
+body.dark-mode .filter select option,
+body.dark .filter select option {
+  background:#0f1c16 !important;
+  color:#e8f5ee !important;
+}
+
+body.dark-mode .toolbar button,
+body.dark .toolbar button {
+  border:1px solid #355044 !important;
+}
+
+body.dark-mode .refresh-btn,
+body.dark .refresh-btn {
+  background:#008f50 !important;
+  color:#ffffff !important;
+  border-color:#00b866 !important;
+}
+
+body.dark-mode .dashboard-btn,
+body.dark .dashboard-btn,
+body.dark-mode .logout-btn,
+body.dark .logout-btn {
+  background:#16271f !important;
+  color:#dff8e9 !important;
+  border:1px solid #365244 !important;
+}
+
+body.dark-mode .order-card,
+body.dark .order-card,
+body.dark-mode .stat-card,
+body.dark .stat-card,
+body.dark-mode .empty,
+body.dark .empty,
+body.dark-mode .info-box,
+body.dark .info-box,
+body.dark-mode .detail-item,
+body.dark .detail-item,
+body.dark-mode .modal-box,
+body.dark .modal-box {
+  background:#121f19 !important;
+  color:#e8f5ee !important;
+  border-color:#2c4035 !important;
+  box-shadow:0 4px 18px rgba(0,0,0,.18) !important;
+}
+
+body.dark-mode .member-name,
+body.dark .member-name,
+body.dark-mode .info-value,
+body.dark .info-value,
+body.dark-mode .detail-value,
+body.dark .detail-value {
+  color:#f1faf5 !important;
+}
+
+body.dark-mode .member-email,
+body.dark .member-email,
+body.dark-mode .info-label,
+body.dark .info-label,
+body.dark-mode .order-id,
+body.dark .order-id,
+body.dark-mode .section-count,
+body.dark .section-count,
+body.dark-mode .stat-label,
+body.dark .stat-label,
+body.dark-mode .empty,
+body.dark .empty,
+body.dark-mode .detail-label,
+body.dark .detail-label {
+  color:#9bb0a5 !important;
+}
+
+body.dark-mode .section-title,
+body.dark .section-title,
+body.dark-mode .section-title h2,
+body.dark .section-title h2 {
+  color:#eef8f2 !important;
+}
+
+body.dark-mode .order-bottom,
+body.dark .order-bottom {
+  border-top-color:#33483d !important;
+}
+
+/* Status harus terbaca jelas */
+body.dark-mode .status,
+body.dark .status {
+  font-weight:800 !important;
+  text-shadow:none !important;
+}
+
+body.dark-mode .status-menunggu,
+body.dark .status-menunggu {
+  background:#5a4708 !important;
+  color:#ffe58b !important;
+  border:1px solid #856b12 !important;
+}
+
+body.dark-mode .status-diproses,
+body.dark .status-diproses {
+  background:#173c58 !important;
+  color:#a9dcff !important;
+  border:1px solid #2b638c !important;
+}
+
+body.dark-mode .status-disetujui,
+body.dark .status-disetujui {
+  background:#075b36 !important;
+  color:#b9f5d3 !important;
+  border:1px solid #11945b !important;
+}
+
+body.dark-mode .status-ditolak,
+body.dark .status-ditolak,
+body.dark-mode .status-dibatalkan,
+body.dark .status-dibatalkan {
+  background:#5a2020 !important;
+  color:#ffc1bd !important;
+  border:1px solid #873b38 !important;
+}
+
+body.dark-mode .detail-btn,
+body.dark .detail-btn {
+  background:#173326 !important;
+  color:#a8edc6 !important;
+  border:1px solid #2f6148 !important;
+}
+
+body.dark-mode .approve-btn,
+body.dark .approve-btn {
+  background:#008f50 !important;
+  color:#ffffff !important;
+  border:1px solid #00bd6a !important;
+}
+
+body.dark-mode .reject-btn,
+body.dark .reject-btn {
+  background:#4a2020 !important;
+  color:#ffc1bd !important;
+  border:1px solid #7a3737 !important;
+}
+
+body.dark-mode .close-btn,
+body.dark .close-btn {
+  background:#1b2922 !important;
+  color:#eaf5ef !important;
+  border:1px solid #3a5044 !important;
+}
+
+body.dark-mode .modal,
+body.dark .modal {
+  background:rgba(0,0,0,.78) !important;
+}
+
+body.dark-mode .date-preview,
+body.dark .date-preview {
+  background:#073c25 !important;
+  color:#b8f2cf !important;
+  border-color:#168253 !important;
+}
+
+body.dark-mode .hero,
+body.dark .hero {
+  color:#ffffff !important;
+}
+
+body.dark-mode .hero h1,
+body.dark .hero h1,
+body.dark-mode .hero p,
+body.dark .hero p {
+  color:#ffffff !important;
+}
+
+/* Semua link dan tombol yang masih mewarisi warna terang */
+body.dark-mode a,
+body.dark a {
+  color:#8ee6b5;
+}
+
+body.dark-mode button,
+body.dark button {
+  color:#e8f5ee;
+}
+
+/* cegah browser Android memaksa select/input menjadi terang */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea,
+body.dark input,
+body.dark select,
+body.dark textarea {
+  color-scheme:dark !important;
+}
+
