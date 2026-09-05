@@ -22,90 +22,65 @@
 
 <title>Dashboard - NgajiPlus Akademi</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+function lifetimeLabel(profile){
+  const paket = String(profile?.paket || "").trim().toLowerCase();
+  const status = String(profile?.status || "").trim().toLowerCase();
+
+  if(status === "aktif" && paket === "lifetime"){
+    return '<span class="lifetime-membership">👑 Lifetime — Premium Selamanya</span>';
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   LIFETIME UI SAFETY PATCH
+   ========================================================= */
+function applyLifetimeDashboardUI(profile){
+  if(!profile) return;
+
+  const paket = String(profile.paket || "").trim().toLowerCase();
+  const status = String(profile.status || "").trim().toLowerCase();
+
+  if(status !== "aktif" || paket !== "lifetime") return;
+
+  const ids = [
+    "membershipPackage",
+    "membershipText",
+    "membershipExpiry",
+    "membershipDate",
+    "expiryDate",
+    "membershipBadge"
+  ];
+
+  ids.forEach(function(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+
+    if(id === "membershipPackage"){
+      el.textContent = "👑 Lifetime";
+    }else if(id === "membershipText"){
+      el.innerHTML = "Premium aktif <strong>selamanya</strong> ♾️";
+    }else if(id === "membershipExpiry" ||
+             id === "membershipDate" ||
+             id === "expiryDate"){
+      el.textContent = "♾️ Selamanya";
+      el.classList.add("membership-expiry-lifetime");
+    }else if(id === "membershipBadge"){
+      el.textContent = "👑 Lifetime Aktif";
+    }
+  });
+
+  document.querySelectorAll("[data-membership-expiry]").forEach(function(el){
+    el.textContent = "♾️ Selamanya";
+    el.classList.add("membership-expiry-lifetime");
+  });
+}
+</script>
 
 <style>
-
-/* =====================================================
-   ROOT / THEME
-===================================================== */
-
-:root{
-
-    --bg:#f4faf7;
-    --surface:#ffffff;
-    --surface-2:#f7fbf9;
-    --surface-3:#eaf5ef;
-
-    --border:#dce9e2;
-
-    --text:#202a25;
-    --text-soft:#66756d;
-    --text-muted:#7b8982;
-
-    --green:#008f50;
-    --green-2:#00a85a;
-    --green-dark:#007b45;
-
-    --hero-text:#ffffff;
-
-    --notice-bg:#fff8d9;
-    --notice-border:#f0df91;
-    --notice-text:#75621c;
-
-    --progress-bg:#e7f0eb;
-
-    --shadow:0 4px 18px rgba(0,0,0,.045);
-
-    --button-light:#eaf7ef;
-    --button-light-text:#087a47;
-
-    --danger-bg:#f8e8e8;
-    --danger-text:#a33333;
-}
-
-
-/* =====================================================
-   DARK THEME
-===================================================== */
-
-body.dark-mode{
-
-    --bg:#06140e;
-    --surface:#0d2118;
-    --surface-2:#10291f;
-    --surface-3:#123124;
-
-    --border:#1d4031;
-
-    --text:#edf8f2;
-    --text-soft:#c0d1c8;
-    --text-muted:#91a79c;
-
-    --green:#00b968;
-    --green-2:#00c96f;
-    --green-dark:#009e58;
-
-    --notice-bg:#10291f;
-    --notice-border:#24533d;
-    --notice-text:#d5eee0;
-
-    --progress-bg:#214437;
-
-    --button-light:#15382a;
-    --button-light-text:#8fe5b9;
-
-    --danger-bg:#351b1b;
-    --danger-text:#ffb0b0;
-
-    --shadow:
-        0 8px 25px rgba(0,0,0,.22);
-}
-
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -116,23 +91,11 @@ html{
 }
 
 body{
-
     margin:0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:var(--bg);
-
-    color:var(--text);
-
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4faf7;
+    color:#202a25;
     line-height:1.5;
-
-    transition:
-        background .25s ease,
-        color .25s ease;
 }
 
 a{
@@ -151,141 +114,71 @@ button{
 ===================================================== */
 
 header{
-
-    background:var(--surface);
-
-    border-bottom:
-        1px solid var(--border);
-
+    background:#fff;
+    border-bottom:1px solid #e1ebe5;
     position:sticky;
-
     top:0;
-
     z-index:1000;
-
-    transition:
-        background .25s ease,
-        border-color .25s ease;
 }
 
 .nav{
-
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        10px 15px;
-
+    padding:10px 15px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:10px;
 }
 
 .logo{
-
-    color:var(--green);
-
+    color:#008f50;
     font-weight:bold;
-
     font-size:14px;
-
     white-space:nowrap;
 }
 
 .nav-buttons{
-
     display:flex;
-
     align-items:center;
-
     gap:6px;
 }
 
 .nav-btn{
-
+    border:0;
     border-radius:7px;
-
-    padding:
-        7px 10px;
-
+    padding:7px 10px;
     font-size:9px;
-
     font-weight:bold;
-
     white-space:nowrap;
-
-    transition:
-        .2s ease;
 }
-
-
-/* MATERIAL */
-
-.material-btn{
-
-    background:var(--button-light);
-
-    color:var(--button-light-text);
-
-    border:
-        1px solid var(--border);
-}
-
-
-/* PROFILE */
 
 .profile-btn{
-
-    background:var(--green);
-
-    color:#ffffff;
-
-    border:
-        1px solid var(--green);
+    background:#008f50;
+    color:#fff;
 }
 
-
-/* LOGOUT */
+.material-btn{
+    background:#eaf7ef;
+    color:#087a47;
+    border:1px solid #d2eddd;
+}
 
 .logout-btn{
-
-    background:var(--surface-3);
-
-    color:var(--text);
-
-    border:
-        1px solid var(--border);
+    background:#eee;
+    color:#555;
 }
-
-
-/* THEME */
 
 .theme-btn{
-
-    background:var(--surface-3);
-
-    color:var(--text);
-
-    border:
-        1px solid var(--border);
-
-    min-width:36px;
-
-    padding:
-        7px 8px;
-
-    font-size:12px;
+    background:#eef7f1;
+    color:#087a47;
+    border:1px solid #d2e9dc;
+    min-width:34px;
+    padding:7px 8px;
 }
 
-.nav-btn:hover{
-
-    transform:
-        translateY(-1px);
+.theme-btn:hover{
+    transform:translateY(-1px);
 }
 
 
@@ -294,13 +187,9 @@ header{
 ===================================================== */
 
 main{
-
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        18px 15px 50px;
+    padding:18px 15px 50px;
 }
 
 
@@ -309,7 +198,6 @@ main{
 ===================================================== */
 
 .hero{
-
     background:
         linear-gradient(
             135deg,
@@ -317,12 +205,11 @@ main{
             #008f50
         );
 
-    color:var(--hero-text);
+    color:white;
 
     border-radius:15px;
 
-    padding:
-        28px 25px;
+    padding:28px 25px;
 
     position:relative;
 
@@ -332,21 +219,17 @@ main{
 
     box-shadow:
         0 8px 25px
-        rgba(0,143,80,.16);
+        rgba(0,143,80,.12);
 }
 
 .hero::after{
-
     content:"";
-
     position:absolute;
 
     width:180px;
-
     height:180px;
 
     right:-70px;
-
     top:-80px;
 
     background:
@@ -356,65 +239,32 @@ main{
 }
 
 .hero-label{
-
     font-size:8px;
-
     font-weight:bold;
-
     opacity:.9;
-
     margin-bottom:5px;
 }
 
 .hero h1{
-
-    margin:
-        0 0 5px;
-
-    font-size:
-        clamp(25px,4vw,40px);
-
+    margin:0 0 5px;
+    font-size:clamp(25px,4vw,40px);
     line-height:1.15;
-
-    position:relative;
-
-    z-index:1;
 }
 
 .hero p{
-
-    margin:
-        0 0 12px;
-
+    margin:0 0 12px;
     font-size:9px;
-
     opacity:.9;
-
-    position:relative;
-
-    z-index:1;
 }
 
 .hero-link{
-
     display:inline-block;
-
-    background:#ffffff;
-
+    background:#fff;
     color:#008f50;
-
     border-radius:7px;
-
-    padding:
-        8px 11px;
-
+    padding:8px 11px;
     font-size:8px;
-
     font-weight:bold;
-
-    position:relative;
-
-    z-index:1;
 }
 
 
@@ -423,18 +273,13 @@ main{
 ===================================================== */
 
 .notice{
-
-    background:var(--notice-bg);
-
-    border:
-        1px solid var(--notice-border);
-
-    color:var(--notice-text);
+    background:#fff8d9;
+    border:1px solid #f0df91;
+    color:#75621c;
 
     border-radius:8px;
 
-    padding:
-        9px 12px;
+    padding:9px 12px;
 
     font-size:8px;
 
@@ -442,20 +287,9 @@ main{
 }
 
 .notice.premium{
-
-    background:
-        var(--surface-3);
-
-    border-color:
-        var(--border);
-
-    color:
-        var(--text-soft);
-}
-
-.notice strong{
-
-    color:var(--green);
+    background:#e5f9ed;
+    border-color:#bde8cf;
+    color:#087a47;
 }
 
 
@@ -464,7 +298,6 @@ main{
 ===================================================== */
 
 .stat-grid{
-
     display:grid;
 
     grid-template-columns:
@@ -476,43 +309,32 @@ main{
 }
 
 .stat-card{
+    background:#fff;
 
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
+    border:1px solid #dfe9e3;
 
     border-radius:12px;
 
     padding:15px;
 
-    box-shadow:var(--shadow);
-
-    transition:
-        background .25s ease,
-        border-color .25s ease;
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.035);
 }
 
 .stat-icon{
-
     font-size:20px;
-
     margin-bottom:4px;
 }
 
 .stat-number{
-
-    color:var(--green);
-
+    color:#008f50;
     font-size:20px;
-
     font-weight:bold;
 }
 
 .stat-label{
-
-    color:var(--text-muted);
-
+    color:#718078;
     font-size:8px;
 }
 
@@ -522,7 +344,6 @@ main{
 ===================================================== */
 
 .dashboard-grid{
-
     display:grid;
 
     grid-template-columns:
@@ -539,27 +360,21 @@ main{
 ===================================================== */
 
 .card{
+    background:#fff;
 
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
+    border:1px solid #dfe9e3;
 
     border-radius:14px;
 
     padding:18px;
 
-    box-shadow:var(--shadow);
-
-    transition:
-        background .25s ease,
-        border-color .25s ease;
+    box-shadow:
+        0 4px 18px
+        rgba(0,0,0,.035);
 }
 
 .card-title{
-
-    margin:
-        0 0 3px;
+    margin:0 0 3px;
 
     font-size:14px;
 
@@ -567,11 +382,9 @@ main{
 }
 
 .card-description{
+    margin:0 0 12px;
 
-    margin:
-        0 0 12px;
-
-    color:var(--text-muted);
+    color:#7a8580;
 
     font-size:8px;
 }
@@ -582,7 +395,6 @@ main{
 ===================================================== */
 
 .progress-content{
-
     display:flex;
 
     align-items:center;
@@ -591,9 +403,7 @@ main{
 }
 
 .progress-circle{
-
     width:80px;
-
     height:80px;
 
     min-width:80px;
@@ -602,43 +412,37 @@ main{
 
     background:
         conic-gradient(
-            var(--green)
-            var(--progress),
-            var(--progress-bg)
-            0
+            #008f50 var(--progress),
+            #e7f0eb 0
         );
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     position:relative;
 }
 
 .progress-circle::before{
-
     content:"";
 
     position:absolute;
 
     width:62px;
-
     height:62px;
 
-    background:var(--surface);
+    background:#fff;
 
     border-radius:50%;
 }
 
 .progress-circle span{
-
     position:relative;
 
     z-index:1;
 
-    color:var(--green);
+    color:#008f50;
 
     font-size:14px;
 
@@ -646,7 +450,6 @@ main{
 }
 
 .progress-info strong{
-
     display:block;
 
     font-size:11px;
@@ -655,10 +458,9 @@ main{
 }
 
 .progress-info p{
-
     margin:0;
 
-    color:var(--text-muted);
+    color:#718078;
 
     font-size:8px;
 }
@@ -669,22 +471,19 @@ main{
 ===================================================== */
 
 .membership-card{
-
     background:
         linear-gradient(
             135deg,
-            var(--surface-3),
-            var(--surface)
+            #effcf5,
+            #e3f8ed
         );
 
-    border-color:
-        var(--border);
+    border-color:#c7ebd7;
 
     position:relative;
 }
 
 .membership-status{
-
     display:flex;
 
     justify-content:space-between;
@@ -695,18 +494,11 @@ main{
 }
 
 .membership-badge{
+    background:#dff7e9;
 
-    background:
-        var(--button-light);
+    color:#087a47;
 
-    color:
-        var(--button-light-text);
-
-    border:
-        1px solid var(--border);
-
-    padding:
-        4px 7px;
+    padding:4px 7px;
 
     border-radius:20px;
 
@@ -716,8 +508,7 @@ main{
 }
 
 .membership-package{
-
-    color:var(--green);
+    color:#008f50;
 
     font-size:13px;
 
@@ -727,8 +518,7 @@ main{
 }
 
 .membership-text{
-
-    color:var(--text-muted);
+    color:#718078;
 
     font-size:8px;
 
@@ -736,16 +526,15 @@ main{
 }
 
 .membership-button{
-
     display:inline-block;
 
     width:100%;
 
     text-align:center;
 
-    background:var(--green);
+    background:#008f50;
 
-    color:#ffffff;
+    color:#fff;
 
     border-radius:8px;
 
@@ -759,20 +548,15 @@ main{
 }
 
 .membership-button:hover{
-
-    background:var(--green-dark);
+    background:#007b45;
 }
 
 .membership-button.active{
+    background:#e1f4e9;
 
-    background:
-        var(--button-light);
+    color:#087a47;
 
-    color:
-        var(--button-light-text);
-
-    border:
-        1px solid var(--border);
+    border:1px solid #c4e8d3;
 }
 
 
@@ -781,143 +565,35 @@ main{
 ===================================================== */
 
 .continue-card{
-
     margin-bottom:14px;
 }
 
 .empty{
-
     text-align:center;
 
     padding:20px;
 
-    color:var(--text-muted);
+    color:#7a8580;
 
     font-size:8px;
 }
 
 .continue-button{
-
     display:inline-block;
 
     margin-top:8px;
 
-    background:var(--green);
+    background:#008f50;
 
-    color:#ffffff;
+    color:#fff;
 
     border-radius:7px;
 
-    padding:
-        8px 12px;
+    padding:8px 12px;
 
     font-size:8px;
 
     font-weight:bold;
-}
-
-
-/* =====================================================
-   CONTINUE ITEM
-===================================================== */
-
-.continue-item{
-
-    display:flex;
-
-    gap:12px;
-
-    align-items:center;
-
-    flex-wrap:wrap;
-}
-
-.continue-thumb{
-
-    width:90px;
-
-    height:65px;
-
-    border-radius:8px;
-
-    overflow:hidden;
-
-    background:var(--surface-3);
-
-    flex-shrink:0;
-}
-
-.continue-thumb img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-}
-
-.continue-placeholder{
-
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:25px;
-}
-
-.continue-info{
-
-    flex:1;
-
-    min-width:180px;
-}
-
-.continue-title{
-
-    display:block;
-
-    font-size:10px;
-
-    margin-bottom:3px;
-
-    font-weight:bold;
-}
-
-.continue-meta{
-
-    font-size:7px;
-
-    color:var(--text-muted);
-
-    margin-bottom:5px;
-}
-
-.progress-track{
-
-    width:100%;
-
-    height:5px;
-
-    background:var(--progress-bg);
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.progress-fill{
-
-    height:100%;
-
-    background:var(--green);
-
-    border-radius:20px;
 }
 
 
@@ -926,7 +602,6 @@ main{
 ===================================================== */
 
 .material-list{
-
     display:grid;
 
     grid-template-columns:
@@ -936,35 +611,29 @@ main{
 }
 
 .material-card{
+    background:#fff;
 
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
+    border:1px solid #dfe9e3;
 
     border-radius:12px;
 
     overflow:hidden;
 
-    transition:
-        .2s ease;
+    transition:.2s;
 }
 
 .material-card:hover{
-
-    transform:
-        translateY(-2px);
+    transform:translateY(-2px);
 
     box-shadow:
         0 8px 20px
-        rgba(0,0,0,.10);
+        rgba(0,0,0,.06);
 }
 
 .material-image{
-
     height:120px;
 
-    background:var(--surface-3);
+    background:#dff6eb;
 
     display:flex;
 
@@ -976,27 +645,21 @@ main{
 }
 
 .material-image img{
-
     width:100%;
-
     height:100%;
-
     object-fit:cover;
 }
 
 .material-placeholder{
-
     font-size:32px;
 }
 
 .material-body{
-
     padding:11px;
 }
 
 .material-type{
-
-    color:var(--green);
+    color:#008f50;
 
     font-size:7px;
 
@@ -1006,7 +669,6 @@ main{
 }
 
 .material-title{
-
     font-size:10px;
 
     font-weight:bold;
@@ -1017,8 +679,7 @@ main{
 }
 
 .material-description{
-
-    color:var(--text-muted);
+    color:#7a8580;
 
     font-size:7px;
 
@@ -1027,26 +688,16 @@ main{
     min-height:22px;
 }
 
-.material-progress-label{
-
-    color:var(--green);
-
-    font-size:7px;
-
-    margin-bottom:5px;
-}
-
 .material-button{
-
     display:block;
 
     width:100%;
 
     text-align:center;
 
-    background:var(--green);
+    background:#008f50;
 
-    color:#ffffff;
+    color:#fff;
 
     border-radius:7px;
 
@@ -1055,25 +706,6 @@ main{
     font-size:7px;
 
     font-weight:bold;
-
-    transition:.2s;
-}
-
-.material-button:hover{
-
-    background:var(--green-dark);
-}
-
-.material-button.locked{
-
-    background:
-        var(--button-light);
-
-    color:
-        var(--button-light-text);
-
-    border:
-        1px solid var(--border);
 }
 
 
@@ -1082,25 +714,20 @@ main{
 ===================================================== */
 
 footer{
+    background:#071b12;
 
-    background:
-        #071b12;
+    color:#fff;
 
-    color:#ffffff;
-
-    padding:
-        25px 15px;
+    padding:25px 15px;
 }
 
 .footer-inner{
-
     max-width:1200px;
 
     margin:auto;
 }
 
 .footer-logo{
-
     color:#35b878;
 
     font-size:11px;
@@ -1109,8 +736,7 @@ footer{
 }
 
 .footer-text{
-
-    color:#a2b1aa;
+    color:#87948d;
 
     font-size:7px;
 
@@ -1123,7 +749,6 @@ footer{
 ===================================================== */
 
 .hidden{
-
     display:none !important;
 }
 
@@ -1135,18 +760,15 @@ footer{
 @media(max-width:900px){
 
     .stat-grid{
-
         grid-template-columns:
             repeat(2,1fr);
     }
 
     .dashboard-grid{
-
         grid-template-columns:1fr;
     }
 
     .material-list{
-
         grid-template-columns:
             repeat(2,1fr);
     }
@@ -1157,161 +779,91 @@ footer{
 @media(max-width:550px){
 
     .nav{
-
-        padding:
-            8px 10px;
+        padding:8px 10px;
     }
 
     .logo{
-
         font-size:11px;
     }
 
     .nav-buttons{
-
         gap:3px;
     }
 
     .nav-btn{
-
-        padding:
-            6px 7px;
-
+        padding:6px 7px;
         font-size:8px;
     }
 
-    .theme-btn{
-
-        min-width:32px;
-
-        font-size:11px;
-    }
-
     main{
-
         padding:
             12px 10px 35px;
     }
 
     .hero{
-
         padding:
             22px 16px;
     }
 
     .hero h1{
-
         font-size:26px;
     }
 
     .hero p{
-
         font-size:8px;
     }
 
     .stat-grid{
-
         gap:8px;
     }
 
     .stat-card{
-
         padding:12px;
     }
 
     .stat-number{
-
         font-size:17px;
     }
 
     .card{
-
         padding:14px;
     }
 
     .material-list{
-
         grid-template-columns:1fr;
     }
 
     .material-image{
-
         height:150px;
     }
 
 }
 
 
-/* =====================================================
-   EXTRA DARK-MODE OVERRIDE
-===================================================== */
-
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea{
-
-    background:
-        var(--surface-2) !important;
-
-    color:
-        var(--text) !important;
-
-    border-color:
-        var(--border) !important;
+/* =========================================================
+   LIFETIME MEMBERSHIP
+   ========================================================= */
+.lifetime-membership{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:8px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#0b8f50,#00b866);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.18);
 }
-
-body.dark-mode input::placeholder{
-
-    color:
-        var(--text-muted);
-}
-
-body.dark-mode .hero-link{
-
-    background:
-        #dff8eb;
-
-    color:
-        #006f40;
-}
-
-body.dark-mode .profile-btn{
-
-    color:#ffffff;
-}
-
-body.dark-mode .material-btn,
-body.dark-mode .logout-btn,
-body.dark-mode .theme-btn{
-
-    background:
-        var(--surface-3);
-
-    color:
-        var(--text);
-
-    border-color:
-        var(--border);
-}
-
-
-/* =====================================================
-   REDUCED MOTION
-===================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-    *{
-
-        scroll-behavior:auto !important;
-
-        transition:none !important;
-    }
-
+.membership-expiry-lifetime{
+  color:#20c878!important;
+  font-weight:800;
 }
 
 </style>
 
+  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -1330,7 +882,6 @@ body.dark-mode .theme-btn{
 📖 NgajiPlus Akademi
 </div>
 
-
 <div class="nav-buttons">
 
 <a
@@ -1340,7 +891,6 @@ body.dark-mode .theme-btn{
 ← Materi
 </a>
 
-
 <a
     href="profile.html"
     class="nav-btn profile-btn"
@@ -1349,20 +899,18 @@ body.dark-mode .theme-btn{
 👤 Profil
 </a>
 
-
 <button
     id="logoutBtn"
     class="nav-btn logout-btn"
-    type="button"
 >
 Keluar
 </button>
-
 
 <button
     id="themeBtn"
     class="nav-btn theme-btn"
     type="button"
+    onclick="toggleDashboardTheme()"
     aria-label="Ganti mode tampilan"
     title="Mode gelap"
 >
@@ -1375,10 +923,6 @@ Keluar
 
 </header>
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
 
 <main>
 
@@ -1429,7 +973,6 @@ Mari lanjutkan perjalanan belajar Anda.
 ===================================================== -->
 
 <section class="stat-grid">
-
 
 <div class="stat-card">
 
@@ -1532,7 +1075,6 @@ Progress Keseluruhan
 Ringkasan perkembangan belajar Anda.
 </p>
 
-
 <div class="progress-content">
 
 <div
@@ -1605,6 +1147,12 @@ Materi gratis tetap dapat dipelajari.
 </div>
 
 
+<!--
+=====================================================
+TOMBOL MEMBERSHIP
+=====================================================
+-->
+
 <a
     id="membershipButton"
     href="membership.html"
@@ -1632,8 +1180,9 @@ Materi gratis tetap dapat dipelajari.
 Materi yang sedang Anda pelajari.
 </p>
 
-
-<div id="continueContainer">
+<div
+    id="continueContainer"
+>
 
 <div class="empty">
 ⏳ Memuat...
@@ -1657,7 +1206,6 @@ Materi yang sedang Anda pelajari.
 <p class="card-description">
 Jelajahi seluruh materi pembelajaran NgajiPlus Akademi.
 </p>
-
 
 <div
     id="materialContainer"
@@ -1721,11 +1269,8 @@ const supabaseClient =
 ===================================================== */
 
 let currentUser = null;
-
 let currentProfile = null;
-
 let materials = [];
-
 let progressData = [];
 
 
@@ -1736,6 +1281,11 @@ let progressData = [];
 const welcomeText =
     document.getElementById(
         "welcomeText"
+    );
+
+const welcomeDescription =
+    document.getElementById(
+        "welcomeDescription"
     );
 
 const notice =
@@ -1818,129 +1368,78 @@ const logoutBtn =
         "logoutBtn"
     );
 
-const themeBtn =
-    document.getElementById(
-        "themeBtn"
-    );
-
 
 /* =====================================================
-   THEME
-   TIDAK BERGANTUNG PADA theme.js
+   DARK / LIGHT MODE
 ===================================================== */
 
 function applyDashboardTheme(){
 
     const saved =
-        localStorage.getItem(
-            "ngajiplus-theme"
-        ) ||
-        "dark";
+        localStorage.getItem("ngajiplus-theme") ||
+        "light";
 
     const dark =
         saved === "dark";
-
 
     document.body.classList.toggle(
         "dark-mode",
         dark
     );
 
-
-    themeBtn.textContent =
+    document.body.classList.toggle(
+        "dark",
         dark
-        ? "☀️"
-        : "🌙";
-
-
-    themeBtn.title =
-        dark
-        ? "Mode terang"
-        : "Mode gelap";
-
-
-    themeBtn.setAttribute(
-        "aria-label",
-        dark
-        ? "Aktifkan mode terang"
-        : "Aktifkan mode gelap"
     );
 
-}
+    const button =
+        document.getElementById("themeBtn");
 
+    if(button){
+        button.textContent =
+            dark ? "☀️" : "🌙";
+
+        button.title =
+            dark ? "Mode terang" : "Mode gelap";
+    }
+
+}
 
 function toggleDashboardTheme(){
 
     const dark =
-        document.body.classList.contains(
-            "dark-mode"
-        );
-
+        document.body.classList.contains("dark-mode");
 
     localStorage.setItem(
         "ngajiplus-theme",
-        dark
-        ? "light"
-        : "dark"
+        dark ? "light" : "dark"
     );
-
 
     applyDashboardTheme();
 
 }
 
-
-/* Klik langsung */
-
-themeBtn.addEventListener(
-    "click",
-    toggleDashboardTheme
-);
-
-
-/* Terapkan saat halaman dibuka */
-
 applyDashboardTheme();
 
 
 /* =====================================================
-   ESCAPE HTML
+   ESCAPE
 ===================================================== */
 
 function escapeHtml(value){
 
     return String(value ?? "")
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   FORMAT TANGGAL
+   FORMAT DATE
 ===================================================== */
 
 function formatTanggal(value){
@@ -1951,10 +1450,8 @@ function formatTanggal(value){
 
     }
 
-
     const date =
         new Date(value);
-
 
     if(
         isNaN(
@@ -1965,7 +1462,6 @@ function formatTanggal(value){
         return "-";
 
     }
-
 
     return date.toLocaleDateString(
         "id-ID",
@@ -1980,7 +1476,8 @@ function formatTanggal(value){
 
 
 /* =====================================================
-   TYPE
+   GET TYPE
+   PRIORITASKAN "tipe"
 ===================================================== */
 
 function getType(item){
@@ -1992,7 +1489,6 @@ function getType(item){
         .toLowerCase()
         .trim();
 
-
     const type =
         String(
             item.type || ""
@@ -2000,30 +1496,30 @@ function getType(item){
         .toLowerCase()
         .trim();
 
-
     return tipe || type;
 
 }
 
 
 /* =====================================================
-   MATERIAL URL
+   GET MATERIAL URL
 ===================================================== */
 
 function getMaterialUrl(material){
 
+    const id =
+        material.id;
+
     return (
         "player.html?id=" +
-        encodeURIComponent(
-            material.id
-        )
+        encodeURIComponent(id)
     );
 
 }
 
 
 /* =====================================================
-   MEMBERSHIP ACTIVE
+   CHECK MEMBERSHIP
 ===================================================== */
 
 function isMembershipActive(profile){
@@ -2034,14 +1530,12 @@ function isMembershipActive(profile){
 
     }
 
-
     const status =
         String(
             profile.status || ""
         )
         .toLowerCase()
         .trim();
-
 
     if(
         status !== "aktif"
@@ -2051,7 +1545,6 @@ function isMembershipActive(profile){
 
     }
 
-
     if(
         !profile.berlaku_sampai
     ){
@@ -2060,12 +1553,10 @@ function isMembershipActive(profile){
 
     }
 
-
     const expiry =
         new Date(
             profile.berlaku_sampai
         );
-
 
     if(
         isNaN(
@@ -2076,7 +1567,6 @@ function isMembershipActive(profile){
         return false;
 
     }
-
 
     return expiry >= new Date();
 
@@ -2094,17 +1584,14 @@ async function checkUser(){
             .auth
             .getUser();
 
-
     if(result.error){
 
         throw result.error;
 
     }
 
-
     currentUser =
         result.data.user;
-
 
     if(!currentUser){
 
@@ -2114,7 +1601,6 @@ async function checkUser(){
         return false;
 
     }
-
 
     return true;
 
@@ -2139,13 +1625,11 @@ async function loadProfile(){
             )
             .maybeSingle();
 
-
     if(result.error){
 
         throw result.error;
 
     }
-
 
     currentProfile =
         result.data || null;
@@ -2161,17 +1645,9 @@ function renderUser(){
 
     const nama =
         currentProfile?.nama ||
-
-        currentUser
-            ?.user_metadata
-            ?.full_name ||
-
-        currentUser
-            ?.email
-            ?.split("@")[0] ||
-
+        currentUser.user_metadata?.full_name ||
+        currentUser.email?.split("@")[0] ||
         "Member";
-
 
     welcomeText.textContent =
         "Assalamu'alaikum, " +
@@ -2197,35 +1673,32 @@ function renderMembership(){
         membershipBadge.textContent =
             "✓ Premium Aktif";
 
-
         membershipPackage.textContent =
             currentProfile.paket ||
             "Premium";
 
-
         membershipText.innerHTML =
-            "Membership aktif sampai " +
-
-            "<strong>" +
-
+            "Membership aktif sampai <strong>" +
             escapeHtml(
                 formatTanggal(
-                    currentProfile
-                        .berlaku_sampai
+                    currentProfile.berlaku_sampai
                 )
             ) +
-
-            "</strong>.";
+            ".";
 
 
         membershipButton.textContent =
             "✓ Membership Aktif";
 
-
         membershipButton.classList.add(
             "active"
         );
 
+        /*
+         * Tetap menuju membership.html
+         * supaya user dapat melihat masa aktif
+         * dan riwayat membership.
+         */
 
         membershipButton.href =
             "membership.html";
@@ -2234,26 +1707,19 @@ function renderMembership(){
         notice.className =
             "notice premium";
 
-
         notice.innerHTML =
             "✅ Selamat datang, " +
-
             escapeHtml(
                 currentProfile?.nama ||
                 "Member"
             ) +
-
             ". Membership Premium Anda aktif " +
-
             "sampai <strong>" +
-
             escapeHtml(
                 formatTanggal(
-                    currentProfile
-                        .berlaku_sampai
+                    currentProfile.berlaku_sampai
                 )
             ) +
-
             "</strong>.";
 
     }
@@ -2263,24 +1729,19 @@ function renderMembership(){
         membershipBadge.textContent =
             "Tidak Aktif";
 
-
         membershipPackage.textContent =
             "Member Gratis";
-
 
         membershipText.textContent =
             "Membership Premium belum aktif. " +
             "Materi gratis tetap dapat dipelajari.";
 
-
         membershipButton.textContent =
             "💎 Daftar Membership Premium";
-
 
         membershipButton.classList.remove(
             "active"
         );
-
 
         membershipButton.href =
             "membership.html";
@@ -2288,7 +1749,6 @@ function renderMembership(){
 
         notice.className =
             "notice";
-
 
         notice.innerHTML =
             "💎 Anda sedang menggunakan akun Gratis. " +
@@ -2319,17 +1779,14 @@ async function loadMaterials(){
                 }
             );
 
-
     if(result.error){
 
         throw result.error;
 
     }
 
-
     materials =
         result.data || [];
-
 
     totalMaterial.textContent =
         materials.length;
@@ -2360,13 +1817,11 @@ async function loadProgress(){
                 }
             );
 
-
     if(result.error){
 
         throw result.error;
 
     }
-
 
     progressData =
         result.data || [];
@@ -2374,80 +1829,60 @@ async function loadProgress(){
 
     const started =
         progressData.filter(
-            item => {
-
-                const p =
-                    Number(
-                        item.progress || 0
-                    );
-
-                return p > 0 && p < 100;
-
-            }
+            item =>
+                Number(
+                    item.progress || 0
+                ) > 0 &&
+                Number(
+                    item.progress || 0
+                ) < 100
         ).length;
 
 
     const completed =
         progressData.filter(
-            item => {
-
-                const p =
-                    Number(
-                        item.progress || 0
-                    );
-
-                return (
-                    p >= 100 ||
-                    item.status ===
-                    "completed"
-                );
-
-            }
+            item =>
+                Number(
+                    item.progress || 0
+                ) >= 100 ||
+                item.status === "completed"
         ).length;
 
 
     startedMaterial.textContent =
         started;
 
-
     completedMaterial.textContent =
         completed;
 
 
-    /* =================================================
-       OVERALL PROGRESS
-    ================================================= */
+    /*
+     * HITUNG PROGRESS KESELURUHAN
+     */
 
     let average = 0;
-
 
     if(materials.length > 0){
 
         const progressMap =
             new Map();
 
-
         progressData.forEach(
             item => {
 
                 progressMap.set(
-
                     String(
                         item.material_id
                     ),
-
                     Math.max(
                         0,
-
                         Math.min(
                             100,
-
                             Number(
                                 item.progress || 0
                             )
                         )
                     )
-
                 );
 
             }
@@ -2455,7 +1890,6 @@ async function loadProgress(){
 
 
         let totalProgress = 0;
-
 
         materials.forEach(
             material => {
@@ -2489,7 +1923,6 @@ async function loadProgress(){
         average + "%"
     );
 
-
     progressCircleText.textContent =
         average + "%";
 
@@ -2498,7 +1931,6 @@ async function loadProgress(){
 
         progressTitle.textContent =
             "MasyaAllah! Semua selesai.";
-
 
         progressDescription.textContent =
             "Anda telah menyelesaikan seluruh materi.";
@@ -2509,7 +1941,6 @@ async function loadProgress(){
 
         progressTitle.textContent =
             "Teruskan perjalanan belajar.";
-
 
         progressDescription.textContent =
             completed +
@@ -2522,7 +1953,6 @@ async function loadProgress(){
         progressTitle.textContent =
             "Lanjutkan belajar.";
 
-
         progressDescription.textContent =
             started +
             " materi sedang Anda pelajari.";
@@ -2533,7 +1963,6 @@ async function loadProgress(){
 
         progressTitle.textContent =
             "Mulai perjalanan belajar.";
-
 
         progressDescription.textContent =
             "Belum ada materi yang dipelajari. " +
@@ -2564,54 +1993,7 @@ function getProgress(materialId){
 
 
 /* =====================================================
-   YOUTUBE ID
-===================================================== */
-
-function getYouTubeId(url){
-
-    const value =
-        String(
-            url || ""
-        );
-
-
-    const patterns = [
-
-        /youtube\.com\/watch\?v=([A-Za-z0-9_-]{11})/,
-
-        /youtu\.be\/([A-Za-z0-9_-]{11})/,
-
-        /youtube\.com\/embed\/([A-Za-z0-9_-]{11})/
-
-    ];
-
-
-    for(
-        const pattern of patterns
-    ){
-
-        const match =
-            value.match(
-                pattern
-            );
-
-
-        if(match){
-
-            return match[1];
-
-        }
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =====================================================
-   THUMBNAIL
+   GET THUMBNAIL
 ===================================================== */
 
 function getThumbnail(material){
@@ -2622,23 +2004,27 @@ function getThumbnail(material){
 
     }
 
-
-    const youtubeId =
-        getYouTubeId(
-            material.url
+    const url =
+        String(
+            material.url || ""
         );
 
 
-    if(youtubeId){
+    const match =
+        url.match(
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/
+        );
+
+
+    if(match){
 
         return (
             "https://img.youtube.com/vi/" +
-            youtubeId +
+            match[1] +
             "/hqdefault.jpg"
         );
 
     }
-
 
     return "";
 
@@ -2654,20 +2040,17 @@ function typeLabel(material){
     const type =
         getType(material);
 
-
     if(type === "audio"){
 
         return "🎧 Audio";
 
     }
 
-
     if(type === "pdf"){
 
         return "📄 PDF";
 
     }
-
 
     return "🎥 Video";
 
@@ -2682,32 +2065,25 @@ function renderContinue(){
 
     const activeProgress =
         progressData
-
             .filter(
-                item => {
-
-                    const p =
-                        Number(
-                            item.progress || 0
-                        );
-
-                    return p > 0 && p < 100;
-
-                }
+                item =>
+                    Number(
+                        item.progress || 0
+                    ) > 0 &&
+                    Number(
+                        item.progress || 0
+                    ) < 100
             )
-
             .sort(
                 (
                     a,
                     b
                 ) =>
-
                     new Date(
                         b.last_watched_at ||
                         b.updated_at ||
                         0
                     ) -
-
                     new Date(
                         a.last_watched_at ||
                         a.updated_at ||
@@ -2751,11 +2127,9 @@ function renderContinue(){
     const material =
         materials.find(
             item =>
-
                 String(
                     item.id
                 ) ===
-
                 String(
                     progress.material_id
                 )
@@ -2767,10 +2141,7 @@ function renderContinue(){
         continueContainer.innerHTML = `
 
             <div class="empty">
-
-                📚 Silakan pilih materi
-                untuk mulai belajar.
-
+                📚 Silakan pilih materi untuk mulai belajar.
             </div>
 
         `;
@@ -2783,10 +2154,8 @@ function renderContinue(){
     const percentage =
         Math.max(
             0,
-
             Math.min(
                 100,
-
                 Number(
                     progress.progress || 0
                 )
@@ -2794,47 +2163,65 @@ function renderContinue(){
         );
 
 
-    const thumbnail =
-        getThumbnail(
-            material
-        );
-
-
-    const placeholder =
-        getType(material) === "audio"
-        ? "🎧"
-        : getType(material) === "pdf"
-        ? "📄"
-        : "🎥";
-
-
     continueContainer.innerHTML = `
 
-        <div class="continue-item">
+        <div
+            style="
+                display:flex;
+                gap:12px;
+                align-items:center;
+                flex-wrap:wrap;
+            "
+        >
 
-            <div class="continue-thumb">
+            <div
+                style="
+                    width:90px;
+                    height:65px;
+                    border-radius:8px;
+                    overflow:hidden;
+                    background:#dff6eb;
+                    flex-shrink:0;
+                "
+            >
 
                 ${
-                    thumbnail
-
+                    getThumbnail(material)
                     ?
-
                     `
                     <img
                         src="${escapeHtml(
-                            thumbnail
+                            getThumbnail(material)
                         )}"
                         alt="${escapeHtml(
                             material.judul
                         )}"
+                        style="
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                        "
                     >
                     `
-
                     :
-
                     `
-                    <div class="continue-placeholder">
-                        ${placeholder}
+                    <div
+                        style="
+                            width:100%;
+                            height:100%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:25px;
+                        "
+                    >
+                        ${
+                            getType(material) === "audio"
+                            ? "🎧"
+                            : getType(material) === "pdf"
+                            ? "📄"
+                            : "🎥"
+                        }
                     </div>
                     `
                 }
@@ -2842,32 +2229,53 @@ function renderContinue(){
             </div>
 
 
-            <div class="continue-info">
+            <div
+                style="
+                    flex:1;
+                    min-width:180px;
+                "
+            >
 
-                <strong class="continue-title">
-
+                <strong
+                    style="
+                        display:block;
+                        font-size:10px;
+                        margin-bottom:3px;
+                    "
+                >
                     ${escapeHtml(
                         material.judul
                     )}
-
                 </strong>
 
-
-                <div class="continue-meta">
-
+                <div
+                    style="
+                        font-size:7px;
+                        color:#7a8580;
+                        margin-bottom:5px;
+                    "
+                >
                     ${typeLabel(material)}
-
                     •
                     ${percentage}%
-
                 </div>
 
-
-                <div class="progress-track">
+                <div
+                    style="
+                        width:100%;
+                        height:5px;
+                        background:#e5eee9;
+                        border-radius:20px;
+                        overflow:hidden;
+                    "
+                >
 
                     <div
-                        class="progress-fill"
-                        style="width:${percentage}%"
+                        style="
+                            width:${percentage}%;
+                            height:100%;
+                            background:#008f50;
+                        "
                     ></div>
 
                 </div>
@@ -2894,6 +2302,11 @@ function renderContinue(){
 ===================================================== */
 
 function renderMaterials(){
+
+    /*
+     * Dashboard hanya menampilkan
+     * beberapa materi terbaru.
+     */
 
     const latest =
         materials.slice(
@@ -2926,7 +2339,6 @@ function renderMaterials(){
 
 
     materialContainer.innerHTML =
-
         latest
             .map(
                 function(material){
@@ -2956,52 +2368,29 @@ function renderMaterials(){
 
                     const percentage =
                         progress
-
                         ?
-
                         Math.max(
                             0,
-
                             Math.min(
                                 100,
-
                                 Number(
                                     progress.progress || 0
                                 )
                             )
                         )
-
                         :
-
                         0;
-
-
-                    const placeholder =
-                        getType(material) ===
-                        "audio"
-
-                        ? "🎧"
-
-                        : getType(material) ===
-                        "pdf"
-
-                        ? "📄"
-
-                        : "🎥";
 
 
                     return `
 
                         <div class="material-card">
 
-
                             <div class="material-image">
 
                                 ${
                                     thumbnail
-
                                     ?
-
                                     `
                                     <img
                                         src="${escapeHtml(
@@ -3013,12 +2402,16 @@ function renderMaterials(){
                                         loading="lazy"
                                     >
                                     `
-
                                     :
-
                                     `
                                     <div class="material-placeholder">
-                                        ${placeholder}
+                                        ${
+                                            getType(material) === "audio"
+                                            ? "🎧"
+                                            : getType(material) === "pdf"
+                                            ? "📄"
+                                            : "🎥"
+                                        }
                                     </div>
                                     `
                                 }
@@ -3028,30 +2421,25 @@ function renderMaterials(){
 
                             <div class="material-body">
 
-
                                 <div class="material-type">
 
                                     ${typeLabel(material)}
 
-                                    •
-
                                     ${
                                         premium
                                         ?
-                                        "💎 Premium"
+                                        " • 💎 Premium"
                                         :
-                                        "✓ Gratis"
+                                        " • ✓ Gratis"
                                     }
 
                                 </div>
 
 
                                 <div class="material-title">
-
                                     ${escapeHtml(
                                         material.judul
                                     )}
-
                                 </div>
 
 
@@ -3067,59 +2455,38 @@ function renderMaterials(){
 
                                 ${
                                     percentage > 0
-
                                     ?
-
                                     `
-                                    <div class="material-progress-label">
-
-                                        Progress
-                                        ${percentage}%
-
+                                    <div
+                                        style="
+                                            font-size:7px;
+                                            color:#008f50;
+                                            margin-bottom:5px;
+                                        "
+                                    >
+                                        Progress ${percentage}%
                                     </div>
-
-
-                                    <div class="progress-track">
-
-                                        <div
-                                            class="progress-fill"
-                                            style="
-                                                width:${percentage}%;
-                                            "
-                                        ></div>
-
-                                    </div>
-
-                                    <div style="height:8px"></div>
                                     `
-
                                     :
-
                                     ""
                                 }
 
 
                                 ${
                                     locked
-
                                     ?
-
                                     `
                                     <a
                                         href="membership.html"
-                                        class="material-button locked"
+                                        class="material-button"
                                     >
                                         🔒 Buka Membership
                                     </a>
                                     `
-
                                     :
-
                                     `
                                     <a
-                                        href="${getMaterialUrl(
-                                            material
-                                        )}"
+                                        href="${getMaterialUrl(material)}"
                                         class="material-button"
                                     >
                                         📖 Buka Materi
@@ -3153,7 +2520,6 @@ logoutBtn.addEventListener(
                 "Apakah Anda ingin keluar?"
             );
 
-
         if(!yakin){
 
             return;
@@ -3163,7 +2529,6 @@ logoutBtn.addEventListener(
 
         logoutBtn.disabled =
             true;
-
 
         logoutBtn.textContent =
             "⏳";
@@ -3180,16 +2545,13 @@ logoutBtn.addEventListener(
             logoutBtn.disabled =
                 false;
 
-
             logoutBtn.textContent =
                 "Keluar";
-
 
             alert(
                 "❌ Gagal keluar.\n\n" +
                 result.error.message
             );
-
 
             return;
 
@@ -3213,8 +2575,7 @@ supabaseClient
         function(event){
 
             if(
-                event ===
-                "SIGNED_OUT"
+                event === "SIGNED_OUT"
             ){
 
                 window.location.href =
@@ -3247,21 +2608,17 @@ async function startDashboard(){
 
         await loadProfile();
 
-
         renderUser();
-
 
         renderMembership();
 
 
         await loadMaterials();
 
-
         await loadProgress();
 
 
         renderContinue();
-
 
         renderMaterials();
 
@@ -3278,7 +2635,6 @@ async function startDashboard(){
         notice.className =
             "notice";
 
-
         notice.innerHTML =
             "⚠️ Dashboard gagal memuat sebagian data. " +
             "Silakan refresh halaman.";
@@ -3292,6 +2648,7 @@ startDashboard();
 
 </script>
 
+  <script src="theme.js"></script>
 </body>
 
 </html>
