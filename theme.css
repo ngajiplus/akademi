@@ -658,3 +658,30 @@ body.dark textarea {
   color-scheme:dark !important;
 }
 
+
+/* =========================================================
+   NAVBAR THEME BUTTON - ADMIN MEMBERSHIP
+========================================================= */
+.nav-btn.theme-btn{
+  min-width:36px;
+  width:36px;
+  height:32px;
+  padding:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.18);
+}
+
+body.dark-mode .nav-btn.theme-btn,
+body.dark .nav-btn.theme-btn{
+  background:#10251d !important;
+  color:#ffffff !important;
+  border-color:#24533e !important;
+}
+
+body:not(.dark-mode):not(.dark) .nav-btn.theme-btn{
+  background:#ffffff !important;
+  color:#123d2b !important;
+}
