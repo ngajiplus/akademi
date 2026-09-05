@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Akademi - NgajiPlus</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+ --bg:#061810;--surface:#0a2118;--surface2:#0e2b20;--border:#194936;
+ --text:#f3faf6;--muted:#9db5a9;--green:#00c96b;--green2:#19e77f;
+ --gold:#f6c453;--danger:#ef4444;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+body.light{--bg:#f4f8f6;--surface:#fff;--surface2:#edf5f1;--border:#d5e4dc;--text:#14221b;--muted:#61746a}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:30;background:rgba(6,24,16,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+body.light header{background:rgba(255,255,255,.95)}
+.nav{max-width:1180px;margin:auto;padding:11px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-weight:800;color:var(--green2);font-size:14px}
+.nav-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.nav-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:9px;padding:8px 10px;font-size:11px}
+main{max-width:1180px;margin:auto;padding:18px 15px 50px}
+.hero{background:linear-gradient(135deg,#063b25,#08723e);border:1px solid #169257;border-radius:18px;padding:22px;margin-bottom:14px}
+.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;color:#d5eee2;line-height:1.6;font-size:12px}
+.notice{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:var(--muted)}
+.notice strong{color:var(--text)}
+.toolbar{display:flex;gap:8px;margin-bottom:14px}
+input,select{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 11px;outline:none}
+input{flex:1}input:focus,select:focus{border-color:var(--green)}
+.course{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:13px;overflow:hidden}
+.course-head{padding:15px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.course-title{display:flex;gap:10px;align-items:center}.course-icon{font-size:25px}
+.course h2{font-size:17px;margin:0 0 4px}.course-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.chev{font-size:18px;color:var(--green2)}
+.levels{display:none;border-top:1px solid var(--border);padding:12px}
+.course.open .levels{display:block}
+.level{background:var(--surface2);border:1px solid var(--border);border-radius:12px;margin-bottom:9px;overflow:hidden}
+.level:last-child{margin-bottom:0}
+.level-head{padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.level-name{font-weight:800;font-size:13px}.level-desc{font-size:10px;color:var(--muted);margin-top:3px}
+.materials{display:none;padding:0 10px 10px}
+.level.open .materials{display:block}
+.material{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px;margin-top:7px;display:flex;align-items:center;gap:10px}
+.m-icon{font-size:20px}.m-main{flex:1;min-width:0}.m-title{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-meta{font-size:10px;color:var(--muted);margin-top:3px}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 7px;font-size:9px;margin-right:4px}
+.badge.premium{color:var(--gold);border-color:#80651c}.badge.free{color:var(--green2)}
+.open-btn{border:0;border-radius:8px;background:var(--green);color:#04140c;padding:8px 10px;font-size:10px;font-weight:800}
+.lock-btn{border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);padding:8px 9px;font-size:10px}
+.empty,.loading,.error{text-align:center;color:var(--muted);padding:28px 10px;font-size:12px}
+.error{color:#ff9090}
+footer{border-top:1px solid var(--border);padding:22px 15px;text-align:center;color:var(--muted);font-size:10px}
+@media(max-width:650px){
+ .hero h1{font-size:21px}.nav{align-items:flex-start}.nav-actions{justify-content:flex-end}
+ .course-head{padding:13px}.course-icon{font-size:21px}.course h2{font-size:15px}
+ .material{align-items:flex-start}.open-btn,.lock-btn{white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="nav">
+  <a class="logo" href="index.html">📖 NgajiPlus Akademi</a>
+  <div class="nav-actions">
+   <button class="nav-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+   <a class="nav-btn" href="dashboard.html">📊 Dashboard</a>
+   <a class="nav-btn" href="profile.html">👤 Profil</a>
+  </div>
+ </div>
+</header>
+
+<main>
+ <section class="hero">
+  <h1>📚 Akademi NgajiPlus</h1>
+  <p>Belajar secara bertahap melalui struktur <b>Course → Level → Materi</b>. Pilih bidang ilmu, buka level, lalu lanjutkan materi Anda.</p>
+ </section>
+
+ <div id="notice" class="notice">⏳ Memeriksa status akun...</div>
+
+ <div class="toolbar">
+  <input id="search" type="search" placeholder="🔎 Cari course, level, atau materi...">
+ </div>
+
+ <div id="academy"><div class="loading">⏳ Memuat kurikulum...</div></div>
+</main>
+
+<footer>📖 NgajiPlus Akademi — Belajar Islam secara bertahap</footer>
+
+<script>
+const SUPABASE_URL="https://ksgywgdrfskqsufchbcm.supabase.co";
+const SUPABASE_KEY="sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+let courses=[],levels=[],links=[],materials=[];
+let membershipActive=false,currentUser=null,currentProfile=null;
+
+function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function premium(m){return m?.premium===true||m?.premium==="true"||m?.premium===1||m?.premium==="1"}
+function typeOf(m){return String(m?.tipe||m?.type||"video").toLowerCase().trim()}
+function icon(m){const t=typeOf(m);return t==="audio"?"🎧":t==="pdf"?"📄":"🎥"}
+
+function applyTheme(){
+ const dark=localStorage.getItem("ngajiplus-theme")==="dark";
+ document.body.classList.toggle("light",!dark);
+ document.getElementById("themeBtn").textContent=dark?"☀️":"🌙";
+}
+function toggleTheme(){
+ const dark=localStorage.getItem("ngajiplus-theme")==="dark";
+ localStorage.setItem("ngajiplus-theme",dark?"light":"dark");applyTheme();
+}
+applyTheme();
+
+function formatDate(v){
+ if(!v)return "";
+ const d=new Date(v);if(isNaN(d.getTime()))return String(v);
+ return d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+}
+
+async function checkUser(){
+ const {data:{user},error}=await sb.auth.getUser();
+ if(error)throw error;
+ currentUser=user;
+
+ if(!user){
+  membershipActive=false;
+  document.getElementById("notice").innerHTML="👤 Belum login. Materi gratis tetap dapat dipelajari.";
+  return;
+ }
+
+ const {data:p,error:pe}=await sb.from("profiles")
+  .select("id,nama,status,paket,berlaku_sampai,is_admin")
+  .eq("id",user.id).maybeSingle();
+ if(pe)throw pe;
+ currentProfile=p;
+
+ const admin=!!(p?.is_admin===true||p?.is_admin==="true"||p?.is_admin===1||p?.is_admin==="1");
+
+ if(admin){
+  membershipActive=true;
+  document.getElementById("notice").innerHTML="🛡️ <strong>Admin</strong> — seluruh materi dapat dibuka.";
+  return;
+ }
+
+ const statusAktif=String(p?.status||"").toLowerCase()==="aktif";
+ const lifetime=String(p?.paket||"").toLowerCase()==="lifetime";
+ const expiry=p?.berlaku_sampai?new Date(p.berlaku_sampai):null;
+ membershipActive=statusAktif && (lifetime || (expiry && !isNaN(expiry.getTime()) && expiry>=new Date()));
+
+ if(membershipActive){
+  document.getElementById("notice").innerHTML=
+   "✅ Membership <strong>"+esc(p?.paket||"Premium")+"</strong> aktif"+
+   (lifetime?" selamanya.":" sampai <strong>"+esc(formatDate(p.berlaku_sampai))+"</strong>.")+
+   " Materi premium dapat dibuka.";
+ }else{
+  document.getElementById("notice").innerHTML=
+   "👤 Anda sudah login, tetapi membership premium belum aktif. Materi gratis tetap dapat dipelajari.";
+ }
+}
+
+async function loadCurriculum(){
+ const academy=document.getElementById("academy");
+ academy.innerHTML='<div class="loading">⏳ Memuat course, level, dan materi...</div>';
+ try{
+  const [a,b,c,d]=await Promise.all([
+   sb.from("courses").select("id,nama,slug,deskripsi,thumbnail,aktif,urutan").eq("aktif",true).order("urutan",{ascending:true}).order("id",{ascending:true}),
+   sb.from("levels").select("id,course_id,nama,deskripsi,aktif,urutan").eq("aktif",true).order("urutan",{ascending:true}).order("id",{ascending:true}),
+   sb.from("course_materials").select("id,level_id,material_id,urutan,wajib").order("urutan",{ascending:true}).order("id",{ascending:true}),
+   sb.from("materials").select("id,judul,deskripsi,kategori,tipe,type,url,thumbnail,premium").order("id",{ascending:false})
+  ]);
+  for(const r of [a,b,c,d])if(r.error)throw r.error;
+  courses=a.data||[];levels=b.data||[];links=c.data||[];materials=d.data||[];
+  render();
+ }catch(e){
+  console.error(e);
+  academy.innerHTML='<div class="error">❌ Gagal memuat kurikulum.<br><br>'+esc(e.message)+'</div>';
+ }
+}
+
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const root=document.getElementById("academy");
+
+ const visibleCourses=courses.filter(c=>{
+  const courseMatch=!q||[c.nama,c.deskripsi,c.slug].join(" ").toLowerCase().includes(q);
+  const courseLevels=levels.filter(l=>String(l.course_id)===String(c.id));
+  const levelMatch=courseLevels.some(l=>{
+   const lm=[l.nama,l.deskripsi].join(" ").toLowerCase().includes(q);
+   const ls=links.filter(x=>String(x.level_id)===String(l.id));
+   return lm||ls.some(x=>{
+    const m=materials.find(z=>String(z.id)===String(x.material_id));
+    return m&&[m.judul,m.deskripsi,m.kategori].join(" ").toLowerCase().includes(q);
+   });
+  });
+  return !q||courseMatch||levelMatch;
+ });
+
+ if(!visibleCourses.length){root.innerHTML='<div class="empty">📚 Tidak ada course yang cocok.</div>';return}
+
+ root.innerHTML=visibleCourses.map(c=>{
+  const ls=levels.filter(l=>String(l.course_id)===String(c.id));
+  const courseIcon=c.slug==="fiqih"?"🕌":c.slug==="aqidah"?"💎":c.slug==="akhlak-adab"?"🌿":c.slug==="bahasa-arab"?"🇸🇦":c.slug==="hadits"?"📜":c.slug==="tafsir"?"📚":c.slug==="sejarah-islam"?"🏛️":"📖";
+  return `<section class="course" data-course="${esc(c.id)}">
+   <div class="course-head" onclick="toggleCourse(this)">
+    <div class="course-title"><div class="course-icon">${courseIcon}</div><div><h2>${esc(c.nama)}</h2><div class="course-desc">${esc(c.deskripsi||"Kurikulum pembelajaran Islam.")}</div></div></div>
+    <div class="chev">⌄</div>
+   </div>
+   <div class="levels">${ls.length?ls.map(l=>renderLevel(l)).join(""):'<div class="empty">Belum ada level aktif.</div>'}</div>
+  </section>`;
+ }).join("");
+
+ if(q)document.querySelectorAll(".course").forEach(x=>x.classList.add("open"));
+}
+
+function renderLevel(l){
+ const ls=links.filter(x=>String(x.level_id)===String(l.id));
+ return `<div class="level" data-level="${esc(l.id)}">
+  <div class="level-head" onclick="toggleLevel(this)">
+   <div><div class="level-name">📖 ${esc(l.nama)}</div><div class="level-desc">${esc(l.deskripsi||"Tahap pembelajaran.")} • ${ls.length} materi</div></div>
+   <div class="chev">⌄</div>
+  </div>
+  <div class="materials">${ls.length?ls.map(x=>renderMaterial(x)).join(""):'<div class="empty">Belum ada materi pada level ini.</div>'}</div>
+ </div>`;
+}
+
+function renderMaterial(link){
+ const m=materials.find(x=>String(x.id)===String(link.material_id));
+ if(!m)return `<div class="material"><div class="m-main"><div class="m-title">⚠️ Materi #${esc(link.material_id)} tidak ditemukan</div></div></div>`;
+ const p=premium(m);
+ const canOpen=!p||membershipActive;
+ return `<div class="material">
+  <div class="m-icon">${icon(m)}</div>
+  <div class="m-main">
+   <div class="m-title">${esc(m.judul||"Tanpa Judul")}</div>
+   <div class="m-meta">
+    <span class="badge ${p?"premium":"free"}">${p?"🔐 Premium":"✓ Gratis"}</span>
+    <span class="badge">${esc(typeOf(m).toUpperCase())}</span>
+    ${link.wajib?'<span class="badge">WAJIB</span>':'<span class="badge">OPSIONAL</span>'}
+   </div>
+  </div>
+  ${canOpen
+   ?`<a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">▶️ Buka</a>`
+   :`<button class="lock-btn" onclick="needMembership()">🔐 Premium</button>`}
+ </div>`;
+}
+
+function toggleCourse(head){head.parentElement.classList.toggle("open")}
+function toggleLevel(head){head.parentElement.classList.toggle("open")}
+function needMembership(){if(confirm("🔐 Materi ini khusus member premium. Buka halaman Membership?"))location.href="membership.html"}
+
+document.getElementById("search").addEventListener("input",render);
+
+sb.auth.onAuthStateChange((event)=>{
+ if(["SIGNED_IN","SIGNED_OUT","TOKEN_REFRESHED"].includes(event)){
+  setTimeout(async()=>{try{await checkUser();render()}catch(e){console.error(e)}},0);
+ }
+});
+
+(async function(){
+ try{await checkUser();await loadCurriculum()}catch(e){
+  document.getElementById("academy").innerHTML='<div class="error">❌ '+esc(e.message)+'</div>';
+ }
+})();
+</script>
+</body>
+</html>
