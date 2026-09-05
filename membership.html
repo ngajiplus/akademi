@@ -1099,6 +1099,22 @@ footer{
 
 }
 
+
+/* =====================================================
+   LIFETIME ACTIVE
+===================================================== */
+.lifetime-active .active-card{
+  border-color:#00b866!important;
+  box-shadow:0 0 0 1px rgba(0,184,102,.2),0 10px 30px rgba(0,184,102,.08);
+}
+.lifetime-active .active-value{
+  color:#20d184!important;
+  font-weight:800;
+}
+.lifetime-active .active-badge{
+  background:#00a85d!important;
+}
+
 </style>
 
   <link rel="stylesheet" href="theme.css">
@@ -2232,33 +2248,38 @@ async function checkUser(){
         */
 
         let active = false;
-
+        let isLifetime = false;
 
         if(currentProfile){
 
             const status =
-                String(
-                    currentProfile.status || ""
-                )
+                String(currentProfile.status || "")
                 .toLowerCase()
                 .trim();
 
+            const paket =
+                String(currentProfile.paket || "")
+                .toLowerCase()
+                .trim();
 
-            if(
+            isLifetime =
+                status === "aktif" &&
+                paket === "lifetime";
+
+            if(isLifetime){
+
+                active = true;
+
+            }else if(
                 status === "aktif" &&
                 currentProfile.berlaku_sampai
             ){
 
                 const expiry =
-                    new Date(
-                        currentProfile.berlaku_sampai
-                    );
-
+                    new Date(currentProfile.berlaku_sampai);
 
                 active =
-                    !isNaN(
-                        expiry.getTime()
-                    ) &&
+                    !isNaN(expiry.getTime()) &&
                     expiry >= new Date();
 
             }
@@ -2276,19 +2297,21 @@ async function checkUser(){
                 "notice success";
 
             notice.innerHTML =
-                "✅ Membership Anda sedang aktif sampai " +
+                isLifetime
+                ? "👑 <strong>Membership Lifetime Anda aktif selamanya.</strong> Anda sudah memiliki akses Premium tanpa masa kedaluwarsa."
+                : "✅ Membership Anda sedang aktif sampai " +
 
-                "<strong>" +
+                  "<strong>" +
 
-                escapeHtml(
-                    formatTanggal(
-                        currentProfile.berlaku_sampai
-                    )
-                ) +
+                  escapeHtml(
+                      formatTanggal(
+                          currentProfile.berlaku_sampai
+                      )
+                  ) +
 
-                "</strong>. " +
+                  "</strong>. " +
 
-                "Anda sudah memiliki akses Premium.";
+                  "Anda sudah memiliki akses Premium.";
 
 
             /*
@@ -2299,20 +2322,33 @@ async function checkUser(){
                 "hidden"
             );
 
+            activeMembership.classList.toggle(
+                "lifetime-active",
+                isLifetime
+            );
+
 
             activePackage.textContent =
-                currentProfile.paket ||
-                "Premium";
+                isLifetime
+                ? "👑 Lifetime"
+                : (
+                    currentProfile.paket ||
+                    "Premium"
+                );
 
 
             activeExpiry.textContent =
-                formatTanggal(
+                isLifetime
+                ? "♾️ Selamanya"
+                : formatTanggal(
                     currentProfile.berlaku_sampai
                 );
 
 
             activeStatus.textContent =
-                "Aktif";
+                isLifetime
+                ? "👑 Lifetime Aktif"
+                : "Aktif";
 
 
             /*
@@ -2330,7 +2366,9 @@ async function checkUser(){
                             true;
 
                         button.textContent =
-                            "✓ Premium Aktif";
+                            isLifetime
+                            ? "👑 Lifetime Aktif"
+                            : "✓ Premium Aktif";
 
                     }
                 );
