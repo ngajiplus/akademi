@@ -64,9 +64,16 @@
       buttons = document.querySelectorAll(".ngp-theme-floating");
     }
 
-    // Tombol lama (#themeToggle / #themeBtn) sudah mempunyai
-    // handler sendiri. Kita hanya memasang handler pada tombol
-    // universal yang dibuat oleh script ini.
+    // Pasang handler ke tombol tema yang sudah ada di halaman.
+    document.querySelectorAll(
+      "#themeToggle, #themeBtn, .theme-toggle, .theme-btn"
+    ).forEach(function (btn) {
+      if (btn.dataset.ngpThemeBound === "1") return;
+      btn.dataset.ngpThemeBound = "1";
+      btn.addEventListener("click", toggleTheme);
+    });
+
+    // Tombol universal juga tetap berfungsi.
     document.querySelectorAll(".ngp-theme-floating").forEach(function (btn) {
       if (btn.dataset.ngpThemeBound === "1") return;
       btn.dataset.ngpThemeBound = "1";
