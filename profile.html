@@ -2,6 +2,7 @@
 <html lang="id" data-theme="light">
 <head>
 <meta charset="UTF-8">
+<meta name="ngajiplus-build" content="profile-final-lifetime-2026-09-05">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Profil Akun NgajiPlus Akademi">
 <meta id="themeColor" name="theme-color" content="#008f50">
@@ -31,6 +32,21 @@ html[data-theme="dark"]{
 .danger-btn{width:100%;border:1px solid #efb8b3;background:#fff0ef;color:var(--danger);border-radius:9px;padding:10px;font-size:9px;font-weight:bold}.footer{background:#071b12;color:#fff}.footer-inner{max-width:1050px;margin:auto;padding:25px 15px}.footer-logo{color:#35b878;font-size:12px;font-weight:bold}.footer-text{color:#87948d;font-size:8px;margin-top:4px}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.badges{grid-template-columns:1fr 1fr}.membership-grid{grid-template-columns:1fr 1fr}.password-grid{grid-template-columns:1fr}.header-buttons{gap:4px}.header-btn{padding:7px 8px;font-size:8px}}
 @media(max-width:520px){.main{padding:14px 10px 45px}.profile-header{padding:14px}.profile-name{font-size:16px}.card{padding:14px}.membership-grid{grid-template-columns:1fr}.badges{grid-template-columns:1fr}.photo-upload{padding:11px}.photo-preview{width:62px;height:62px}.action-row{grid-template-columns:1fr}.header-inner{padding:8px 10px}.logo{font-size:12px}.logo small{font-size:7px}}
+
+/* =====================================================
+   PROFILE — LIFETIME
+===================================================== */
+.lifetime-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#008f50,#00b866);
+  color:#fff;
+  font-weight:800;
+}
+
 </style>
 </head>
 <body>
@@ -50,7 +66,7 @@ html[data-theme="dark"]{
       <div><img id="profileAvatar" class="avatar hidden" alt="Foto Profil"><div id="avatarFallback" class="avatar-fallback">👤</div></div>
       <div><h1 id="profileName" class="profile-name">Memuat...</h1><p id="profileEmail" class="profile-email">-</p><span id="profileStatus" class="status status-active">AKTIF</span></div>
     </section>
-    <div id="notice" class="notice"></div>
+    <div id="notice" class="notice"></div><div id="lifetimeBanner" class="lifetime-badge" style="display:none;margin:10px 0 0;">👑 Lifetime — Premium Selamanya</div>
 
     <section class="card membership-card">
       <div class="membership-top"><h2 class="card-title">💎 Membership</h2><span id="membershipBadge" class="premium-badge">MEMBER</span></div>
@@ -109,7 +125,23 @@ const $=id=>document.getElementById(id);
 function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 function formatDate(v){if(!v)return "-";const d=new Date(v);return isNaN(d.getTime())?"-":d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
 function daysLeft(v){if(!v)return null;const d=new Date(v);if(isNaN(d.getTime()))return null;return Math.max(0,Math.ceil((d-new Date())/86400000))}
-function isActive(p){return !!p&&String(p.status||"").toLowerCase().trim()==="aktif"&&!!p.berlaku_sampai&&new Date(p.berlaku_sampai)>=new Date()}
+function isActive(p){
+  if(!p) return false;
+
+  const status = String(p.status || "").toLowerCase().trim();
+  const paket = String(p.paket || "").toLowerCase().trim();
+
+  if(status !== "aktif") return false;
+
+  /* Lifetime: aktif tanpa tanggal kedaluwarsa */
+  if(paket === "lifetime") return true;
+
+  /* Paket biasa */
+  if(!p.berlaku_sampai) return false;
+
+  const expiry = new Date(p.berlaku_sampai);
+  return !isNaN(expiry.getTime()) && expiry >= new Date();
+}
 function showNotice(msg,type="success"){$("notice").className="notice "+type;$('notice').innerHTML=msg}
 function applyTheme(theme){document.documentElement.setAttribute("data-theme",theme);localStorage.setItem("ngajiplus-theme",theme);$("themeBtn").textContent=theme==="dark"?"☀️":"🌙";$("themeBtn").title=theme==="dark"?"Mode terang":"Mode gelap";$("themeColor").content=theme==="dark"?"#07120d":"#008f50"}
 function toggleTheme(){applyTheme((document.documentElement.getAttribute("data-theme")||"light")==="dark"?"light":"dark")}
@@ -127,10 +159,104 @@ async function load(){
  }catch(e){console.error(e);showError("❌ <strong>Profil tidak dapat dibaca.</strong><br><br>"+escapeHtml(e.message))}
 }
 function renderProfile(){
- const name=currentProfile.nama||currentUser.user_metadata?.full_name||currentUser.email?.split("@")[0]||"Member";const active=isActive(currentProfile);const status=String(currentProfile.status||"Tidak Aktif").toUpperCase();
- $("profileName").textContent=name;$("profileEmail").textContent=currentUser.email||"-";$("profileStatus").textContent=status;$("profileStatus").className="status "+(active?"status-active":"status-inactive");
- $("membershipBadge").textContent=active?"✓ PREMIUM AKTIF":"MEMBER GRATIS";$("membershipPackage").textContent=currentProfile.paket||"Member Gratis";$("membershipStatus").textContent=active?"AKTIF":"TIDAK AKTIF";$("membershipExpiry").textContent=formatDate(currentProfile.berlaku_sampai);const dl=daysLeft(currentProfile.berlaku_sampai);$("membershipDays").textContent=active?dl+" hari": "-";$("membershipNote").textContent=active?"Membership Premium aktif. Anda dapat mengakses materi Premium sesuai aturan Akademi.":"Membership Premium belum aktif. Materi gratis tetap dapat dipelajari.";
- $("memberId").value="NP-"+currentUser.id.replace(/-/g,"").slice(0,8).toUpperCase();$("nama").value=name==="Member"?"":name;$("email").value=currentUser.email||"";$("noHp").value=currentProfile.no_hp||"";$("alamat").value=currentProfile.alamat||"";$("bio").value=currentProfile.bio||"";setAvatar(currentProfile.avatar_url||"");$("loading").classList.add("hidden");$("errorBox").classList.add("hidden");$("profileContent").classList.remove("hidden");
+  const name =
+    currentProfile.nama ||
+    currentUser.user_metadata?.full_name ||
+    currentUser.email?.split("@")[0] ||
+    "Member";
+
+  const active = isActive(currentProfile);
+
+  const status =
+    String(currentProfile.status || "Tidak Aktif")
+      .toUpperCase();
+
+  const paket =
+    String(currentProfile.paket || "Member Gratis")
+      .trim();
+
+  const lifetime =
+    active &&
+    paket.toLowerCase() === "lifetime";
+
+  $("profileName").textContent = name;
+  $("profileEmail").textContent = currentUser.email || "-";
+
+  $("profileStatus").textContent =
+    lifetime ? "LIFETIME AKTIF" : status;
+
+  $("profileStatus").className =
+    "status " +
+    (active ? "status-active" : "status-inactive");
+
+  $("membershipBadge").textContent =
+    lifetime
+      ? "👑 LIFETIME AKTIF"
+      : (active ? "✓ PREMIUM AKTIF" : "MEMBER GRATIS");
+
+  $("membershipPackage").textContent =
+    lifetime
+      ? "👑 Lifetime"
+      : paket;
+
+  $("membershipStatus").textContent =
+    active ? "AKTIF" : "TIDAK AKTIF";
+
+  $("membershipExpiry").textContent =
+    lifetime
+      ? "♾️ Selamanya"
+      : formatDate(currentProfile.berlaku_sampai);
+
+  const dl = daysLeft(currentProfile.berlaku_sampai);
+
+  $("membershipDays").textContent =
+    lifetime
+      ? "♾️ Selamanya"
+      : (active ? dl + " hari" : "-");
+
+  const lifetimeBanner = $("lifetimeBanner");
+  if(lifetimeBanner){
+    lifetimeBanner.style.display = lifetime ? "inline-flex" : "none";
+  }
+
+  $("membershipNote").textContent =
+    lifetime
+      ? "👑 Membership Lifetime aktif. Anda memiliki akses Premium selamanya."
+      : (
+          active
+            ? "Membership Premium aktif. Anda dapat mengakses materi Premium sesuai aturan Akademi."
+            : "Membership Premium belum aktif. Materi gratis tetap dapat dipelajari."
+        );
+
+  $("memberId").value =
+    "NP-" +
+    currentUser.id
+      .replace(/-/g,"")
+      .slice(0,8)
+      .toUpperCase();
+
+  $("nama").value =
+    name === "Member" ? "" : name;
+
+  $("email").value =
+    currentUser.email || "";
+
+  $("noHp").value =
+    currentProfile.no_hp || "";
+
+  $("alamat").value =
+    currentProfile.alamat || "";
+
+  $("bio").value =
+    currentProfile.bio || "";
+
+  setAvatar(
+    currentProfile.avatar_url || ""
+  );
+
+  $("loading").classList.add("hidden");
+  $("errorBox").classList.add("hidden");
+  $("profileContent").classList.remove("hidden");
 }
 async function loadLearning(){
  const [p,m]=await Promise.all([supabaseClient.from("learning_progress").select("material_id,status,progress,last_watched_at,completed_at,updated_at").eq("user_id",currentUser.id).order("last_watched_at",{ascending:false}),supabaseClient.from("materials").select("id,judul")]);
@@ -153,3 +279,4 @@ load();
 </script>
 </body>
 </html>
+
