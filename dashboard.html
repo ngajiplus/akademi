@@ -22,63 +22,7 @@
 
 <title>Dashboard - NgajiPlus Akademi</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-function lifetimeLabel(profile){
-  const paket = String(profile?.paket || "").trim().toLowerCase();
-  const status = String(profile?.status || "").trim().toLowerCase();
-
-  if(status === "aktif" && paket === "lifetime"){
-    return '<span class="lifetime-membership">👑 Lifetime — Premium Selamanya</span>';
-  }
-
-  return "";
-}
-
-
-/* =========================================================
-   LIFETIME UI SAFETY PATCH
-   ========================================================= */
-function applyLifetimeDashboardUI(profile){
-  if(!profile) return;
-
-  const paket = String(profile.paket || "").trim().toLowerCase();
-  const status = String(profile.status || "").trim().toLowerCase();
-
-  if(status !== "aktif" || paket !== "lifetime") return;
-
-  const ids = [
-    "membershipPackage",
-    "membershipText",
-    "membershipExpiry",
-    "membershipDate",
-    "expiryDate",
-    "membershipBadge"
-  ];
-
-  ids.forEach(function(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-
-    if(id === "membershipPackage"){
-      el.textContent = "👑 Lifetime";
-    }else if(id === "membershipText"){
-      el.innerHTML = "Premium aktif <strong>selamanya</strong> ♾️";
-    }else if(id === "membershipExpiry" ||
-             id === "membershipDate" ||
-             id === "expiryDate"){
-      el.textContent = "♾️ Selamanya";
-      el.classList.add("membership-expiry-lifetime");
-    }else if(id === "membershipBadge"){
-      el.textContent = "👑 Lifetime Aktif";
-    }
-  });
-
-  document.querySelectorAll("[data-membership-expiry]").forEach(function(el){
-    el.textContent = "♾️ Selamanya";
-    el.classList.add("membership-expiry-lifetime");
-  });
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -840,25 +784,19 @@ footer{
 }
 
 
-/* =========================================================
-   LIFETIME MEMBERSHIP
-   ========================================================= */
-.lifetime-membership{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  margin-top:8px;
-  padding:7px 11px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#0b8f50,#00b866);
-  color:#fff;
-  font-size:11px;
-  font-weight:800;
-  border:1px solid rgba(255,255,255,.18);
-}
-.membership-expiry-lifetime{
-  color:#20c878!important;
-  font-weight:800;
+/* =====================================================
+   DASHBOARD LIFETIME
+===================================================== */
+.lifetime-membership-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#008f50,#00b866);
+    color:#fff;
+    font-weight:800;
+    font-size:11px;
 }
 
 </style>
@@ -1525,47 +1463,43 @@ function getMaterialUrl(material){
 function isMembershipActive(profile){
 
     if(!profile){
-
         return false;
-
     }
 
     const status =
-        String(
-            profile.status || ""
-        )
+        String(profile.status || "")
         .toLowerCase()
         .trim();
 
+    const paket =
+        String(profile.paket || "")
+        .toLowerCase()
+        .trim();
+
+    /* Lifetime tidak membutuhkan tanggal expired */
     if(
-        status !== "aktif"
+        status === "aktif" &&
+        paket === "lifetime"
     ){
-
-        return false;
-
+        return true;
     }
 
-    if(
-        !profile.berlaku_sampai
-    ){
-
+    /* Paket biasa tetap membutuhkan tanggal berlaku */
+    if(status !== "aktif"){
         return false;
+    }
 
+    if(!profile.berlaku_sampai){
+        return false;
     }
 
     const expiry =
-        new Date(
-            profile.berlaku_sampai
-        );
+        new Date(profile.berlaku_sampai);
 
     if(
-        isNaN(
-            expiry.getTime()
-        )
+        isNaN(expiry.getTime())
     ){
-
         return false;
-
     }
 
     return expiry >= new Date();
@@ -1667,60 +1601,78 @@ function renderMembership(){
             currentProfile
         );
 
+    const paket =
+        String(
+            currentProfile?.paket || ""
+        )
+        .trim()
+        .toLowerCase();
+
+    const lifetime =
+        active &&
+        paket === "lifetime";
 
     if(active){
 
         membershipBadge.textContent =
-            "✓ Premium Aktif";
+            lifetime
+            ? "👑 Lifetime Aktif"
+            : "✓ Premium Aktif";
 
         membershipPackage.textContent =
-            currentProfile.paket ||
-            "Premium";
+            lifetime
+            ? "👑 Lifetime"
+            : (
+                currentProfile.paket ||
+                "Premium"
+            );
 
         membershipText.innerHTML =
-            "Membership aktif sampai <strong>" +
-            escapeHtml(
-                formatTanggal(
-                    currentProfile.berlaku_sampai
-                )
-            ) +
-            ".";
-
+            lifetime
+            ? "Premium aktif <strong>selamanya</strong> ♾️."
+            : "Membership aktif sampai <strong>" +
+              escapeHtml(
+                  formatTanggal(
+                      currentProfile.berlaku_sampai
+                  )
+              ) +
+              ".";
 
         membershipButton.textContent =
-            "✓ Membership Aktif";
+            lifetime
+            ? "👑 Lifetime Aktif"
+            : "✓ Membership Aktif";
 
         membershipButton.classList.add(
             "active"
         );
 
-        /*
-         * Tetap menuju membership.html
-         * supaya user dapat melihat masa aktif
-         * dan riwayat membership.
-         */
-
         membershipButton.href =
             "membership.html";
-
 
         notice.className =
             "notice premium";
 
         notice.innerHTML =
-            "✅ Selamat datang, " +
-            escapeHtml(
-                currentProfile?.nama ||
-                "Member"
-            ) +
-            ". Membership Premium Anda aktif " +
-            "sampai <strong>" +
-            escapeHtml(
-                formatTanggal(
-                    currentProfile.berlaku_sampai
-                )
-            ) +
-            "</strong>.";
+            lifetime
+            ? "👑 Selamat datang, " +
+              escapeHtml(
+                  currentProfile?.nama ||
+                  "Member"
+              ) +
+              ". <strong>Membership Lifetime Anda aktif selamanya.</strong> Semua materi Premium dapat dipelajari."
+            : "✅ Selamat datang, " +
+              escapeHtml(
+                  currentProfile?.nama ||
+                  "Member"
+              ) +
+              ". Membership Premium Anda aktif sampai <strong>" +
+              escapeHtml(
+                  formatTanggal(
+                      currentProfile.berlaku_sampai
+                  )
+              ) +
+              "</strong>.";
 
     }
 
@@ -1745,7 +1697,6 @@ function renderMembership(){
 
         membershipButton.href =
             "membership.html";
-
 
         notice.className =
             "notice";
@@ -2486,7 +2437,7 @@ function renderMaterials(){
                                     :
                                     `
                                     <a
-                                        href="${getMaterialUrl(material)}"
+                                        href="player.html?id=${encodeURIComponent(material.id)}"
                                         class="material-button"
                                     >
                                         📖 Buka Materi
