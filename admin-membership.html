@@ -719,6 +719,7 @@ footer{
     type="button"
     id="themeBtn"
     class="nav-btn theme-btn"
+    onclick="NgajiPlusToggleTheme(event)"
     aria-label="Gunakan Mode Gelap"
     title="Gunakan Mode Gelap"
 >
@@ -2128,31 +2129,34 @@ function showDetail(orderId){
         status === "diproses"
     ){
 
-        const preview =
-            calculateNewExpiry(
-                null,
-                order.durasi_hari
-            );
+        const isLifetime =
+            String(order.paket || "").trim().toLowerCase() === "lifetime";
 
+        if(isLifetime){
+            extraInfo = `
+                <div class="date-preview">
+                    ♾️ <strong>Lifetime</strong><br>
+                    Jika disetujui, Premium aktif selamanya dan
+                    <strong>tidak memiliki tanggal kedaluwarsa</strong>.
+                </div>
+            `;
+        }else{
+            const preview =
+                calculateNewExpiry(
+                    null,
+                    order.durasi_hari
+                );
 
-        extraInfo = `
-
-            <div
-                class="date-preview"
-            >
-
-                📅 Jika disetujui hari ini,
-                perkiraan membership aktif sampai:
-
-                <strong>
-                    ${formatTanggal(
-                        preview.expiryDate
-                    )}
-                </strong>
-
-            </div>
-
-        `;
+            extraInfo = `
+                <div class="date-preview">
+                    📅 Jika disetujui hari ini,
+                    perkiraan membership aktif sampai:
+                    <strong>
+                        ${formatTanggal(preview.expiryDate)}
+                    </strong>
+                </div>
+            `;
+        }
 
     }
 
@@ -2385,12 +2389,8 @@ async function approveOrder(orderId){
         return;
     }
 
-    /*
-       PERHITUNGAN PREVIEW SAJA.
-       Tanggal final tetap dihitung ulang oleh PostgreSQL
-       melalui function approve_membership_order().
-    */
-    let previewExpiry = null;
+    const isLifetime =
+        String(order.paket || "").trim().toLowerCase() === "lifetime";
 
     try{
         const { data: profile, error: profileError } =
@@ -2402,47 +2402,55 @@ async function approveOrder(orderId){
 
         if(profileError) throw profileError;
 
-        const calculation = calculateNewExpiry(
-            profile?.berlaku_sampai,
-            order.durasi_hari
-        );
-
-        previewExpiry = calculation.expiryDate;
-
-        const oldExpiry = parseDateOnly(profile?.berlaku_sampai);
-        const today = getTodayDateOnly();
-
         let message = "";
 
-        if(oldExpiry && oldExpiry > today){
+        if(isLifetime){
             message =
-                "Membership lama masih aktif sampai " +
-                formatTanggal(oldExpiry) +
-                ".\n\n" +
-                "Durasi " + order.durasi_hari +
-                " hari akan ditambahkan setelah tanggal tersebut.\n\n";
+                "👑 AKTIVASI LIFETIME\n\n" +
+                "Member: " + order.nama + "\n" +
+                "Paket: Lifetime\n" +
+                "Harga: " + formatRupiah(order.harga) + "\n\n" +
+                "Membership akan menjadi:\n" +
+                "♾️ Premium Lifetime\n" +
+                "📅 Tanpa tanggal kedaluwarsa\n" +
+                "🔒 berlaku_sampai = NULL\n\n" +
+                "Setujui pesanan Lifetime ini?";
         }else{
-            message =
-                "Membership akan dimulai dari hari ini.\n\n";
-        }
+            const calculation = calculateNewExpiry(
+                profile?.berlaku_sampai,
+                order.durasi_hari
+            );
 
-        message +=
-            "Member: " + order.nama + "\n" +
-            "Paket: " + order.paket + "\n" +
-            "Harga: " + formatRupiah(order.harga) + "\n" +
-            "Durasi: " + order.durasi_hari + " hari\n\n" +
-            "Perkiraan membership aktif sampai:\n" +
-            formatTanggal(previewExpiry) +
-            "\n\n" +
-            "Tanggal final akan dihitung otomatis oleh sistem.\n\n" +
-            "Setujui pesanan ini?";
+            const previewExpiry = calculation.expiryDate;
+            const oldExpiry = parseDateOnly(profile?.berlaku_sampai);
+            const today = getTodayDateOnly();
+
+            if(oldExpiry && oldExpiry > today){
+                message =
+                    "Membership lama masih aktif sampai " +
+                    formatTanggal(oldExpiry) +
+                    ".\n\n" +
+                    "Durasi " + order.durasi_hari +
+                    " hari akan ditambahkan setelah tanggal tersebut.\n\n";
+            }else{
+                message =
+                    "Membership akan dimulai dari hari ini.\n\n";
+            }
+
+            message +=
+                "Member: " + order.nama + "\n" +
+                "Paket: " + order.paket + "\n" +
+                "Harga: " + formatRupiah(order.harga) + "\n" +
+                "Durasi: " + order.durasi_hari + " hari\n\n" +
+                "Perkiraan membership aktif sampai:\n" +
+                formatTanggal(previewExpiry) +
+                "\n\n" +
+                "Tanggal final dihitung otomatis oleh sistem.\n\n" +
+                "Setujui pesanan ini?";
+        }
 
         if(!confirm(message)) return;
 
-        /*
-           APPROVAL FINAL DILAKUKAN DI DATABASE.
-           Ini mencegah profile dan order ter-update sebagian.
-        */
         const { data: result, error } =
             await supabaseClient.rpc(
                 "approve_membership_order",
@@ -2457,17 +2465,26 @@ async function approveOrder(orderId){
             ? result[0]
             : result;
 
-        alert(
-            "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
-            "Member: " + order.nama + "\n" +
-            "Paket: " + order.paket + "\n" +
-            "Harga: " + formatRupiah(order.harga) + "\n" +
-            "Durasi: " + order.durasi_hari + " hari\n\n" +
-            "Membership aktif sampai:\n" +
-            formatTanggal(
-                finalResult?.tanggal_baru || previewExpiry
-            )
-        );
+        if(isLifetime){
+            alert(
+                "✅ LIFETIME BERHASIL DIAKTIFKAN\n\n" +
+                "Member: " + order.nama + "\n" +
+                "Paket: Lifetime\n" +
+                "Harga: " + formatRupiah(order.harga) + "\n\n" +
+                "♾️ Premium aktif selamanya.\n" +
+                "📅 Tidak memiliki tanggal kedaluwarsa."
+            );
+        }else{
+            alert(
+                "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
+                "Member: " + order.nama + "\n" +
+                "Paket: " + order.paket + "\n" +
+                "Harga: " + formatRupiah(order.harga) + "\n" +
+                "Durasi: " + order.durasi_hari + " hari\n\n" +
+                "Membership aktif sampai:\n" +
+                formatTanggal(finalResult?.tanggal_baru)
+            );
+        }
 
         await loadOrders();
 
@@ -2481,7 +2498,6 @@ async function approveOrder(orderId){
         );
     }
 }
-
 
 /* =====================================================
    REJECT ORDER
@@ -2782,6 +2798,35 @@ checkAdmin();
 
 </script>
 
+  <script>
+    /* Fallback tema khusus halaman Admin Membership.
+       Tidak bergantung pada theme.js agar tombol navbar selalu bisa diklik. */
+    window.NgajiPlusToggleTheme = function(event){
+      if(event){ event.preventDefault(); event.stopPropagation(); }
+      const body = document.body;
+      const nextDark = !body.classList.contains("dark-mode");
+      body.classList.toggle("dark-mode", nextDark);
+      body.classList.toggle("dark", nextDark);
+      try { localStorage.setItem("ngajiplus-theme", nextDark ? "dark" : "light"); } catch(e) {}
+      const buttons = document.querySelectorAll("#themeBtn, #themeToggle, .theme-toggle, .theme-btn, .ngp-theme-floating");
+      buttons.forEach(function(btn){
+        btn.textContent = nextDark ? "☀️" : "🌙";
+        btn.title = nextDark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
+        btn.setAttribute("aria-label", btn.title);
+      });
+    };
+    (function(){
+      const saved = localStorage.getItem("ngajiplus-theme");
+      const dark = saved === "dark";
+      document.body.classList.toggle("dark-mode", dark);
+      document.body.classList.toggle("dark", dark);
+      const btn = document.getElementById("themeBtn");
+      if(btn){
+        btn.textContent = dark ? "☀️" : "🌙";
+        btn.title = dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
+      }
+    })();
+  </script>
   <script src="theme.js"></script>
 </body>
 
