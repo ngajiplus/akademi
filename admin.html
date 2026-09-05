@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="ngajiplus-build" content="index-v3-lifetime-2026-09-05">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="description" content="NgajiPlus - Platform pembelajaran Islam berupa video, audio dan materi PDF.">
 <meta name="theme-color" content="#238b57">
 <title>NgajiPlus — Belajar Islam Lebih Mudah</title>
@@ -543,6 +547,53 @@ html[data-theme="dark"] #accountNotice{
   }
 }
 
+
+/* =========================================================
+   MEMBERSHIP STATUS BANNER — V3
+   ========================================================= */
+.membership-banner{
+  max-width:1110px;
+  margin:10px auto 0;
+  padding:12px 16px;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.5;
+  font-weight:600;
+  border:1px solid #238b57;
+  background:#eaf6ef;
+  color:#14663e;
+}
+.membership-banner.lifetime{
+  background:linear-gradient(135deg,#103b27,#075a35);
+  color:#eafff2;
+  border-color:#00b866;
+  box-shadow:0 8px 25px rgba(0,184,102,.12);
+}
+.membership-banner.premium{
+  background:#eaf6ef;
+  color:#14663e;
+}
+.membership-banner.free{
+  background:#fff8d8;
+  color:#6b5b00;
+  border-color:#ead47a;
+}
+html[data-theme="dark"] .membership-banner.premium{
+  background:#102b1e;
+  color:#a9efc7;
+}
+html[data-theme="dark"] .membership-banner.free{
+  background:#2b2814;
+  color:#eadf9a;
+}
+@media(max-width:700px){
+  .membership-banner{
+    margin:8px 10px 0;
+    padding:10px 12px;
+    font-size:10px;
+  }
+}
+
 </style>
 </head>
 
@@ -564,6 +615,8 @@ html[data-theme="dark"] #accountNotice{
 </header>
 
 <div id="accountNotice" style="display:none;max-width:1110px;margin:12px auto 0;padding:10px 14px;border-radius:10px;font-size:12px;background:#fff8d8;border:1px solid #f1df8b;color:#6b5b00;"></div>
+<div id="membershipBanner" class="membership-banner" style="display:none;"></div>
+
 
 <main>
 
@@ -648,7 +701,7 @@ html[data-theme="dark"] #accountNotice{
 <div><div class="footer-title">Menu</div><div class="footer-links"><a href="#beranda">Beranda</a><a href="#kategori">Kategori</a><a href="#materi">Materi</a></div></div>
 <div><div class="footer-title">Akun</div><div class="footer-links"><a href="login.html">Login</a><a href="daftar.html">Daftar</a></div></div>
 </div>
-<div class="footer-bottom">© 2026 NgajiPlus. Semua hak dilindungi.</div>
+<div class="footer-bottom">© 2026 NgajiPlus. Semua hak dilindungi. · Build V3 Lifetime</div>
 </div>
 </footer>
 
@@ -693,6 +746,7 @@ function setAccountUI(user, profile) {
   const logoutBtn = document.getElementById("logoutBtn");
   const profileBtn = document.getElementById("profileBtn");
   const accountNotice = document.getElementById("accountNotice");
+  const membershipBanner = document.getElementById("membershipBanner");
 
   if (user) {
     if (loginBtn) loginBtn.style.display = "none";
@@ -701,20 +755,47 @@ function setAccountUI(user, profile) {
     if (profileBtn) profileBtn.style.display = "inline-block";
     if (logoutBtn) logoutBtn.style.display = "inline-block";
 
-    if (accountNotice) {
-      const nama = profile && profile.nama ? profile.nama : "Member";
-      const paket = profile && profile.paket ? profile.paket : "";
-      accountNotice.style.display = "block";
-      const lifetime =
-        paket.toLowerCase() === "lifetime";
+    const nama = profile && profile.nama ? profile.nama : "Member";
+    const paket = String(profile && profile.paket ? profile.paket : "")
+      .trim();
 
+    if (accountNotice) {
+      accountNotice.style.display = "block";
       accountNotice.innerHTML =
         "👋 Selamat datang, <strong>" + escapeHtml(nama) + "</strong>" +
-        (lifetime
-          ? " · 👑 <strong>Lifetime — Premium Selamanya</strong>"
-          : (paket
-              ? " · Paket: <strong>" + escapeHtml(paket) + "</strong>"
-              : ""));
+        (paket
+          ? " · Paket: <strong>" + escapeHtml(paket) + "</strong>"
+          : "");
+    }
+
+    if (membershipBanner) {
+      membershipBanner.style.display = "block";
+      membershipBanner.className = "membership-banner";
+
+      const status = String(profile && profile.status ? profile.status : "")
+        .toLowerCase().trim();
+
+      const isLifetime =
+        status === "aktif" &&
+        paket.toLowerCase() === "lifetime";
+
+      if (isLifetime) {
+        membershipBanner.classList.add("lifetime");
+        membershipBanner.innerHTML =
+          "👑 <strong>LIFETIME AKTIF</strong> — " +
+          "Premium Anda aktif <strong>selamanya</strong>. " +
+          "Semua materi Premium dapat dipelajari.";
+      } else if (membershipActive) {
+        membershipBanner.classList.add("premium");
+        membershipBanner.innerHTML =
+          "💎 <strong>PREMIUM AKTIF</strong> — " +
+          "Anda dapat mengakses materi Premium.";
+      } else {
+        membershipBanner.classList.add("free");
+        membershipBanner.innerHTML =
+          "🔐 <strong>Member Gratis</strong> — " +
+          "Materi gratis dapat dipelajari. Aktifkan Membership untuk membuka Premium.";
+      }
     }
   } else {
     if (loginBtn) loginBtn.style.display = "inline-block";
@@ -723,6 +804,13 @@ function setAccountUI(user, profile) {
     if (profileBtn) profileBtn.style.display = "none";
     if (logoutBtn) logoutBtn.style.display = "none";
     if (accountNotice) accountNotice.style.display = "none";
+
+    if (membershipBanner) {
+      membershipBanner.style.display = "block";
+      membershipBanner.className = "membership-banner free";
+      membershipBanner.innerHTML =
+        "🔐 <strong>Belum login</strong> — Silakan login untuk mengakses materi belajar.";
+    }
   }
 }
 
@@ -803,8 +891,12 @@ async function checkMembership() {
     }
 
     currentProfile = profile;
-    setAccountUI(currentUser, currentProfile);
-    if (!currentProfile) return;
+    if (!currentProfile) {
+      setAccountUI(currentUser, null);
+      updateMemberCta();
+      updateStartLearning();
+      return;
+    }
 
     const status = String(currentProfile.status || "")
       .toLowerCase().trim();
@@ -832,8 +924,15 @@ async function checkMembership() {
       (status === "aktif" && tanggalAktif);
 
     console.log("Membership aktif:", membershipActive);
+    console.log("Paket:", currentProfile.paket);
+    console.log("Status:", currentProfile.status);
+    console.log("Berlaku sampai:", currentProfile.berlaku_sampai);
+
+    setAccountUI(currentUser, currentProfile);
     updateMemberCta();
     updateStartLearning();
+    renderMaterials();
+
     console.log("Lifetime:", isLifetime);
   } catch (error) {
     console.error("CHECK MEMBERSHIP ERROR:", error);
