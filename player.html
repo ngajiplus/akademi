@@ -714,7 +714,26 @@ async function checkAccess(){
      profile.status || ""
     ).toLowerCase().trim();
 
-   let aktif = false;
+   const paket =
+    String(
+     profile.paket || ""
+    ).toLowerCase().trim();
+
+   /*
+      LIFETIME:
+      status aktif + paket Lifetime =
+      Premium selamanya.
+      berlaku_sampai memang NULL.
+   */
+   const lifetime =
+    status === "aktif" &&
+    paket === "lifetime";
+
+   /*
+      PAKET BIASA:
+      status aktif + tanggal belum lewat.
+   */
+   let aktifTanggal = false;
 
    if(
     status === "aktif" &&
@@ -726,12 +745,13 @@ async function checkAccess(){
       profile.berlaku_sampai
      );
 
-    aktif =
+    aktifTanggal =
      !isNaN(expiry.getTime()) &&
      expiry.getTime() >= Date.now();
    }
 
-   access.premium = aktif;
+   access.premium =
+    lifetime || aktifTanggal;
   }
 
  }catch(error){
