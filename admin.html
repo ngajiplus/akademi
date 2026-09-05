@@ -174,6 +174,375 @@ html[data-theme="dark"] #accountNotice{
 .section-header{align-items:flex-start;flex-direction:column}
 .hero-buttons{flex-direction:column}.btn{width:100%}.member-button{width:100%;text-align:center}
 }
+
+/* =========================================================
+   NGajiPlus INDEX v2 — MOBILE FIRST OVERRIDE
+   ========================================================= */
+@media (max-width: 700px){
+
+  body{
+    font-size:14px;
+    overflow-x:hidden;
+  }
+
+  .site-header{
+    position:sticky;
+    top:0;
+  }
+
+  .nav-container{
+    width:100%;
+    padding:8px 10px;
+    gap:8px;
+    align-items:center;
+  }
+
+  .logo{
+    font-size:15px;
+    gap:6px;
+    flex-shrink:0;
+  }
+
+  .logo-icon{
+    width:30px;
+    height:30px;
+    font-size:16px;
+    border-radius:8px;
+  }
+
+  .nav-menu{
+    flex:1;
+    justify-content:flex-end;
+    gap:4px;
+    min-width:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+
+  .nav-menu::-webkit-scrollbar{
+    display:none;
+  }
+
+  .nav-menu a,
+  .theme-btn{
+    flex:0 0 auto;
+    padding:7px 8px;
+    font-size:10px;
+    white-space:nowrap;
+  }
+
+  .nav-menu a[href="#beranda"],
+  .nav-menu a[href="#kategori"],
+  .nav-menu a[href="#materi"]{
+    display:none;
+  }
+
+  .theme-btn{
+    width:31px;
+    height:31px;
+    padding:0;
+    font-size:14px;
+  }
+
+  #dashboardBtn,
+  #profileBtn,
+  #logoutBtn,
+  #loginBtn,
+  #registerBtn{
+    font-size:10px;
+  }
+
+  .hero{
+    display:block;
+    padding:32px 14px 22px;
+  }
+
+  .hero > div:first-child{
+    width:100%;
+  }
+
+  .hero-badge{
+    font-size:10px;
+    padding:5px 9px;
+  }
+
+  .hero h1{
+    font-size:clamp(31px,9.5vw,42px);
+    line-height:1.06;
+    letter-spacing:-.8px;
+    margin-bottom:12px;
+  }
+
+  .hero-description{
+    font-size:12px;
+    line-height:1.65;
+    margin-bottom:18px;
+  }
+
+  .hero-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+    padding:10px 8px;
+    font-size:11px;
+  }
+
+  .hero-card{
+    margin-top:22px;
+    padding:12px;
+    border-radius:17px;
+  }
+
+  .hero-screen{
+    padding:12px;
+    border-radius:13px;
+  }
+
+  .featured-video{
+    height:145px;
+    border-radius:12px;
+    font-size:38px;
+  }
+
+  .mini-title{
+    font-size:12px;
+  }
+
+  .mini-text{
+    font-size:9px;
+  }
+
+  .features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    padding:8px 10px 30px;
+  }
+
+  .feature{
+    padding:12px;
+    border-radius:12px;
+  }
+
+  .feature-icon{
+    font-size:21px;
+  }
+
+  .feature h3{
+    font-size:11px;
+  }
+
+  .feature p{
+    font-size:9px;
+    line-height:1.45;
+  }
+
+  .section{
+    padding:30px 10px;
+  }
+
+  .section-header{
+    margin-bottom:15px;
+  }
+
+  .section-header h2{
+    font-size:21px;
+  }
+
+  .section-header p{
+    font-size:10px;
+  }
+
+  .category-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+
+  .category-card{
+    min-height:105px;
+    padding:12px;
+    border-radius:12px;
+  }
+
+  .category-icon{
+    font-size:23px;
+  }
+
+  .category-card h3{
+    font-size:11px;
+  }
+
+  .category-card p{
+    font-size:9px;
+    line-height:1.4;
+  }
+
+  .material-inner{
+    padding:30px 10px;
+  }
+
+  .material-tools{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-bottom:16px;
+  }
+
+  .search-box,
+  .category-select{
+    padding:10px 11px;
+    font-size:11px;
+  }
+
+  /* IMPORTANT: one material per row on phones */
+  .material-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+
+  .material-card{
+    width:100%;
+    border-radius:14px;
+  }
+
+  .material-image{
+    height:190px;
+  }
+
+  .material-content{
+    padding:13px;
+  }
+
+  .material-card h3{
+    font-size:15px;
+  }
+
+  .material-card p{
+    font-size:10px;
+  }
+
+  .material-meta,
+  .material-status{
+    font-size:10px;
+  }
+
+  .material-button{
+    padding:10px;
+    font-size:11px;
+  }
+
+  .premium-lock{
+    font-size:43px;
+  }
+
+  .member-box{
+    margin:25px 10px 35px;
+    padding:22px 16px;
+    border-radius:17px;
+    gap:15px;
+  }
+
+  .member-box h2{
+    font-size:19px;
+  }
+
+  .member-box p{
+    font-size:10px;
+    line-height:1.5;
+  }
+
+  .member-button{
+    width:100%;
+    text-align:center;
+    padding:10px;
+    font-size:11px;
+  }
+
+  footer{
+    margin-top:30px;
+  }
+
+  .footer-container{
+    padding:25px 14px 18px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+
+  .footer-grid > div:first-child{
+    grid-column:1 / -1;
+  }
+
+  .footer-brand,
+  .footer-links a{
+    font-size:9px;
+  }
+
+  .footer-title{
+    font-size:10px;
+  }
+
+  .footer-bottom{
+    font-size:9px;
+  }
+
+  #accountNotice{
+    margin:8px 10px 0 !important;
+    font-size:9px !important;
+    line-height:1.5;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width:380px){
+  .nav-container{
+    padding-left:7px;
+    padding-right:7px;
+  }
+
+  .logo{
+    font-size:12px;
+  }
+
+  .logo-icon{
+    width:27px;
+    height:27px;
+    font-size:14px;
+  }
+
+  .nav-menu a,
+  #dashboardBtn,
+  #profileBtn,
+  #logoutBtn,
+  #loginBtn,
+  #registerBtn{
+    padding:6px 6px;
+    font-size:9px;
+  }
+
+  .theme-btn{
+    width:29px;
+    height:29px;
+    font-size:13px;
+  }
+
+  .hero h1{
+    font-size:31px;
+  }
+
+  .material-image{
+    height:175px;
+  }
+}
+
 </style>
 </head>
 
