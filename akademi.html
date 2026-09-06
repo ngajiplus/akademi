@@ -36,7 +36,7 @@ main{max-width:1180px;margin:auto;padding:18px 15px 50px}
 .course-progress-top{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted)}
 .course-progress-top strong{color:var(--green2)}
 .level-progress-bar{height:4px;background:var(--surface);border-radius:99px;overflow:hidden;margin-top:7px}
-.continue-box{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:13px;padding:13px;margin-bottom:14px}
+.hidden{display:none!important}.continue-box{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:13px;padding:13px;margin-bottom:14px}
 .continue-title{font-size:11px;color:var(--muted);margin-bottom:5px}
 .continue-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .continue-name{font-weight:800;font-size:13px}.continue-meta{font-size:10px;color:var(--muted);margin-top:3px}
@@ -64,7 +64,7 @@ input{flex:1}input:focus,select:focus{border-color:var(--green)}
 .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 7px;font-size:9px;margin-right:4px}
 .badge.premium{color:var(--gold);border-color:#80651c}.badge.free{color:var(--green2)}
 .open-btn{border:0;border-radius:8px;background:var(--green);color:#04140c;padding:8px 10px;font-size:10px;font-weight:800}
-.lock-btn{border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);padding:8px 9px;font-size:10px}
+.lock-btn{border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);padding:8px 9px;font-size:10px}.sequence-lock{opacity:.72}.lock-note{font-size:9px;color:var(--muted);margin-top:5px}
 .empty,.loading,.error{text-align:center;color:var(--muted);padding:28px 10px;font-size:12px}
 .error{color:#ff9090}
 footer{border-top:1px solid var(--border);padding:22px 15px;text-align:center;color:var(--muted);font-size:10px}
@@ -304,36 +304,99 @@ function renderLevel(l){
  </div>`;
 }
 
+function isAdminUser(){
+ return !!(currentProfile?.is_admin===true||currentProfile?.is_admin==="true"||currentProfile?.is_admin===1||currentProfile?.is_admin==="1");
+}
+
+function levelSequenceState(level){
+ if(isAdminUser()) return {available:true,reason:""};
+ const courseLevels=levels
+  .filter(x=>String(x.course_id)===String(level.course_id))
+  .sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id));
+ const idx=courseLevels.findIndex(x=>String(x.id)===String(level.id));
+ if(idx<=0) return {available:true,reason:""};
+ const previous=courseLevels[idx-1];
+ const prevLinks=links.filter(x=>String(x.level_id)===String(previous.id));
+ if(!prevLinks.length) return {available:true,reason:""};
+ const prevDone=prevLinks.every(x=>isDone(x.material_id));
+ return prevDone
+  ? {available:true,reason:""}
+  : {available:false,reason:`Selesaikan ${previous.nama} terlebih dahulu.`};
+}
+
+function materialSequenceState(link){
+ if(isAdminUser()) return {available:true,reason:""};
+ const level=levels.find(x=>String(x.id)===String(link.level_id));
+ if(!level) return {available:false,reason:"Level tidak ditemukan."};
+ const levelState=levelSequenceState(level);
+ if(!levelState.available) return levelState;
+ const levelLinks=links
+  .filter(x=>String(x.level_id)===String(level.id))
+  .sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id));
+ const idx=levelLinks.findIndex(x=>String(x.id)===String(link.id));
+ if(idx<=0) return {available:true,reason:""};
+ const previous=levelLinks[idx-1];
+ if(isDone(previous.material_id)) return {available:true,reason:""};
+ const previousMaterial=materials.find(x=>String(x.id)===String(previous.material_id));
+ return {available:false,reason:`Selesaikan “${previousMaterial?.judul||"materi sebelumnya"}” terlebih dahulu.`};
+}
+
 function renderMaterial(link){
  const m=materials.find(x=>String(x.id)===String(link.material_id));
  if(!m)return `<div class="material"><div class="m-main"><div class="m-title">⚠️ Materi #${esc(link.material_id)} tidak ditemukan</div></div></div>`;
- const p=premium(m),canOpen=!p||membershipActive;
+ const p=premium(m),membershipCanOpen=!p||membershipActive;
+ const sequence=materialSequenceState(link);
+ const canOpen=membershipCanOpen&&sequence.available;
  const prog=progressMap.get(String(m.id));
  const done=prog?.status==="completed"||Number(prog?.progress||0)>=95;
  const percent=Math.max(0,Math.min(100,Number(prog?.progress||0)));
  const progressLabel=done?'<span class="badge free">✅ SELESAI</span>':percent>0?`<span class="badge">${percent}%</span>`:"";
+ let action="";
+ if(!membershipCanOpen){
+   action=`<button class="lock-btn" onclick="needMembership()">🔐 Premium</button>`;
+ }else if(!sequence.available){
+   action=`<button class="lock-btn sequence-lock" onclick="sequenceAlert(${JSON.stringify(sequence.reason)})">🔒 Terkunci</button>`;
+ }else{
+   action=`<a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">${done?"↻ Ulangi":"▶️ Buka"}</a>`;
+ }
+ const note=!membershipCanOpen
+   ?'<div class="lock-note">🔐 Khusus member premium</div>'
+   :(!sequence.available?`<div class="lock-note">🔒 ${esc(sequence.reason)}</div>`:"");
  return `<div class="material">
   <div class="m-icon">${icon(m)}</div>
   <div class="m-main">
    <div class="m-title">${esc(m.judul||"Tanpa Judul")}</div>
    <div class="m-meta"><span class="badge ${p?"premium":"free"}">${p?"🔐 Premium":"✓ Gratis"}</span><span class="badge">${esc(typeOf(m).toUpperCase())}</span>${link.wajib?'<span class="badge">WAJIB</span>':'<span class="badge">OPSIONAL</span>'}${progressLabel}</div>
    ${percent>0&&!done?`<div class="progress-wrap"><div class="progress-bar" style="width:${percent}%"></div></div>`:""}
+   ${note}
   </div>
-  ${canOpen?`<a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">${done?"↻ Ulangi":"▶️ Buka"}</a>`:`<button class="lock-btn" onclick="needMembership()">🔐 Premium</button>`}
+  ${action}
  </div>`;
 }
-
 function toggleCourse(head){head.parentElement.classList.toggle("open")}
 function toggleLevel(head){head.parentElement.classList.toggle("open")}
 function renderContinue(){
  const box=document.getElementById("continueBox");
  if(!currentUser){box.classList.add("hidden");return}
- const candidates=materials.map(m=>({m,p:progressMap.get(String(m.id))})).filter(x=>x.p&&x.p.status!=="completed"&&Number(x.p.progress||0)>0).sort((a,b)=>new Date(b.p.last_watched_at||0)-new Date(a.p.last_watched_at||0));
- if(!candidates.length){box.classList.add("hidden");return}
- const x=candidates[0],m=x.m,percent=Math.max(0,Math.min(100,Number(x.p.progress||0)));
+
+ // Lanjutkan dari materi terakhir yang masih bisa dipelajari.
+ const ordered=[];
+ courses.slice().sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(c=>{
+  levels.filter(l=>String(l.course_id)===String(c.id)).sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(l=>{
+   links.filter(x=>String(x.level_id)===String(l.id)).sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(x=>ordered.push(x));
+  });
+ });
+ const candidates=ordered.map(link=>({link,m:materials.find(m=>String(m.id)===String(link.material_id)),p:progressMap.get(String(link.material_id))}))
+  .filter(x=>x.m&&!isDone(x.m.id)&&materialSequenceState(x.link).available)
+  .sort((a,b)=>new Date(b.p?.last_watched_at||0)-new Date(a.p?.last_watched_at||0));
+ const x=candidates.find(y=>Number(y.p?.progress||0)>0)||candidates[0];
+ if(!x){box.classList.add("hidden");return}
+ const m=x.m,percent=Math.max(0,Math.min(100,Number(x.p?.progress||0)));
  box.innerHTML=`<div class="continue-title">▶️ LANJUTKAN BELAJAR</div><div class="continue-main"><div><div class="continue-name">${icon(m)} ${esc(m.judul||"Materi")}</div><div class="continue-meta">${percent}% selesai • ${esc(m.kategori||"Akademi")}</div></div><a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">Lanjut</a></div><div class="progress-wrap"><div class="progress-bar" style="width:${percent}%"></div></div>`;
  box.classList.remove("hidden");
 }
+
+function sequenceAlert(message){alert("🔒 Materi terkunci.\n\n"+message)}
 
 function needMembership(){if(confirm("🔐 Materi ini khusus member premium. Buka halaman Membership?"))location.href="membership.html"}
 
