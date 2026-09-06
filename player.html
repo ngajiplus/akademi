@@ -396,6 +396,27 @@ footer{
  h1{font-size:20px}
  .pdf{height:590px}
 }
+
+/* =========================================================
+   NAVIGASI BELAJAR BERURUTAN
+========================================================= */
+.study-nav{
+ margin-top:18px;
+ padding:14px;
+ border:1px solid rgba(0,255,170,.16);
+ border-radius:14px;
+ background:rgba(0,90,55,.16);
+}
+.study-nav-title{font-weight:800;font-size:15px;margin-bottom:5px}
+.study-nav-info{font-size:12px;opacity:.78;line-height:1.5;margin-bottom:12px}
+.study-nav-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.study-nav a{display:flex;align-items:center;justify-content:center;min-height:42px;padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:800;font-size:12px;border:1px solid rgba(0,255,170,.18)}
+.study-nav .prev{background:rgba(255,255,255,.04);color:inherit}
+.study-nav .next{background:#00c96b;color:#001d12;border-color:#00c96b}
+.study-nav .disabled{opacity:.45;pointer-events:none;background:rgba(255,255,255,.03);color:inherit}
+.study-nav-end{font-size:12px;opacity:.75;text-align:center;padding:8px}
+@media(max-width:520px){.study-nav-actions{grid-template-columns:1fr}.study-nav a{min-height:40px}}
+
 </style>
 </head>
 
@@ -1081,6 +1102,8 @@ async function renderPage(){
 
    <div id="progressArea"></div>
 
+   <div id="navigationArea"></div>
+
    <a
     class="backacademy"
     href="akademi.html"
@@ -1103,6 +1126,8 @@ async function renderPage(){
  }else{
   renderProgress(null);
  }
+
+ await loadNavigation();
 
 }
 
@@ -1646,6 +1671,8 @@ async function saveProgress(
     "✓ Materi Sudah Selesai";
    pdfBtn.classList.add("done");
   }
+
+  await loadNavigation();
  }
 }
 
@@ -1669,6 +1696,141 @@ async function completeMaterial(){
  alert(
   "✅ Materi berhasil ditandai selesai."
  );
+}
+
+
+/* =========================================================
+   NAVIGASI BELAJAR BERURUTAN
+   Urutan: materi dalam level -> level berikutnya.
+========================================================= */
+
+async function loadNavigation(){
+ const area=document.getElementById("navigationArea");
+ if(!area || !material) return;
+
+ area.innerHTML = `<div class="study-nav"><div class="study-nav-info">⏳ Menyiapkan navigasi belajar...</div></div>`;
+
+ try{
+  /* Cari level yang memuat materi saat ini. */
+  const linkRes=await sb
+   .from("course_materials")
+   .select("level_id, material_id, urutan")
+   .eq("material_id",String(material.id))
+   .order("urutan",{ascending:true});
+
+  if(linkRes.error || !linkRes.data || !linkRes.data.length){
+   area.innerHTML="";
+   return;
+  }
+
+  const currentLink=linkRes.data[0];
+
+  const levelRes=await sb
+   .from("levels")
+   .select("id,course_id,nama,urutan,aktif")
+   .eq("id",currentLink.level_id)
+   .maybeSingle();
+
+  if(levelRes.error || !levelRes.data){
+   area.innerHTML="";
+   return;
+  }
+
+  const level=levelRes.data;
+
+  /* Semua level dalam course yang sama. */
+  const levelsRes=await sb
+   .from("levels")
+   .select("id,course_id,nama,urutan,aktif")
+   .eq("course_id",level.course_id)
+   .eq("aktif",true)
+   .order("urutan",{ascending:true});
+
+  if(levelsRes.error){ throw levelsRes.error; }
+
+  const levels=levelsRes.data || [];
+  const levelIds=levels.map(x=>x.id);
+
+  if(!levelIds.length){ area.innerHTML=""; return; }
+
+  /* Semua materi course, lalu urutkan berdasarkan level + urutan materi. */
+  const cmRes=await sb
+   .from("course_materials")
+   .select("id,level_id,material_id,urutan,wajib")
+   .in("level_id",levelIds)
+   .order("urutan",{ascending:true});
+
+  if(cmRes.error){ throw cmRes.error; }
+
+  const cms=cmRes.data || [];
+  const levelOrder=new Map(levels.map((x,i)=>[x.id,i]));
+
+  cms.sort((a,b)=>{
+   const la=levelOrder.get(a.level_id) ?? 999999;
+   const lb=levelOrder.get(b.level_id) ?? 999999;
+   if(la!==lb) return la-lb;
+   return (Number(a.urutan)||0)-(Number(b.urutan)||0);
+  });
+
+  const idx=cms.findIndex(x=>String(x.material_id)===String(material.id));
+  if(idx<0){ area.innerHTML=""; return; }
+
+  const prev=idx>0 ? cms[idx-1] : null;
+  const next=idx<cms.length-1 ? cms[idx+1] : null;
+
+  const ids=[prev?.material_id,next?.material_id].filter(Boolean).map(String);
+  let materialMap=new Map();
+
+  if(ids.length){
+   const mr=await sb
+    .from("materials")
+    .select("id,judul,premium")
+    .in("id",ids);
+   if(!mr.error){
+    materialMap=new Map((mr.data||[]).map(x=>[String(x.id),x]));
+   }
+  }
+
+  const currentLevelIndex=levelOrder.get(level.id) ?? 0;
+  const nextLevel=next ? levels.find(x=>x.id===next.level_id) : null;
+  const prevLevel=prev ? levels.find(x=>x.id===prev.level_id) : null;
+
+  const progress=await getProgress();
+  const done=Number(progress?.progress||0)>=100 || progress?.status==="completed";
+
+  const prevMat=prev ? materialMap.get(String(prev.material_id)) : null;
+  const nextMat=next ? materialMap.get(String(next.material_id)) : null;
+
+  let html=`<div class="study-nav">`;
+  html+=`<div class="study-nav-title">📚 Jalur Belajar</div>`;
+  html+=`<div class="study-nav-info">${esc(level.nama || "Level")} • Materi ${idx+1} dari ${cms.length} dalam jalur ini.</div>`;
+  html+=`<div class="study-nav-actions">`;
+
+  if(prev){
+   html+=`<a class="prev" href="player.html?id=${encodeURIComponent(prev.material_id)}">← ${esc(prevMat?.judul || "Materi sebelumnya")}</a>`;
+  }else{
+   html+=`<a class="prev disabled" href="#">← Materi pertama</a>`;
+  }
+
+  if(next){
+   if(done){
+    const label=nextLevel && nextLevel.id!==level.id
+      ? `Level berikutnya: ${nextLevel.nama}`
+      : (nextMat?.judul || "Materi berikutnya");
+    html+=`<a class="next" href="player.html?id=${encodeURIComponent(next.material_id)}">${esc(label)} →</a>`;
+   }else{
+    html+=`<a class="next disabled" href="#">🔒 Selesaikan materi ini dahulu</a>`;
+   }
+  }else{
+   html+=`<div class="study-nav-end">🎉 MasyaAllah, ini adalah materi terakhir dalam jalur course ini.</div>`;
+  }
+
+  html+=`</div></div>`;
+  area.innerHTML=html;
+ }catch(err){
+  console.error("NAVIGATION ERROR:",err);
+  area.innerHTML="";
+ }
 }
 
 
