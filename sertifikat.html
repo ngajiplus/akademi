@@ -35,7 +35,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://ksgywgdrfskqsufchbcm.supabase.co";
-const SUPABASE_KEY="sb_publishable_HmFKwHMCISf_NYOOiLx3-A_MWnG9yG7";
+const SUPABASE_KEY="sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 function toggleTheme(){let l=document.body.dataset.light==="1";document.body.dataset.light=l?"":"1";localStorage.setItem("ngaji-theme",l?"dark":"light");document.getElementById("theme").textContent=l?"☀️":"🌙"}
