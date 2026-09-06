@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sertifikat — NgajiPlus Akademi</title>
+<style>
+:root{--bg:#001c15;--p:#032a20;--p2:#05352a;--line:#0a5b45;--text:#effff8;--muted:#9cc4b8;--g:#00d96b;--gold:#e8bd55}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+nav{height:54px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#00251b;border-bottom:1px solid var(--line)}
+.brand{color:var(--g);font-weight:bold;font-size:12px}.nav{display:flex;gap:6px}.nav a,.nav button{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--p);color:var(--text);font-size:10px}
+main{max-width:1000px;margin:auto;padding:14px}.hero{padding:20px;border-radius:16px;background:linear-gradient(135deg,#075f3e,#009447);border:1px solid #00a85c}.hero h1{margin:0 0 6px;font-size:23px}.hero p{margin:0;font-size:11px}
+.notice,.section{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:12px}.section h2{font-size:15px;margin:0 0 10px}
+.grid,.certgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.card{background:var(--p2);border:1px solid var(--line);border-radius:11px;padding:12px}.course{font-size:13px;font-weight:bold}.level{font-size:11px;color:var(--muted);margin-top:3px}.meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:8px}.bar{height:6px;background:#062018;border-radius:99px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.actions{margin-top:9px}.btn{border:0;border-radius:8px;padding:7px 10px;background:var(--g);color:#002315;font-size:10px;font-weight:bold;cursor:pointer}.gold{background:var(--gold)}.secondary{background:#084b39;color:var(--text);border:1px solid var(--line)}
+.empty{text-align:center;color:var(--muted);font-size:11px;padding:16px}
+.cert{background:#faf7ea;color:#17281f;border-radius:8px;padding:28px;text-align:center;border:5px double #b88a2b}.cert small{letter-spacing:2px;font-size:8px}.cert h3{font:25px Georgia,serif;color:#8a681d;margin:14px}.name{font:23px Georgia,serif;font-weight:bold;color:#183b2b;margin:8px}.cert p{font-size:10px;line-height:1.6;margin:4px}.num{font-size:8px!important;color:#675b3d;margin-top:14px!important}
+footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-top:1px solid var(--line);margin-top:20px}
+@media(max-width:700px){.grid,.certgrid{grid-template-columns:1fr}main{padding:9px}.nav a:first-child{display:none}}
+@media print{nav,.hero,.notice,#levelsSection,footer,.print-hide{display:none!important}body{background:#fff}.certgrid{display:block}.cert{page-break-after:always;min-height:90vh;padding:65px 40px}}
+</style>
+</head>
+<body>
+<nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
+<a href="akademi.html">📚 Akademi</a><a href="dashboard.html">📊 Dashboard</a><a href="profile.html">👤 Profil</a><button id="theme" onclick="toggleTheme()">☀️</button>
+</div></nav>
+<main>
+<section class="hero"><h1>🎓 Sertifikat NgajiPlus</h1><p>Sertifikat diterbitkan setelah seluruh materi dalam satu level selesai dipelajari.</p></section>
+<div id="notice" class="notice">Memuat...</div>
+<section id="levelsSection" class="section"><h2>📚 Progress Level</h2><div id="levels" class="grid"></div></section>
+<section class="section"><h2>🏆 Sertifikat Saya</h2><div id="certs" class="certgrid"></div></section>
+</main>
+<footer>📖 NgajiPlus Akademi — Belajar Islam secara bertahap</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const URL="https://ksgywgdrfskqsufchbcm.supabase.co";
+const KEY="sb_publishable_HmFKwHMCISf_NYOOiLx3-A_MWnG9yG7";
+const db=supabase.createClient(URL,KEY);
+const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function toggleTheme(){let l=document.body.dataset.light==="1";document.body.dataset.light=l?"":"1";localStorage.setItem("ngaji-theme",l?"dark":"light");document.getElementById("theme").textContent=l?"☀️":"🌙"}
+if(localStorage.getItem("ngaji-theme")==="light"){document.body.dataset.light="1";document.getElementById("theme").textContent="🌙"}
+const s=document.createElement("style");s.textContent='body[data-light="1"]{--bg:#f3faf7;--p:#fff;--p2:#f1faf6;--line:#b8dfd0;--text:#173329;--muted:#58766c}body[data-light="1"] nav{background:#fff}.status{color:#9cc4b8}';document.head.appendChild(s);
+
+async function load(){
+ const {data:u}=await db.auth.getUser();
+ if(!u.user){location.href="login.html?redirect=sertifikat.html";return}
+ const uid=u.user.id;
+ const [lr,cmr,pr,cr,prof]=await Promise.all([
+  db.from("levels").select("id,course_id,nama,urutan").eq("aktif",true).order("course_id").order("urutan"),
+  db.from("course_materials").select("level_id,material_id,urutan").order("level_id").order("urutan"),
+  db.from("learning_progress").select("material_id,status,progress").eq("user_id",uid),
+  db.from("certificates").select("*").eq("user_id",uid).order("tanggal_terbit",{ascending:false}),
+  db.from("profiles").select("nama").eq("id",uid).maybeSingle()
+ ]);
+ if(lr.error||cmr.error||pr.error){document.getElementById("notice").textContent="Gagal memuat data.";return}
+ const levels=lr.data||[], links=cmr.data||[], prog=pr.data||[];
+ const ids=[...new Set(levels.map(x=>x.course_id))];
+ const courses=ids.length?(await db.from("courses").select("id,nama").in("id",ids)).data||[]:[];
+ const cmap=new Map(courses.map(x=>[x.id,x.nama]));
+ const pmap=new Map(prog.map(x=>[String(x.material_id),x]));
+ let certs=cr.data||[];
+
+ for(const lv of levels){
+  const mats=links.filter(x=>x.level_id===lv.id), total=mats.length;
+  const done=mats.filter(m=>{let p=pmap.get(String(m.material_id));return p&&(p.status==="completed"||Number(p.progress)>=100)}).length;
+  if(total>0&&done===total&&!certs.some(c=>c.level_id===lv.id)){
+   const r=await db.rpc("issue_certificate",{p_level_id:lv.id});
+   if(!r.error){const q=await db.from("certificates").select("*").eq("user_id",uid).eq("level_id",lv.id).maybeSingle();if(q.data)certs.push(q.data)}
+  }
+ }
+ document.getElementById("levels").innerHTML=levels.length?levels.map(lv=>{
+  const mats=links.filter(x=>x.level_id===lv.id),total=mats.length;
+  const done=mats.filter(m=>{let p=pmap.get(String(m.material_id));return p&&(p.status==="completed"||Number(p.progress)>=100)}).length;
+  const pct=total?Math.round(done/total*100):0, c=certs.find(x=>x.level_id===lv.id);
+  const action=c?'<a class="btn gold" href="#certs">🏆 Lihat Sertifikat</a>':'<a class="btn secondary" href="akademi.html">📖 Lanjut Belajar</a>';
+  return '<div class="card"><div class="course">'+esc(cmap.get(lv.course_id)||"Course")+'</div><div class="level">'+esc(lv.nama)+'</div><div class="meta"><span>'+done+'/'+total+' materi selesai</span><b>'+pct+'%</b></div><div class="bar"><i style="width:'+pct+'%"></i></div><div class="actions">'+action+'</div></div>'
+ }).join(""):'<div class="empty">Belum ada level.</div>';
+ document.getElementById("certs").innerHTML=certs.length?certs.map(c=>'<article class="cert"><small>NGAJIPLUS AKADEMI</small><h3>SERTIFIKAT</h3><p>Diberikan kepada</p><div class="name">'+esc(c.nama_peserta)+'</div><p>telah menyelesaikan pembelajaran</p><p><b>'+esc(c.course_nama)+'</b></p><p><b>'+esc(c.level_nama)+'</b></p><p class="num">Nomor: '+esc(c.nomor_sertifikat)+'<br>Diterbitkan: '+esc(c.tanggal_terbit)+'</p><div class="actions print-hide"><button class="btn" onclick="window.print()">🖨️ Cetak</button></div></article>').join(""):'<div class="empty">Belum ada sertifikat. Selesaikan Level 100% terlebih dahulu.</div>';
+ document.getElementById("notice").textContent=certs.length?"🎉 Anda memiliki "+certs.length+" sertifikat.":"📚 Selesaikan seluruh materi dalam satu level untuk mendapatkan sertifikat.";
+}
+load();
+</script>
+</body>
+</html>
