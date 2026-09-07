@@ -4,7 +4,17 @@
 <div id="em" class="modal"><div class="modalbox"><div class="head"><h2 id="et">Buat Ujian</h2><button class="close" onclick="cm('em')">×</button></div><input type="hidden" id="eid"><label>Level *</label><select id="lid"></select><div class="formgrid"><div><label>Judul Ujian *</label><input id="judul" value="Ujian Level"></div><div><label>KKM *</label><input id="kkm" type="number" value="80" min="0" max="100"></div><div><label>Nilai Maksimal</label><input id="max" type="number" value="100" min="1" max="100"></div><div><label>Waktu (menit), kosong = tanpa batas</label><input id="time" type="number" min="1"></div><div class="full"><label>Deskripsi</label><textarea id="desc"></textarea></div><div class="full"><label>Instruksi Peserta</label><textarea id="ins" placeholder="Pilih satu jawaban yang paling tepat."></textarea></div></div><p><label><input id="ulang" type="checkbox" checked style="width:auto"> Boleh mengulang</label> <label><input id="aktif" type="checkbox" checked style="width:auto"> Ujian aktif</label></p><div class="actions"><button class="btn" onclick="cm('em')">Batal</button><button class="btn primary" onclick="saveExam()">💾 Simpan</button></div></div></div>
 <div id="qm" class="modal"><div class="modalbox"><div class="head"><h2 id="qt">📝 Bank Soal</h2><button class="close" onclick="cm('qm')">×</button></div><div id="qi" class="notice"></div><div id="qs"></div><hr style="border-color:var(--b)"><h3>＋ Tambah/Edit Soal</h3><input type="hidden" id="qid"><div class="formgrid"><div><label>Nomor *</label><input id="ord" type="number" min="1" value="1"></div><div><label>Poin *</label><input id="point" type="number" min="1" value="1"></div><div class="full"><label>Pertanyaan *</label><textarea id="question"></textarea></div><div><label>Opsi A *</label><input id="a"></div><div><label>Opsi B *</label><input id="b"></div><div><label>Opsi C *</label><input id="c"></div><div><label>Opsi D *</label><input id="d"></div><div><label>Jawaban Benar *</label><select id="correct"><option>A</option><option>B</option><option>C</option><option>D</option></select></div></div><div class="actions"><button class="btn" onclick="clearQ()">Kosongkan</button><button class="btn primary" onclick="saveQ()">💾 Simpan Soal</button></div></div></div>
 <script>
-const URL='https://ksgywgdrfskqsufchbcm.supabase.co',KEY='sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7',db=supabase.createClient(URL,KEY);let courses=[],levels=[],exams=[],cur=null;
+const SUPABASE_URL='https://ksgywgdrfskqsufchbcm.supabase.co',SUPABASE_KEY='sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7';
+let db=null;
+try{
+  if(!window.supabase) throw new Error('Library Supabase belum termuat.');
+  db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+}catch(e){
+  window.addEventListener('DOMContentLoaded',()=>{
+    const m=document.getElementById('msg');
+    if(m){m.textContent='❌ '+e.message;m.style.borderColor='#a8323b';}
+  });
+}let courses=[],levels=[],exams=[],cur=null;
 const $=x=>document.getElementById(x),esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));function msg(x,ok=true){$('msg').textContent=x;$('msg').style.borderColor=ok?'var(--b)':'#a8323b'}function cm(x){$(x).classList.remove('show')}function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('np_theme',document.body.classList.contains('light')?'light':'dark')}
 async function admin(){
       let {data:{user},error:ue}=await db.auth.getUser();
@@ -20,6 +30,7 @@ async function admin(){
     }
 async function loadAll(){
       try{
+        if(!db) throw Error('Koneksi Supabase belum siap. Pastikan internet aktif lalu Refresh.');
         msg('⏳ Memuat data...');
         const timeout=new Promise((_,rej)=>setTimeout(()=>rej(Error('Koneksi ke Supabase terlalu lama. Tekan Refresh lalu coba lagi.')),15000));
         const job=(async()=>{
@@ -55,7 +66,10 @@ async function loadQ(){let r=await db.from('exam_questions').select('*').eq('exa
 function clearQ(){$('qid').value='';$('ord').value=Math.max(1,document.querySelectorAll('.qitem').length+1);$('point').value=1;$('question').value='';$('a').value='';$('b').value='';$('c').value='';$('d').value='';$('correct').value='A'}function editQ(q){$('qid').value=q.id;$('ord').value=q.urutan;$('point').value=q.poin;$('question').value=q.pertanyaan;$('a').value=q.opsi_a;$('b').value=q.opsi_b;$('c').value=q.opsi_c;$('d').value=q.opsi_d;$('correct').value=q.jawaban_benar;window.scrollTo(0,document.body.scrollHeight)}
 async function saveQ(){try{let p={exam_id:cur.id,urutan:+$('ord').value,poin:+$('point').value,pertanyaan:$('question').value.trim(),opsi_a:$('a').value.trim(),opsi_b:$('b').value.trim(),opsi_c:$('c').value.trim(),opsi_d:$('d').value.trim(),jawaban_benar:$('correct').value,updated_at:new Date().toISOString()};if(!p.pertanyaan||!p.opsi_a||!p.opsi_b||!p.opsi_c||!p.opsi_d)throw Error('Pertanyaan dan semua opsi wajib diisi.');let id=$('qid').value,r=id?await db.from('exam_questions').update(p).eq('id',id):await db.from('exam_questions').insert(p);if(r.error)throw r.error;clearQ();await loadQ()}catch(e){alert(e.message)}}async function delQ(id){if(!confirm('Hapus soal ini?'))return;let r=await db.from('exam_questions').delete().eq('id',id);if(r.error)alert(r.error.message);else loadQ()}
 window.addEventListener('DOMContentLoaded',()=>{
-      try{ loadAll(); }
+      try{
+        msg('⏳ Memulai Admin Ujian...');
+        loadAll();
+      }
       catch(e){ msg('❌ '+(e.message||e),false); console.error(e); }
     });
 </script></body></html>
