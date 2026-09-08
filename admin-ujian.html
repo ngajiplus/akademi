@@ -4,18 +4,82 @@
 <div id="em" class="modal"><div class="modalbox"><div class="head"><h2 id="et">Buat Ujian</h2><button class="close" onclick="cm('em')">×</button></div><input type="hidden" id="eid"><label>Level *</label><select id="lid"></select><div class="formgrid"><div><label>Judul Ujian *</label><input id="judul" value="Ujian Level"></div><div><label>KKM *</label><input id="kkm" type="number" value="80" min="0" max="100"></div><div><label>Nilai Maksimal</label><input id="max" type="number" value="100" min="1" max="100"></div><div><label>Waktu (menit), kosong = tanpa batas</label><input id="time" type="number" min="1"></div><div class="full"><label>Deskripsi</label><textarea id="desc"></textarea></div><div class="full"><label>Instruksi Peserta</label><textarea id="ins" placeholder="Pilih satu jawaban yang paling tepat."></textarea></div></div><p><label><input id="ulang" type="checkbox" checked style="width:auto"> Boleh mengulang</label> <label><input id="aktif" type="checkbox" checked style="width:auto"> Ujian aktif</label></p><div class="actions"><button class="btn" onclick="cm('em')">Batal</button><button class="btn primary" onclick="saveExam()">💾 Simpan</button></div></div></div>
 <div id="qm" class="modal"><div class="modalbox"><div class="head"><h2 id="qt">📝 Bank Soal</h2><button class="close" onclick="cm('qm')">×</button></div><div id="qi" class="notice"></div><div id="qs"></div><hr style="border-color:var(--b)"><h3>＋ Tambah/Edit Soal</h3><input type="hidden" id="qid"><div class="formgrid"><div><label>Nomor *</label><input id="ord" type="number" min="1" value="1"></div><div><label>Poin *</label><input id="point" type="number" min="1" value="1"></div><div class="full"><label>Pertanyaan *</label><textarea id="question"></textarea></div><div><label>Opsi A *</label><input id="a"></div><div><label>Opsi B *</label><input id="b"></div><div><label>Opsi C *</label><input id="c"></div><div><label>Opsi D *</label><input id="d"></div><div><label>Jawaban Benar *</label><select id="correct"><option>A</option><option>B</option><option>C</option><option>D</option></select></div><div class="full"><label>Pembahasan</label><textarea id="explanation" placeholder="Penjelasan jawaban..."></textarea></div></div><div class="actions"><button class="btn" onclick="clearQ()">Kosongkan</button><button class="btn primary" onclick="saveQ()">💾 Simpan Soal</button></div></div></div>
 <script>
-const URL='https://ksgywgdrfskqsufchbcm.supabase.co',KEY='sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7',db=supabase.createClient(URL,KEY);let courses=[],levels=[],exams=[],cur=null;
-const $=x=>document.getElementById(x),esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));function msg(x,ok=true){$('msg').textContent=x;$('msg').style.borderColor=ok?'var(--b)':'#a8323b'}function cm(x){$(x).classList.remove('show')}function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('np_theme',document.body.classList.contains('light')?'light':'dark')}
-async function admin(){let{data:{user}}=await db.auth.getUser();if(!user)throw Error('Anda harus login sebagai admin.');let{data:p,error:e}=await db.from('profiles').select('is_admin').eq('id',user.id).maybeSingle();if(e)throw e;if(p?.is_admin)return;let{data:a,error:ae}=await db.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();if(ae)throw ae;if(!a)throw Error('Akses admin ditolak.')}
-async function loadAll(){try{msg('Memuat data...');await admin();let[c,l,e]=await Promise.all([db.from('courses').select('*').order('urutan'),db.from('levels').select('*').order('course_id').order('urutan'),db.from('exams').select('*').order('id')]);if(c.error)throw c.error;if(l.error)throw l.error;if(e.error)throw e.error;courses=c.data||[];levels=l.data||[];exams=e.data||[];$('cf').innerHTML='<option value="">Semua Course</option>'+courses.map(c=>`<option value="${c.id}">${esc(c.nama)}</option>`).join('');$('lid').innerHTML=levels.map(l=>{let c=courses.find(x=>x.id===l.course_id);return `<option value="${l.id}">${esc(c?.nama)} — ${esc(l.nama)}</option>`}).join('');render();msg('Data ujian berhasil dimuat.')}catch(e){msg('❌ '+e.message,false);$('list').innerHTML='<div class="empty">Gagal memuat data.</div>'}}
-function render(){let s=$('search').value.toLowerCase(),f=$('cf').value;$('list').innerHTML=levels.filter(l=>{let c=courses.find(x=>x.id===l.course_id);return(!f||String(l.course_id)===f)&&(!s||`${c?.nama} ${l.nama}`.toLowerCase().includes(s))}).map(l=>{let c=courses.find(x=>x.id===l.course_id),e=exams.find(x=>x.level_id===l.id);return `<article class="card"><h3>📚 ${esc(c?.nama)}</h3><b>${esc(l.nama)}</b><div class="meta">${esc(l.deskripsi||'Tidak ada deskripsi')}</div><div class="badges"><span class="badge">${e?'📝 Ujian tersedia':'⚪ Belum ada ujian'}</span>${e?`<span class="badge">🎯 KKM ${e.passing_score}</span><span class="badge">${e.boleh_mengulang?'🔄 Bisa ulang':'🚫 Tidak bisa ulang'}</span><span class="badge">${e.aktif?'🟢 Aktif':'⚫ Nonaktif'}</span>`:''}</div><div class="actions">${e?`<button class="btn primary" onclick="questions(${e.id})">📝 Kelola Soal</button><button class="btn" onclick="editExam(${e.id})">✏️ Edit</button><button class="btn danger" onclick="delExam(${e.id})">🗑️ Hapus</button>`:`<button class="btn primary" onclick="newExam(${l.id})">＋ Buat Ujian</button>`}</div></article>`}).join('')||'<div class="empty">Tidak ada level.</div>'}
-function newExam(level=null){$('eid').value='';$('et').textContent='Buat Ujian';if(level)$('lid').value=level;$('judul').value='Ujian Level';$('kkm').value=80;$('max').value=100;$('time').value='';$('desc').value='';$('ins').value='';$('ulang').checked=true;$('aktif').checked=true;$('em').classList.add('show')}
-function editExam(id){let e=exams.find(x=>x.id===id);$('eid').value=e.id;$('et').textContent='Edit Ujian';$('lid').value=e.level_id;$('judul').value=e.judul;$('kkm').value=e.passing_score;$('max').value=e.nilai_maksimal;$('time').value=e.waktu_menit??'';$('desc').value=e.deskripsi||'';$('ins').value=e.instruksi||'';$('ulang').checked=e.boleh_mengulang;$('aktif').checked=e.aktif;$('em').classList.add('show')}
-async function saveExam(){try{let p={level_id:+$('lid').value,judul:$('judul').value.trim(),kkm:+$('kkm').value,nilai_maksimal:+$('max').value,waktu_menit:$('time').value?+$('time').value:null,deskripsi:$('desc').value.trim()||null,instruksi:$('ins').value.trim()||null,boleh_mengulang:$('ulang').checked,aktif:$('aktif').checked,updated_at:new Date().toISOString()};if(!p.judul)throw Error('Judul wajib diisi.');let id=$('eid').value,r=id?await db.from('exams').update(p).eq('id',id):await db.from('exams').insert(p);if(r.error)throw r.error;cm('em');await loadAll()}catch(e){alert(e.message)}}
-async function delExam(id){if(!confirm('Hapus ujian dan semua soal di dalamnya?'))return;let r=await db.from('exams').delete().eq('id',id);if(r.error)alert(r.error.message);else loadAll()}
-async function questions(id){cur=exams.find(x=>x.id===id);$('qt').textContent='📝 Bank Soal — '+cur.judul;$('qi').textContent=`KKM ${cur.passing_score} • ${cur.boleh_mengulang?'Boleh mengulang':'Tidak boleh mengulang'} • Nilai maksimal ${cur.nilai_maksimal}`;clearQ();await loadQ();$('qm').classList.add('show')}
-async function loadQ(){let r=await db.from('exam_questions').select('*').eq('exam_id',cur.id).order('urutan');if(r.error){$('qs').innerHTML='<div class="empty">'+esc(r.error.message)+'</div>';return}$('qs').innerHTML=r.data?.length?r.data.map(q=>`<div class="qitem"><b>Soal ${q.urutan} • ${q.poin} poin</b><div class="qtext">${esc(q.pertanyaan)}</div><div class="options">A. ${esc(q.opsi_a)}<br>B. ${esc(q.opsi_b)}<br>C. ${esc(q.opsi_c)}<br>D. ${esc(q.opsi_d)}<br>✅ Kunci: ${q.jawaban_benar}</div><div class="actions"><button class="btn" onclick='editQ(${JSON.stringify(q)})'>✏️ Edit</button><button class="btn danger" onclick="delQ(${q.id})">🗑️ Hapus</button></div></div>`).join(''):'<div class="empty">Belum ada soal.</div>'}
-function clearQ(){$('qid').value='';$('ord').value=Math.max(1,document.querySelectorAll('.qitem').length+1);$('point').value=1;$('question').value='';$('a').value='';$('b').value='';$('c').value='';$('d').value='';$('correct').value='A';$('explanation').value=''}function editQ(q){$('qid').value=q.id;$('ord').value=q.urutan;$('point').value=q.poin;$('question').value=q.pertanyaan;$('a').value=q.opsi_a;$('b').value=q.opsi_b;$('c').value=q.opsi_c;$('d').value=q.opsi_d;$('correct').value=q.jawaban_benar;$('explanation').value=q.pembahasan||'';window.scrollTo(0,document.body.scrollHeight)}
-async function saveQ(){try{let p={exam_id:cur.id,urutan:+$('ord').value,poin:+$('point').value,pertanyaan:$('question').value.trim(),opsi_a:$('a').value.trim(),opsi_b:$('b').value.trim(),opsi_c:$('c').value.trim(),opsi_d:$('d').value.trim(),jawaban_benar:$('correct').value,pembahasan:$('explanation').value.trim()||null,updated_at:new Date().toISOString()};if(!p.pertanyaan||!p.opsi_a||!p.opsi_b||!p.opsi_c||!p.opsi_d)throw Error('Pertanyaan dan semua opsi wajib diisi.');let id=$('qid').value,r=id?await db.from('exam_questions').update(p).eq('id',id):await db.from('exam_questions').insert(p);if(r.error)throw r.error;clearQ();await loadQ()}catch(e){alert(e.message)}}async function delQ(id){if(!confirm('Hapus soal ini?'))return;let r=await db.from('exam_questions').delete().eq('id',id);if(r.error)alert(r.error.message);else loadQ()}
-loadAll();
+const SUPABASE_URL='https://ksgywgdrfskqsufchbcm.supabase.co';
+const SUPABASE_KEY='sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let courses=[],levels=[],exams=[],cur=null;
+const $=x=>document.getElementById(x);
+const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function msg(x,ok=true){$('msg').textContent=x;$('msg').style.borderColor=ok?'var(--b)':'#a8323b'}
+function cm(x){$(x).classList.remove('show')}
+function toggleTheme(){document.body.classList.toggle('light');localStorage.setItem('np_theme',document.body.classList.contains('light')?'light':'dark')}
+function withTimeout(p,ms=15000){return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('Koneksi Supabase terlalu lama. Tekan Refresh lalu coba lagi.')),ms))])}
+async function admin(){
+  const {data:{session}}=await withTimeout(db.auth.getSession());
+  const user=session?.user;
+  if(!user) throw new Error('Anda harus login sebagai admin.');
+  const {data:p,error:pe}=await withTimeout(db.from('profiles').select('is_admin').eq('id',user.id).maybeSingle());
+  if(pe) throw pe;
+  if(p?.is_admin===true) return;
+  const {data:a,error:ae}=await withTimeout(db.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle());
+  if(ae) throw ae;
+  if(a) return;
+  throw new Error('Akses admin ditolak.');
+}
+async function loadAll(){
+  try{
+    msg('⏳ Memuat data...');
+    await withTimeout(admin());
+    const result=await withTimeout(Promise.all([
+      db.from('courses').select('id,nama,deskripsi,urutan,aktif').order('urutan'),
+      db.from('levels').select('id,course_id,nama,deskripsi,urutan,aktif').order('course_id').order('urutan'),
+      db.from('exams').select('id,level_id,judul,passing_score,nilai_maksimal,waktu_menit,deskripsi,instruksi,boleh_mengulang,aktif').order('id')
+    ]));
+    const [c,l,e]=result;
+    if(c.error) throw new Error('Courses: '+c.error.message);
+    if(l.error) throw new Error('Levels: '+l.error.message);
+    if(e.error) throw new Error('Exams: '+e.error.message);
+    courses=c.data||[]; levels=l.data||[]; exams=e.data||[];
+    $('cf').innerHTML='<option value="">Semua Course</option>'+courses.map(c=>`<option value="${c.id}">${esc(c.nama)}</option>`).join('');
+    $('lid').innerHTML=levels.map(l=>{let c=courses.find(x=>x.id===l.course_id);return `<option value="${l.id}">${esc(c?.nama||'Course')} — ${esc(l.nama)}</option>`}).join('');
+    render();
+    msg(`✅ Berhasil: ${courses.length} course, ${levels.length} level, ${exams.length} ujian.`);
+  }catch(e){
+    console.error('ADMIN UJIAN',e);
+    msg('❌ '+(e?.message||e),false);
+    $('list').innerHTML='<div class="empty">Gagal memuat data. Tekan Refresh setelah memperbaiki pesan di atas.</div>';
+  }
+}
+function render(){
+  let s=$('search').value.toLowerCase(),f=$('cf').value;
+  $('list').innerHTML=levels.filter(l=>{let c=courses.find(x=>x.id===l.course_id);return(!f||String(l.course_id)===f)&&(!s||`${c?.nama||''} ${l.nama}`.toLowerCase().includes(s))}).map(l=>{
+    let c=courses.find(x=>x.id===l.course_id),e=exams.find(x=>x.level_id===l.id);
+    return `<article class="card"><h3>📚 ${esc(c?.nama)}</h3><b>${esc(l.nama)}</b><div class="meta">${esc(l.deskripsi||'Tidak ada deskripsi')}</div><div class="badges"><span class="badge">${e?'📝 Ujian tersedia':'⚪ Belum ada ujian'}</span>${e?`<span class="badge">🎯 KKM ${e.passing_score}</span><span class="badge">${e.boleh_mengulang?'🔄 Bisa ulang':'🚫 Tidak bisa ulang'}</span><span class="badge">${e.aktif?'🟢 Aktif':'⚫ Nonaktif'}</span>`:''}</div><div class="actions">${e?`<button class="btn primary" onclick="questions(${e.id})">📝 Kelola Soal</button><button class="btn" onclick="editExam(${e.id})">✏️ Edit</button><button class="btn danger" onclick="delExam(${e.id})">🗑️ Hapus</button>`:`<button class="btn primary" onclick="newExam(${l.id})">＋ Buat Ujian</button>`}</div></article>`
+  }).join('')||'<div class="empty">Tidak ada level.</div>';
+}
+function newExam(level=null){$('eid').value='';$('et').textContent='Buat Ujian';if(level)$('lid').value=level;$('judul').value=level?(levels.find(v=>v.id===level)?.nama?'Ujian '+levels.find(v=>v.id===level).nama:'Ujian Level'):'Ujian Level';$('kkm').value=80;$('max').value=100;$('time').value='';$('desc').value='';$('ins').value='';$('ulang').checked=true;$('aktif').checked=true;$('em').classList.add('show')}
+function editExam(id){let e=exams.find(x=>x.id===id);if(!e)return;$('eid').value=e.id;$('et').textContent='Edit Ujian';$('lid').value=e.level_id;$('judul').value=e.judul;$('kkm').value=e.passing_score;$('max').value=e.nilai_maksimal;$('time').value=e.waktu_menit??'';$('desc').value=e.deskripsi||'';$('ins').value=e.instruksi||'';$('ulang').checked=e.boleh_mengulang;$('aktif').checked=e.aktif;$('em').classList.add('show')}
+async function saveExam(){
+  try{
+    const levelId=+$('lid').value, judul=$('judul').value.trim(), kkm=+$('kkm').value, max=+$('max').value;
+    if(!levelId)throw new Error('Pilih level terlebih dahulu.');
+    if(!judul)throw new Error('Judul ujian wajib diisi.');
+    if(!Number.isFinite(kkm)||kkm<0||kkm>100)throw new Error('KKM harus 0–100.');
+    if(!Number.isFinite(max)||max<1||max>100)throw new Error('Nilai maksimal harus 1–100.');
+    if(kkm>max)throw new Error('KKM tidak boleh lebih besar dari nilai maksimal.');
+    const p={level_id:levelId,judul,passing_score:kkm,nilai_maksimal:max,waktu_menit:$('time').value?+$('time').value:null,deskripsi:$('desc').value.trim()||null,instruksi:$('ins').value.trim()||null,boleh_mengulang:$('ulang').checked,aktif:$('aktif').checked};
+    const id=$('eid').value;
+    const r=id?await withTimeout(db.from('exams').update(p).eq('id',id)):await withTimeout(db.from('exams').insert(p));
+    if(r.error)throw r.error;
+    cm('em');await loadAll();alert(id?'✅ Ujian berhasil diperbarui.':'✅ Ujian berhasil dibuat. Sekarang tambahkan soal.');
+  }catch(e){alert(e?.message||e)}
+}
+async function delExam(id){if(!confirm('Hapus ujian dan semua soal di dalamnya?'))return;try{let r=await withTimeout(db.from('exams').delete().eq('id',id));if(r.error)throw r.error;await loadAll()}catch(e){alert(e?.message||e)}}
+async function questions(id){cur=exams.find(x=>x.id===id);if(!cur)return;$('qt').textContent='📝 Bank Soal — '+cur.judul;$('qi').textContent=`KKM ${cur.passing_score} • ${cur.boleh_mengulang?'Boleh mengulang':'Tidak boleh mengulang'} • Nilai maksimal ${cur.nilai_maksimal}`;clearQ();await loadQ();$('qm').classList.add('show')}
+async function loadQ(){let r=await withTimeout(db.from('exam_questions').select('id,exam_id,pertanyaan,opsi_a,opsi_b,opsi_c,opsi_d,jawaban_benar,pembahasan,poin,urutan').eq('exam_id',cur.id).order('urutan'));if(r.error){$('qs').innerHTML='<div class="empty">'+esc(r.error.message)+'</div>';return}$('qs').innerHTML=r.data?.length?r.data.map(q=>`<div class="qitem"><b>Soal ${q.urutan} • ${q.poin} poin</b><div class="qtext">${esc(q.pertanyaan)}</div><div class="options">A. ${esc(q.opsi_a)}<br>B. ${esc(q.opsi_b)}<br>C. ${esc(q.opsi_c)}<br>D. ${esc(q.opsi_d)}<br>✅ Kunci: ${esc(q.jawaban_benar)}</div>${q.pembahasan?`<div class="meta">💡 ${esc(q.pembahasan)}</div>`:''}<div class="actions"><button class="btn" onclick='editQ(${JSON.stringify(q)})'>✏️ Edit</button><button class="btn danger" onclick="delQ(${q.id})">🗑️ Hapus</button></div></div>`).join(''):'<div class="empty">Belum ada soal.</div>'}
+function clearQ(){$('qid').value='';$('ord').value=Math.max(1,document.querySelectorAll('.qitem').length+1);$('point').value=1;$('question').value='';$('a').value='';$('b').value='';$('c').value='';$('d').value='';$('correct').value='A';$('explanation').value=''}
+function editQ(q){$('qid').value=q.id;$('ord').value=q.urutan;$('point').value=q.poin;$('question').value=q.pertanyaan;$('a').value=q.opsi_a;$('b').value=q.opsi_b;$('c').value=q.opsi_c;$('d').value=q.opsi_d;$('correct').value=q.jawaban_benar;$('explanation').value=q.pembahasan||''}
+async function saveQ(){try{const p={exam_id:cur.id,urutan:+$('ord').value,poin:+$('point').value,pertanyaan:$('question').value.trim(),opsi_a:$('a').value.trim(),opsi_b:$('b').value.trim(),opsi_c:$('c').value.trim(),opsi_d:$('d').value.trim(),jawaban_benar:$('correct').value,pembahasan:$('explanation').value.trim()||null};if(!p.pertanyaan||!p.opsi_a||!p.opsi_b||!p.opsi_c||!p.opsi_d)throw new Error('Pertanyaan dan semua opsi wajib diisi.');const id=$('qid').value;const r=id?await withTimeout(db.from('exam_questions').update(p).eq('id',id)):await withTimeout(db.from('exam_questions').insert(p));if(r.error)throw r.error;clearQ();await loadQ()}catch(e){alert(e?.message||e)}}
+async function delQ(id){if(!confirm('Hapus soal ini?'))return;try{let r=await withTimeout(db.from('exam_questions').delete().eq('id',id));if(r.error)throw r.error;await loadQ()}catch(e){alert(e?.message||e)}}
+window.addEventListener('DOMContentLoaded',()=>loadAll());
 </script></body></html>
