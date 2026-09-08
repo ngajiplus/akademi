@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ujian — NgajiPlus Akademi</title>
+<style>
+:root{
+  --bg:#001f18;--panel:#003b2e;--panel2:#004a39;--text:#eafff8;--muted:#9ed1c3;
+  --border:#087b5d;--primary:#00c95a;--primary2:#00a94f;--danger:#ff4d6d;
+  --shadow:0 12px 35px rgba(0,0,0,.25)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+body{padding-bottom:30px}
+.nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);background:rgba(0,45,34,.96);backdrop-filter:blur(10px)}
+.brand{font-size:13px;font-weight:800;color:#00e676}
+.nav a,.nav button{border:1px solid var(--border);background:#00372b;color:var(--text);text-decoration:none;border-radius:10px;padding:8px 11px;font-size:12px}
+.wrap{width:min(900px,calc(100% - 20px));margin:16px auto}
+.hero{background:linear-gradient(135deg,#00a94f,#00c95a);color:white;border-radius:17px;padding:20px;box-shadow:var(--shadow);border:1px solid #00e676}
+.hero h1{margin:0 0 5px;font-size:25px}.hero p{margin:0;font-size:13px}
+.notice{margin:12px 0;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--muted);font-size:13px}
+.exam-head{display:none;margin:12px 0;background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:14px}
+.exam-head.show{display:block}
+.exam-title{font-size:20px;font-weight:800}.meta{color:var(--muted);font-size:12px;margin-top:5px}
+.timer{margin-top:10px;display:inline-block;padding:8px 12px;border-radius:10px;background:#062d24;border:1px solid var(--border);font-weight:800}
+.timer.warn{color:#ffd166;border-color:#a47a00}.timer.danger{color:#ff7890;border-color:#9d2540}
+.progress{height:9px;background:#062d24;border-radius:99px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
+.progress>div{height:100%;width:0;background:var(--primary);transition:width .2s}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:15px;margin:12px 0;box-shadow:0 5px 20px rgba(0,0,0,.12)}
+.qtop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}
+.qtext{font-size:16px;font-weight:750;line-height:1.55;margin:12px 0}
+.option{display:flex;gap:10px;align-items:flex-start;padding:12px;margin:8px 0;border:1px solid #086b53;border-radius:11px;background:#00352a;cursor:pointer;transition:.15s}
+.option:hover{border-color:#00b95a}
+.option.selected{border-color:#00e676;background:#04513d;box-shadow:0 0 0 1px #00e676 inset}
+.option input{margin-top:3px;accent-color:#00e676}
+.optlabel{font-weight:800;min-width:22px}.opttxt{line-height:1.45}
+.actions{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:15px}
+.btn{border:1px solid var(--border);background:#00372b;color:var(--text);border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,#00b94f,#00d861);color:#002317;border-color:#00e676}
+.btn.danger{background:#6e1730;border-color:#c73454;color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:25px;box-shadow:var(--shadow)}
+.result.show{display:block}
+.score{font-size:48px;font-weight:900;color:#00e676;margin:8px 0}
+.pass{color:#65ffae;font-weight:900;font-size:18px}.fail{color:#ff7890;font-weight:900;font-size:18px}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.spinner{text-align:center;padding:35px;color:var(--muted)}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:25px}
+@media(max-width:600px){
+ .nav{align-items:flex-start}.nav>div:last-child{display:flex;gap:5px}
+ .nav a,.nav button{padding:7px 8px;font-size:11px}
+ .hero{padding:17px}.hero h1{font-size:21px}
+ .wrap{width:min(100% - 14px,900px)}
+ .card{padding:12px}.qtext{font-size:15px}
+ .actions .btn{flex:1}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">📖 NgajiPlus Akademi</div>
+  <div>
+    <a href="akademi.html">📚 Akademi</a>
+    <button onclick="toggleTheme()">☀️</button>
+  </div>
+</nav>
+
+<main class="wrap">
+<section class="hero">
+  <h1>📝 Ujian</h1>
+  <p>Kerjakan dengan jujur, tenang, dan teliti.</p>
+</section>
+
+<div id="msg" class="notice">⏳ Memuat ujian...</div>
+
+<section id="examHead" class="exam-head">
+  <div id="examTitle" class="exam-title"></div>
+  <div id="examMeta" class="meta"></div>
+  <div id="timer" class="timer" style="display:none"></div>
+  <div class="progress"><div id="bar"></div></div>
+  <div id="progressText" class="meta"></div>
+</section>
+
+<div id="questions"></div>
+
+<section id="result" class="result">
+  <div>🏆 Hasil Ujian</div>
+  <div id="score" class="score">0</div>
+  <div id="resultStatus"></div>
+  <div id="resultDetail" class="small"></div>
+  <div class="actions">
+    <button class="btn" onclick="location.href='akademi.html'">📚 Kembali ke Akademi</button>
+    <button id="retryBtn" class="btn primary" onclick="retryExam()" style="display:none">🔄 Ulangi Ujian</button>
+  </div>
+</section>
+</main>
+
+<footer class="footer">📖 NgajiPlus Akademi — Ujian</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://ksgywgdrfskqsufchbcm.supabase.co';
+const SUPABASE_KEY='sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7';
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const params=new URLSearchParams(location.search);
+const examId=params.get('id');
+
+let user=null, exam=null, questions=[], answers={}, attempt=null, timerHandle=null, secondsLeft=null, submitting=false;
+
+function setMsg(text,ok=true){
+  $('msg').textContent=text;
+  $('msg').style.color=ok?'var(--muted)':'#ff9aaa';
+}
+function toggleTheme(){
+  const light=document.body.dataset.theme==='light';
+  if(light){
+    document.body.dataset.theme='';
+    localStorage.setItem('np_theme','dark');
+    location.reload();
+  }else{
+    localStorage.setItem('np_theme','light');
+    applyLight();
+  }
+}
+function applyLight(){
+  document.documentElement.style.setProperty('--bg','#f3faf7');
+  document.documentElement.style.setProperty('--panel','#ffffff');
+  document.documentElement.style.setProperty('--panel2','#eefaf5');
+  document.documentElement.style.setProperty('--text','#12352c');
+  document.documentElement.style.setProperty('--muted','#52756b');
+  document.documentElement.style.setProperty('--border','#9bd8c2');
+}
+if(localStorage.getItem('np_theme')==='light')applyLight();
+
+async function init(){
+  try{
+    if(!examId) throw Error('ID ujian tidak ditemukan.');
+    const auth=await db.auth.getUser();
+    user=auth.data.user;
+    if(!user){
+      location.href='login.html?redirect='+encodeURIComponent(location.href);
+      return;
+    }
+
+    const er=await db.from('exams')
+      .select('id,level_id,judul,deskripsi,aktif,kkm,nilai_maksimal,waktu_menit,instruksi,boleh_mengulang')
+      .eq('id',examId).maybeSingle();
+    if(er.error) throw er.error;
+    if(!er.data) throw Error('Ujian tidak ditemukan.');
+    exam=er.data;
+    if(exam.aktif===false) throw Error('Ujian ini sedang tidak aktif.');
+
+    const qr=await db.from('exam_questions')
+      .select('id,exam_id,pertanyaan,opsi_a,opsi_b,opsi_c,opsi_d,bobot,urutan')
+      .eq('exam_id',exam.id).order('urutan',{ascending:true});
+    if(qr.error) throw qr.error;
+    questions=qr.data||[];
+    if(!questions.length) throw Error('Soal belum tersedia. Silakan tunggu admin menambahkan soal.');
+
+    await startAttempt();
+    render();
+    setMsg('✅ Ujian siap dikerjakan.');
+  }catch(e){
+    console.error(e);
+    setMsg('❌ '+(e.message||e),false);
+    $('questions').innerHTML='<div class="card"><b>Ujian belum dapat dibuka.</b><p class="small">'+esc(e.message||e)+'</p><button class="btn" onclick="location.href=\'akademi.html\'">Kembali</button></div>';
+  }
+}
+
+async function startAttempt(){
+  const last=await db.from('exam_attempts')
+    .select('*')
+    .eq('user_id',user.id).eq('exam_id',exam.id)
+    .order('id',{ascending:false}).limit(1).maybeSingle();
+
+  if(last.error && !String(last.error.message).toLowerCase().includes('no rows')) throw last.error;
+
+  if(last.data && last.data.status==='selesai' && exam.boleh_mengulang===false){
+    throw Error('Ujian ini sudah pernah dikerjakan dan tidak mengizinkan pengulangan.');
+  }
+
+  // Setiap percobaan baru dibuat sebagai "sedang"
+  const ins=await db.from('exam_attempts').insert({
+    user_id:user.id,
+    exam_id:exam.id,
+    level_id:exam.level_id,
+    nilai:0,
+    benar:0,
+    salah:0,
+    total_soal:questions.length,
+    status:'sedang'
+  }).select().single();
+
+  if(ins.error) throw ins.error;
+  attempt=ins.data;
+
+  if(exam.waktu_menit){
+    secondsLeft=Math.max(1,Number(exam.waktu_menit)*60);
+    updateTimer();
+    timerHandle=setInterval(()=>{
+      secondsLeft--;
+      updateTimer();
+      if(secondsLeft<=0){
+        clearInterval(timerHandle);
+        submitExam(true);
+      }
+    },1000);
+  }
+}
+
+function updateTimer(){
+  if(secondsLeft==null)return;
+  $('timer').style.display='inline-block';
+  const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
+  $('timer').textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  $('timer').className='timer '+(secondsLeft<=60?'danger':secondsLeft<=300?'warn':'');
+}
+
+function render(){
+  $('examHead').classList.add('show');
+  $('examTitle').textContent='📝 '+exam.judul;
+  $('examMeta').textContent=[
+    exam.kkm!=null?'KKM '+exam.kkm:null,
+    exam.instruksi||null,
+    exam.waktu_menit?('Waktu '+exam.waktu_menit+' menit'): 'Tanpa batas waktu'
+  ].filter(Boolean).join(' • ');
+
+  $('questions').innerHTML=questions.map((q,i)=>`
+    <article class="card" id="qcard-${q.id}">
+      <div class="qtop"><span>Soal ${i+1} dari ${questions.length}</span><span>${Number(q.bobot||1)} poin</span></div>
+      <div class="qtext">${esc(q.pertanyaan)}</div>
+      ${opt(q,'A',q.opsi_a)}
+      ${opt(q,'B',q.opsi_b)}
+      ${opt(q,'C',q.opsi_c)}
+      ${opt(q,'D',q.opsi_d)}
+    </article>
+  `).join('')+
+  `<div class="actions">
+    <button class="btn" onclick="confirmExit()">← Keluar</button>
+    <button class="btn primary" onclick="submitExam(false)">📤 Kumpulkan Ujian</button>
+  </div>`;
+  updateProgress();
+}
+function opt(q,key,text){
+  const checked=answers[q.id]===key?'checked':'';
+  return `<label class="option ${checked?'selected':''}" id="opt-${q.id}-${key}">
+    <input type="radio" name="q-${q.id}" value="${key}" ${checked} onchange="choose(${q.id},'${key}')">
+    <span class="optlabel">${key}.</span><span class="opttxt">${esc(text)}</span>
+  </label>`;
+}
+function choose(qid,key){
+  answers[qid]=key;
+  ['A','B','C','D'].forEach(k=>{
+    const el=$('opt-'+qid+'-'+k);
+    if(el)el.classList.toggle('selected',k===key);
+  });
+  updateProgress();
+  saveAnswer(qid,key);
+}
+function updateProgress(){
+  const n=Object.keys(answers).length,total=questions.length,p=Math.round(n/total*100);
+  $('bar').style.width=p+'%';
+  $('progressText').textContent=`${n} dari ${total} soal terjawab (${p}%)`;
+}
+async function saveAnswer(qid,key){
+  if(!attempt)return;
+  try{
+    // Karena exam_answers belum tentu memiliki UNIQUE constraint,
+    // hapus jawaban lama untuk kombinasi attempt+question lalu simpan yang baru.
+    const d=await db.from('exam_answers').delete()
+      .eq('attempt_id',attempt.id).eq('question_id',qid);
+    if(d.error)throw d.error;
+    const r=await db.from('exam_answers').insert({
+      attempt_id:attempt.id,question_id:qid,jawaban:key,benar:false
+    });
+    if(r.error)throw r.error;
+  }catch(e){
+    console.error('SAVE ANSWER',e);
+    setMsg('⚠️ Jawaban belum tersimpan: '+e.message,false);
+  }
+}
+
+async function submitExam(auto){
+  if(submitting)return;
+  if(!auto){
+    const unanswered=questions.length-Object.keys(answers).length;
+    if(unanswered>0 && !confirm(`Masih ada ${unanswered} soal yang belum dijawab. Tetap kumpulkan?`))return;
+    if(!confirm('Yakin ingin mengumpulkan ujian?'))return;
+  }
+  submitting=true;
+  if(timerHandle)clearInterval(timerHandle);
+  setMsg(auto?'⏰ Waktu habis. Mengumpulkan ujian...':'⏳ Menghitung nilai...');
+
+  try{
+    // Ambil kunci jawaban hanya saat penilaian di sisi client.
+    // Hasil final juga ditulis ke exam_answers.benar.
+    const keyRes=await db.from('exam_questions')
+      .select('id,jawaban_benar,bobot')
+      .eq('exam_id',exam.id);
+    if(keyRes.error)throw keyRes.error;
+    const keyMap=new Map((keyRes.data||[]).map(q=>[q.id,{k:q.jawaban_benar,b:Number(q.bobot||1)}]));
+
+    let benar=0,salah=0,totalPoin=0,maxPoin=0;
+    for(const q of questions){
+      const row=keyMap.get(q.id);
+      const chosen=answers[q.id]||null;
+      const ok=!!chosen && !!row && String(chosen).toUpperCase()===String(row.k||'').toUpperCase();
+      const b=Number(row?.b||q.bobot||1);
+      maxPoin+=b;
+      if(ok){benar++;totalPoin+=b}else if(chosen){salah++}
+      if(attempt){
+        const up=await db.from('exam_answers').update({benar:ok})
+          .eq('attempt_id',attempt.id).eq('question_id',q.id);
+        if(up.error)throw up.error;
+      }
+    }
+    const nilai=maxPoin?Math.round((totalPoin/maxPoin)*Number(exam.nilai_maksimal||100)):0;
+    const status=nilai>=Number(exam.kkm||0)?'lulus':'tidak_lulus';
+
+    const up=await db.from('exam_attempts').update({
+      nilai,benar,salah,total_soal:questions.length,status,finished_at:new Date().toISOString()
+    }).eq('id',attempt.id);
+    if(up.error)throw up.error;
+
+    showResult({nilai,benar,salah,status});
+  }catch(e){
+    console.error('SUBMIT',e);
+    submitting=false;
+    setMsg('❌ Gagal mengumpulkan: '+e.message,false);
+  }
+}
+
+function showResult(r){
+  $('examHead').classList.remove('show');
+  $('questions').innerHTML='';
+  $('result').classList.add('show');
+  $('score').textContent=r.nilai;
+  $('resultStatus').className=r.status==='lulus'?'pass':'fail';
+  $('resultStatus').textContent=r.status==='lulus'?'✅ LULUS':'❌ BELUM LULUS';
+  $('resultDetail').innerHTML=
+    `Benar: <b>${r.benar}</b> • Salah: <b>${r.salah}</b> • Total: <b>${questions.length}</b><br>`+
+    `KKM: <b>${exam.kkm}</b> • Nilai maksimal: <b>${exam.nilai_maksimal}</b>`;
+  $('retryBtn').style.display=exam.boleh_mengulang?'inline-block':'none';
+  setMsg('✅ Ujian selesai.');
+}
+function retryExam(){location.reload()}
+function confirmExit(){
+  if(confirm('Keluar dari ujian? Jawaban yang sudah tersimpan tetap berada di percobaan ini.'))location.href='akademi.html';
+}
+init();
+</script>
+</body>
+</html>
