@@ -69,13 +69,44 @@ img{
   -webkit-user-drag:none !important;
   user-drag:none !important;
 }
+
+/* ===============================
+   MODE UJIAN KETAT / ANTI PINDAH TAB
+   =============================== */
+.exam-lock-overlay{
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(0,20,15,.97);color:#fff;
+  align-items:center;justify-content:center;text-align:center;padding:24px;
+}
+.exam-lock-overlay.show{display:flex}
+.exam-lock-box{width:min(520px,100%);padding:28px 20px;border:1px solid #00c95a;
+  border-radius:20px;background:#003b2e;box-shadow:0 15px 50px rgba(0,0,0,.45)}
+.exam-lock-box h2{margin:0 0 10px;font-size:24px}
+.exam-lock-box p{margin:8px 0;color:#bde9dc;line-height:1.6;font-size:14px}
+.violation{display:inline-block;margin-top:10px;padding:7px 10px;border-radius:999px;
+  border:1px solid #a47a00;color:#ffd166;font-size:12px;font-weight:800}
+.exam-active .nav a.exam-nav-disabled{pointer-events:none;opacity:.45}
+.exam-active .nav button{pointer-events:auto}
+body.exam-hidden #questions,body.exam-hidden #examHead{filter:blur(5px)}
+
 </style>
 </head>
 <body>
+
+<div id="examLockOverlay" class="exam-lock-overlay" aria-hidden="true">
+  <div class="exam-lock-box">
+    <div style="font-size:42px">⚠️</div>
+    <h2>Anda meninggalkan halaman ujian</h2>
+    <p>Untuk menjaga kejujuran ujian, jangan berpindah tab, membuka aplikasi lain, atau meminimalkan browser selama ujian berlangsung.</p>
+    <div id="violationText" class="violation">Peringatan: 1×</div>
+    <p style="margin-top:16px">Kembali ke halaman ini untuk melanjutkan ujian.</p>
+  </div>
+</div>
+
 <nav class="nav">
   <div class="brand">📖 NgajiPlus Akademi</div>
   <div>
-    <a href="akademi.html">📚 Akademi</a>
+    <a href="akademi.html" id="academyLink">📚 Akademi</a>
     <button onclick="toggleTheme()">☀️</button>
   </div>
 </nav>
@@ -125,6 +156,11 @@ const examId=params.get('id');
 
 let user=null, exam=null, questions=[], answers={}, attempt=null;
 let timerHandle=null, secondsLeft=null, submitting=false;
+let examStarted=false;
+let violationCount=0;
+let hiddenByVisibility=false;
+let allowLeave=false;
+let lastViolationAt=0;
 
 function setMsg(text,ok=true){
   $('msg').textContent=text;
@@ -192,6 +228,7 @@ async function init(){
     await startOrResumeAttempt();
     await loadSavedAnswers();
     render();
+    activateStrictExamMode();
 
     setMsg(attempt.status==='berlangsung'
       ? '✅ Ujian siap dikerjakan.'
@@ -549,6 +586,7 @@ async function submitExam(auto){
 }
 
 function showResult(r){
+  deactivateStrictExamMode();
   $('examHead').classList.remove('show');
   $('questions').innerHTML='';
   $('result').classList.add('show');
@@ -584,12 +622,151 @@ function confirmExit(){
   if(confirm(
     'Keluar dari ujian? Jawaban yang sudah tersimpan tetap berada di percobaan ini.'
   )){
+    allowLeave=true;
     location.href='akademi.html';
   }
 }
 
 init();
 
+
+// ===============================
+// MODE UJIAN KETAT / ANTI PINDAH TAB
+// ===============================
+function activateStrictExamMode(){
+  if(!attempt || attempt.status!=='berlangsung') return;
+  examStarted=true;
+  document.body.classList.add('exam-active');
+
+  const link=$('academyLink');
+  if(link){
+    link.classList.add('exam-nav-disabled');
+    link.setAttribute('aria-disabled','true');
+    link.title='Tidak dapat membuka Akademi selama ujian berlangsung';
+    link.addEventListener('click', function(e){
+      if(examStarted && !allowLeave){
+        e.preventDefault();
+        setMsg('⚠️ Selesaikan atau keluar dari ujian terlebih dahulu.',false);
+      }
+    }, true);
+  }
+
+  // Mencegah reload/close tanpa konfirmasi selama ujian.
+  window.addEventListener('beforeunload', beforeUnloadGuard);
+  document.addEventListener('visibilitychange', handleVisibility, true);
+  window.addEventListener('blur', handleWindowBlur, true);
+  window.addEventListener('focus', handleWindowFocus, true);
+
+  // Menahan tombol Back browser selama ujian berlangsung.
+  try{
+    history.pushState({ngajiPlusExamGuard:true},'',location.href);
+    window.addEventListener('popstate', handleExamBack, true);
+  }catch(e){}
+}
+
+
+function deactivateStrictExamMode(){
+  examStarted=false;
+  allowLeave=true;
+  document.body.classList.remove('exam-active','exam-hidden');
+  hideExamLock();
+  window.removeEventListener('beforeunload', beforeUnloadGuard);
+  document.removeEventListener('visibilitychange', handleVisibility, true);
+  window.removeEventListener('blur', handleWindowBlur, true);
+  window.removeEventListener('focus', handleWindowFocus, true);
+  window.removeEventListener('popstate', handleExamBack, true);
+}
+
+function beforeUnloadGuard(e){
+  if(!examStarted || allowLeave || submitting) return;
+  e.preventDefault();
+  e.returnValue='Ujian sedang berlangsung. Jika keluar, Anda mungkin kehilangan fokus ujian.';
+  return e.returnValue;
+}
+
+function registerViolation(reason){
+  if(!examStarted || submitting || attempt?.status!=='berlangsung') return;
+  const now=Date.now();
+  // visibilitychange + blur dapat terpanggil hampir bersamaan; hitung sekali.
+  if(now-lastViolationAt<1500) return;
+  lastViolationAt=now;
+  violationCount++;
+  $('violationText').textContent='Peringatan: '+violationCount+'×';
+  document.body.classList.add('exam-hidden');
+  const ov=$('examLockOverlay');
+  ov.classList.add('show');
+  ov.setAttribute('aria-hidden','false');
+  setMsg('⚠️ Anda terdeteksi meninggalkan halaman ujian. Kembali untuk melanjutkan.',false);
+}
+
+function handleExamBack(){
+  if(!examStarted || allowLeave || submitting) return;
+  try{history.pushState({ngajiPlusExamGuard:true},'',location.href);}catch(e){}
+  registerViolation('back');
+  setMsg('⚠️ Tombol Kembali dinonaktifkan selama ujian. Gunakan tombol Keluar jika ingin meninggalkan ujian.',false);
+}
+
+function handleVisibility(){
+  if(document.hidden){
+    hiddenByVisibility=true;
+    registerViolation('visibility');
+  }else if(hiddenByVisibility){
+    hiddenByVisibility=false;
+    showExamLockUntilFocus();
+  }
+}
+
+function handleWindowBlur(){
+  if(!examStarted || document.hidden || submitting) return;
+  registerViolation('blur');
+}
+
+function handleWindowFocus(){
+  if(!examStarted || submitting) return;
+  if(!document.hidden) showExamLockUntilFocus();
+}
+
+function showExamLockUntilFocus(){
+  const ov=$('examLockOverlay');
+  if(!ov) return;
+  if(violationCount>0){
+    ov.classList.add('show');
+    ov.setAttribute('aria-hidden','false');
+  }
+}
+
+function hideExamLock(){
+  const ov=$('examLockOverlay');
+  if(!ov) return;
+  ov.classList.remove('show');
+  ov.setAttribute('aria-hidden','true');
+  document.body.classList.remove('exam-hidden');
+}
+
+// Overlay hanya dapat ditutup ketika peserta sudah kembali fokus.
+document.addEventListener('click', function(e){
+  const ov=$('examLockOverlay');
+  if(!ov || !ov.classList.contains('show')) return;
+  if(document.hidden) return;
+  if(e.target===ov || ov.contains(e.target)){
+    hideExamLock();
+    if(examStarted) setMsg('⚠️ Pelanggaran terdeteksi: jangan berpindah tab selama ujian.',false);
+  }
+}, true);
+
+// Blok shortcut yang umum dipakai untuk membuka tools/browser source.
+document.addEventListener('keydown', function(e){
+  const key=String(e.key||'').toLowerCase();
+  if(
+    e.key==='F12' ||
+    ((e.ctrlKey||e.metaKey)&&e.shiftKey&&['i','j','c'].includes(key)) ||
+    ((e.ctrlKey||e.metaKey)&&['c','x','a','s','u','p'].includes(key))
+  ){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}, true);
 
 // ===============================
 // ANTI COPY / ANTI TEXT SELECTION
