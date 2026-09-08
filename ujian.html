@@ -48,12 +48,12 @@ body{padding-bottom:30px}
 .spinner{text-align:center;padding:35px;color:var(--muted)}
 .footer{text-align:center;color:var(--muted);font-size:11px;padding:25px}
 @media(max-width:600px){
- .nav{align-items:flex-start}.nav>div:last-child{display:flex;gap:5px}
- .nav a,.nav button{padding:7px 8px;font-size:11px}
- .hero{padding:17px}.hero h1{font-size:21px}
- .wrap{width:min(100% - 14px,900px)}
- .card{padding:12px}.qtext{font-size:15px}
- .actions .btn{flex:1}
+  .nav{align-items:flex-start}.nav>div:last-child{display:flex;gap:5px}
+  .nav a,.nav button{padding:7px 8px;font-size:11px}
+  .hero{padding:17px}.hero h1{font-size:21px}
+  .wrap{width:min(100% - 14px,900px)}
+  .card{padding:12px}.qtext{font-size:15px}
+  .actions .btn{flex:1}
 }
 </style>
 </head>
@@ -109,16 +109,17 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const params=new URLSearchParams(location.search);
 const examId=params.get('id');
 
-let user=null, exam=null, questions=[], answers={}, attempt=null, timerHandle=null, secondsLeft=null, submitting=false;
+let user=null, exam=null, questions=[], answers={}, attempt=null;
+let timerHandle=null, secondsLeft=null, submitting=false;
 
 function setMsg(text,ok=true){
   $('msg').textContent=text;
   $('msg').style.color=ok?'var(--muted)':'#ff9aaa';
 }
+
 function toggleTheme(){
-  const light=document.body.dataset.theme==='light';
+  const light=localStorage.getItem('np_theme')==='light';
   if(light){
-    document.body.dataset.theme='';
     localStorage.setItem('np_theme','dark');
     location.reload();
   }else{
@@ -126,6 +127,7 @@ function toggleTheme(){
     applyLight();
   }
 }
+
 function applyLight(){
   document.documentElement.style.setProperty('--bg','#f3faf7');
   document.documentElement.style.setProperty('--panel','#ffffff');
@@ -134,13 +136,16 @@ function applyLight(){
   document.documentElement.style.setProperty('--muted','#52756b');
   document.documentElement.style.setProperty('--border','#9bd8c2');
 }
+
 if(localStorage.getItem('np_theme')==='light')applyLight();
 
 async function init(){
   try{
     if(!examId) throw Error('ID ujian tidak ditemukan.');
+
     const auth=await db.auth.getUser();
     user=auth.data.user;
+
     if(!user){
       location.href='login.html?redirect='+encodeURIComponent(location.href);
       return;
@@ -148,90 +153,181 @@ async function init(){
 
     const er=await db.from('exams')
       .select('id,level_id,judul,deskripsi,aktif,kkm,nilai_maksimal,waktu_menit,instruksi,boleh_mengulang')
-      .eq('id',examId).maybeSingle();
-    if(er.error) throw er.error;
-    if(!er.data) throw Error('Ujian tidak ditemukan.');
+      .eq('id',examId)
+      .maybeSingle();
+
+    if(er.error)throw er.error;
+    if(!er.data)throw Error('Ujian tidak ditemukan.');
+
     exam=er.data;
-    if(exam.aktif===false) throw Error('Ujian ini sedang tidak aktif.');
+
+    if(exam.aktif===false)throw Error('Ujian ini sedang tidak aktif.');
 
     const qr=await db.from('exam_questions')
       .select('id,exam_id,pertanyaan,opsi_a,opsi_b,opsi_c,opsi_d,bobot,urutan')
-      .eq('exam_id',exam.id).order('urutan',{ascending:true});
-    if(qr.error) throw qr.error;
-    questions=qr.data||[];
-    if(!questions.length) throw Error('Soal belum tersedia. Silakan tunggu admin menambahkan soal.');
+      .eq('exam_id',exam.id)
+      .order('urutan',{ascending:true});
 
-    await startAttempt();
+    if(qr.error)throw qr.error;
+
+    questions=qr.data||[];
+
+    if(!questions.length)
+      throw Error('Soal belum tersedia. Silakan tunggu admin menambahkan soal.');
+
+    await startOrResumeAttempt();
+    await loadSavedAnswers();
     render();
-    setMsg('✅ Ujian siap dikerjakan.');
+
+    setMsg(attempt.status==='berlangsung'
+      ? '✅ Ujian siap dikerjakan.'
+      : 'Ujian selesai.'
+    );
+
   }catch(e){
     console.error(e);
     setMsg('❌ '+(e.message||e),false);
-    $('questions').innerHTML='<div class="card"><b>Ujian belum dapat dibuka.</b><p class="small">'+esc(e.message||e)+'</p><button class="btn" onclick="location.href=\'akademi.html\'">Kembali</button></div>';
+    $('questions').innerHTML=
+      '<div class="card"><b>Ujian belum dapat dibuka.</b>'+
+      '<p class="small">'+esc(e.message||e)+'</p>'+
+      '<button class="btn" onclick="location.href=\'akademi.html\'">Kembali</button></div>';
   }
 }
 
-async function startAttempt(){
+async function startOrResumeAttempt(){
   const last=await db.from('exam_attempts')
     .select('*')
-    .eq('user_id',user.id).eq('exam_id',exam.id)
-    .order('id',{ascending:false}).limit(1).maybeSingle();
+    .eq('user_id',user.id)
+    .eq('exam_id',exam.id)
+    .order('id',{ascending:false})
+    .limit(1)
+    .maybeSingle();
 
-  if(last.error && !String(last.error.message).toLowerCase().includes('no rows')) throw last.error;
+  if(last.error && !String(last.error.message).toLowerCase().includes('no rows'))
+    throw last.error;
+
+  if(last.data && last.data.status==='berlangsung'){
+    attempt=last.data;
+    startTimerFromAttempt();
+    return;
+  }
 
   if(last.data && last.data.status==='selesai' && exam.boleh_mengulang===false){
     throw Error('Ujian ini sudah pernah dikerjakan dan tidak mengizinkan pengulangan.');
   }
 
-  // Setiap percobaan baru dibuat sebagai "sedang"
-  const ins=await db.from('exam_attempts').insert({
-    user_id:user.id,
-    exam_id:exam.id,
-    level_id:exam.level_id,
-    nilai:0,
-    benar:0,
-    salah:0,
-    total_soal:questions.length,
-    status:'sedang'
-  }).select().single();
+  /*
+    PENTING:
+    status yang diizinkan oleh database exam_attempts adalah:
+    "berlangsung" atau "selesai".
+  */
+  const ins=await db.from('exam_attempts')
+    .insert({
+      user_id:user.id,
+      exam_id:exam.id,
+      level_id:exam.level_id,
+      nilai:0,
+      benar:0,
+      salah:0,
+      total_soal:questions.length,
+      status:'berlangsung'
+    })
+    .select()
+    .single();
 
-  if(ins.error) throw ins.error;
+  if(ins.error)throw ins.error;
+
   attempt=ins.data;
+  startTimerFromAttempt();
+}
 
-  if(exam.waktu_menit){
-    secondsLeft=Math.max(1,Number(exam.waktu_menit)*60);
+function startTimerFromAttempt(){
+  if(!exam.waktu_menit){
+    secondsLeft=null;
+    return;
+  }
+
+  const total=Math.max(1,Number(exam.waktu_menit)*60);
+  const started=new Date(attempt.started_at||Date.now()).getTime();
+  const elapsed=Math.floor((Date.now()-started)/1000);
+
+  secondsLeft=Math.max(0,total-elapsed);
+
+  updateTimer();
+
+  if(secondsLeft<=0){
+    submitExam(true);
+    return;
+  }
+
+  timerHandle=setInterval(()=>{
+    secondsLeft--;
     updateTimer();
-    timerHandle=setInterval(()=>{
-      secondsLeft--;
-      updateTimer();
-      if(secondsLeft<=0){
-        clearInterval(timerHandle);
-        submitExam(true);
-      }
-    },1000);
+
+    if(secondsLeft<=0){
+      clearInterval(timerHandle);
+      submitExam(true);
+    }
+  },1000);
+}
+
+async function loadSavedAnswers(){
+  if(!attempt)return;
+
+  const r=await db.from('exam_answers')
+    .select('question_id,jawaban,benar')
+    .eq('attempt_id',attempt.id);
+
+  if(r.error)throw r.error;
+
+  answers={};
+
+  for(const row of (r.data||[])){
+    if(row.jawaban)answers[row.question_id]=String(row.jawaban).toUpperCase();
   }
 }
 
 function updateTimer(){
   if(secondsLeft==null)return;
+
   $('timer').style.display='inline-block';
-  const m=Math.floor(secondsLeft/60),s=secondsLeft%60;
-  $('timer').textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  $('timer').className='timer '+(secondsLeft<=60?'danger':secondsLeft<=300?'warn':'');
+
+  const m=Math.floor(secondsLeft/60);
+  const s=secondsLeft%60;
+
+  $('timer').textContent='⏱️ '+
+    String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+
+  $('timer').className='timer '+
+    (secondsLeft<=60?'danger':secondsLeft<=300?'warn':'');
 }
 
 function render(){
   $('examHead').classList.add('show');
+
   $('examTitle').textContent='📝 '+exam.judul;
+
   $('examMeta').textContent=[
     exam.kkm!=null?'KKM '+exam.kkm:null,
     exam.instruksi||null,
-    exam.waktu_menit?('Waktu '+exam.waktu_menit+' menit'): 'Tanpa batas waktu'
+    exam.waktu_menit?('Waktu '+exam.waktu_menit+' menit'):'Tanpa batas waktu'
   ].filter(Boolean).join(' • ');
+
+  if(attempt.status!=='berlangsung'){
+    $('questions').innerHTML=
+      '<div class="card"><b>Ujian ini sudah selesai.</b>'+
+      '<p class="small">Silakan kembali ke Akademi untuk melihat riwayat hasil ujian.</p>'+
+      '</div>';
+    updateProgress();
+    return;
+  }
 
   $('questions').innerHTML=questions.map((q,i)=>`
     <article class="card" id="qcard-${q.id}">
-      <div class="qtop"><span>Soal ${i+1} dari ${questions.length}</span><span>${Number(q.bobot||1)} poin</span></div>
+      <div class="qtop">
+        <span>Soal ${i+1} dari ${questions.length}</span>
+        <span>${Number(q.bobot||1)} poin</span>
+      </div>
       <div class="qtext">${esc(q.pertanyaan)}</div>
       ${opt(q,'A',q.opsi_a)}
       ${opt(q,'B',q.opsi_b)}
@@ -243,41 +339,72 @@ function render(){
     <button class="btn" onclick="confirmExit()">← Keluar</button>
     <button class="btn primary" onclick="submitExam(false)">📤 Kumpulkan Ujian</button>
   </div>`;
+
   updateProgress();
 }
+
 function opt(q,key,text){
   const checked=answers[q.id]===key?'checked':'';
+
   return `<label class="option ${checked?'selected':''}" id="opt-${q.id}-${key}">
-    <input type="radio" name="q-${q.id}" value="${key}" ${checked} onchange="choose(${q.id},'${key}')">
-    <span class="optlabel">${key}.</span><span class="opttxt">${esc(text)}</span>
+    <input type="radio" name="q-${q.id}" value="${key}" ${checked}
+      onchange="choose(${q.id},'${key}')">
+    <span class="optlabel">${key}.</span>
+    <span class="opttxt">${esc(text)}</span>
   </label>`;
 }
+
 function choose(qid,key){
+  if(!attempt || attempt.status!=='berlangsung' || submitting)return;
+
   answers[qid]=key;
+
   ['A','B','C','D'].forEach(k=>{
     const el=$('opt-'+qid+'-'+k);
     if(el)el.classList.toggle('selected',k===key);
   });
+
   updateProgress();
   saveAnswer(qid,key);
 }
+
 function updateProgress(){
-  const n=Object.keys(answers).length,total=questions.length,p=Math.round(n/total*100);
+  const n=Object.keys(answers).length;
+  const total=questions.length;
+  const p=total?Math.round(n/total*100):0;
+
   $('bar').style.width=p+'%';
-  $('progressText').textContent=`${n} dari ${total} soal terjawab (${p}%)`;
+  $('progressText').textContent=
+    `${n} dari ${total} soal terjawab (${p}%)`;
 }
+
 async function saveAnswer(qid,key){
-  if(!attempt)return;
+  if(!attempt || attempt.status!=='berlangsung')return;
+
   try{
-    // Karena exam_answers belum tentu memiliki UNIQUE constraint,
-    // hapus jawaban lama untuk kombinasi attempt+question lalu simpan yang baru.
-    const d=await db.from('exam_answers').delete()
-      .eq('attempt_id',attempt.id).eq('question_id',qid);
+    /*
+      exam_answers belum dipastikan memiliki UNIQUE constraint.
+      Karena itu kita hapus jawaban lama untuk attempt+question,
+      lalu masukkan jawaban terbaru.
+    */
+    const d=await db.from('exam_answers')
+      .delete()
+      .eq('attempt_id',attempt.id)
+      .eq('question_id',qid);
+
     if(d.error)throw d.error;
-    const r=await db.from('exam_answers').insert({
-      attempt_id:attempt.id,question_id:qid,jawaban:key,benar:false
-    });
+
+    const r=await db.from('exam_answers')
+      .insert({
+        attempt_id:attempt.id,
+        question_id:qid,
+        jawaban:key,
+        benar:false
+      });
+
     if(r.error)throw r.error;
+
+    setMsg('✅ Jawaban tersimpan.');
   }catch(e){
     console.error('SAVE ANSWER',e);
     setMsg('⚠️ Jawaban belum tersimpan: '+e.message,false);
@@ -286,47 +413,116 @@ async function saveAnswer(qid,key){
 
 async function submitExam(auto){
   if(submitting)return;
+
   if(!auto){
     const unanswered=questions.length-Object.keys(answers).length;
-    if(unanswered>0 && !confirm(`Masih ada ${unanswered} soal yang belum dijawab. Tetap kumpulkan?`))return;
+
+    if(unanswered>0 &&
+       !confirm(`Masih ada ${unanswered} soal yang belum dijawab. Tetap kumpulkan?`))
+      return;
+
     if(!confirm('Yakin ingin mengumpulkan ujian?'))return;
   }
+
   submitting=true;
+
   if(timerHandle)clearInterval(timerHandle);
-  setMsg(auto?'⏰ Waktu habis. Mengumpulkan ujian...':'⏳ Menghitung nilai...');
+
+  setMsg(auto
+    ? '⏰ Waktu habis. Mengumpulkan ujian...'
+    : '⏳ Menghitung nilai...'
+  );
 
   try{
-    // Ambil kunci jawaban hanya saat penilaian di sisi client.
-    // Hasil final juga ditulis ke exam_answers.benar.
+    /*
+      Kunci jawaban hanya dipakai ketika penilaian.
+      Status exam_attempts HARUS "selesai", bukan "lulus"
+      atau "tidak_lulus", karena CHECK constraint database.
+    */
     const keyRes=await db.from('exam_questions')
       .select('id,jawaban_benar,bobot')
       .eq('exam_id',exam.id);
-    if(keyRes.error)throw keyRes.error;
-    const keyMap=new Map((keyRes.data||[]).map(q=>[q.id,{k:q.jawaban_benar,b:Number(q.bobot||1)}]));
 
-    let benar=0,salah=0,totalPoin=0,maxPoin=0;
+    if(keyRes.error)throw keyRes.error;
+
+    const keyMap=new Map(
+      (keyRes.data||[]).map(q=>[
+        q.id,
+        {k:q.jawaban_benar,b:Number(q.bobot||1)}
+      ])
+    );
+
+    let benar=0;
+    let salah=0;
+    let totalPoin=0;
+    let maxPoin=0;
+
     for(const q of questions){
       const row=keyMap.get(q.id);
       const chosen=answers[q.id]||null;
-      const ok=!!chosen && !!row && String(chosen).toUpperCase()===String(row.k||'').toUpperCase();
+      const ok=!!chosen &&
+        !!row &&
+        String(chosen).toUpperCase()===
+        String(row.k||'').toUpperCase();
+
       const b=Number(row?.b||q.bobot||1);
       maxPoin+=b;
-      if(ok){benar++;totalPoin+=b}else if(chosen){salah++}
+
+      if(ok){
+        benar++;
+        totalPoin+=b;
+      }else if(chosen){
+        salah++;
+      }
+
+      /*
+        Update baris jawaban yang memang sudah disimpan.
+        Soal yang tidak dijawab tidak perlu dibuatkan baris baru.
+      */
       if(attempt){
-        const up=await db.from('exam_answers').update({benar:ok})
-          .eq('attempt_id',attempt.id).eq('question_id',q.id);
+        const up=await db.from('exam_answers')
+          .update({benar:ok})
+          .eq('attempt_id',attempt.id)
+          .eq('question_id',q.id);
+
         if(up.error)throw up.error;
       }
     }
-    const nilai=maxPoin?Math.round((totalPoin/maxPoin)*Number(exam.nilai_maksimal||100)):0;
-    const status=nilai>=Number(exam.kkm||0)?'lulus':'tidak_lulus';
 
-    const up=await db.from('exam_attempts').update({
-      nilai,benar,salah,total_soal:questions.length,status,finished_at:new Date().toISOString()
-    }).eq('id',attempt.id);
+    const nilai=maxPoin
+      ? Math.round((totalPoin/maxPoin)*Number(exam.nilai_maksimal||100))
+      : 0;
+
+    const hasil=nilai>=Number(exam.kkm||0)
+      ? 'lulus'
+      : 'tidak_lulus';
+
+    /*
+      JANGAN simpan "lulus"/"tidak_lulus" ke kolom status.
+      Kolom status hanya menerima "berlangsung"/"selesai".
+    */
+    const up=await db.from('exam_attempts')
+      .update({
+        nilai,
+        benar,
+        salah,
+        total_soal:questions.length,
+        status:'selesai',
+        finished_at:new Date().toISOString()
+      })
+      .eq('id',attempt.id);
+
     if(up.error)throw up.error;
 
-    showResult({nilai,benar,salah,status});
+    attempt.status='selesai';
+
+    showResult({
+      nilai,
+      benar,
+      salah,
+      status:hasil
+    });
+
   }catch(e){
     console.error('SUBMIT',e);
     submitting=false;
@@ -338,19 +534,42 @@ function showResult(r){
   $('examHead').classList.remove('show');
   $('questions').innerHTML='';
   $('result').classList.add('show');
+
   $('score').textContent=r.nilai;
-  $('resultStatus').className=r.status==='lulus'?'pass':'fail';
-  $('resultStatus').textContent=r.status==='lulus'?'✅ LULUS':'❌ BELUM LULUS';
+
+  $('resultStatus').className=
+    r.status==='lulus'?'pass':'fail';
+
+  $('resultStatus').textContent=
+    r.status==='lulus'
+      ? '✅ LULUS'
+      : '❌ BELUM LULUS';
+
   $('resultDetail').innerHTML=
-    `Benar: <b>${r.benar}</b> • Salah: <b>${r.salah}</b> • Total: <b>${questions.length}</b><br>`+
-    `KKM: <b>${exam.kkm}</b> • Nilai maksimal: <b>${exam.nilai_maksimal}</b>`;
-  $('retryBtn').style.display=exam.boleh_mengulang?'inline-block':'none';
+    `Benar: <b>${r.benar}</b> • `+
+    `Salah: <b>${r.salah}</b> • `+
+    `Total: <b>${questions.length}</b><br>`+
+    `KKM: <b>${exam.kkm}</b> • `+
+    `Nilai maksimal: <b>${exam.nilai_maksimal}</b>`;
+
+  $('retryBtn').style.display=
+    exam.boleh_mengulang?'inline-block':'none';
+
   setMsg('✅ Ujian selesai.');
 }
-function retryExam(){location.reload()}
-function confirmExit(){
-  if(confirm('Keluar dari ujian? Jawaban yang sudah tersimpan tetap berada di percobaan ini.'))location.href='akademi.html';
+
+function retryExam(){
+  location.reload();
 }
+
+function confirmExit(){
+  if(confirm(
+    'Keluar dari ujian? Jawaban yang sudah tersimpan tetap berada di percobaan ini.'
+  )){
+    location.href='akademi.html';
+  }
+}
+
 init();
 </script>
 </body>
