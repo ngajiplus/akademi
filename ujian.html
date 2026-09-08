@@ -378,36 +378,40 @@ function updateProgress(){
     `${n} dari ${total} soal terjawab (${p}%)`;
 }
 
+let saveAnswerSeq=0;
+
 async function saveAnswer(qid,key){
   if(!attempt || attempt.status!=='berlangsung')return;
 
+  const seq=++saveAnswerSeq;
+
   try{
     /*
-      exam_answers belum dipastikan memiliki UNIQUE constraint.
-      Karena itu kita hapus jawaban lama untuk attempt+question,
-      lalu masukkan jawaban terbaru.
+      exam_answers memiliki UNIQUE constraint untuk attempt_id + question_id.
+      Jangan memakai DELETE lalu INSERT karena dua klik cepat dapat berjalan
+      bersamaan dan menyebabkan duplicate key. Gunakan UPSERT agar aman.
     */
-    const d=await db.from('exam_answers')
-      .delete()
-      .eq('attempt_id',attempt.id)
-      .eq('question_id',qid);
-
-    if(d.error)throw d.error;
-
     const r=await db.from('exam_answers')
-      .insert({
+      .upsert({
         attempt_id:attempt.id,
         question_id:qid,
         jawaban:key,
         benar:false
+      },{
+        onConflict:'attempt_id,question_id'
       });
 
     if(r.error)throw r.error;
 
-    setMsg('✅ Jawaban tersimpan.');
+    // Hanya request jawaban terbaru yang boleh mengubah pesan.
+    if(seq===saveAnswerSeq){
+      setMsg('✅ Jawaban tersimpan.');
+    }
   }catch(e){
     console.error('SAVE ANSWER',e);
-    setMsg('⚠️ Jawaban belum tersimpan: '+e.message,false);
+    if(seq===saveAnswerSeq){
+      setMsg('⚠️ Jawaban belum tersimpan: '+e.message,false);
+    }
   }
 }
 
