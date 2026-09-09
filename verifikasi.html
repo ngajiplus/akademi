@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Verifikasi keaslian sertifikat NgajiPlus Akademi.">
+<meta name="theme-color" content="#006b46">
+<title>Verifikasi Sertifikat — NgajiPlus Akademi</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#001f16;color:#eaf7f1;min-height:100vh}
+a{text-decoration:none;color:inherit}
+.container{max-width:760px;margin:auto;padding:28px 16px 50px}
+.header{text-align:center;padding:18px 0 22px}
+.logo{font-size:14px;font-weight:700;color:#59d39a;letter-spacing:.5px}
+.header h1{margin:10px 0 5px;font-size:30px}
+.header p{margin:0;color:#9eb6ab;font-size:13px}
+.card{background:#053b2d;border:1px solid #0b6b50;border-radius:20px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.2)}
+.search{display:flex;gap:9px;margin-bottom:18px}
+.search input{flex:1;min-width:0;padding:13px 14px;border-radius:11px;border:1px solid #28775e;background:#022b20;color:#fff;outline:none}
+.search input:focus{border-color:#4bd993}
+.search button{border:0;border-radius:11px;padding:0 17px;background:#11a968;color:#fff;font-weight:700;cursor:pointer}
+.status{padding:14px;border-radius:11px;background:#022b20;border:1px solid #145d49;color:#bdd1c8;font-size:13px;text-align:center}
+.result{margin-top:18px;background:#fdfcf4;color:#17382a;border-radius:16px;padding:24px;border:5px double #b98c2f;display:none}
+.valid{color:#087b4a;font-weight:800;text-align:center;font-size:20px}
+.invalid{color:#b42318;font-weight:800;text-align:center;font-size:20px}
+.cert-title{text-align:center;color:#80621d;font-size:12px;letter-spacing:3px;margin-top:5px}
+.name{text-align:center;font-size:29px;font-weight:800;color:#17382a;margin:15px 0 18px}
+.line{height:1px;background:#c8b06e;margin:0 auto 18px;max-width:240px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.item{background:#f5f4e9;border:1px solid #ddd3a8;border-radius:9px;padding:11px}
+.item span{display:block;color:#748278;font-size:9px;margin-bottom:4px}
+.item b{font-size:12px;word-break:break-word}
+.badge{display:inline-block;margin-top:18px;padding:7px 12px;border-radius:30px;background:#dcf8e7;color:#087b45;font-size:11px;font-weight:800}
+.footer{text-align:center;color:#668078;font-size:10px;margin-top:25px}
+.small{text-align:center;color:#77867f;font-size:10px;margin-top:13px}
+@media(max-width:520px){
+ .container{padding:18px 11px 35px}.header h1{font-size:25px}
+ .card{padding:15px}.search{flex-direction:column}
+ .search button{height:44px}.grid{grid-template-columns:1fr}
+ .name{font-size:24px}
+}
+@media print{
+ body{background:#fff;color:#000}
+ .header,.card>.search,.status,.footer,.small{display:none!important}
+ .container{max-width:none;padding:0}
+ .card{border:0;background:#fff;padding:0;box-shadow:none}
+ .result{display:block!important;border:5px double #b98c2f;border-radius:0;min-height:180mm}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="logo">📖 NGAJIPLUS AKADEMI</div>
+    <h1>Verifikasi Sertifikat</h1>
+    <p>Pastikan keaslian sertifikat yang diterbitkan oleh NgajiPlus Akademi.</p>
+  </header>
+
+  <section class="card">
+    <div class="search">
+      <input id="nomorInput" type="text" placeholder="Masukkan nomor sertifikat, contoh NGP/2026/00002" autocomplete="off">
+      <button id="verifyBtn">🔎 Verifikasi</button>
+    </div>
+
+    <div id="status" class="status">⏳ Memuat data verifikasi...</div>
+    <div id="result" class="result"></div>
+  </section>
+
+  <div class="footer">© 2026 NgajiPlus Akademi — Verifikasi sertifikat digital</div>
+  <div class="small">Gunakan nomor sertifikat yang tercantum pada dokumen resmi.</div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://ksgywgdrfskqsufchbcm.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+const input=document.getElementById("nomorInput");
+const btn=document.getElementById("verifyBtn");
+const statusBox=document.getElementById("status");
+const result=document.getElementById("result");
+
+function esc(v){
+ return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function formatDate(v){
+ if(!v) return "-";
+ const d=new Date(v);
+ if(Number.isNaN(d.getTime())) return String(v);
+ return d.toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"});
+}
+function pick(row,names){
+ for(const n of names){ if(row && row[n]!==undefined && row[n]!==null && String(row[n]).trim()!=="") return row[n]; }
+ return "";
+}
+function showInvalid(message){
+ statusBox.style.display="none";
+ result.style.display="block";
+ result.innerHTML='<div class="invalid">❌ SERTIFIKAT TIDAK DITEMUKAN</div>'+
+ '<p style="text-align:center;color:#6d7771;font-size:12px;margin:12px 0 0">'+esc(message||"Nomor sertifikat tidak ditemukan dalam database NgajiPlus Akademi.")+'</p>';
+}
+async function verify(){
+ const nomor=input.value.trim();
+ result.style.display="none";
+ statusBox.style.display="block";
+ statusBox.textContent="🔎 Memeriksa nomor sertifikat...";
+ if(!nomor){
+   statusBox.textContent="Masukkan nomor sertifikat terlebih dahulu.";
+   return;
+ }
+ try{
+   const {data,error}=await db.from("certificates").select("*").eq("nomor_sertifikat",nomor).limit(1).maybeSingle();
+   if(error) throw error;
+   if(!data){showInvalid("Nomor sertifikat tersebut tidak ditemukan.");return;}
+
+   const nama=pick(data,["nama_peserta","nama","student_name"]);
+   const course=pick(data,["course_nama","course_name","program","course"]);
+   const level=pick(data,["level_nama","level_name","level"]);
+   const nomorDb=pick(data,["nomor_sertifikat","nomor","certificate_number"]);
+   const tanggal=pick(data,["tanggal_terbit","issued_at","created_at","tanggal"]);
+   const nilai=pick(data,["nilai","score","nilai_ujian"]);
+
+   statusBox.style.display="none";
+   result.style.display="block";
+   result.innerHTML=
+    '<div class="valid">✅ SERTIFIKAT VALID</div>'+
+    '<div class="cert-title">NGAJIPLUS AKADEMI</div>'+
+    '<div class="name">'+esc(nama||"Peserta")+'</div>'+
+    '<div class="line"></div>'+
+    '<p style="text-align:center;font-size:12px;margin:0;color:#53645b">Sertifikat ini tercatat sebagai dokumen resmi yang diterbitkan oleh NgajiPlus Akademi.</p>'+
+    '<div class="grid">'+
+      '<div class="item"><span>PROGRAM / COURSE</span><b>'+esc(course||"-")+'</b></div>'+
+      '<div class="item"><span>LEVEL</span><b>'+esc(level||"-")+'</b></div>'+
+      '<div class="item"><span>NOMOR SERTIFIKAT</span><b>'+esc(nomorDb||nomor)+'</b></div>'+
+      '<div class="item"><span>TANGGAL TERBIT</span><b>'+esc(formatDate(tanggal))+'</b></div>'+
+      (nilai!==""?'<div class="item"><span>NILAI</span><b>'+esc(nilai)+'</b></div>':"")+
+    '</div>'+
+    '<div style="text-align:center"><span class="badge">✓ TERCATAT DI DATABASE NGAJIPLUS</span></div>';
+ }catch(err){
+   console.error(err);
+   statusBox.textContent="❌ Gagal memeriksa sertifikat: "+(err.message||"Kesalahan database.");
+ }
+}
+btn.addEventListener("click",verify);
+input.addEventListener("keydown",e=>{if(e.key==="Enter")verify();});
+
+const params=new URLSearchParams(location.search);
+const nomor=params.get("nomor")||params.get("id")||"";
+if(nomor){input.value=nomor;verify();}
+else{statusBox.textContent="Masukkan nomor sertifikat atau buka halaman melalui QR Code.";}
+</script>
+</body>
+</html>
