@@ -163,7 +163,7 @@ async function load(){
       const eligible=materialDone && (!examRequired || examPassed);
       stats.set(lv.id,{
         total,done,pct:total?Math.round(done/total*100):0,
-        examRequired,examPassed,examInfo,eligible
+        examRequired,examPassed,examInfo,materialDone,eligible
       });
     }
 
