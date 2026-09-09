@@ -98,7 +98,7 @@ body.exam-hidden #questions,body.exam-hidden #examHead{filter:blur(5px)}
     <div style="font-size:42px">⚠️</div>
     <h2>Anda meninggalkan halaman ujian</h2>
     <p>Untuk menjaga kejujuran ujian, jangan berpindah tab, membuka aplikasi lain, atau meminimalkan browser selama ujian berlangsung.</p>
-    <div id="violationText" class="violation">Peringatan: 1×</div>
+    <div id="violationText" class="violation">Peringatan: 0× • Tidak memengaruhi nilai</div>
     <p style="margin-top:16px">Kembali ke halaman ini untuk melanjutkan ujian.</p>
   </div>
 </div>
@@ -544,6 +544,8 @@ async function submitExam(auto){
       }
     }
 
+    // PENTING: violationCount hanya untuk peringatan/anti-contek dan TIDAK PERNAH
+    // digunakan dalam perhitungan nilai. Nilai murni berdasarkan jawaban benar + bobot.
     const nilai=maxPoin
       ? Math.round((totalPoin/maxPoin)*Number(exam.nilai_maksimal||100))
       : 0;
@@ -691,19 +693,19 @@ function registerViolation(reason){
   if(now-lastViolationAt<1500) return;
   lastViolationAt=now;
   violationCount++;
-  $('violationText').textContent='Peringatan: '+violationCount+'×';
+  $('violationText').textContent='Peringatan: '+violationCount+'× • Tidak memengaruhi nilai';
   document.body.classList.add('exam-hidden');
   const ov=$('examLockOverlay');
   ov.classList.add('show');
   ov.setAttribute('aria-hidden','false');
-  setMsg('⚠️ Anda terdeteksi meninggalkan halaman ujian. Kembali untuk melanjutkan.',false);
+  setMsg('⚠️ Peringatan: Anda terdeteksi meninggalkan halaman ujian. Silakan kembali untuk melanjutkan. Peringatan ini tidak memengaruhi nilai.',false);
 }
 
 function handleExamBack(){
   if(!examStarted || allowLeave || submitting) return;
   try{history.pushState({ngajiPlusExamGuard:true},'',location.href);}catch(e){}
   registerViolation('back');
-  setMsg('⚠️ Tombol Kembali dinonaktifkan selama ujian. Gunakan tombol Keluar jika ingin meninggalkan ujian.',false);
+  setMsg('⚠️ Peringatan: tombol Kembali dinonaktifkan selama ujian. Gunakan tombol Keluar jika ingin meninggalkan ujian. Peringatan ini tidak memengaruhi nilai.',false);
 }
 
 function handleVisibility(){
@@ -750,7 +752,7 @@ document.addEventListener('click', function(e){
   if(document.hidden) return;
   if(e.target===ov || ov.contains(e.target)){
     hideExamLock();
-    if(examStarted) setMsg('⚠️ Pelanggaran terdeteksi: jangan berpindah tab selama ujian.',false);
+    if(examStarted) setMsg('⚠️ Peringatan: Anda sempat meninggalkan halaman ujian. Peringatan ini tidak memengaruhi nilai.',false);
   }
 }, true);
 
