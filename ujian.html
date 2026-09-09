@@ -656,8 +656,6 @@ function activateStrictExamMode(){
   // Mencegah reload/close tanpa konfirmasi selama ujian.
   window.addEventListener('beforeunload', beforeUnloadGuard);
   document.addEventListener('visibilitychange', handleVisibility, true);
-  window.addEventListener('blur', handleWindowBlur, true);
-  window.addEventListener('focus', handleWindowFocus, true);
 
   // Menahan tombol Back browser selama ujian berlangsung.
   try{
@@ -674,8 +672,6 @@ function deactivateStrictExamMode(){
   hideExamLock();
   window.removeEventListener('beforeunload', beforeUnloadGuard);
   document.removeEventListener('visibilitychange', handleVisibility, true);
-  window.removeEventListener('blur', handleWindowBlur, true);
-  window.removeEventListener('focus', handleWindowFocus, true);
   window.removeEventListener('popstate', handleExamBack, true);
 }
 
@@ -689,7 +685,7 @@ function beforeUnloadGuard(e){
 function registerViolation(reason){
   if(!examStarted || submitting || attempt?.status!=='berlangsung') return;
   const now=Date.now();
-  // visibilitychange + blur dapat terpanggil hampir bersamaan; hitung sekali.
+  // Hindari peringatan ganda saat event visibility terjadi berdekatan.
   if(now-lastViolationAt<1500) return;
   lastViolationAt=now;
   violationCount++;
@@ -718,16 +714,6 @@ function handleVisibility(){
   }
 }
 
-function handleWindowBlur(){
-  if(!examStarted || document.hidden || submitting) return;
-  registerViolation('blur');
-}
-
-function handleWindowFocus(){
-  if(!examStarted || submitting) return;
-  if(!document.hidden) showExamLockUntilFocus();
-}
-
 function showExamLockUntilFocus(){
   const ov=$('examLockOverlay');
   if(!ov) return;
@@ -745,7 +731,7 @@ function hideExamLock(){
   document.body.classList.remove('exam-hidden');
 }
 
-// Overlay hanya dapat ditutup ketika peserta sudah kembali fokus.
+// Overlay hanya dapat ditutup ketika peserta sudah kembali ke halaman.
 document.addEventListener('click', function(e){
   const ov=$('examLockOverlay');
   if(!ov || !ov.classList.contains('show')) return;
