@@ -17,7 +17,61 @@ main{max-width:1000px;margin:auto;padding:14px}.hero{padding:20px;border-radius:
 .cert{background:#faf7ea;color:#17281f;border-radius:8px;padding:28px;text-align:center;border:5px double #b88a2b}.cert small{letter-spacing:2px;font-size:8px}.cert h3{font:25px Georgia,serif;color:#8a681d;margin:14px}.name{font:23px Georgia,serif;font-weight:bold;color:#183b2b;margin:8px}.cert p{font-size:10px;line-height:1.6;margin:4px}.num{font-size:8px!important;color:#675b3d;margin-top:14px!important}
 footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-top:1px solid var(--line);margin-top:20px}
 @media(max-width:700px){.grid,.certgrid{grid-template-columns:1fr}main{padding:9px}.nav a:first-child{display:none}}
-@media print{nav,.hero,.notice,#levelsSection,footer,.print-hide,#certsSection>h2{display:none!important}body{background:#fff}.certgrid{display:block}.cert-shell{page-break-after:always}.certificate{min-height:180mm;height:180mm;padding:16mm 18mm;box-shadow:none!important}}
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{width:297mm;height:210mm;margin:0!important;padding:0!important;background:#fff!important}
+  body{color:#183b2b!important}
+  nav,.hero,.notice,#levelsSection,footer,.print-hide,#certsSection>h2{display:none!important}
+  main{max-width:none!important;margin:0!important;padding:0!important}
+  #certsSection{display:block!important;background:transparent!important;border:0!important;padding:0!important;margin:0!important}
+  .certgrid{display:block!important;margin:0!important;padding:0!important}
+  .cert-shell{
+    display:block!important;
+    width:297mm;
+    height:210mm;
+    margin:0!important;
+    padding:0!important;
+    background:#fffdf5!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    page-break-after:always;
+    break-after:page;
+  }
+  .cert-shell:last-child{page-break-after:auto;break-after:auto}
+  .certificate{
+    width:297mm;
+    height:210mm;
+    min-height:210mm!important;
+    max-height:210mm;
+    margin:0!important;
+    padding:22mm 32mm!important;
+    border:5px double #b88a2b!important;
+    border-radius:0!important;
+    box-shadow:inset 0 0 0 5px #fffdf5,inset 0 0 0 7px #d6b86a!important;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  .certificate:before{inset:12mm;border-radius:0}
+  .cert-bismillah{font-size:18pt}
+  .cert-brand{font-size:10pt;letter-spacing:4px}
+  .cert-title{font-size:36pt;letter-spacing:6px;margin:12pt 0 5pt}
+  .cert-subtitle{font-size:9pt;letter-spacing:1.5px}
+  .cert-text{font-size:11pt;line-height:1.55}
+  .cert-name{font-size:31pt;margin:13pt 0 7pt}
+  .cert-line{width:170px;margin-bottom:12pt}
+  .cert-course{font-size:22pt;margin:8pt 0 3pt}
+  .cert-level{font-size:12pt}
+  .cert-meta{gap:70px;margin:17pt auto 10pt;font-size:9pt}
+  .cert-meta b{font-size:10pt}
+  .cert-footer{width:80%;margin-top:15pt}
+  .cert-sign{font-size:9pt}
+  .cert-sign strong{font-size:10pt;margin-top:24pt}
+  .cert-number{font-size:8pt}
+}
 
 <style id="pro-cert-css">
 .certgrid{grid-template-columns:1fr;gap:16px}
@@ -37,7 +91,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 .cert-footer{display:flex;justify-content:space-around;gap:20px;margin-top:24px}.cert-sign{min-width:150px;font-size:9px;color:#58766c}.cert-sign strong{display:block;color:#183b2b;font-size:11px;margin-top:30px;padding-top:5px;border-top:1px solid #8b8b70}
 .cert-number{font-size:8px;color:#675b3d;margin-top:18px}.cert-actions{text-align:center;margin-top:12px}.cert-actions .btn{margin:3px}
 @media(max-width:700px){.certificate{min-height:520px;padding:30px 18px}.cert-title{font-size:25px}.cert-name{font-size:25px}.cert-course{font-size:18px}.cert-meta{gap:20px}.cert-footer{gap:8px}}
-</style></style>
+</style>
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
