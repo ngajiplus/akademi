@@ -13,7 +13,7 @@ main{max-width:1000px;margin:auto;padding:14px}.hero{padding:20px;border-radius:
 .notice,.section{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:12px}.section h2{font-size:15px;margin:0 0 10px}
 .grid,.certgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.card{background:var(--p2);border:1px solid var(--line);border-radius:11px;padding:12px}.course{font-size:13px;font-weight:bold}.level{font-size:11px;color:var(--muted);margin-top:3px}.meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:8px}.bar{height:6px;background:#062018;border-radius:99px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
 .actions{margin-top:9px}.btn{border:0;border-radius:8px;padding:7px 10px;background:var(--g);color:#002315;font-size:10px;font-weight:bold;cursor:pointer}.gold{background:var(--gold)}.secondary{background:#084b39;color:var(--text);border:1px solid var(--line)}
-.empty{text-align:center;color:var(--muted);font-size:11px;padding:16px}
+.empty{text-align:center;color:var(--muted);font-size:11px;padding:16px}.exam-status{margin-top:9px;padding:8px 9px;border-radius:8px;font-size:9px;line-height:1.5;border:1px solid var(--line)}.exam-status.pass{color:#8ff0bb;background:#063d2b}.exam-status.fail{color:#ffb0b0;background:#4a1717}.exam-status.wait{color:#ffe08a;background:#493d08}.exam-status.none{color:var(--muted);background:#08261e}
 .cert{background:#faf7ea;color:#17281f;border-radius:8px;padding:28px;text-align:center;border:5px double #b88a2b}.cert small{letter-spacing:2px;font-size:8px}.cert h3{font:25px Georgia,serif;color:#8a681d;margin:14px}.name{font:23px Georgia,serif;font-weight:bold;color:#183b2b;margin:8px}.cert p{font-size:10px;line-height:1.6;margin:4px}.num{font-size:8px!important;color:#675b3d;margin-top:14px!important}
 footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-top:1px solid var(--line);margin-top:20px}
 @media(max-width:700px){.grid,.certgrid{grid-template-columns:1fr}main{padding:9px}.nav a:first-child{display:none}}
@@ -25,7 +25,7 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 <a href="akademi.html">📚 Akademi</a><a href="dashboard.html">📊 Dashboard</a><a href="profile.html">👤 Profil</a><button id="theme" onclick="toggleTheme()">☀️</button>
 </div></nav>
 <main>
-<section class="hero"><h1>🎓 Sertifikat NgajiPlus</h1><p>Sertifikat diterbitkan setelah seluruh materi dalam satu level selesai dipelajari.</p></section>
+<section class="hero"><h1>🎓 Sertifikat NgajiPlus</h1><p>Sertifikat diterbitkan setelah seluruh materi level selesai dan, jika level memiliki ujian, peserta harus lulus ujian sesuai KKM.</p></section>
 <div id="notice" class="notice">⏳ Menyiapkan sertifikat...</div>
 <section id="levelsSection" class="section"><h2>📚 Progress Level</h2><div id="levels" class="grid"></div></section>
 <section id="certsSection" class="section"><h2>🏆 Sertifikat Saya</h2><div id="certs" class="certgrid"></div></section>
@@ -44,7 +44,7 @@ const s=document.createElement("style");s.textContent='body[data-light="1"]{--bg
 
 async function load(){
   try{
-    document.getElementById("notice").textContent="⏳ Memuat data sertifikat...";
+    document.getElementById("notice").textContent="⏳ Memuat progress dan hasil ujian...";
     const auth=await db.auth.getUser();
     if(auth.error) throw auth.error;
     if(!auth.data.user){
@@ -53,14 +53,21 @@ async function load(){
     }
     const uid=auth.data.user.id;
 
-    // Load each source separately so one missing/blocked table
-    // does not leave the whole page stuck on "Memuat...".
-    const lr=await db.from("levels")
-      .select("id,course_id,nama,urutan")
+    // Ambil level. Jika instalasi lama belum memiliki kolom wajib_ujian,
+    // gunakan struktur dasar sebagai fallback agar halaman tetap kompatibel.
+    let lr=await db.from("levels")
+      .select("id,course_id,nama,urutan,wajib_ujian,kkm,nilai_maksimal")
       .eq("aktif",true)
       .order("course_id")
       .order("urutan");
-    if(lr.error) throw new Error("Tabel levels: "+lr.error.message);
+    if(lr.error){
+      lr=await db.from("levels")
+        .select("id,course_id,nama,urutan")
+        .eq("aktif",true)
+        .order("course_id")
+        .order("urutan");
+      if(lr.error) throw new Error("Tabel levels: "+lr.error.message);
+    }
 
     const cmr=await db.from("course_materials")
       .select("level_id,material_id,urutan")
@@ -73,6 +80,18 @@ async function load(){
       .eq("user_id",uid);
     if(pr.error) throw new Error("Progress belajar: "+pr.error.message);
 
+    // Ambil ujian aktif dan attempt milik peserta.
+    const er=await db.from("exams")
+      .select("id,level_id,judul,aktif,kkm,nilai_maksimal,boleh_mengulang")
+      .eq("aktif",true);
+    if(er.error) throw new Error("Tabel exams: "+er.error.message);
+
+    const ar=await db.from("exam_attempts")
+      .select("id,exam_id,level_id,nilai,status,finished_at")
+      .eq("user_id",uid)
+      .order("id",{ascending:false});
+    if(ar.error) throw new Error("Hasil ujian: "+ar.error.message);
+
     const cr=await db.from("certificates")
       .select("*")
       .eq("user_id",uid)
@@ -82,7 +101,9 @@ async function load(){
     const levels=lr.data||[];
     const links=cmr.data||[];
     const prog=pr.data||[];
-    let certs=cr.data||[];
+    const exams=er.data||[];
+    const attempts=ar.data||[];
+    const certs=cr.data||[];
 
     const courseIds=[...new Set(levels.map(x=>x.course_id))];
     let courses=[];
@@ -94,6 +115,18 @@ async function load(){
 
     const cmap=new Map(courses.map(x=>[x.id,x.nama]));
     const pmap=new Map(prog.map(x=>[String(x.material_id),x]));
+    const examMap=new Map();
+    for(const ex of exams){
+      if(!examMap.has(ex.level_id)) examMap.set(ex.level_id,[]);
+      examMap.get(ex.level_id).push(ex);
+    }
+
+    const attemptMap=new Map();
+    for(const at of attempts){
+      const key=String(at.exam_id);
+      if(!attemptMap.has(key)) attemptMap.set(key,[]);
+      attemptMap.get(key).push(at);
+    }
 
     const stats=new Map();
     for(const lv of levels){
@@ -104,29 +137,79 @@ async function load(){
         const pp=pmap.get(String(m.material_id));
         if(pp && (pp.status==="completed" || Number(pp.progress)>=100)) done++;
       }
-      stats.set(lv.id,{total,done,pct:total?Math.round(done/total*100):0});
+
+      const exs=examMap.get(lv.id)||[];
+      // Jika ada ujian aktif, ujian dianggap wajib untuk sertifikat.
+      // Untuk satu level normalnya hanya ada satu ujian aktif.
+      let examRequired=exs.length>0;
+      if(Object.prototype.hasOwnProperty.call(lv,"wajib_ujian")){
+        examRequired=lv.wajib_ujian===true && exs.length>0;
+      }
+
+      let examPassed=false;
+      let examInfo=null;
+      if(exs.length){
+        // Pilih ujian aktif pertama. Jika ada lebih dari satu, cukup satu yang lulus
+        // agar kompatibel dengan struktur ujian level saat ini.
+        const ex=exs[0];
+        const kkm=Number(ex.kkm ?? lv.kkm ?? 0);
+        const ats=attemptMap.get(String(ex.id))||[];
+        const passed=ats.find(a=>a.status==="selesai" && Number(a.nilai)>=kkm);
+        const latest=ats[0];
+        examPassed=!!passed;
+        examInfo={
+          id:ex.id,
+          judul:ex.judul,
+          kkm,
+          nilai:latest ? Number(latest.nilai||0) : null,
+          passed:examPassed,
+          hasAttempt:!!latest
+        };
+      }
+
+      const materialDone=total>0 && done===total;
+      const eligible=materialDone && (!examRequired || examPassed);
+      stats.set(lv.id,{total,done,pct:total?Math.round(done/total*100):0,examRequired,examPassed,examInfo,eligible});
     }
 
     document.getElementById("levels").innerHTML=levels.length
       ? levels.map(lv=>{
-          const st=stats.get(lv.id)||{total:0,done:0,pct:0};
+          const st=stats.get(lv.id)||{total:0,done:0,pct:0,examRequired:false,examPassed:false,examInfo:null,eligible:false};
           const cert=certs.find(c=>c.level_id===lv.id);
+          let examHtml='';
+          if(st.examInfo){
+            const e=st.examInfo;
+            if(e.passed){
+              examHtml='<div class="exam-status pass">✅ Ujian lulus — Nilai '+e.nilai+' / KKM '+e.kkm+'</div>';
+            }else if(e.hasAttempt){
+              examHtml='<div class="exam-status fail">❌ Ujian belum lulus — Nilai terakhir '+e.nilai+' / KKM '+e.kkm+'</div>';
+            }else{
+              examHtml='<div class="exam-status wait">📝 Ujian belum dikerjakan — KKM '+e.kkm+'</div>';
+            }
+          }else{
+            examHtml='<div class="exam-status none">ℹ️ Level ini tidak memiliki ujian aktif.</div>';
+          }
+
           let action="";
           if(cert){
             action='<a class="btn gold" href="#certsSection">🏆 Lihat Sertifikat</a>';
-          }else if(st.total>0 && st.pct===100){
-            action='<button class="btn" onclick="issueCertificate('+lv.id+')">🎓 Terbitkan Sertifikat</button>';
           }else if(st.total===0){
             action='<span class="empty">Belum ada materi</span>';
-          }else{
+          }else if(!st.materialDone){
             action='<a class="btn secondary" href="akademi.html">📖 Lanjut Belajar</a>';
+          }else if(st.examRequired && !st.examPassed){
+            action='<a class="btn secondary" href="akademi.html">📝 Kerjakan Ujian</a>';
+          }else if(st.eligible){
+            action='<button class="btn" onclick="issueCertificate('+lv.id+')">🎓 Terbitkan Sertifikat</button>';
           }
+
           return '<div class="card">'+
             '<div class="course">'+esc(cmap.get(lv.course_id)||"Course")+'</div>'+
             '<div class="level">'+esc(lv.nama)+'</div>'+
             '<div class="meta"><span>'+st.done+'/'+st.total+' materi selesai</span><b>'+st.pct+'%</b></div>'+
             '<div class="bar"><i style="width:'+st.pct+'%"></i></div>'+
-            '<div class="actions">'+action+'</div>'+
+            examHtml+
+            '<div class="actions">'+action+'</div>'+ 
           '</div>';
         }).join("")
       : '<div class="empty">Belum ada level.</div>';
@@ -135,34 +218,29 @@ async function load(){
       ? certs.map(c=>
           '<article class="cert">'+
             '<small>NGAJIPLUS AKADEMI</small>'+
-            '<h3>SERTIFIKAT</h3>'+
-            '<p>Diberikan kepada</p>'+
-            '<div class="name">'+esc(c.nama_peserta)+'</div>'+
-            '<p>telah menyelesaikan pembelajaran</p>'+
-            '<p><b>'+esc(c.course_nama)+'</b></p>'+
-            '<p><b>'+esc(c.level_nama)+'</b></p>'+
-            '<p class="num">Nomor: '+esc(c.nomor_sertifikat)+'<br>Diterbitkan: '+esc(c.tanggal_terbit)+'</p>'+
-            '<div class="actions print-hide"><button class="btn" onclick="window.print()">🖨️ Cetak</button></div>'+
+            '<h3>SERTIFIKAT</h3>'+ 
+            '<p>Diberikan kepada</p>'+ 
+            '<div class="name">'+esc(c.nama_peserta)+'</div>'+ 
+            '<p>telah menyelesaikan pembelajaran</p>'+ 
+            '<p><b>'+esc(c.course_nama)+'</b></p>'+ 
+            '<p><b>'+esc(c.level_nama)+'</b></p>'+ 
+            '<p class="num">Nomor: '+esc(c.nomor_sertifikat)+'<br>Diterbitkan: '+esc(c.tanggal_terbit)+'</p>'+ 
+            '<div class="actions print-hide"><button class="btn" onclick="window.print()">🖨️ Cetak</button></div>'+ 
           '</article>'
         ).join("")
-      : '<div class="empty">Belum ada sertifikat. Selesaikan Level 100% terlebih dahulu.</div>';
+      : '<div class="empty">Belum ada sertifikat. Selesaikan seluruh materi dan, jika diwajibkan, lulus ujian terlebih dahulu.</div>';
 
-    document.getElementById("notice").textContent=
-      certs.length
+    document.getElementById("notice").textContent=certs.length
       ? "🎉 Anda memiliki "+certs.length+" sertifikat."
-      : "📚 Selesaikan seluruh materi dalam satu level. Setelah 100%, tombol penerbitan sertifikat akan muncul.";
+      : "📚 Selesaikan materi 100% dan lulus ujian level jika ujian diwajibkan. Setelah itu tombol penerbitan sertifikat muncul.";
   }catch(err){
     console.error(err);
     document.getElementById("notice").innerHTML=
-      "❌ <b>Gagal memuat sertifikat.</b><br>"+
-      "<small>"+esc(err.message||err)+"</small>";
-    document.getElementById("levels").innerHTML=
-      '<div class="empty">Periksa pesan error di atas.</div>';
-    document.getElementById("certs").innerHTML=
-      '<div class="empty">Data sertifikat belum dapat dimuat.</div>';
+      "❌ <b>Gagal memuat sertifikat.</b><br><small>"+esc(err.message||err)+"</small>";
+    document.getElementById("levels").innerHTML='<div class="empty">Periksa pesan error di atas.</div>';
+    document.getElementById("certs").innerHTML='<div class="empty">Data sertifikat belum dapat dimuat.</div>';
   }
 }
-
 async function issueCertificate(levelId){
   try{
     const btns=[...document.querySelectorAll("button")];
