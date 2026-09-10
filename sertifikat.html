@@ -2520,6 +2520,103 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+
+<style id="ngajiplus-v24-signature-stamp">
+/* V24 — finishing posisi TTD & stempel.
+   Target: lebih rendah dan lebih besar, mengikuti proporsi referensi.
+   Elemen lain dan background tidak diubah. */
+
+/* Blok tanda tangan diturunkan */
+.certificate .signature-row{
+  left:50%!important;
+  top:72.0%!important;
+  width:70%!important;
+  transform:translateX(-50%)!important;
+  grid-template-columns:1fr 100px 1fr!important;
+  gap:34px!important;
+  align-items:end!important;
+}
+
+/* Tulisan tanda tangan diperbesar */
+.certificate .sign{
+  font-size:clamp(7px,.72vw,11px)!important;
+  line-height:1.25!important;
+  text-align:center!important;
+}
+
+.certificate .sign small{
+  font-size:inherit!important;
+}
+
+.certificate .sign i{
+  margin-top:20px!important;
+  font-size:clamp(14px,1.45vw,22px)!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+}
+
+.certificate .sign strong{
+  margin-top:4px!important;
+  font-size:clamp(7px,.72vw,11px)!important;
+}
+
+/* Stempel/segel diperbesar dan diturunkan bersama TTD */
+.certificate .gold-seal{
+  width:clamp(58px,5.8vw,88px)!important;
+  height:clamp(58px,5.8vw,88px)!important;
+  justify-self:center!important;
+  font-size:clamp(8px,.78vw,12px)!important;
+}
+
+.certificate .gold-seal small{
+  font-size:clamp(5px,.48vw,7px)!important;
+}
+
+.certificate .gold-seal em{
+  font-size:clamp(4px,.36vw,6px)!important;
+  letter-spacing:1px!important;
+}
+
+/* Tampilan HP: tetap besar tetapi tidak keluar area */
+@media(max-width:700px){
+  .certificate .signature-row{
+    left:50%!important;
+    top:72.0%!important;
+    width:70%!important;
+    grid-template-columns:1fr 52px 1fr!important;
+    gap:12px!important;
+  }
+
+  .certificate .sign{
+    font-size:6px!important;
+  }
+
+  .certificate .sign i{
+    margin-top:14px!important;
+    font-size:12px!important;
+  }
+
+  .certificate .sign strong{
+    margin-top:3px!important;
+    font-size:6px!important;
+  }
+
+  .certificate .gold-seal{
+    width:52px!important;
+    height:52px!important;
+    font-size:7px!important;
+  }
+
+  .certificate .gold-seal small{
+    font-size:4px!important;
+  }
+
+  .certificate .gold-seal em{
+    font-size:3px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
