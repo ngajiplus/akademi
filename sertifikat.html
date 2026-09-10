@@ -971,7 +971,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 <footer>📖 NgajiPlus Akademi — Belajar Islam secara bertahap</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const SUPABASE_URL="https://ksgywgdrfskqsufchbcm.supabase.co";
 const SUPABASE_KEY="sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
@@ -980,6 +979,24 @@ const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&
 function toggleTheme(){let l=document.body.dataset.light==="1";document.body.dataset.light=l?"":"1";localStorage.setItem("ngaji-theme",l?"dark":"light");document.getElementById("theme").textContent=l?"☀️":"🌙"}
 if(localStorage.getItem("ngaji-theme")==="light"){document.body.dataset.light="1";document.getElementById("theme").textContent="🌙"}
 const s=document.createElement("style");s.textContent='body[data-light="1"]{--bg:#f3faf7;--p:#fff;--p2:#f1faf6;--line:#b8dfd0;--text:#173329;--muted:#58766c}body[data-light="1"] nav{background:#fff}.status{color:#9cc4b8}';document.head.appendChild(s);
+
+let qrReadyPromise=null;
+function ensureQRCode(){
+  if(typeof QRCode!=="undefined") return Promise.resolve(true);
+  if(qrReadyPromise) return qrReadyPromise;
+  qrReadyPromise=new Promise(resolve=>{
+    const sc=document.createElement("script");
+    sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+    sc.async=true;
+    let done=false;
+    const finish=ok=>{if(done)return;done=true;resolve(ok)};
+    sc.onload=()=>finish(typeof QRCode!=="undefined");
+    sc.onerror=()=>finish(false);
+    document.head.appendChild(sc);
+    setTimeout(()=>finish(false),5000);
+  });
+  return qrReadyPromise;
+}
 
 async function load(){
   try{
@@ -1222,17 +1239,20 @@ async function load(){
         ).join("")
       : '<div class="empty">Belum ada sertifikat. Selesaikan seluruh materi dan, jika diwajibkan, lulus ujian terlebih dahulu.</div>';
 
-    // QR Code: diarahkan ke halaman verifikasi publik berdasarkan nomor sertifikat.
-    if(certs.length && typeof QRCode!=="undefined"){
-      document.querySelectorAll(".qr-area").forEach(el=>{
-        const nomor=el.getAttribute("data-cert-number")||"";
-        const url="https://akademi.ngajiplus.id/verifikasi.html?nomor="+encodeURIComponent(nomor);
-        const box=el.querySelector(".cert-qr-box");
-        if(box){
-          box.innerHTML="";
-          new QRCode(box,{text:url,width:64,height:64,correctLevel:QRCode.CorrectLevel.H});
-        }
-      });
+    // QR Code dimuat secara non-blocking agar CDN QR tidak dapat menggantung seluruh halaman.
+    if(certs.length){
+      const qrOk=await ensureQRCode();
+      if(qrOk && typeof QRCode!=="undefined"){
+        document.querySelectorAll(".qr-area").forEach(el=>{
+          const nomor=el.getAttribute("data-cert-number")||"";
+          const url="https://akademi.ngajiplus.id/verifikasi.html?nomor="+encodeURIComponent(nomor);
+          const box=el.querySelector(".cert-qr-box");
+          if(box){
+            box.innerHTML="";
+            new QRCode(box,{text:url,width:64,height:64,correctLevel:QRCode.CorrectLevel.H});
+          }
+        });
+      }
     }
 
     document.getElementById("notice").textContent=certs.length
