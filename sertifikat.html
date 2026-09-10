@@ -1505,6 +1505,461 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+
+<style id="ngajiplus-v18-background-template">
+/* =========================================================
+   NGAJIPLUS SERTIFIKAT V18
+   Background template + dynamic HTML overlay
+   Background path expected:
+   assets/img/sertifikat-background.png
+   F4 Landscape ratio = 330:215
+   ========================================================= */
+
+/* The image is the certificate artwork. HTML supplies only dynamic data. */
+.certificate.middleeast-cert{
+  position:relative!important;
+  width:100%!important;
+  aspect-ratio:330 / 215!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background-color:#edf8e9!important;
+  background-image:url('assets/img/sertifikat-background.png')!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:100% 100%!important;
+  color:#174f35!important;
+  text-align:center!important;
+  isolation:isolate;
+}
+
+/* Remove old CSS decorations because the new background already contains them. */
+.certificate.middleeast-cert::before,
+.certificate.middleeast-cert::after,
+.certificate .arabesque,
+.certificate .cert-side,
+.certificate .bismillah,
+.certificate .academy-name,
+.certificate .academy-motto,
+.certificate .me16-quote{
+  display:none!important;
+}
+
+/* Main overlay becomes the coordinate system. */
+.certificate .cert-main{
+  position:absolute!important;
+  inset:0!important;
+  left:0!important;
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  background:transparent!important;
+}
+
+/* ===== Dynamic content positions ===== */
+.certificate .gold-rule,
+.certificate .name-ornament,
+.certificate .blessing,
+.certificate .footer-slogan{
+  display:none!important;
+}
+
+.certificate .cert-title{
+  position:absolute!important;
+  left:50%!important;
+  top:25.5%!important;
+  transform:translateX(-50%)!important;
+  width:70%!important;
+  margin:0!important;
+  padding:0!important;
+  font-family:Georgia,'Times New Roman',serif!important;
+  font-size:clamp(24px,4.1vw,58px)!important;
+  line-height:1!important;
+  letter-spacing:clamp(3px,.55vw,8px)!important;
+  color:#174f35!important;
+  font-weight:700!important;
+  z-index:5!important;
+}
+
+.certificate .cert-subtitle{
+  position:absolute!important;
+  left:50%!important;
+  top:32.1%!important;
+  transform:translateX(-50%)!important;
+  width:72%!important;
+  margin:0!important;
+  color:#456c5a!important;
+  font-size:clamp(7px,.72vw,11px)!important;
+  letter-spacing:clamp(1px,.16vw,2.2px)!important;
+  line-height:1.2!important;
+  z-index:5!important;
+}
+
+.certificate .given{
+  position:absolute!important;
+  left:50%!important;
+  top:35.8%!important;
+  transform:translateX(-50%)!important;
+  width:60%!important;
+  margin:0!important;
+  color:#294f40!important;
+  font-size:clamp(8px,.75vw,12px)!important;
+  line-height:1.2!important;
+  z-index:5!important;
+}
+
+.certificate .cert-name{
+  position:absolute!important;
+  left:50%!important;
+  top:38.2%!important;
+  transform:translateX(-50%)!important;
+  width:70%!important;
+  margin:0!important;
+  padding:0!important;
+  color:#124b32!important;
+  font-family:Georgia,'Times New Roman',serif!important;
+  font-size:clamp(22px,3.25vw,46px)!important;
+  line-height:1.05!important;
+  font-weight:700!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  z-index:5!important;
+}
+
+.certificate .cert-desc{
+  position:absolute!important;
+  left:50%!important;
+  top:44.5%!important;
+  transform:translateX(-50%)!important;
+  width:61%!important;
+  max-width:none!important;
+  margin:0!important;
+  color:#50685c!important;
+  font-size:clamp(6px,.62vw,9.5px)!important;
+  line-height:1.35!important;
+  z-index:5!important;
+}
+
+.certificate .course-frame{
+  position:absolute!important;
+  left:50%!important;
+  top:49.2%!important;
+  transform:translateX(-50%)!important;
+  width:42%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:1.1% 2%!important;
+  border:1.5px solid #b58a2f!important;
+  border-radius:10px!important;
+  background:rgba(248,251,224,.76)!important;
+  box-shadow:none!important;
+  z-index:5!important;
+}
+
+.certificate .cert-course{
+  margin:0!important;
+  color:#24543d!important;
+  font-family:Georgia,'Times New Roman',serif!important;
+  font-size:clamp(12px,1.65vw,25px)!important;
+  line-height:1.1!important;
+  font-weight:700!important;
+}
+
+.certificate .cert-level{
+  margin-top:2px!important;
+  color:#6c5a25!important;
+  font-size:clamp(6px,.65vw,10px)!important;
+  line-height:1.1!important;
+}
+
+.certificate .cert-info{
+  position:absolute!important;
+  left:50%!important;
+  top:61.2%!important;
+  transform:translateX(-50%)!important;
+  width:58%!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:0!important;
+  margin:0!important;
+  color:#5d665c!important;
+  z-index:5!important;
+}
+
+.certificate .cert-info>div{
+  min-width:0!important;
+  padding:0 7px!important;
+  border-right:1px solid rgba(108,90,37,.35)!important;
+  font-size:clamp(5px,.58vw,9px)!important;
+  line-height:1.25!important;
+}
+.certificate .cert-info>div:last-child{border-right:0!important}
+.certificate .cert-info span{display:block!important}
+.certificate .cert-info b{
+  display:block!important;
+  margin-top:3px!important;
+  color:#1b4e37!important;
+  font-size:clamp(6px,.67vw,10px)!important;
+  font-weight:700!important;
+  white-space:nowrap!important;
+}
+.certificate .verified-badge{
+  color:#197348!important;
+  font-size:clamp(5px,.6vw,9px)!important;
+}
+
+.certificate .signature-row{
+  position:absolute!important;
+  left:50%!important;
+  top:69.2%!important;
+  transform:translateX(-50%)!important;
+  width:61%!important;
+  display:grid!important;
+  grid-template-columns:1fr 80px 1fr!important;
+  align-items:end!important;
+  gap:20px!important;
+  margin:0!important;
+  z-index:5!important;
+}
+.certificate .sign{
+  min-width:0!important;
+  color:#647266!important;
+  font-size:clamp(5px,.56vw,9px)!important;
+  line-height:1.2!important;
+}
+.certificate .sign small{display:block!important;font-size:inherit!important}
+.certificate .sign i{
+  display:block!important;
+  margin-top:18px!important;
+  color:#173f2e!important;
+  font-family:'Brush Script MT','Segoe Script',cursive!important;
+  font-size:clamp(10px,1.05vw,16px)!important;
+  font-style:italic!important;
+  white-space:nowrap!important;
+}
+.certificate .sign strong{
+  display:block!important;
+  margin-top:2px!important;
+  padding:0!important;
+  border:0!important;
+  color:#244d3b!important;
+  font-size:clamp(5px,.58vw,9px)!important;
+}
+.certificate .gold-seal{
+  width:clamp(34px,4vw,58px)!important;
+  height:clamp(34px,4vw,58px)!important;
+  justify-self:center!important;
+  border-radius:50%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:2px solid #a97b20!important;
+  background:radial-gradient(circle,#f5d77c 0%,#c38d22 68%,#8b6218 100%)!important;
+  color:#5a3e0b!important;
+  font-size:clamp(7px,.7vw,11px)!important;
+  line-height:.95!important;
+  box-shadow:0 1px 4px rgba(70,50,10,.25)!important;
+}
+.certificate .gold-seal small{font-size:clamp(4px,.42vw,6px)!important}
+.certificate .gold-seal em{font-size:clamp(3px,.32vw,5px)!important;font-style:normal;letter-spacing:1px}
+
+.certificate .qr-area{
+  position:absolute!important;
+  right:3.7%!important;
+  bottom:4.1%!important;
+  top:auto!important;
+  width:7%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  margin:0!important;
+  z-index:6!important;
+}
+.certificate .cert-qr-box{
+  width:100%!important;
+  aspect-ratio:1!important;
+  height:auto!important;
+  padding:2px!important;
+  margin:0!important;
+  border:1px solid #b58a2f!important;
+  border-radius:2px!important;
+  background:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.certificate .cert-qr-box img,
+.certificate .cert-qr-box canvas{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  display:block!important;
+}
+.certificate .qr-label{
+  margin-top:2px!important;
+  width:130%!important;
+  color:#5d542f!important;
+  font-size:clamp(3px,.38vw,6px)!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+
+/* Print: exact F4 landscape, one certificate per page. */
+@page{size:330mm 215mm;margin:0}
+@media print{
+  html,body{width:330mm!important;height:215mm!important;margin:0!important;padding:0!important;background:#fff!important}
+  nav,.hero,.notice,#levelsSection,footer,.print-hide,#certsSection>h2{display:none!important}
+  main{width:330mm!important;max-width:none!important;margin:0!important;padding:0!important}
+  #certsSection{display:block!important;width:330mm!important;margin:0!important;padding:0!important;border:0!important;background:none!important}
+  .certgrid{display:block!important;margin:0!important;padding:0!important}
+  .cert-shell{
+    width:330mm!important;height:215mm!important;margin:0!important;padding:0!important;
+    page-break-after:always!important;break-after:page!important;
+    background:transparent!important;border:0!important;box-shadow:none!important;
+  }
+  .cert-shell:last-child{page-break-after:auto!important;break-after:auto!important}
+  .certificate.middleeast-cert{
+    width:330mm!important;height:215mm!important;min-height:215mm!important;
+    aspect-ratio:auto!important;background-size:100% 100%!important;
+    print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;
+  }
+  .certificate .cert-title{font-size:36pt!important}
+  .certificate .cert-subtitle{font-size:8.5pt!important}
+  .certificate .given{font-size:9pt!important}
+  .certificate .cert-name{font-size:29pt!important}
+  .certificate .cert-desc{font-size:7pt!important}
+  .certificate .cert-course{font-size:18pt!important}
+  .certificate .cert-level{font-size:8pt!important}
+  .certificate .cert-info{font-size:7pt!important}
+  .certificate .cert-info b{font-size:8pt!important}
+  .certificate .verified-badge{font-size:7pt!important}
+  .certificate .sign{font-size:7pt!important}
+  .certificate .sign i{font-size:12pt!important}
+  .certificate .sign strong{font-size:7pt!important}
+  .certificate .gold-seal{width:18mm!important;height:18mm!important}
+  .certificate .qr-area{right:3.7%!important;bottom:4.1%!important;width:7%!important}
+}
+</style>
+
+<style id="ngajiplus-v19-position">
+/* =========================================================
+   V19 — PENYESUAIAN POSISI DI ATAS BACKGROUND FINAL
+   Background tidak diubah. Hanya layer data dinamis yang digeser.
+   Fokus area konten berada di kanan panel logo background.
+   ========================================================= */
+
+.certificate.middleeast-cert{
+  background-position:center center!important;
+  background-size:100% 100%!important;
+}
+
+/* Semua konten utama mengikuti titik tengah area kosong,
+   bukan titik tengah seluruh kanvas. */
+.certificate .cert-title{
+  left:60%!important;
+  top:24.2%!important;
+  width:68%!important;
+  font-size:clamp(24px,4.0vw,57px)!important;
+}
+
+.certificate .cert-subtitle{
+  left:60%!important;
+  top:31.0%!important;
+  width:66%!important;
+}
+
+.certificate .given{
+  left:60%!important;
+  top:34.9%!important;
+  width:58%!important;
+}
+
+.certificate .cert-name{
+  left:60%!important;
+  top:37.3%!important;
+  width:66%!important;
+  font-size:clamp(22px,3.15vw,45px)!important;
+}
+
+.certificate .cert-desc{
+  left:60%!important;
+  top:43.2%!important;
+  width:57%!important;
+}
+
+.certificate .course-frame{
+  left:60%!important;
+  top:47.8%!important;
+  width:42%!important;
+  padding:1.05% 2%!important;
+}
+
+.certificate .cert-course{
+  font-size:clamp(12px,1.6vw,24px)!important;
+}
+
+.certificate .cert-info{
+  left:60%!important;
+  top:59.7%!important;
+  width:55%!important;
+}
+
+.certificate .signature-row{
+  left:60%!important;
+  top:68.0%!important;
+  width:57%!important;
+  grid-template-columns:1fr 72px 1fr!important;
+  gap:16px!important;
+}
+
+.certificate .gold-seal{
+  width:clamp(34px,3.7vw,55px)!important;
+  height:clamp(34px,3.7vw,55px)!important;
+}
+
+/* QR tetap mengikuti area kanan bawah background. */
+.certificate .qr-area{
+  right:3.6%!important;
+  bottom:3.9%!important;
+  width:6.8%!important;
+}
+
+/* Tampilan HP: posisi tetap mengikuti kanvas F4, tidak kembali ke tengah penuh. */
+@media(max-width:700px){
+  .certificate .cert-title{
+    left:60%!important;
+    top:24.2%!important;
+    width:68%!important;
+    font-size:25px!important;
+  }
+  .certificate .cert-subtitle{left:60%!important;top:31.0%!important;width:66%!important}
+  .certificate .given{left:60%!important;top:34.9%!important;width:58%!important;font-size:8px!important}
+  .certificate .cert-name{left:60%!important;top:37.3%!important;width:66%!important;font-size:22px!important}
+  .certificate .cert-desc{left:60%!important;top:43.2%!important;width:57%!important;font-size:5px!important}
+  .certificate .course-frame{left:60%!important;top:47.8%!important;width:42%!important}
+  .certificate .cert-course{font-size:12px!important}
+  .certificate .cert-info{left:60%!important;top:59.7%!important;width:55%!important}
+  .certificate .signature-row{
+    left:60%!important;
+    top:68.0%!important;
+    width:57%!important;
+    grid-template-columns:1fr 36px 1fr!important;
+    gap:7px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
