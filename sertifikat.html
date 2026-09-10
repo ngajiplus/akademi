@@ -2180,6 +2180,155 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+
+<style id="ngajiplus-v22-true-center">
+/* =========================================================
+   V22 — TRUE CENTER
+   Semua blok informasi utama benar-benar berada di tengah
+   kanvas sertifikat, bukan di 58% seperti versi sebelumnya.
+   Background tetap 100% sama.
+   ========================================================= */
+
+.certificate .cert-title,
+.certificate .cert-subtitle,
+.certificate .given,
+.certificate .cert-name,
+.certificate .cert-desc,
+.certificate .course-frame,
+.certificate .cert-info,
+.certificate .signature-row{
+  left:50%!important;
+  transform:translateX(-50%)!important;
+}
+
+/* Judul */
+.certificate .cert-title{
+  top:22.8%!important;
+  width:70%!important;
+  text-align:center!important;
+  font-size:clamp(30px,4.1vw,60px)!important;
+}
+
+/* Subjudul */
+.certificate .cert-subtitle{
+  top:29.6%!important;
+  width:65%!important;
+  text-align:center!important;
+}
+
+/* Diberikan kepada */
+.certificate .given{
+  top:33.5%!important;
+  width:60%!important;
+  text-align:center!important;
+}
+
+/* Nama penerima */
+.certificate .cert-name{
+  top:35.8%!important;
+  width:70%!important;
+  text-align:center!important;
+  font-size:clamp(26px,3.4vw,50px)!important;
+}
+
+/* Deskripsi */
+.certificate .cert-desc{
+  top:41.3%!important;
+  width:62%!important;
+  text-align:center!important;
+}
+
+/* Kotak program */
+.certificate .course-frame{
+  top:46.2%!important;
+  width:46%!important;
+  text-align:center!important;
+  box-sizing:border-box!important;
+}
+
+/* Informasi nomor/tanggal/status */
+.certificate .cert-info{
+  top:57.8%!important;
+  width:60%!important;
+  text-align:center!important;
+}
+
+/* Tanda tangan dan segel */
+.certificate .signature-row{
+  top:66.3%!important;
+  width:62%!important;
+  grid-template-columns:1fr 82px 1fr!important;
+  gap:24px!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+
+.certificate .gold-seal{
+  width:66px!important;
+  height:66px!important;
+  margin:auto!important;
+}
+
+/* QR — kecil dan benar-benar masuk ke area dalam bingkai */
+.certificate .qr-area{
+  right:5.8%!important;
+  bottom:6.5%!important;
+  width:5.0%!important;
+  max-width:76px!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+
+.certificate .qr-area img,
+.certificate .qr-area canvas{
+  width:100%!important;
+  height:auto!important;
+  display:block!important;
+}
+
+/* HP */
+@media(max-width:700px){
+  .certificate .cert-title{
+    left:50%!important; top:22.8%!important; width:70%!important;
+    font-size:29px!important;
+  }
+  .certificate .cert-subtitle{
+    left:50%!important; top:29.6%!important; width:65%!important;
+  }
+  .certificate .given{
+    left:50%!important; top:33.5%!important; width:60%!important;
+  }
+  .certificate .cert-name{
+    left:50%!important; top:35.8%!important; width:70%!important;
+    font-size:23px!important;
+  }
+  .certificate .cert-desc{
+    left:50%!important; top:41.3%!important; width:62%!important;
+  }
+  .certificate .course-frame{
+    left:50%!important; top:46.2%!important; width:46%!important;
+  }
+  .certificate .cert-info{
+    left:50%!important; top:57.8%!important; width:60%!important;
+  }
+  .certificate .signature-row{
+    left:50%!important; top:66.3%!important; width:62%!important;
+    grid-template-columns:1fr 46px 1fr!important;
+    gap:10px!important;
+  }
+  .certificate .gold-seal{
+    width:44px!important;
+    height:44px!important;
+  }
+  .certificate .qr-area{
+    right:5.8%!important;
+    bottom:6.5%!important;
+    width:5.0%!important;
+    max-width:55px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
