@@ -1960,6 +1960,70 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+<style id="ngajiplus-v20-final-position">
+/* V20 — final composition: clean overlay on approved blank background */
+.middleeast-cert{position:relative!important;overflow:hidden!important;background-image:url('assets/img/sertifikat-background.png')!important;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+/* The approved background already contains logo + bismillah. Remove duplicate HTML branding. */
+.middleeast-cert .cert-side{display:none!important}
+.middleeast-cert .cert-main{position:absolute!important;left:0!important;top:0!important;width:100%!important;height:100%!important;padding:0!important;text-align:center!important}
+.middleeast-cert .cert-main>.bismillah,
+.middleeast-cert .cert-main>.academy-name,
+.middleeast-cert .cert-main>.academy-motto,
+.middleeast-cert .cert-main>.gold-rule,
+.middleeast-cert .cert-main>.me16-quote{display:none!important}
+/* Main content — centered in the usable certificate area */
+.middleeast-cert .cert-title{position:absolute!important;left:55%!important;top:22.5%!important;transform:translateX(-50%)!important;width:62%!important;margin:0!important;font-family:Georgia,serif!important;font-size:clamp(28px,3.9vw,58px)!important;letter-spacing:8px!important;line-height:1!important;color:#143b2e!important}
+.middleeast-cert .cert-subtitle{position:absolute!important;left:55%!important;top:28.7%!important;transform:translateX(-50%)!important;width:60%!important;font-size:clamp(7px,0.72vw,11px)!important;letter-spacing:2.5px!important;color:#69766f!important}
+.middleeast-cert .given{position:absolute!important;left:55%!important;top:32.4%!important;transform:translateX(-50%)!important;width:50%!important;margin:0!important;font-size:clamp(8px,0.78vw,12px)!important;color:#384b42!important}
+.middleeast-cert .cert-name{position:absolute!important;left:55%!important;top:35.1%!important;transform:translateX(-50%)!important;width:60%!important;margin:0!important;padding:0!important;font-family:Georgia,serif!important;font-size:clamp(24px,3vw,45px)!important;line-height:1.05!important;color:#143b2e!important}
+.middleeast-cert .name-ornament{display:none!important}
+.middleeast-cert .cert-desc{position:absolute!important;left:55%!important;top:41.3%!important;transform:translateX(-50%)!important;width:57%!important;max-width:none!important;margin:0!important;font-size:clamp(6px,0.62vw,9px)!important;line-height:1.3!important;color:#3d5047!important}
+.middleeast-cert .course-frame{position:absolute!important;left:55%!important;top:46.1%!important;transform:translateX(-50%)!important;width:46%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:8px 24px 9px!important;box-sizing:border-box!important;border:1.5px solid #b58a2c!important;border-radius:14px!important;background:rgba(255,250,229,.90)!important;box-shadow:0 2px 7px rgba(93,67,16,.07)!important}
+.middleeast-cert .course-frame:before,.middleeast-cert .course-frame:after{color:#b58a2c!important}
+.middleeast-cert .cert-course{font-size:clamp(13px,1.45vw,22px)!important;line-height:1.08!important;color:#173f30!important}
+.middleeast-cert .cert-level{font-size:clamp(5px,0.62vw,9px)!important;padding:3px 12px!important;background:#e2c171!important;border-radius:10px!important}
+.middleeast-cert .blessing{position:absolute!important;left:55%!important;top:54.0%!important;transform:translateX(-50%)!important;width:55%!important;max-width:none!important;margin:0!important;font-size:clamp(5px,0.55vw,8px)!important;line-height:1.2!important;color:#53665d!important}
+.middleeast-cert .cert-info{position:absolute!important;left:55%!important;top:58.0%!important;transform:translateX(-50%)!important;width:53%!important;max-width:none!important;margin:0!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important}
+.middleeast-cert .cert-info>div{min-width:0!important;width:auto!important;padding:0 13px!important;border-right:1px solid rgba(153,119,48,.45)!important}
+.middleeast-cert .cert-info>div:last-child{border-right:0!important}
+.middleeast-cert .cert-info span{font-size:clamp(4px,0.46vw,7px)!important;letter-spacing:.7px!important;color:#778178!important}
+.middleeast-cert .cert-info b{font-size:clamp(6px,0.65vw,9px)!important;margin-top:3px!important;color:#18382c!important}
+.middleeast-cert .verified-badge{padding:2px 6px!important;border:1px solid #4d9c67!important;color:#237547!important;background:#eff9ef!important;border-radius:10px!important}
+.middleeast-cert .signature-row{position:absolute!important;left:55%!important;top:67.2%!important;transform:translateX(-50%)!important;width:55%!important;margin:0!important;display:grid!important;grid-template-columns:1fr 60px 1fr!important;gap:28px!important;align-items:end!important}
+.middleeast-cert .sign{min-width:0!important}
+.middleeast-cert .sign small{font-size:clamp(4px,0.5vw,7px)!important;color:#526258!important}
+.middleeast-cert .sign i{font-size:clamp(10px,1.15vw,18px)!important;color:#1d3b2e!important;margin:4px 0 1px!important}
+.middleeast-cert .sign strong{font-size:clamp(5px,0.56vw,8px)!important;color:#1c3b2e!important}
+.middleeast-cert .gold-seal{width:52px!important;height:52px!important;border:3px double #8e681d!important;background:radial-gradient(circle,#efd080,#aa791b)!important;box-shadow:0 0 0 3px #f8e9bb!important;font-size:9px!important;justify-self:center!important}
+/* QR is completely inside the inner border, never on top of the frame */
+.middleeast-cert .cert-qr{position:absolute!important;right:3.7%!important;bottom:5.0%!important;top:auto!important;width:22mm!important;z-index:40!important;text-align:center!important}
+.middleeast-cert .cert-qr-box{box-sizing:border-box!important;width:18mm!important;height:18mm!important;padding:1.3mm!important;margin:0 auto!important;background:#fff!important;border:1.5px solid #b58a2c!important;border-radius:2px!important;box-shadow:0 1px 4px rgba(0,0,0,.15)!important}
+.middleeast-cert .cert-qr-box img,.middleeast-cert .cert-qr-box canvas{display:block!important;width:15.2mm!important;height:15.2mm!important;max-width:none!important;max-height:none!important}
+.middleeast-cert .qr-label,.middleeast-cert .cert-qr-label{display:block!important;margin-top:1mm!important;font-size:3.8pt!important;line-height:1!important;color:#5c532f!important;white-space:nowrap!important}
+.middleeast-cert .footer-slogan{position:absolute!important;left:23%!important;right:16%!important;bottom:2.2%!important;font-size:clamp(3px,0.38vw,5px)!important;letter-spacing:1.8px!important;color:#7e662c!important}
+@media(max-width:700px){
+ .middleeast-cert .cert-title{left:55%!important;top:22.5%!important;font-size:27px!important;letter-spacing:5px!important}
+ .middleeast-cert .cert-subtitle{left:55%!important;top:28.7%!important;font-size:5px!important}
+ .middleeast-cert .given{left:55%!important;top:32.4%!important;font-size:6px!important}
+ .middleeast-cert .cert-name{left:55%!important;top:35.1%!important;font-size:23px!important}
+ .middleeast-cert .cert-desc{left:55%!important;top:41.3%!important;font-size:5px!important}
+ .middleeast-cert .course-frame{left:55%!important;top:46.1%!important;width:46%!important;padding:4px 14px 5px!important}
+ .middleeast-cert .cert-course{font-size:12px!important}.middleeast-cert .cert-level{font-size:5px!important;padding:2px 8px!important}
+ .middleeast-cert .blessing{left:55%!important;top:54%!important;font-size:4.5px!important}
+ .middleeast-cert .cert-info{left:55%!important;top:58%!important;width:53%!important}
+ .middleeast-cert .cert-info>div{padding:0 4px!important}.middleeast-cert .cert-info span{font-size:3.1px!important}.middleeast-cert .cert-info b{font-size:4.8px!important}
+ .middleeast-cert .signature-row{left:55%!important;top:67.2%!important;width:55%!important;grid-template-columns:1fr 32px 1fr!important;gap:8px!important}
+ .middleeast-cert .sign small{font-size:3.3px!important}.middleeast-cert .sign i{font-size:9px!important}.middleeast-cert .sign strong{font-size:3.7px!important}.middleeast-cert .gold-seal{width:30px!important;height:30px!important;font-size:5px!important}
+ .middleeast-cert .cert-qr{right:3.7%!important;bottom:5%!important;width:39px!important}.middleeast-cert .cert-qr-box{width:34px!important;height:34px!important;padding:1px!important}.middleeast-cert .cert-qr-box img,.middleeast-cert .cert-qr-box canvas{width:32px!important;height:32px!important}.middleeast-cert .qr-label,.middleeast-cert .cert-qr-label{font-size:2.5px!important}
+}
+@media print{
+ @page{size:330mm 215mm;margin:0!important}
+ .middleeast-cert{width:330mm!important;height:215mm!important;aspect-ratio:auto!important}
+ .middleeast-cert .cert-title{font-size:40pt!important}.middleeast-cert .cert-name{font-size:34pt!important}
+ .middleeast-cert .cert-qr{right:3.7%!important;bottom:5%!important}
+}
+</style>
+
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
