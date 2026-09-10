@@ -127,6 +127,192 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 .cert-footer{gap:8px}
 }
 </style>
+
+<style id="middleeast-certificate-v10">
+/* ===== NGAJIPLUS — MIDDLE EASTERN CERTIFICATE ===== */
+.certgrid{grid-template-columns:1fr!important;gap:18px!important}
+.cert-shell{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+.middleeast-cert{
+  position:relative!important;
+  width:100%!important;
+  aspect-ratio:330/215!important;
+  min-height:0!important;
+  height:auto!important;
+  overflow:hidden!important;
+  color:#183b2b!important;
+  background:
+    radial-gradient(circle at 68% 44%,rgba(255,255,255,.9) 0 12%,transparent 36%),
+    linear-gradient(135deg,#f3ead0 0%,#fffdf5 44%,#f4e8c8 100%)!important;
+  border:5px double #b88928!important;
+  border-radius:2px!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.22),inset 0 0 0 4px #fff9e9,inset 0 0 0 6px #d7b45c!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+}
+.middleeast-cert:before{
+  content:"";position:absolute;inset:11px;border:1px solid rgba(184,137,40,.7);
+  pointer-events:none;z-index:1;
+}
+.middleeast-cert:after{
+  content:"";position:absolute;inset:17px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(184,137,40,.07) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 75% 70%,rgba(184,137,40,.06) 0 1px,transparent 1.6px);
+  background-size:17px 17px,21px 21px;
+  pointer-events:none;z-index:0;
+}
+.arabesque{position:absolute;z-index:8;color:#b8892c;font-size:34px;line-height:1}
+.arabesque.tl{left:5px;top:2px}
+.arabesque.tr{right:5px;top:2px;transform:scaleX(-1)}
+.arabesque.bl{left:5px;bottom:2px;transform:scaleY(-1)}
+.arabesque.br{right:5px;bottom:2px;transform:scale(-1)}
+.cert-side{
+  position:absolute!important;left:0;top:0;bottom:0;width:22%!important;
+  z-index:4!important;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:18px 14px!important;
+  color:#fff5d6!important;
+  background:
+    linear-gradient(180deg,rgba(7,59,43,.98),rgba(4,47,35,.98) 58%,rgba(6,57,42,.98))!important;
+  border-right:3px solid #c69a3d!important;
+}
+.cert-side:before{
+  content:"";position:absolute;inset:8px;border:1px solid rgba(215,180,91,.6);
+  border-radius:50px 50px 18px 18px;pointer-events:none;
+}
+.logo-emblem{
+  position:relative;z-index:2;width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:#082f24;border:2px solid #d7b45b;
+  box-shadow:0 0 0 4px rgba(215,180,91,.1);font-size:25px;
+}
+.side-brand{position:relative;z-index:2;font:800 16px Arial,sans-serif;margin-top:7px}
+.side-academy{position:relative;z-index:2;font:8px Arial,sans-serif;letter-spacing:4px;color:#dfc57f;margin-top:2px}
+.side-divider{position:relative;z-index:2;width:65%;height:1px;background:#cda84e;margin:13px auto 11px}
+.side-ayah-ar{
+  position:relative;z-index:2;font-size:19px;direction:rtl;
+  font-family:"Noto Naskh Arabic","Amiri","Times New Roman",serif;
+  color:#f2d58c;margin:2px 0 7px
+}
+.side-ayah{position:relative;z-index:2;font-size:11px;line-height:1.35;padding:0 7px}
+.side-ref{position:relative;z-index:2;font:8px Arial,sans-serif;color:#dfc57f;margin-top:7px}
+.side-mosque{position:relative;z-index:2;margin-top:auto;font-size:54px;color:#d5bd7d;opacity:.65}
+
+.cert-main{
+  position:absolute!important;left:22%!important;right:0;top:0;bottom:0;
+  padding:13px 30px 8px 27px!important;text-align:center;z-index:4;
+}
+.bismillah{
+  font-family:"Noto Naskh Arabic","Amiri","Times New Roman",serif!important;
+  direction:rtl;font-size:20px!important;color:#7f5e1e!important;margin:0!important;
+}
+.academy-name{font:800 12px Arial,sans-serif;letter-spacing:4px;color:#193e30;margin-top:3px}
+.academy-motto{font:7px Arial,sans-serif;letter-spacing:3px;color:#90702e;margin-top:2px}
+.gold-rule{height:1px;width:55%;margin:5px auto;background:linear-gradient(90deg,transparent,#b8892c,transparent)}
+.cert-title{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:32px!important;letter-spacing:6px!important;color:#153a2d!important;
+  font-weight:700!important;margin:1px 0 0!important;
+}
+.cert-subtitle{font:8px Arial,sans-serif!important;letter-spacing:2px!important;color:#6a786f!important}
+.given{font-size:10px;margin-top:7px}
+.cert-name{
+  font-family:Georgia,"Times New Roman",serif!important;font-size:28px!important;
+  font-weight:700!important;color:#143c2c!important;margin:3px 0 0!important;
+}
+.name-ornament{color:#b8892c;font-size:8px;letter-spacing:9px;margin:0}
+.cert-desc{font-size:9px;line-height:1.35;max-width:70%;margin:2px auto}
+.course-frame{
+  position:relative;display:inline-block;min-width:52%;max-width:70%;
+  margin:6px auto 3px;padding:5px 24px 6px;
+  border:1px solid #b8892c;border-radius:18px;background:rgba(255,249,224,.7);
+}
+.course-frame:before,.course-frame:after{
+  content:"◆";position:absolute;top:50%;transform:translateY(-50%);
+  color:#b8892c;font-size:9px;
+}
+.course-frame:before{left:7px}.course-frame:after{right:7px}
+.cert-course{
+  font-family:Georgia,"Times New Roman",serif!important;font-size:17px!important;
+  font-weight:700!important;color:#174331!important;text-transform:uppercase;
+}
+.cert-level{
+  display:inline-block!important;margin-top:2px!important;padding:3px 13px!important;
+  border-radius:12px!important;background:#e3c274!important;color:#17392c!important;
+  font:bold 9px Arial,sans-serif!important;
+}
+.blessing{font-size:8px;line-height:1.25;max-width:58%;margin:3px auto;color:#40594e}
+.cert-info{
+  display:flex;justify-content:center;gap:25px;margin:4px auto 3px;max-width:84%;
+}
+.cert-info>div{min-width:100px}
+.cert-info span{display:block;font:6px Arial,sans-serif;color:#778178;text-transform:uppercase;letter-spacing:.7px}
+.cert-info b{display:block;font:bold 8.5px Arial,sans-serif;margin-top:2px;color:#18382c}
+.verified-badge{
+  display:inline-block!important;padding:3px 7px;border:1px solid #258455;border-radius:999px;
+  background:#edf8ee;color:#197548!important;
+}
+.signature-row{
+  display:flex;align-items:flex-end;justify-content:center;gap:24px;margin-top:3px;
+}
+.sign{min-width:112px;font-size:7px;text-align:center}
+.sign small{display:block;color:#53665c}
+.sign i{display:block;font:italic 17px "Brush Script MT","Segoe Script",cursive;margin:2px 0;color:#18352b}
+.sign strong{display:block;font:700 7.5px Arial,sans-serif}
+.gold-seal{
+  width:48px;height:48px;border-radius:50%;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  border:3px double #8d671b;background:radial-gradient(circle,#ebcb76,#a8781b);
+  box-shadow:0 0 0 3px #f8e9bb;color:#513b0c;font:bold 10px Arial,sans-serif;
+}
+.gold-seal small{font-size:6px}.gold-seal em{font-size:5px;font-style:normal;letter-spacing:1px}
+.qr-area{
+  position:absolute!important;right:10px!important;bottom:8px!important;width:56px!important;
+  z-index:10!important;text-align:center!important;font:5px Arial,sans-serif!important;color:#58685f!important;
+}
+.cert-qr-box{
+  width:49px!important;height:49px!important;background:#fff!important;padding:2px!important;
+  margin:auto!important;border:1px solid #c9a64e!important;
+}
+.cert-qr-box img,.cert-qr-box canvas{display:block!important;width:45px!important;height:45px!important}
+.qr-label{line-height:1.1;margin-top:2px}
+.footer-slogan{
+  position:absolute!important;left:25%!important;right:10%!important;bottom:2px!important;
+  font:5px Arial,sans-serif!important;letter-spacing:2px!important;color:#7c632b!important;
+}
+.cert-actions{text-align:center;margin-top:8px}
+.cert-actions button{border:0!important;background:#e8b72d!important;color:#2b2308!important;border-radius:8px!important;padding:7px 12px!important;font:700 10px Arial,sans-serif!important}
+
+/* Keep all cards readable on small screens; certificate remains landscape. */
+@media(max-width:700px){
+  .certgrid{grid-template-columns:1fr!important}
+  .cert-side{width:22%!important;padding:14px 8px!important}
+  .cert-main{left:22%!important;padding:11px 24px 7px 20px!important}
+  .side-brand{font-size:12px}.side-ayah-ar{font-size:15px}.side-ayah{font-size:8px}.side-mosque{font-size:35px}
+  .logo-emblem{width:42px;height:42px;font-size:20px}
+  .cert-title{font-size:25px!important}.cert-name{font-size:22px!important}.cert-course{font-size:13px!important}
+  .cert-desc{font-size:7px}.given{font-size:8px}.blessing{font-size:6.5px}
+  .cert-info{gap:10px}.cert-info>div{min-width:72px}.cert-info span{font-size:4.5px}.cert-info b{font-size:6.5px}
+  .sign{min-width:78px}.sign i{font-size:12px}.sign strong,.sign small{font-size:5px}
+  .gold-seal{width:36px;height:36px;font-size:7px}.gold-seal small{font-size:4px}.gold-seal em{font-size:3px}
+  .qr-area{right:7px!important;bottom:6px!important;width:45px!important}
+  .cert-qr-box{width:40px!important;height:40px!important;padding:1px!important}
+  .cert-qr-box img,.cert-qr-box canvas{width:38px!important;height:38px!important}
+  .qr-label{font-size:4px}
+}
+@media print{
+  @page{size:330mm 215mm;margin:0}
+  html,body{width:330mm!important;height:215mm!important;margin:0!important;padding:0!important;background:#fff!important}
+  nav,.hero,.notice,#levelsSection,#certsSection>h2,footer,.cert-actions{display:none!important}
+  main{max-width:none!important;margin:0!important;padding:0!important}
+  #certsSection{display:block!important;margin:0!important;padding:0!important;border:0!important;background:none!important}
+  .certgrid{display:block!important;margin:0!important;padding:0!important}
+  .cert-shell{width:330mm!important;height:215mm!important;margin:0!important;padding:0!important;page-break-after:always;break-after:page}
+  .cert-shell:last-child{page-break-after:auto;break-after:auto}
+  .middleeast-cert{width:330mm!important;height:215mm!important;aspect-ratio:auto!important;border-radius:0!important}
+  .cert-side{width:22%!important}
+  .cert-main{left:22%!important}
+}
+</style>
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
@@ -336,29 +522,51 @@ async function load(){
     document.getElementById("certs").innerHTML=certs.length
       ? certs.map(c=>
           '<div class="cert-shell">'+
-            '<article class="certificate">'+
-              '<div class="cert-bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>'+
-              '<div class="cert-brand">NGAJIPLUS AKADEMI</div>'+
-              '<div class="cert-title">SERTIFIKAT</div>'+
-              '<div class="cert-subtitle">PENGHARGAAN PENYELESAIAN PEMBELAJARAN</div>'+
-              '<p class="cert-text" style="margin-top:24px">Dengan ini diberikan kepada</p>'+
-              '<div class="cert-name">'+esc(c.nama_peserta)+'</div>'+
-              '<div class="cert-line"></div>'+
-              '<p class="cert-text">atas keberhasilan menyelesaikan seluruh rangkaian pembelajaran</p>'+
-              '<div class="cert-course">'+esc(c.course_nama)+'</div>'+
-              '<div class="cert-level">'+esc(c.level_nama)+'</div>'+
-              '<div class="cert-meta">'+
-                '<div>Nomor Sertifikat<b>'+esc(c.nomor_sertifikat)+'</b></div>'+
-                '<div>Tanggal Terbit<b>'+esc(c.tanggal_terbit)+'</b></div>'+
-              '</div>'+
-              '<div class="cert-qr" data-cert-number="'+esc(c.nomor_sertifikat)+'">'+
-                '<div class="cert-qr-box"></div>'+
-                '<div class="cert-qr-label">SCAN UNTUK VERIFIKASI</div>'+
-              '</div>'+
-              '<div class="cert-footer">'+
-                '<div class="cert-sign">NgajiPlus Akademi<strong>Manajemen Akademi</strong></div>'+
-                '<div class="cert-sign">Sertifikat Elektronik<strong>Dokumen Resmi</strong></div>'+
-              '</div>'+
+            '<article class="certificate middleeast-cert">'+
+              '<span class="arabesque tl">❧</span><span class="arabesque tr">❧</span>'+
+              '<span class="arabesque bl">❧</span><span class="arabesque br">❧</span>'+
+              '<aside class="cert-side">'+
+                '<div class="logo-emblem">📖</div>'+
+                '<div class="side-brand">NgajiPlus</div>'+
+                '<div class="side-academy">AKADEMI</div>'+
+                '<div class="side-divider"></div>'+
+                '<div class="side-ayah-ar">رَبِّ زِدْنِي عِلْمًا</div>'+
+                '<div class="side-ayah">“Ya Rabbku, tambahkanlah kepadaku ilmu.”</div>'+
+                '<div class="side-ref">QS. Ṭāhā: 114</div>'+
+                '<div class="side-mosque">☪</div>'+
+              '</aside>'+
+              '<section class="cert-main">'+
+                '<div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>'+
+                '<div class="academy-name">NGAJIPLUS AKADEMI</div>'+
+                '<div class="academy-motto">ILMU • AMAL • AKHLAK • MANFAAT</div>'+
+                '<div class="gold-rule"></div>'+
+                '<div class="cert-title">SERTIFIKAT</div>'+
+                '<div class="cert-subtitle">PENGHARGAAN PENYELESAIAN PEMBELAJARAN</div>'+
+                '<div class="given">Dengan ini diberikan kepada</div>'+
+                '<div class="cert-name">'+esc(c.nama_peserta)+'</div>'+
+                '<div class="name-ornament">◆</div>'+
+                '<div class="cert-desc">atas keberhasilan menyelesaikan seluruh rangkaian pembelajaran NgajiPlus Akademi dengan baik.</div>'+
+                '<div class="course-frame">'+
+                  '<div class="cert-course">'+esc(c.course_nama)+'</div>'+
+                  '<div class="cert-level">'+esc(c.level_nama)+'</div>'+
+                '</div>'+
+                '<div class="blessing">Semoga ilmu yang diperoleh menjadi bekal yang bermanfaat dan diberkahi oleh Allah ﷻ.</div>'+
+                '<div class="cert-info">'+
+                  '<div><span>Nomor Sertifikat</span><b>'+esc(c.nomor_sertifikat)+'</b></div>'+
+                  '<div><span>Tanggal Terbit</span><b>'+esc(c.tanggal_terbit)+'</b></div>'+
+                  '<div><span>Status</span><b class="verified-badge">✓ TERVERIFIKASI</b></div>'+
+                '</div>'+
+                '<div class="signature-row">'+
+                  '<div class="sign"><small>Direktur NgajiPlus Akademi</small><i>Achmad Luthfi Fauzan</i><strong>Founder &amp; Direktur</strong></div>'+
+                  '<div class="gold-seal">✦<br><small>NgajiPlus</small><br><em>AKADEMI</em></div>'+
+                  '<div class="sign"><small>Manajer Akademik</small><i>Tim NgajiPlus</i><strong>Manajer Program</strong></div>'+
+                '</div>'+
+                '<div class="qr-area" data-cert-number="'+esc(c.nomor_sertifikat)+'">'+
+                  '<div class="cert-qr-box"></div>'+
+                  '<div class="qr-label">SCAN UNTUK VERIFIKASI</div>'+
+                '</div>'+
+                '<div class="footer-slogan">BERSAMA AL-QUR’AN • MENUJU GENERASI LEBIH BAIK</div>'+
+              '</section>'+
             '</article>'+
             '<div class="cert-actions print-hide"><button class="btn gold" onclick="printCertificate(this)">🖨️ Cetak Sertifikat</button></div>'+
           '</div>'
@@ -367,7 +575,7 @@ async function load(){
 
     // QR Code: diarahkan ke halaman verifikasi publik berdasarkan nomor sertifikat.
     if(certs.length && typeof QRCode!=="undefined"){
-      document.querySelectorAll(".cert-qr").forEach(el=>{
+      document.querySelectorAll(".qr-area").forEach(el=>{
         const nomor=el.getAttribute("data-cert-number")||"";
         const url="https://akademi.ngajiplus.id/verifikasi.html?nomor="+encodeURIComponent(nomor);
         const box=el.querySelector(".cert-qr-box");
