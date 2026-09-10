@@ -313,6 +313,46 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
   .cert-main{left:22%!important}
 }
 </style>
+
+<style id="ngajiplus-reference-fix">
+/* ===== FINAL REFERENCE LOOK ===== */
+.certgrid{display:flex!important;flex-direction:column!important;gap:18px!important}
+.cert-shell{width:100%!important}
+.middleeast-cert{aspect-ratio:330/215!important;}
+/* Single QR square only — no second QR container. */
+.qr-area{
+  position:absolute!important;right:12px!important;bottom:11px!important;
+  width:82px!important;height:auto!important;z-index:20!important;
+  text-align:center!important;font:6px Arial,sans-serif!important;color:#51675b!important;
+}
+.cert-qr-box{
+  width:72px!important;height:72px!important;padding:3px!important;margin:0 auto!important;
+  background:#fff!important;border:2px solid #c39a45!important;border-radius:0!important;
+  box-shadow:0 1px 3px rgba(0,0,0,.12)!important;
+}
+.cert-qr-box img,.cert-qr-box canvas{
+  display:block!important;width:64px!important;height:64px!important;margin:0 auto!important;
+}
+.qr-label{font-size:5px!important;line-height:1.1!important;margin-top:3px!important;letter-spacing:.2px}
+/* Give the reference-like main area more breathing room. */
+.cert-main{padding:13px 31px 8px 28px!important}
+.cert-title{font-size:33px!important;letter-spacing:6px!important}
+.cert-name{font-size:29px!important}
+.course-frame{min-width:49%!important;max-width:66%!important}
+.cert-course{font-size:17px!important}
+/* Hide accidental legacy QR elements if an older cached renderer inserts one. */
+.certificate > img[src*="qr"],
+.certificate img[alt*="QR"],
+.certificate .qr:not(.qr-area),
+.certificate .qrcode:not(.qr-area){display:none!important}
+@media(max-width:700px){
+  .qr-area{right:7px!important;bottom:6px!important;width:53px!important}
+  .cert-qr-box{width:46px!important;height:46px!important;padding:2px!important}
+  .cert-qr-box img,.cert-qr-box canvas{width:42px!important;height:42px!important}
+  .qr-label{font-size:4px!important}
+  .cert-main{padding:10px 23px 6px 19px!important}
+}
+</style>
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
@@ -581,7 +621,7 @@ async function load(){
         const box=el.querySelector(".cert-qr-box");
         if(box){
           box.innerHTML="";
-          new QRCode(box,{text:url,width:128,height:128,correctLevel:QRCode.CorrectLevel.H});
+          new QRCode(box,{text:url,width:64,height:64,correctLevel:QRCode.CorrectLevel.H});
         }
       });
     }
