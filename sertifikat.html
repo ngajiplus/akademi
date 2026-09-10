@@ -2329,6 +2329,197 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+
+<style id="ngajiplus-v23-match-reference">
+/* =========================================================
+   V23 — mengikuti komposisi gambar referensi 2
+   Posisi horizontal tetap benar-benar center (50%).
+   Background tidak diubah.
+   ========================================================= */
+
+/* Judul lebih besar dan sedikit lebih tinggi seperti referensi */
+.certificate .cert-title{
+  left:50%!important;
+  top:21.0%!important;
+  width:74%!important;
+  transform:translateX(-50%)!important;
+  font-size:clamp(34px,4.55vw,68px)!important;
+  letter-spacing:clamp(4px,.65vw,10px)!important;
+  text-align:center!important;
+}
+
+.certificate .cert-subtitle{
+  left:50%!important;
+  top:28.4%!important;
+  width:70%!important;
+  transform:translateX(-50%)!important;
+  font-size:clamp(8px,.82vw,12px)!important;
+  text-align:center!important;
+}
+
+.certificate .given{
+  left:50%!important;
+  top:32.6%!important;
+  width:65%!important;
+  transform:translateX(-50%)!important;
+  font-size:clamp(9px,.82vw,13px)!important;
+  text-align:center!important;
+}
+
+.certificate .cert-name{
+  left:50%!important;
+  top:35.0%!important;
+  width:72%!important;
+  transform:translateX(-50%)!important;
+  font-size:clamp(28px,3.65vw,54px)!important;
+  text-align:center!important;
+}
+
+.certificate .cert-desc{
+  left:50%!important;
+  top:40.7%!important;
+  width:70%!important;
+  transform:translateX(-50%)!important;
+  font-size:clamp(7px,.72vw,11px)!important;
+  text-align:center!important;
+}
+
+/* Panel program dibuat lebih besar dan tetap tepat di tengah */
+.certificate .course-frame{
+  left:50%!important;
+  top:45.1%!important;
+  width:54%!important;
+  transform:translateX(-50%)!important;
+  padding:1.25% 2.4%!important;
+  text-align:center!important;
+}
+
+.certificate .cert-course{
+  font-size:clamp(15px,1.9vw,28px)!important;
+  line-height:1.1!important;
+  text-align:center!important;
+}
+
+.certificate .cert-level{
+  font-size:clamp(7px,.7vw,10px)!important;
+}
+
+/* Blessing tetap di bawah panel, tetapi tidak terlalu dekat */
+.certificate .blessing{
+  left:50%!important;
+  width:54%!important;
+  transform:translateX(-50%)!important;
+  text-align:center!important;
+}
+
+/* Informasi dibuat lebih terbaca */
+.certificate .cert-info{
+  left:50%!important;
+  top:57.2%!important;
+  width:62%!important;
+  transform:translateX(-50%)!important;
+}
+
+.certificate .cert-info>div{
+  padding:0 10px!important;
+  font-size:clamp(6px,.68vw,10px)!important;
+}
+
+.certificate .cert-info b{
+  margin-top:4px!important;
+  font-size:clamp(7px,.78vw,12px)!important;
+}
+
+/* Tanda tangan dibuat lebih seperti referensi */
+.certificate .signature-row{
+  left:50%!important;
+  top:66.0%!important;
+  width:66%!important;
+  transform:translateX(-50%)!important;
+  grid-template-columns:1fr 88px 1fr!important;
+  gap:28px!important;
+}
+
+.certificate .sign{
+  font-size:clamp(6px,.65vw,10px)!important;
+  text-align:center!important;
+}
+
+.certificate .sign i{
+  margin-top:16px!important;
+  font-size:clamp(12px,1.25vw,19px)!important;
+}
+
+.certificate .sign strong{
+  font-size:clamp(6px,.65vw,10px)!important;
+}
+
+/* Segel lebih terlihat */
+.certificate .gold-seal{
+  width:clamp(50px,4.8vw,72px)!important;
+  height:clamp(50px,4.8vw,72px)!important;
+}
+
+/* QR diperkecil dan dimasukkan jauh dari bingkai */
+.certificate .qr-area{
+  right:6.2%!important;
+  bottom:6.4%!important;
+  width:5.1%!important;
+  max-width:78px!important;
+}
+
+.certificate .cert-qr-box{
+  padding:3px!important;
+  border:1px solid #b58a2f!important;
+  border-radius:2px!important;
+  box-sizing:border-box!important;
+}
+
+.certificate .qr-label{
+  margin-top:3px!important;
+  font-size:clamp(3px,.4vw,6px)!important;
+}
+
+/* HP tetap menggunakan titik tengah 50% */
+@media(max-width:700px){
+  .certificate .cert-title{
+    left:50%!important;top:21%!important;width:74%!important;
+    font-size:30px!important;
+  }
+  .certificate .cert-subtitle{
+    left:50%!important;top:28.4%!important;width:70%!important;font-size:7px!important;
+  }
+  .certificate .given{
+    left:50%!important;top:32.6%!important;width:65%!important;font-size:7px!important;
+  }
+  .certificate .cert-name{
+    left:50%!important;top:35%!important;width:72%!important;font-size:24px!important;
+  }
+  .certificate .cert-desc{
+    left:50%!important;top:40.7%!important;width:70%!important;font-size:5px!important;
+  }
+  .certificate .course-frame{
+    left:50%!important;top:45.1%!important;width:54%!important;
+  }
+  .certificate .cert-course{font-size:13px!important}
+  .certificate .cert-info{
+    left:50%!important;top:57.2%!important;width:62%!important;
+  }
+  .certificate .signature-row{
+    left:50%!important;top:66%!important;width:66%!important;
+    grid-template-columns:1fr 46px 1fr!important;gap:10px!important;
+  }
+  .certificate .gold-seal{
+    width:45px!important;height:45px!important;
+  }
+  .certificate .sign i{font-size:11px!important}
+  .certificate .qr-area{
+    right:6.2%!important;bottom:6.4%!important;width:5.1%!important;
+    max-width:56px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
