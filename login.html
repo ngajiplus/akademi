@@ -17,6 +17,18 @@
 
 <title>Login - NgajiPlus</title>
 
+<!-- TEMA GLOBAL NGajiPlus -->
+<link rel="stylesheet" href="theme.css">
+<script>
+(function(){
+  try {
+    if (localStorage.getItem("ngajiplus-theme") === "dark") {
+      document.documentElement.classList.add("ngp-dark-preload");
+    }
+  } catch(e) {}
+})();
+</script>
+
 <!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -24,380 +36,220 @@
 <script src="supabase-config.js"></script>
 
 <style>
-
-*{
-  box-sizing:border-box;
+:root{
+  --ngp-bg:#f4f8f6;
+  --ngp-surface:#ffffff;
+  --ngp-text:#1f2933;
+  --ngp-muted:#7a8580;
+  --ngp-border:#e1e9e4;
+  --ngp-input:#ffffff;
+  --ngp-input-border:#d7e2dc;
+  --ngp-green:#238b57;
+  --ngp-green-dark:#197547;
+  --ngp-shadow:0 18px 50px rgba(20,70,45,.10);
+  --ngp-error-bg:#fff1f0;
+  --ngp-error-text:#b42318;
+  --ngp-error-border:#f3c5c0;
+  --ngp-success-bg:#eaf8ef;
+  --ngp-success-text:#167a45;
+  --ngp-success-border:#c5e8d1;
 }
 
-html,
-body{
+html{min-height:100%;background:var(--ngp-bg);}
+html.ngp-dark-preload{background:#111815;}
+
+*{box-sizing:border-box;}
+
+html,body{
   margin:0;
   min-height:100%;
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-  background:#f4f8f6;
-  color:#1f2933;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--ngp-bg);
+  color:var(--ngp-text);
 }
 
 body{
+  min-height:100vh;
   display:flex;
   flex-direction:column;
+  transition:background-color .2s ease,color .2s ease;
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
 .header{
-
-  height:64px;
-
-  background:white;
-
-  border-bottom:
-    1px solid #e5ebe7;
-
+  min-height:64px;
+  background:var(--ngp-surface);
+  border-bottom:1px solid var(--ngp-border);
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
-  padding:
-    0 20px;
+  gap:12px;
+  padding:0 20px;
+  transition:background-color .2s ease,border-color .2s ease;
 }
 
 .logo{
-
   display:flex;
-
   align-items:center;
-
   gap:8px;
-
-  color:#238b57;
-
-  font-weight:bold;
-
+  color:var(--ngp-green);
+  font-weight:700;
   font-size:20px;
+  text-decoration:none;
 }
+.logo-icon{font-size:23px;}
 
-.logo-icon{
-  font-size:23px;
-}
+.header-actions{display:flex;align-items:center;gap:10px;}
 
 .back{
-
-  color:#238b57;
-
+  color:var(--ngp-green);
   text-decoration:none;
-
   font-size:13px;
-
-  font-weight:bold;
+  font-weight:700;
 }
+.back:hover{text-decoration:underline;}
 
-
-/* =========================
-   LOGIN AREA
-========================= */
+.theme-button{
+  width:40px;
+  height:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--ngp-border);
+  border-radius:50%;
+  background:var(--ngp-surface);
+  color:var(--ngp-text);
+  cursor:pointer;
+  font-size:18px;
+  line-height:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  transition:background-color .2s ease,border-color .2s ease,transform .15s ease;
+}
+.theme-button:hover{transform:translateY(-1px);}
+.theme-button:focus-visible{outline:3px solid rgba(35,139,87,.22);outline-offset:2px;}
 
 .login-area{
-
   flex:1;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   padding:40px 15px;
 }
 
 .login-card{
-
   width:100%;
-
   max-width:400px;
-
-  background:white;
-
-  border:
-    1px solid #e3ebe6;
-
+  background:var(--ngp-surface);
+  border:1px solid var(--ngp-border);
   border-radius:20px;
-
   padding:32px;
-
-  box-shadow:
-    0 15px 45px
-    rgba(35,139,87,.08);
+  box-shadow:var(--ngp-shadow);
+  transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease;
 }
 
+.login-icon{text-align:center;font-size:45px;margin-bottom:8px;}
 
-/* =========================
-   TITLE
-========================= */
+h1{text-align:center;margin:0 0 7px;font-size:27px;color:var(--ngp-text);}
 
-.login-icon{
+.subtitle{text-align:center;color:var(--ngp-muted);font-size:13px;margin:0 0 25px;}
 
-  text-align:center;
+.form-group{margin-bottom:16px;}
 
-  font-size:45px;
-
-  margin-bottom:8px;
-}
-
-h1{
-
-  text-align:center;
-
-  margin:
-    0 0 7px;
-
-  font-size:27px;
-}
-
-.subtitle{
-
-  text-align:center;
-
-  color:#7a8580;
-
-  font-size:13px;
-
-  margin:
-    0 0 25px;
-}
-
-
-/* =========================
-   FORM
-========================= */
-
-.form-group{
-
-  margin-bottom:16px;
-}
-
-label{
-
-  display:block;
-
-  font-size:13px;
-
-  font-weight:bold;
-
-  margin-bottom:7px;
-}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px;color:var(--ngp-text);}
 
 input{
-
   width:100%;
-
-  padding:
-    12px 13px;
-
-  border:
-    1px solid #dfe7e2;
-
+  padding:12px 13px;
+  border:1px solid var(--ngp-input-border);
   border-radius:9px;
-
   outline:none;
-
   font-size:13px;
-
-  background:white;
+  background:var(--ngp-input);
+  color:var(--ngp-text);
+  caret-color:var(--ngp-green);
+  transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease;
 }
-
-input:focus{
-
-  border-color:#238b57;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(35,139,87,.08);
-}
-
-
-/* =========================
-   BUTTON
-========================= */
+input::placeholder{color:var(--ngp-muted);opacity:.9;}
+input:focus{border-color:var(--ngp-green);box-shadow:0 0 0 3px rgba(35,139,87,.10);}
 
 .login-button{
-
   width:100%;
-
   border:none;
-
-  background:#238b57;
-
-  color:white;
-
+  background:var(--ngp-green);
+  color:#fff;
   padding:13px;
-
   border-radius:9px;
-
-  font-weight:bold;
-
+  font-weight:700;
   font-size:14px;
-
   cursor:pointer;
-
   margin-top:5px;
+  transition:background-color .2s ease,transform .15s ease,opacity .2s ease;
 }
-
-.login-button:hover{
-
-  background:#197547;
-}
-
-.login-button:disabled{
-
-  opacity:.6;
-
-  cursor:not-allowed;
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
+.login-button:hover:not(:disabled){background:var(--ngp-green-dark);transform:translateY(-1px);}
+.login-button:active:not(:disabled){transform:translateY(0);}
+.login-button:disabled{opacity:.6;cursor:not-allowed;}
 
 .message{
-
   display:none;
-
   padding:11px 12px;
-
   border-radius:9px;
-
   margin-bottom:15px;
-
   font-size:12px;
-
   line-height:1.5;
 }
+.message.error{display:block;background:var(--ngp-error-bg);color:var(--ngp-error-text);border:1px solid var(--ngp-error-border);}
+.message.success{display:block;background:var(--ngp-success-bg);color:var(--ngp-success-text);border:1px solid var(--ngp-success-border);}
 
-.message.error{
+.register{text-align:center;margin-top:20px;font-size:13px;color:var(--ngp-muted);}
+.register a,.forgot a{color:var(--ngp-green);font-weight:700;text-decoration:none;}
+.register a:hover,.forgot a:hover{text-decoration:underline;}
 
-  display:block;
+.forgot{text-align:right;margin-top:8px;}
+.forgot a{font-size:11px;font-weight:400;}
 
-  background:#fff1f0;
+.footer{text-align:center;padding:18px;color:var(--ngp-muted);font-size:11px;}
 
-  color:#b42318;
-
-  border:
-    1px solid #f3c5c0;
+/* Login-specific dark mode. Kept explicit so legacy CSS cannot leave white surfaces behind. */
+body.dark-mode,body.dark{
+  --ngp-bg:#111815;
+  --ngp-surface:#1a241f;
+  --ngp-text:#e8f0eb;
+  --ngp-muted:#b7c5bc;
+  --ngp-border:#334139;
+  --ngp-input:#111915;
+  --ngp-input-border:#3a4a40;
+  --ngp-shadow:0 18px 50px rgba(0,0,0,.28);
+  --ngp-error-bg:#401d1d;
+  --ngp-error-text:#ffaaa6;
+  --ngp-error-border:#683131;
+  --ngp-success-bg:#153b29;
+  --ngp-success-text:#8de2b1;
+  --ngp-success-border:#276342;
 }
 
-.message.success{
-
-  display:block;
-
-  background:#eaf8ef;
-
-  color:#167a45;
-
-  border:
-    1px solid #c5e8d1;
-}
-
-
-/* =========================
-   BOTTOM
-========================= */
-
-.register{
-
-  text-align:center;
-
-  margin-top:20px;
-
-  font-size:13px;
-
-  color:#7a8580;
-}
-
-.register a{
-
-  color:#238b57;
-
-  font-weight:bold;
-
-  text-decoration:none;
-}
-
-.forgot{
-
-  text-align:right;
-
-  margin-top:8px;
-}
-
-.forgot a{
-
-  color:#238b57;
-
-  font-size:11px;
-
-  text-decoration:none;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-
-  text-align:center;
-
-  padding:
-    18px;
-
-  color:#8a958f;
-
-  font-size:11px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
+body.dark-mode .header,body.dark .header{background:#17211c;border-color:#2d3932;}
+body.dark-mode .theme-button,body.dark .theme-button{background:#1f2b24;border-color:#425248;color:#fff;}
+body.dark-mode .login-card,body.dark .login-card{background:#1a241f;border-color:#334139;}
+body.dark-mode input,body.dark input{background:#111915;color:#eef5f0;border-color:#3a4a40;}
+body.dark-mode input::placeholder,body.dark input::placeholder{color:#8e9d94;}
+body.dark-mode .footer,body.dark .subtitle,body.dark-mode .subtitle,body.dark .register{color:#b7c5bc;}
 
 @media(max-width:500px){
-
-  .header{
-
-    padding:
-      0 14px;
-  }
-
-  .logo{
-
-    font-size:17px;
-  }
-
-  .login-card{
-
-    padding:25px 20px;
-  }
-
-  h1{
-
-    font-size:24px;
-  }
-
+  .header{padding:0 14px;min-height:60px;}
+  .logo{font-size:17px;}
+  .logo-icon{font-size:20px;}
+  .header-actions{gap:7px;}
+  .back{font-size:12px;}
+  .theme-button{width:38px;height:38px;font-size:17px;}
+  .login-card{padding:25px 20px;border-radius:18px;}
+  h1{font-size:24px;}
+  .login-area{padding:28px 12px;}
 }
 
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;scroll-behavior:auto!important;}
+}
 </style>
 
-  <link rel="stylesheet" href="theme.css">
 </head>
 
 
@@ -426,14 +278,24 @@ input:focus{
   </a>
 
 
-  <a
-    href="index.html"
-    class="back"
-  >
+  <div class="header-actions">
 
-    ← Kembali
+    <button
+      type="button"
+      id="themeToggle"
+      class="theme-button"
+      aria-label="Gunakan Mode Gelap"
+      title="Gunakan Mode Gelap"
+    >🌙</button>
 
-  </a>
+    <a
+      href="index.html"
+      class="back"
+    >
+      ← Kembali
+    </a>
+
+  </div>
 
 </header>
 
@@ -560,6 +422,8 @@ input:focus{
 </footer>
 
 
+
+<script src="theme.js"></script>
 
 <script>
 
@@ -909,7 +773,6 @@ checkSession();
 </script>
 
 
-  <script src="theme.js"></script>
 </body>
 
 </html>
