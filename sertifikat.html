@@ -4,73 +4,240 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sertifikat — NgajiPlus Akademi</title>
+
 <style>
-:root{--bg:#001c15;--p:#032a20;--p2:#05352a;--line:#0a5b45;--text:#effff8;--muted:#9cc4b8;--g:#00d96b;--gold:#e8bd55}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+:root{
+  --bg:#001c15;--p:#032a20;--p2:#05352a;--line:#0a5b45;
+  --text:#effff8;--muted:#9cc4b8;--g:#00d96b;--gold:#e8bd55
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
 nav{height:54px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#00251b;border-bottom:1px solid var(--line)}
-.brand{color:var(--g);font-weight:bold;font-size:12px}.nav{display:flex;gap:6px}.nav a,.nav button{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--p);color:var(--text);font-size:10px}
-main{max-width:1000px;margin:auto;padding:14px}.hero{padding:20px;border-radius:16px;background:linear-gradient(135deg,#075f3e,#009447);border:1px solid #00a85c}.hero h1{margin:0 0 6px;font-size:23px}.hero p{margin:0;font-size:11px}
-.notice,.section{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:12px}.section h2{font-size:15px;margin:0 0 10px}
-.grid,.certgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.card{background:var(--p2);border:1px solid var(--line);border-radius:11px;padding:12px}.course{font-size:13px;font-weight:bold}.level{font-size:11px;color:var(--muted);margin-top:3px}.meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:8px}.bar{height:6px;background:#062018;border-radius:99px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
-.actions{margin-top:9px}.btn{border:0;border-radius:8px;padding:7px 10px;background:var(--g);color:#002315;font-size:10px;font-weight:bold;cursor:pointer}.gold{background:var(--gold)}.secondary{background:#084b39;color:var(--text);border:1px solid var(--line)}
+.brand{color:var(--g);font-weight:bold;font-size:12px}
+.nav{display:flex;gap:6px}
+.nav a,.nav button{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--p);color:var(--text);font-size:10px;text-decoration:none}
+main{max-width:1100px;margin:auto;padding:14px}
+.hero{padding:20px;border-radius:16px;background:linear-gradient(135deg,#075f3e,#009447);border:1px solid #00a85c}
+.hero h1{margin:0 0 6px;font-size:23px}.hero p{margin:0;font-size:11px}
+.notice,.section{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:12px}
+.section h2{font-size:15px;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.card{background:var(--p2);border:1px solid var(--line);border-radius:11px;padding:12px}
+.course{font-size:13px;font-weight:bold}.level{font-size:11px;color:var(--muted);margin-top:3px}
+.meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:8px}
+.bar{height:6px;background:#062018;border-radius:99px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.actions{margin-top:9px}.btn{border:0;border-radius:8px;padding:7px 10px;background:var(--g);color:#002315;font-size:10px;font-weight:bold;cursor:pointer}
+.gold{background:var(--gold)}.secondary{background:#084b39;color:var(--text);border:1px solid var(--line)}
 .empty{text-align:center;color:var(--muted);font-size:11px;padding:16px}
-.cert{position:relative;isolation:isolate;width:100%;aspect-ratio:330/215;overflow:hidden;background:#eef8ed url("assets/img/background-sertifikat.png") center/100% 100% no-repeat;color:#124a32;border:0;border-radius:2px;padding:0;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.16)}
-.cert::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,.02)}
-.cert small,.cert h3,.cert p,.cert .name,.cert .num{margin:0}
-.cert-logo{position:absolute;left:7.2%;top:7.2%;width:12%;height:auto;object-fit:contain}
-.cert-arabic{position:absolute;right:7%;top:7%;width:16%;font-family:serif;font-size:clamp(8px,1.3vw,18px);direction:rtl;color:#12603f;line-height:1.1}
-.cert-title{position:absolute;left:25%;right:25%;top:15%;font:700 clamp(20px,3.6vw,52px) Georgia,serif;letter-spacing:clamp(3px,.55vw,8px);color:#0e4932}
-.cert-subtitle{position:absolute;left:25%;right:25%;top:23%;font-size:clamp(5px,.75vw,10px);letter-spacing:clamp(1px,.18vw,2px);color:#5d786b}
-.cert-given{position:absolute;left:25%;right:25%;top:28.5%;font-size:clamp(6px,.8vw,11px);color:#49675b}
-.cert-name{position:absolute;left:20%;right:20%;top:31.5%;font:700 clamp(20px,3vw,43px) Georgia,serif;color:#14553a}
-.cert-desc{position:absolute;left:20%;right:20%;top:39%;font-size:clamp(5px,.7vw,10px);color:#49675b}
-.cert-course-box{position:absolute;left:25%;right:25%;top:43%;height:11.5%;border:2px solid #cba73b;border-radius:18px;background:rgba(255,249,218,.78);display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 2px 5px rgba(130,95,10,.08)}
-.cert-course{font:700 clamp(10px,1.45vw,21px) Georgia,serif;color:#18563c}
-.cert-level{font-size:clamp(4px,.58vw,8px);margin-top:2px;color:#755e24}
-.cert-course-box::before,.cert-course-box::after{content:"◆";position:absolute;color:#c79d24;font-size:clamp(7px,.8vw,12px);top:50%;transform:translateY(-50%)}.cert-course-box::before{left:2.5%}.cert-course-box::after{right:2.5%}
-.cert-meta{position:absolute;left:25%;right:25%;top:57%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;color:#60766d;font-size:clamp(4px,.58vw,8px)}
-.cert-meta>div{padding:0 10px;border-right:1px solid rgba(73,103,91,.25)}.cert-meta>div:last-child{border-right:0}.cert-meta b{display:block;margin-top:3px;font-size:clamp(5px,.65vw,9px);color:#1b4938}
-.cert-signs{position:absolute;left:24%;right:24%;top:69%;display:grid;grid-template-columns:1fr 16% 1fr;align-items:end;gap:4%;color:#5b6e66}
-.cert-sign{font-size:clamp(4px,.62vw,9px)}
-.cert-sign i{display:block;margin-top:17%;font:italic clamp(10px,1.45vw,21px) "Brush Script MT","Segoe Script",cursive;color:#183d30;white-space:nowrap}
-.cert-sign strong{display:block;margin-top:2px;font-size:clamp(5px,.65vw,9px);color:#193e31}
-.cert-seal{width:100%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#f7d96b 0 48%,#d99e1e 50% 62%,#f0c34c 64% 100%);border:2px solid #b67d12;box-shadow:0 2px 5px rgba(120,80,10,.25);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#624b12;font:700 clamp(5px,.6vw,8px) Georgia,serif}.cert-seal small{font-size:clamp(3px,.4vw,6px);letter-spacing:.5px}.cert-seal::before{content:"✦";font-size:clamp(7px,.9vw,12px)}
-.cert-qr{position:absolute;right:6.2%;bottom:5.5%;width:11%;aspect-ratio:1;background:#fff;padding:.5%;border:2px solid #2f795a;display:flex;align-items:center;justify-content:center;overflow:hidden}.cert-qr img,.cert-qr canvas{width:100%!important;height:100%!important;display:block!important}
-.cert-number{display:none}.cert-actions{position:absolute;left:0;right:0;bottom:-42px}.cert-shell{margin-bottom:48px}
-@media(max-width:700px){.cert-signs{top:68%;left:23%;right:23%}.cert-sign i{margin-top:12%;font-size:clamp(9px,2.8vw,16px)}.cert-course-box{border-width:1px}.cert-qr{border-width:1px}}
-@media print{body{background:#fff!important}.cert{width:330mm;height:215mm;aspect-ratio:auto;box-shadow:none}.cert-actions{display:none}.cert-shell{margin:0;page-break-after:always}.certgrid{display:block!important}.cert{break-after:page} }
 footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-top:1px solid var(--line);margin-top:20px}
-@media(max-width:700px){.grid,.certgrid{grid-template-columns:1fr}main{padding:9px}.nav a:first-child{display:none}}
-@media print{nav,.hero,.notice,#levelsSection,footer,.print-hide{display:none!important}body{background:#fff}.certgrid{display:block}.cert{page-break-after:always;min-height:90vh;padding:65px 40px}}
+
+/* ===== SERTIFIKAT WEB ===== */
+.certgrid{display:grid;grid-template-columns:1fr;gap:18px}
+.cert-shell{width:100%;background:transparent;border:0;padding:0}
+.certificate{
+  position:relative;width:100%;aspect-ratio:330/215;overflow:hidden;
+  color:#173f30;text-align:center;
+  background:#eef8ed url("assets/img/background-sertifikat.png") center/100% 100% no-repeat;
+  border-radius:2px;
+}
+.cert-overlay{position:absolute;inset:0;pointer-events:none}
+.cert-logo{position:absolute;left:7.5%;top:8.5%;width:12%;height:auto;object-fit:contain}
+.cert-bismillah{position:absolute;right:7%;top:8.5%;width:18%;font-family:Georgia,serif;font-size:clamp(13px,2.1vw,27px);direction:rtl;color:#075b3d}
+.cert-title{position:absolute;left:20%;right:20%;top:15%;font-family:Georgia,"Times New Roman",serif;font-size:clamp(25px,4.3vw,54px);letter-spacing:6px;font-weight:700;color:#075238;margin:0}
+.cert-subtitle{position:absolute;left:20%;right:20%;top:22%;font-size:clamp(6px,1vw,12px);letter-spacing:2px;color:#668276}
+.cert-given{position:absolute;left:20%;right:20%;top:26%;font-size:clamp(7px,1.1vw,13px)}
+.cert-name{position:absolute;left:18%;right:18%;top:28.5%;font-family:Georgia,serif;font-size:clamp(20px,3.3vw,43px);font-weight:bold;color:#075238}
+.cert-desc{position:absolute;left:18%;right:18%;top:36%;font-size:clamp(6px,.9vw,11px)}
+.cert-course-box{
+  position:absolute;left:21%;right:21%;top:41%;height:13%;
+  border:2px solid #c9a744;border-radius:15px;background:rgba(255,252,225,.82);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3px 7%;
+  box-shadow:0 2px 5px rgba(105,80,15,.10)
+}
+.cert-course{font-family:Georgia,serif;font-size:clamp(13px,1.8vw,25px);font-weight:700;color:#174d39;line-height:1.05}
+.cert-level{margin-top:3px;padding:2px 15px;border-radius:12px;background:#edc965;color:#654d11;font-size:clamp(5px,.75vw,9px);font-weight:bold}
+.cert-motto{font-size:clamp(4px,.6vw,7px);margin-top:2px;color:#5e6656}
+.cert-meta{
+  position:absolute;left:25%;right:25%;top:57%;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:4%;
+  font-size:clamp(5px,.72vw,9px);color:#63756c
+}
+.cert-meta>div{padding-top:2px;border-top:1px solid rgba(72,113,94,.35)}
+.cert-meta b{display:block;color:#1b4032;font-size:clamp(6px,.82vw,10px);margin-top:3px}
+.status-ok{display:inline-block;border:1px solid #2c9a70;border-radius:12px;padding:2px 9px;color:#1d7656;font-weight:bold}
+.cert-footer{
+  position:absolute;left:22%;right:22%;top:68%;
+  display:grid;grid-template-columns:1fr 120px 1fr;align-items:end;gap:5%;
+}
+.cert-sign{font-size:clamp(5px,.75vw,9px);color:#65766e}
+.cert-sign .sig{display:block;margin-top:20px;font-family:"Brush Script MT","Segoe Script",cursive;font-size:clamp(12px,1.7vw,22px);font-style:italic;color:#253f35;white-space:nowrap}
+.cert-sign strong{display:block;color:#1c4032;font-size:clamp(6px,.8vw,10px);margin-top:2px}
+.cert-stamp{
+  width:78px;height:78px;margin:auto;border-radius:50%;
+  background:radial-gradient(circle,#f8d56e 0 55%,#d49b1e 56% 63%,#f3c84f 64% 75%,#b8790d 76% 100%);
+  display:flex;align-items:center;justify-content:center;
+  color:#6c4b08;font-size:9px;font-weight:bold;text-align:center;
+  box-shadow:0 2px 5px rgba(0,0,0,.15)
+}
+.cert-number{position:absolute;left:8%;bottom:5%;font-size:clamp(4px,.55vw,7px);color:#61756c}
+.qr-area{position:absolute;right:5.2%;bottom:5.1%;width:13%;text-align:center}
+.cert-qr-box{
+  width:100%;aspect-ratio:1;background:#fff;border:2px solid #24764f;
+  padding:4px;display:flex;align-items:center;justify-content:center
+}
+.cert-qr-box img,.cert-qr-box canvas{width:100%!important;height:100%!important;display:block!important}
+.cert-qr-label{font-size:clamp(4px,.55vw,7px);color:#38614f;margin-top:2px}
+.cert-actions{text-align:center;margin-top:8px}
+.cert-actions .btn{margin:2px}
+
+/* print F4 landscape: 330 x 215 mm */
+@media print{
+  @page{size:330mm 215mm landscape;margin:0}
+  html,body{width:330mm!important;height:215mm!important;margin:0!important;padding:0!important;background:#fff!important}
+  nav,.hero,.notice,#levelsSection,footer,#certsSection>h2,.print-hide{display:none!important}
+  main{max-width:none!important;margin:0!important;padding:0!important}
+  #certsSection{display:block!important;background:transparent!important;border:0!important;padding:0!important;margin:0!important}
+  .certgrid{display:block!important}
+  .cert-shell{display:none!important;width:330mm!important;height:215mm!important}
+  .cert-shell.printing{display:block!important}
+  .certificate{width:330mm!important;height:215mm!important;aspect-ratio:auto!important;border-radius:0!important}
+  .cert-actions{display:none!important}
+}
+
+/* mobile preview */
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  main{padding:9px}.nav a:first-child{display:none}
+  .certgrid{gap:12px}
+  .cert-title{letter-spacing:3px}
+  .cert-footer{grid-template-columns:1fr 75px 1fr}
+  .cert-stamp{width:55px;height:55px;font-size:6px}
+}
+body[data-light="1"]{--bg:#f3faf7;--p:#fff;--p2:#f1faf6;--line:#b8dfd0;--text:#173329;--muted:#58766c}
+body[data-light="1"] nav{background:#fff}
 </style>
 </head>
+
 <body>
-<nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
-<a href="akademi.html">📚 Akademi</a><a href="dashboard.html">📊 Dashboard</a><a href="profile.html">👤 Profil</a><button id="theme" onclick="toggleTheme()">☀️</button>
-</div></nav>
+<nav>
+  <div class="brand">📖 NgajiPlus Akademi</div>
+  <div class="nav">
+    <a href="akademi.html">📚 Akademi</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="profile.html">👤 Profil</a>
+    <button id="theme" onclick="toggleTheme()">☀️</button>
+  </div>
+</nav>
+
 <main>
-<section class="hero"><h1>🎓 Sertifikat NgajiPlus</h1><p>Sertifikat diterbitkan setelah seluruh materi dalam satu level selesai dipelajari.</p></section>
-<div id="notice" class="notice">Memuat...</div>
-<section id="levelsSection" class="section"><h2>📚 Progress Level</h2><div id="levels" class="grid"></div></section>
-<section id="certsSection" class="section"><h2>🏆 Sertifikat Saya</h2><div id="certs" class="certgrid"></div></section>
+  <section class="hero">
+    <h1>🎓 Sertifikat NgajiPlus</h1>
+    <p>Sertifikat diterbitkan setelah seluruh materi dalam satu level selesai dipelajari.</p>
+  </section>
+
+  <div id="notice" class="notice">⏳ Memuat data sertifikat...</div>
+
+  <section id="levelsSection" class="section">
+    <h2>📚 Progress Level</h2>
+    <div id="levels" class="grid"></div>
+  </section>
+
+  <section id="certsSection" class="section">
+    <h2>🏆 Sertifikat Saya</h2>
+    <div id="certs" class="certgrid"></div>
+  </section>
 </main>
+
 <footer>📖 NgajiPlus Akademi — Belajar Islam secara bertahap</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const URL="https://ksgywgdrfskqsufchbcm.supabase.co";
 const KEY="sb_publishable_HmFKwHMCISf_NYOOiLx3-A_MWnG9yG7";
 const db=supabase.createClient(URL,KEY);
-const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-function toggleTheme(){let l=document.body.dataset.light==="1";document.body.dataset.light=l?"":"1";localStorage.setItem("ngaji-theme",l?"dark":"light");document.getElementById("theme").textContent=l?"☀️":"🌙"}
-if(localStorage.getItem("ngaji-theme")==="light"){document.body.dataset.light="1";document.getElementById("theme").textContent="🌙"}
-const s=document.createElement("style");s.textContent='body[data-light="1"]{--bg:#f3faf7;--p:#fff;--p2:#f1faf6;--line:#b8dfd0;--text:#173329;--muted:#58766c}body[data-light="1"] nav{background:#fff}.status{color:#9cc4b8}';document.head.appendChild(s);
+
+const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[m]));
+
+function toggleTheme(){
+  let l=document.body.dataset.light==="1";
+  document.body.dataset.light=l?"":"1";
+  localStorage.setItem("ngaji-theme",l?"dark":"light");
+  document.getElementById("theme").textContent=l?"☀️":"🌙";
+}
+if(localStorage.getItem("ngaji-theme")==="light"){
+  document.body.dataset.light="1";
+  document.getElementById("theme").textContent="🌙";
+}
+
+/* Supaya halaman tidak berhenti selamanya pada "Memuat..." */
+function withTimeout(promise,ms,label){
+  return Promise.race([
+    promise,
+    new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+" terlalu lama. Periksa koneksi internet/Supabase.")),ms))
+  ]);
+}
+
+function certificateHTML(c){
+  const nomor=esc(c.nomor_sertifikat);
+  const url="https://akademi.ngajiplus.id/verifikasi.html?nomor="+encodeURIComponent(c.nomor_sertifikat||"");
+  return `
+  <article class="cert-shell" data-number="${nomor}">
+    <div class="certificate">
+      <img class="cert-logo" src="assets/img/logo.png" alt="ngajiplus.id">
+      <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+      <h3 class="cert-title">SERTIFIKAT</h3>
+      <div class="cert-subtitle">PENGHARGAAN PENYELESAIAN PEMBELAJARAN</div>
+      <div class="cert-given">Dengan ini diberikan kepada</div>
+      <div class="cert-name">${esc(c.nama_peserta)}</div>
+      <div class="cert-desc">atas keberhasilan menyelesaikan seluruh rangkaian pembelajaran NgajiPlus Akademi dengan baik.</div>
+
+      <div class="cert-course-box">
+        <div class="cert-course">${esc(c.course_nama||"")}</div>
+        <div class="cert-level">${esc(c.level_nama||"")}</div>
+        <div class="cert-motto">Semoga ilmu yang diperoleh menjadi amal shalih dan diberkahi oleh Allah ﷻ.</div>
+      </div>
+
+      <div class="cert-meta">
+        <div>Nomor Sertifikat<b>${nomor}</b></div>
+        <div>Tanggal Terbit<b>${esc(c.tanggal_terbit||"")}</b></div>
+        <div>Status<b><span class="status-ok">✓ TERVERIFIKASI</span></b></div>
+      </div>
+
+      <div class="cert-footer">
+        <div class="cert-sign">
+          Direktur NgajiPlus Akademi
+          <span class="sig">Achmad Luthfi Fauzan</span>
+          <strong>Founder &amp; Direktur</strong>
+        </div>
+        <div class="cert-stamp">ngajiplus.id<br><small>AKADEMI</small></div>
+        <div class="cert-sign">
+          Manajer Akademik
+          <span class="sig">Tim NgajiPlus</span>
+          <strong>Manajer Program</strong>
+        </div>
+      </div>
+
+      <div class="cert-number">Dokumen elektronik — verifikasi melalui QR Code</div>
+      <div class="qr-area" data-url="${esc(url)}">
+        <div class="cert-qr-box"></div>
+        <div class="cert-qr-label">Scan untuk verifikasi sertifikat</div>
+      </div>
+    </div>
+    <div class="cert-actions print-hide">
+      <button class="btn gold" onclick="printCertificate(this)">🖨️ Cetak Sertifikat</button>
+    </div>
+  </article>`;
+}
 
 async function load(){
+  const notice=document.getElementById("notice");
   try{
-    document.getElementById("notice").textContent="⏳ Memuat data sertifikat...";
-    const auth=await db.auth.getUser();
+    notice.textContent="⏳ Memuat data sertifikat...";
+    const auth=await withTimeout(db.auth.getUser(),12000,"Login");
+
     if(auth.error) throw auth.error;
     if(!auth.data.user){
       location.href="login.html?redirect=sertifikat.html";
@@ -78,49 +245,38 @@ async function load(){
     }
     const uid=auth.data.user.id;
 
-    // Load each source separately so one missing/blocked table
-    // does not leave the whole page stuck on "Memuat...".
-    const lr=await db.from("levels")
-      .select("id,course_id,nama,urutan")
-      .eq("aktif",true)
-      .order("course_id")
-      .order("urutan");
+    const [lr,cmr,pr,cr]=await Promise.all([
+      withTimeout(db.from("levels").select("id,course_id,nama,urutan").eq("aktif",true).order("course_id").order("urutan"),12000,"Data levels"),
+      withTimeout(db.from("course_materials").select("level_id,material_id,urutan").order("level_id").order("urutan"),12000,"Data course_materials"),
+      withTimeout(db.from("learning_progress").select("material_id,status,progress").eq("user_id",uid),12000,"Progress belajar"),
+      withTimeout(db.from("certificates").select("*").eq("user_id",uid).order("tanggal_terbit",{ascending:false}),12000,"Data certificates")
+    ]);
+
     if(lr.error) throw new Error("Tabel levels: "+lr.error.message);
-
-    const cmr=await db.from("course_materials")
-      .select("level_id,material_id,urutan")
-      .order("level_id")
-      .order("urutan");
     if(cmr.error) throw new Error("Tabel course_materials: "+cmr.error.message);
-
-    const pr=await db.from("learning_progress")
-      .select("material_id,status,progress")
-      .eq("user_id",uid);
     if(pr.error) throw new Error("Progress belajar: "+pr.error.message);
-
-    const cr=await db.from("certificates")
-      .select("*")
-      .eq("user_id",uid)
-      .order("tanggal_terbit",{ascending:false});
     if(cr.error) throw new Error("Tabel certificates: "+cr.error.message);
 
     const levels=lr.data||[];
     const links=cmr.data||[];
     const prog=pr.data||[];
-    let certs=cr.data||[];
+    const certs=cr.data||[];
 
     const courseIds=[...new Set(levels.map(x=>x.course_id))];
     let courses=[];
     if(courseIds.length){
-      const rr=await db.from("courses").select("id,nama").in("id",courseIds);
+      const rr=await withTimeout(
+        db.from("courses").select("id,nama").in("id",courseIds),
+        12000,"Data courses"
+      );
       if(rr.error) throw new Error("Tabel courses: "+rr.error.message);
       courses=rr.data||[];
     }
 
     const cmap=new Map(courses.map(x=>[x.id,x.nama]));
     const pmap=new Map(prog.map(x=>[String(x.material_id),x]));
-
     const stats=new Map();
+
     for(const lv of levels){
       const mats=links.filter(x=>x.level_id===lv.id);
       const total=mats.length;
@@ -157,78 +313,57 @@ async function load(){
       : '<div class="empty">Belum ada level.</div>';
 
     document.getElementById("certs").innerHTML=certs.length
-      ? certs.map(c=>{
-          const verifyUrl="https://akademi.ngajiplus.id/verifikasi.html?nomor="+encodeURIComponent(c.nomor_sertifikat||"");
-          return '<article class="cert-shell">'+
-            '<div class="cert">'+
-              '<img class="cert-logo" src="assets/img/logo.png" alt="ngajiplus.id Akademi">'+
-              '<div class="cert-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>'+
-              '<div class="cert-title">SERTIFIKAT</div>'+
-              '<div class="cert-subtitle">PENGHARGAAN PENYELESAIAN PEMBELAJARAN</div>'+
-              '<div class="cert-given">Dengan ini diberikan kepada</div>'+
-              '<div class="cert-name">'+esc(c.nama_peserta)+'</div>'+
-              '<div class="cert-desc">atas keberhasilan menyelesaikan seluruh rangkaian pembelajaran NgajiPlus Akademi dengan baik.</div>'+
-              '<div class="cert-course-box"><div class="cert-course">'+esc(c.course_nama)+'</div><div class="cert-level">'+esc(c.level_nama)+'</div></div>'+
-              '<div class="cert-meta">'+
-                '<div>Nomor Sertifikat<b>'+esc(c.nomor_sertifikat)+'</b></div>'+
-                '<div>Tanggal Terbit<b>'+esc(c.tanggal_terbit)+'</b></div>'+
-                '<div>Status<b>✓ TERVERIFIKASI</b></div>'+
-              '</div>'+ 
-              '<div class="cert-signs">'+
-                '<div class="cert-sign"><span>Direktur NgajiPlus Akademi</span><i>Achmad Luthfi Fauzan</i><strong>Founder &amp; Direktur</strong></div>'+
-                '<div class="cert-seal"><small>ngajiplus.id</small><small>AKADEMI</small></div>'+ 
-                '<div class="cert-sign"><span>Manajer Akademik</span><i>Tim NgajiPlus</i><strong>Manajer Program</strong></div>'+
-              '</div>'+ 
-              '<div class="cert-qr" data-verify="'+esc(verifyUrl)+'"></div>'+ 
-            '</div>'+ 
-            '<div class="cert-actions print-hide"><button class="btn gold" onclick="printCertificate(this)">🖨️ Cetak Sertifikat</button></div>'+ 
-          '</article>';
-        }).join("")
+      ? certs.map(c=>certificateHTML(c)).join("")
       : '<div class="empty">Belum ada sertifikat. Selesaikan Level 100% terlebih dahulu.</div>';
 
-    document.getElementById("notice").textContent=
-      certs.length
+    document.querySelectorAll(".qr-area").forEach(el=>{
+      const box=el.querySelector(".cert-qr-box");
+      if(box && typeof QRCode!=="undefined"){
+        box.innerHTML="";
+        new QRCode(box,{
+          text:el.dataset.url,
+          width:160,height:160,
+          correctLevel:QRCode.CorrectLevel.H
+        });
+      }
+    });
+
+    notice.textContent=certs.length
       ? "🎉 Anda memiliki "+certs.length+" sertifikat."
       : "📚 Selesaikan seluruh materi dalam satu level. Setelah 100%, tombol penerbitan sertifikat akan muncul.";
-    if(typeof QRCode!=="undefined"){
-      document.querySelectorAll(".cert-qr[data-verify]").forEach(el=>{
-        el.innerHTML="";
-        new QRCode(el,{text:el.dataset.verify,width:180,height:180,correctLevel:QRCode.CorrectLevel.H});
-      });
-    }
+
   }catch(err){
     console.error(err);
-    document.getElementById("notice").innerHTML=
-      "❌ <b>Gagal memuat sertifikat.</b><br>"+
-      "<small>"+esc(err.message||err)+"</small>";
-    document.getElementById("levels").innerHTML=
-      '<div class="empty">Periksa pesan error di atas.</div>';
-    document.getElementById("certs").innerHTML=
-      '<div class="empty">Data sertifikat belum dapat dimuat.</div>';
+    notice.innerHTML="❌ <b>Gagal memuat sertifikat.</b><br><small>"+esc(err.message||err)+"</small>";
+    document.getElementById("levels").innerHTML='<div class="empty">Data progress belum dapat dimuat.</div>';
+    document.getElementById("certs").innerHTML='<div class="empty">Data sertifikat belum dapat dimuat.</div>';
   }
 }
 
 function printCertificate(btn){
-  const shell=btn.closest('.cert-shell');
-  if(!shell) return;
-  document.querySelectorAll('.cert-shell').forEach(x=>x.classList.add('print-hide'));
-  shell.classList.remove('print-hide');
+  const shell=btn.closest(".cert-shell");
+  if(!shell)return;
+  document.querySelectorAll(".cert-shell").forEach(x=>x.classList.remove("printing"));
+  shell.classList.add("printing");
   window.print();
-  setTimeout(()=>document.querySelectorAll('.cert-shell').forEach(x=>x.classList.remove('print-hide')),500);
+  setTimeout(()=>shell.classList.remove("printing"),700);
 }
 
 async function issueCertificate(levelId){
   try{
     const btns=[...document.querySelectorAll("button")];
-    btns.forEach(b=>{if(b.textContent.includes("Terbitkan Sertifikat")){b.disabled=true;b.textContent="⏳ Menerbitkan...";}});
-    const r=await db.rpc("issue_certificate",{p_level_id:levelId});
+    btns.forEach(b=>{
+      if(b.textContent.includes("Terbitkan Sertifikat")){
+        b.disabled=true;b.textContent="⏳ Menerbitkan...";
+      }
+    });
+    const r=await withTimeout(
+      db.rpc("issue_certificate",{p_level_id:levelId}),
+      15000,"Penerbitan sertifikat"
+    );
     if(r.error) throw r.error;
-    if(!r.data || !r.data.success){
-      throw new Error("Sertifikat belum dapat diterbitkan.");
-    }
-    alert(r.data.already_exists
-      ? "Sertifikat sudah tersedia."
-      : "🎉 Sertifikat berhasil diterbitkan!");
+    if(!r.data || !r.data.success) throw new Error("Sertifikat belum dapat diterbitkan.");
+    alert(r.data.already_exists?"Sertifikat sudah tersedia.":"🎉 Sertifikat berhasil diterbitkan!");
     await load();
   }catch(err){
     console.error(err);
@@ -236,6 +371,7 @@ async function issueCertificate(levelId){
     await load();
   }
 }
+
 load();
 </script>
 </body>
