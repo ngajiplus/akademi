@@ -135,7 +135,7 @@ body[data-light="1"] nav{background:#fff}
     <p>Sertifikat diterbitkan setelah seluruh materi dalam satu level selesai dipelajari.</p>
   </section>
 
-  <div id="notice" class="notice">⏳ Memuat data sertifikat...</div>
+  <div id="notice" class="notice">⏳ Memeriksa sesi login...</div>
 
   <section id="levelsSection" class="section">
     <h2>📚 Progress Level</h2>
@@ -234,41 +234,106 @@ function certificateHTML(c){
 
 async function load(){
   const notice=document.getElementById("notice");
+  const levelsBox=document.getElementById("levels");
+  const certsBox=document.getElementById("certs");
+
+  const setStatus=(msg)=>{
+    notice.innerHTML=msg;
+    console.log("[SERTIFIKAT]", msg.replace(/<[^>]*>/g," "));
+  };
+
   try{
-    notice.textContent="⏳ Memuat data sertifikat...";
-    const auth=await withTimeout(db.auth.getUser(),12000,"Login");
+    setStatus("⏳ Memeriksa sesi login...");
+
+    const auth=await withTimeout(
+      db.auth.getSession(),
+      10000,
+      "Pemeriksaan login"
+    );
 
     if(auth.error) throw auth.error;
-    if(!auth.data.user){
-      location.href="login.html?redirect=sertifikat.html";
+
+    const session=auth.data && auth.data.session;
+    if(!session || !session.user){
+      setStatus("🔐 Sesi login tidak ditemukan. Mengarahkan ke halaman login...");
+      setTimeout(()=>{
+        location.href="login.html?redirect=sertifikat.html";
+      },500);
       return;
     }
-    const uid=auth.data.user.id;
 
-    const [lr,cmr,pr,cr]=await Promise.all([
-      withTimeout(db.from("levels").select("id,course_id,nama,urutan").eq("aktif",true).order("course_id").order("urutan"),12000,"Data levels"),
-      withTimeout(db.from("course_materials").select("level_id,material_id,urutan").order("level_id").order("urutan"),12000,"Data course_materials"),
-      withTimeout(db.from("learning_progress").select("material_id,status,progress").eq("user_id",uid),12000,"Progress belajar"),
-      withTimeout(db.from("certificates").select("*").eq("user_id",uid).order("tanggal_terbit",{ascending:false}),12000,"Data certificates")
-    ]);
+    const uid=session.user.id;
+
+    setStatus("📚 Mengambil daftar level...");
+
+    const lr=await withTimeout(
+      db.from("levels")
+        .select("id,course_id,nama,urutan")
+        .eq("aktif",true)
+        .order("course_id")
+        .order("urutan"),
+      10000,
+      "Data levels"
+    );
 
     if(lr.error) throw new Error("Tabel levels: "+lr.error.message);
-    if(cmr.error) throw new Error("Tabel course_materials: "+cmr.error.message);
-    if(pr.error) throw new Error("Progress belajar: "+pr.error.message);
-    if(cr.error) throw new Error("Tabel certificates: "+cr.error.message);
-
     const levels=lr.data||[];
+
+    setStatus("📖 Mengambil struktur materi...");
+
+    const cmr=await withTimeout(
+      db.from("course_materials")
+        .select("level_id,material_id,urutan")
+        .order("level_id")
+        .order("urutan"),
+      10000,
+      "Data course_materials"
+    );
+
+    if(cmr.error) throw new Error("Tabel course_materials: "+cmr.error.message);
     const links=cmr.data||[];
+
+    setStatus("📈 Mengambil progress belajar...");
+
+    const pr=await withTimeout(
+      db.from("learning_progress")
+        .select("material_id,status,progress")
+        .eq("user_id",uid),
+      10000,
+      "Progress belajar"
+    );
+
+    if(pr.error) throw new Error("Tabel learning_progress: "+pr.error.message);
     const prog=pr.data||[];
+
+    setStatus("🏆 Mengambil sertifikat Anda...");
+
+    const cr=await withTimeout(
+      db.from("certificates")
+        .select("*")
+        .eq("user_id",uid)
+        .order("tanggal_terbit",{ascending:false}),
+      10000,
+      "Data certificates"
+    );
+
+    if(cr.error) throw new Error("Tabel certificates: "+cr.error.message);
     const certs=cr.data||[];
 
-    const courseIds=[...new Set(levels.map(x=>x.course_id))];
+    setStatus("🏫 Mengambil nama program...");
+
+    const courseIds=[...new Set(levels.map(x=>x.course_id).filter(Boolean))];
     let courses=[];
+
     if(courseIds.length){
       const rr=await withTimeout(
-        db.from("courses").select("id,nama").in("id",courseIds),
-        12000,"Data courses"
+        db.from("courses")
+          .select("id,nama")
+          .in("id",courseIds),
+        10000,
+        "Data courses"
       );
+
       if(rr.error) throw new Error("Tabel courses: "+rr.error.message);
       courses=rr.data||[];
     }
@@ -281,62 +346,91 @@ async function load(){
       const mats=links.filter(x=>x.level_id===lv.id);
       const total=mats.length;
       let done=0;
+
       for(const m of mats){
         const pp=pmap.get(String(m.material_id));
-        if(pp && (pp.status==="completed" || Number(pp.progress)>=100)) done++;
+        if(pp && (
+          pp.status==="completed" ||
+          Number(pp.progress)>=100
+        )) done++;
       }
-      stats.set(lv.id,{total,done,pct:total?Math.round(done/total*100):0});
+
+      stats.set(lv.id,{
+        total,
+        done,
+        pct:total?Math.round(done/total*100):0
+      });
     }
 
-    document.getElementById("levels").innerHTML=levels.length
+    levelsBox.innerHTML=levels.length
       ? levels.map(lv=>{
           const st=stats.get(lv.id)||{total:0,done:0,pct:0};
           const cert=certs.find(c=>c.level_id===lv.id);
+
           let action="";
+
           if(cert){
             action='<a class="btn gold" href="#certsSection">🏆 Lihat Sertifikat</a>';
           }else if(st.total>0 && st.pct===100){
-            action='<button class="btn" onclick="issueCertificate('+lv.id+')">🎓 Terbitkan Sertifikat</button>';
+            action='<button class="btn" onclick="issueCertificate('+Number(lv.id)+')">🎓 Terbitkan Sertifikat</button>';
           }else if(st.total===0){
             action='<span class="empty">Belum ada materi</span>';
           }else{
             action='<a class="btn secondary" href="akademi.html">📖 Lanjut Belajar</a>';
           }
-          return '<div class="card">'+
-            '<div class="course">'+esc(cmap.get(lv.course_id)||"Course")+'</div>'+
-            '<div class="level">'+esc(lv.nama)+'</div>'+
-            '<div class="meta"><span>'+st.done+'/'+st.total+' materi selesai</span><b>'+st.pct+'%</b></div>'+
-            '<div class="bar"><i style="width:'+st.pct+'%"></i></div>'+
-            '<div class="actions">'+action+'</div>'+
-          '</div>';
+
+          return `
+            <div class="card">
+              <div class="course">${esc(cmap.get(lv.course_id)||"Course")}</div>
+              <div class="level">${esc(lv.nama)}</div>
+              <div class="meta">
+                <span>${st.done}/${st.total} materi selesai</span>
+                <b>${st.pct}%</b>
+              </div>
+              <div class="bar"><i style="width:${st.pct}%"></i></div>
+              <div class="actions">${action}</div>
+            </div>`;
         }).join("")
       : '<div class="empty">Belum ada level.</div>';
 
-    document.getElementById("certs").innerHTML=certs.length
+    certsBox.innerHTML=certs.length
       ? certs.map(c=>certificateHTML(c)).join("")
       : '<div class="empty">Belum ada sertifikat. Selesaikan Level 100% terlebih dahulu.</div>';
 
     document.querySelectorAll(".qr-area").forEach(el=>{
       const box=el.querySelector(".cert-qr-box");
+
       if(box && typeof QRCode!=="undefined"){
         box.innerHTML="";
         new QRCode(box,{
           text:el.dataset.url,
-          width:160,height:160,
+          width:160,
+          height:160,
           correctLevel:QRCode.CorrectLevel.H
         });
       }
     });
 
-    notice.textContent=certs.length
-      ? "🎉 Anda memiliki "+certs.length+" sertifikat."
-      : "📚 Selesaikan seluruh materi dalam satu level. Setelah 100%, tombol penerbitan sertifikat akan muncul.";
+    if(certs.length){
+      setStatus("🎉 Data berhasil dimuat. Anda memiliki "+certs.length+" sertifikat.");
+    }else{
+      setStatus("📚 Data berhasil dimuat. Belum ada sertifikat yang diterbitkan.");
+    }
 
   }catch(err){
-    console.error(err);
-    notice.innerHTML="❌ <b>Gagal memuat sertifikat.</b><br><small>"+esc(err.message||err)+"</small>";
-    document.getElementById("levels").innerHTML='<div class="empty">Data progress belum dapat dimuat.</div>';
-    document.getElementById("certs").innerHTML='<div class="empty">Data sertifikat belum dapat dimuat.</div>';
+    console.error("[SERTIFIKAT ERROR]",err);
+
+    const message=String(err && err.message ? err.message : err);
+
+    notice.innerHTML=
+      '❌ <b>Gagal memuat data.</b><br>'+
+      '<small>'+esc(message)+'</small>';
+
+    levelsBox.innerHTML=
+      '<div class="empty">⚠️ Data level belum dapat dimuat.</div>';
+
+    certsBox.innerHTML=
+      '<div class="empty">⚠️ Data sertifikat belum dapat dimuat.</div>';
   }
 }
 
