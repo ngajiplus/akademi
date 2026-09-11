@@ -824,17 +824,6 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 </style>
 
 
-<style id="ngajiplus-qr-single-fix">
-/* QR FIX: qrcodejs creates canvas + hidden img.
-   Show only the canvas so the QR appears exactly once. */
-.middleeast-cert .cert-qr-box img{
-  display:none!important;
-}
-.middleeast-cert .cert-qr-box canvas{
-  display:block!important;
-}
-</style>
-
 <style id="ngajiplus-v16-master-design">
 /* ============================================================
    NGAJIPLUS AKADEMI — V16 MASTER CERTIFICATE
@@ -2628,6 +2617,12 @@ footer{text-align:center;color:var(--muted);font-size:9px;padding:24px;border-to
 }
 </style>
 
+
+<style id="ngajiplus-qr-final-fix">
+/* FINAL QR FIX: qrcodejs menghasilkan canvas + img. Tampilkan hanya canvas. */
+.middleeast-cert .cert-qr-box img{display:none!important;}
+.middleeast-cert .cert-qr-box canvas{display:block!important;}
+</style>
 </head>
 <body>
 <nav><div class="brand">📖 NgajiPlus Akademi</div><div class="nav">
@@ -2954,6 +2949,8 @@ async function load(){
           if(box){
             box.innerHTML="";
             new QRCode(box,{text:url,width:64,height:64,correctLevel:QRCode.CorrectLevel.H});
+            // qrcodejs membuat canvas + img. Kita gunakan canvas saja agar QR tidak dobel.
+            box.querySelectorAll("img").forEach(img=>img.remove());
           }
         });
       }
