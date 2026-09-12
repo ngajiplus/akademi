@@ -1,2835 +1,864 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<meta
-    name="theme-color"
-    content="#008f50"
->
-
-<meta
-    name="description"
-    content="Admin Membership NgajiPlus Akademi"
->
-
-<title>Admin Membership - NgajiPlus Akademi</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#008f50">
+<title>Manajemen Member - NgajiPlus Akademi</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-    margin:0;
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-    background:#f4faf7;
-    color:#202a25;
-    line-height:1.5;
+  margin:0;font-family:Arial,Helvetica,sans-serif;
+  background:#f4faf7;color:#202a25;line-height:1.5;
 }
-
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none !important;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
 header{
-    background:#ffffff;
-    border-bottom:1px solid #dfe9e3;
-    position:sticky;
-    top:0;
-    z-index:1000;
+  background:#fff;border-bottom:1px solid #dfe9e3;
+  position:sticky;top:0;z-index:1000;
 }
-
 .nav{
-    max-width:1200px;
-    margin:auto;
-    padding:10px 15px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
+  max-width:1200px;margin:auto;padding:10px 15px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
 }
-
-.logo{
-    color:#008f50;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.nav-buttons{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
+.logo{color:#008f50;font-size:13px;font-weight:bold}
+.nav-buttons{display:flex;align-items:center;gap:6px}
 .nav-btn{
-    border:0;
-    border-radius:7px;
-    padding:7px 10px;
-    font-size:9px;
-    font-weight:bold;
-    text-decoration:none;
+  border:0;border-radius:7px;padding:7px 10px;font-size:9px;
+  font-weight:bold;text-decoration:none;
 }
+.dashboard-btn{background:#e8f7ef;color:#087a47}
+.theme-btn{background:#eeeeee;color:#333}
+.logout-btn{background:#eeeeee;color:#555}
 
-.dashboard-btn{
-    background:#e8f7ef;
-    color:#087a47;
-}
-
-.logout-btn{
-    background:#eeeeee;
-    color:#555555;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-main{
-    max-width:1200px;
-    margin:auto;
-    padding:20px 15px 50px;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
+main{max-width:1200px;margin:auto;padding:20px 15px 50px}
 
 .hero{
-    background:
-        linear-gradient(
-            135deg,
-            #008f50,
-            #00b85c
-        );
-
-    color:white;
-
-    border-radius:15px;
-
-    padding:28px 22px;
-
-    margin-bottom:15px;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,143,80,.18);
+  background:linear-gradient(135deg,#008f50,#00b85c);color:#fff;
+  border-radius:15px;padding:28px 22px;margin-bottom:15px;
+  box-shadow:0 8px 25px rgba(0,143,80,.18);
 }
-
-.hero-label{
-    font-size:8px;
-    font-weight:bold;
-    opacity:.9;
-    margin-bottom:7px;
-}
-
-.hero h1{
-    margin:0 0 5px;
-    font-size:32px;
-}
-
-.hero p{
-    margin:0;
-    font-size:9px;
-    opacity:.9;
-}
-
-
-/* =====================================================
-   NOTICE
-===================================================== */
+.hero-label{font-size:8px;font-weight:bold;opacity:.9;margin-bottom:7px}
+.hero h1{margin:0 0 5px;font-size:32px}
+.hero p{margin:0;font-size:9px;opacity:.9}
 
 .notice{
-    padding:11px 14px;
-    border-radius:9px;
-    margin-bottom:15px;
-    font-size:9px;
-    background:#e5f9ed;
-    border:1px solid #bde8cf;
-    color:#087a47;
+  padding:11px 14px;border-radius:9px;margin-bottom:15px;font-size:9px;
+  background:#e5f9ed;border:1px solid #bde8cf;color:#087a47;
 }
-
-.notice.error{
-    background:#ffe9e9;
-    border-color:#f3c2c2;
-    color:#b42318;
-}
-
-.notice.warning{
-    background:#fff8d9;
-    border-color:#f0df91;
-    color:#75621c;
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
+.notice.error{background:#ffe9e9;border-color:#f3c2c2;color:#b42318}
 
 .stats{
-    display:grid;
-    grid-template-columns:
-        repeat(4,1fr);
-    gap:12px;
-    margin-bottom:15px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px
 }
-
-.stat-card{
-    background:white;
-    border:1px solid #dfe9e3;
-    border-radius:12px;
-    padding:15px;
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.035);
+.stat{
+  background:#fff;border:1px solid #dfe9e3;border-radius:12px;
+  padding:15px;box-shadow:0 4px 15px rgba(0,0,0,.035)
 }
-
-.stat-icon{
-    font-size:22px;
-    margin-bottom:4px;
-}
-
-.stat-number{
-    color:#008f50;
-    font-size:23px;
-    font-weight:bold;
-}
-
-.stat-label{
-    color:#718078;
-    font-size:8px;
-}
-
-
-/* =====================================================
-   TOOLBAR
-===================================================== */
+.stat-icon{font-size:21px;margin-bottom:4px}
+.stat-number{color:#008f50;font-size:23px;font-weight:bold}
+.stat-label{color:#718078;font-size:8px}
 
 .toolbar{
-    background:white;
-    border:1px solid #dfe9e3;
-    border-radius:12px;
-    padding:10px;
-    display:flex;
-    gap:8px;
-    margin-bottom:15px;
+  background:#fff;border:1px solid #dfe9e3;border-radius:12px;
+  padding:10px;display:flex;gap:8px;margin-bottom:15px
 }
-
-.search{
-    flex:1;
+.search{flex:1}
+.search input,.filter select{
+  width:100%;border:1px solid #d7e2dc;border-radius:8px;padding:10px;
+  font-size:9px;outline:none;background:#fff;color:inherit
 }
-
-.search input,
-.filter select{
-    width:100%;
-    border:1px solid #d7e2dc;
-    border-radius:8px;
-    padding:10px;
-    font-size:9px;
-    outline:none;
-    background:white;
-}
-
-.search input:focus,
-.filter select:focus{
-    border-color:#008f50;
-}
-
-.filter{
-    width:160px;
-}
-
+.search input:focus,.filter select:focus{border-color:#008f50}
+.filter{width:170px}
 .refresh-btn{
-    border:0;
-    border-radius:8px;
-    padding:0 15px;
-    background:#008f50;
-    color:white;
-    font-size:9px;
-    font-weight:bold;
+  border:0;border-radius:8px;padding:0 15px;background:#008f50;
+  color:#fff;font-size:9px;font-weight:bold
 }
-
-
-/* =====================================================
-   SECTION TITLE
-===================================================== */
 
 .section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:10px 0;
+  display:flex;justify-content:space-between;align-items:center;margin:10px 0
 }
+.section-title h2{margin:0;font-size:17px}
+.section-count{color:#718078;font-size:8px}
 
-.section-title h2{
-    margin:0;
-    font-size:17px;
+.members{display:grid;gap:12px}
+.member-card{
+  background:#fff;border:1px solid #dfe9e3;border-radius:14px;
+  padding:15px;box-shadow:0 4px 15px rgba(0,0,0,.035)
 }
-
-.section-count{
-    color:#718078;
-    font-size:8px;
+.member-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px
 }
-
-
-/* =====================================================
-   ORDERS
-===================================================== */
-
-.orders{
-    display:grid;
-    gap:12px;
+.member-name{font-size:13px;font-weight:bold}
+.member-id{color:#8a948f;font-size:7px;margin-top:2px;word-break:break-all}
+.badge{
+  display:inline-block;padding:5px 8px;border-radius:20px;font-size:8px;
+  font-weight:bold;white-space:nowrap
 }
+.badge-active{background:#dff7e9;color:#087a47}
+.badge-expired{background:#ffe5e5;color:#b42318}
+.badge-free{background:#eeeeee;color:#666}
+.badge-life{background:#fff1c9;color:#806500}
 
-.order-card{
-    background:white;
-    border:1px solid #dfe9e3;
-    border-radius:14px;
-    padding:15px;
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.035);
+.member-info{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px
 }
+.info-box{background:#f7faf8;border-radius:8px;padding:9px}
+.info-label{color:#8a948f;font-size:7px;margin-bottom:3px}
+.info-value{font-size:9px;font-weight:bold}
 
-.order-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:10px;
+.member-bottom{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  margin-top:12px;padding-top:10px;border-top:1px solid #edf1ee
 }
-
-.member-name{
-    font-size:13px;
-    font-weight:bold;
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.action{
+  border:0;border-radius:7px;padding:8px 11px;font-size:8px;font-weight:bold
 }
+.edit{background:#e8f7ef;color:#087a47}
+.extend{background:#008f50;color:#fff}
+.lifetime{background:#fff1c9;color:#806500}
+.disable{background:#ffe5e5;color:#b42318}
 
-.member-email{
-    color:#7a8580;
-    font-size:8px;
-    margin-top:2px;
+.empty,.loading{
+  background:#fff;border:1px solid #dfe9e3;border-radius:14px;
+  padding:35px 15px;text-align:center;color:#718078;font-size:9px
 }
-
-.status{
-    display:inline-block;
-    padding:5px 8px;
-    border-radius:20px;
-    font-size:8px;
-    font-weight:bold;
-    white-space:nowrap;
-}
-
-.status-menunggu{
-    background:#fff4c8;
-    color:#806500;
-}
-
-.status-diproses{
-    background:#e3f1ff;
-    color:#1769aa;
-}
-
-.status-disetujui{
-    background:#dff7e9;
-    color:#087a47;
-}
-
-.status-ditolak,
-.status-dibatalkan{
-    background:#ffe5e5;
-    color:#b42318;
-}
-
-.order-info{
-    display:grid;
-    grid-template-columns:
-        repeat(4,1fr);
-    gap:8px;
-    margin-top:12px;
-}
-
-.info-box{
-    background:#f7faf8;
-    border-radius:8px;
-    padding:9px;
-}
-
-.info-label{
-    color:#8a948f;
-    font-size:7px;
-    margin-bottom:3px;
-}
-
-.info-value{
-    font-size:9px;
-    font-weight:bold;
-}
-
-.order-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px solid #edf1ee;
-}
-
-.order-id{
-    color:#8a948f;
-    font-size:8px;
-}
-
-.action-buttons{
-    display:flex;
-    gap:6px;
-}
-
-.action-btn{
-    border:0;
-    border-radius:7px;
-    padding:8px 11px;
-    font-size:8px;
-    font-weight:bold;
-}
-
-.detail-btn{
-    background:#e8f7ef;
-    color:#087a47;
-}
-
-.approve-btn{
-    background:#008f50;
-    color:white;
-}
-
-.reject-btn{
-    background:#ffe5e5;
-    color:#b42318;
-}
-
-.action-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-    background:white;
-    border:1px solid #dfe9e3;
-    border-radius:14px;
-    padding:35px 15px;
-    text-align:center;
-    color:#718078;
-    font-size:9px;
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
 
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    z-index:3000;
+  position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;
+  align-items:center;justify-content:center;padding:15px;z-index:3000
 }
-
 .modal-box{
-    background:white;
-    width:100%;
-    max-width:520px;
-    max-height:90vh;
-    overflow:auto;
-    border-radius:15px;
-    padding:20px;
+  background:#fff;width:100%;max-width:560px;max-height:90vh;overflow:auto;
+  border-radius:15px;padding:20px
 }
-
 .modal-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:15px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-bottom:15px
+}
+.modal-title{margin:0;font-size:17px}
+.close{
+  width:30px;height:30px;border:0;border-radius:50%;
+  background:#eee;color:#555;font-size:15px
+}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.field label{
+  display:block;font-size:8px;color:#718078;margin-bottom:4px;font-weight:bold
+}
+.field input,.field select{
+  width:100%;border:1px solid #d7e2dc;border-radius:8px;
+  padding:10px;font-size:9px;background:#fff;color:inherit;outline:none
+}
+.field.full{grid-column:1/-1}
+.preview{
+  margin-top:10px;background:#e5f9ed;border:1px solid #bde8cf;
+  color:#087a47;padding:10px;border-radius:8px;font-size:8px
+}
+.modal-actions{display:flex;gap:8px;margin-top:15px}
+.modal-actions button{flex:1}
+.save{
+  border:0;border-radius:8px;padding:10px;background:#008f50;color:#fff;
+  font-size:9px;font-weight:bold
+}
+.cancel{
+  border:0;border-radius:8px;padding:10px;background:#eee;color:#555;
+  font-size:9px;font-weight:bold
 }
 
-.modal-title{
-    margin:0;
-    font-size:17px;
-}
-
-.close-btn{
-    width:30px;
-    height:30px;
-    border:0;
-    border-radius:50%;
-    background:#eeeeee;
-    color:#555;
-    font-size:15px;
-}
-
-.detail-grid{
-    display:grid;
-    grid-template-columns:
-        repeat(2,1fr);
-    gap:8px;
-}
-
-.detail-item{
-    background:#f7faf8;
-    border-radius:8px;
-    padding:10px;
-}
-
-.detail-label{
-    color:#7a8580;
-    font-size:7px;
-}
-
-.detail-value{
-    font-size:9px;
-    font-weight:bold;
-    margin-top:2px;
-    word-break:break-word;
-}
-
-.modal-actions{
-    display:flex;
-    gap:8px;
-    margin-top:15px;
-}
-
-.modal-actions button{
-    flex:1;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-    background:#0b1812;
-    color:white;
-    padding:22px 15px;
-}
-
-.footer-inner{
-    max-width:1200px;
-    margin:auto;
-}
-
-.footer-logo{
-    color:#35b878;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.footer-text{
-    color:#87948d;
-    font-size:8px;
-    margin-top:3px;
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-.loading{
-    text-align:center;
-    padding:30px;
-    color:#718078;
-    font-size:9px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
+footer{background:#0b1812;color:#fff;padding:22px 15px}
+.footer-inner{max-width:1200px;margin:auto}
+.footer-logo{color:#35b878;font-size:11px;font-weight:bold}
+.footer-text{color:#87948d;font-size:8px;margin-top:3px}
 
 @media(max-width:800px){
-
-    .stats{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .order-info{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .member-info{grid-template-columns:repeat(2,1fr)}
 }
-
 @media(max-width:550px){
-
-    .nav{
-        padding:8px 10px;
-    }
-
-    .logo{
-        font-size:10px;
-    }
-
-    .nav-btn{
-        padding:6px 7px;
-        font-size:8px;
-    }
-
-    main{
-        padding:12px 10px 40px;
-    }
-
-    .hero{
-        padding:23px 16px;
-    }
-
-    .hero h1{
-        font-size:27px;
-    }
-
-    .hero p{
-        font-size:8px;
-    }
-
-    .toolbar{
-        flex-direction:column;
-    }
-
-    .filter{
-        width:100%;
-    }
-
-    .refresh-btn{
-        height:38px;
-    }
-
-    .order-top{
-        align-items:flex-start;
-    }
-
-    .order-bottom{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .action-buttons{
-        width:100%;
-    }
-
-    .action-btn{
-        flex:1;
-    }
-
-    .detail-grid{
-        grid-template-columns:1fr;
-    }
-
+  .nav{padding:8px 10px}
+  .logo{font-size:10px}
+  .nav-btn{padding:6px 7px;font-size:8px}
+  main{padding:12px 10px 40px}
+  .hero{padding:23px 16px}
+  .hero h1{font-size:27px}
+  .toolbar{flex-direction:column}
+  .filter{width:100%}
+  .refresh-btn{height:38px}
+  .member-top{align-items:flex-start}
+  .member-bottom{flex-direction:column;align-items:flex-start}
+  .actions{width:100%}
+  .action{flex:1}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
 }
 
+/* ===== DARK MODE FINAL ===== */
+body.dark{
+  background:#08110d;color:#e8f3ed
+}
+body.dark header{
+  background:#0d1914;border-bottom-color:#24372d
+}
+body.dark .logo{color:#35d98a}
+body.dark .dashboard-btn{background:#123b29;color:#72e0a8}
+body.dark .theme-btn{background:#26352e;color:#f1f7f3}
+body.dark .logout-btn{background:#3a2020;color:#ffb4ad}
+body.dark .notice{
+  background:#122c20;border-color:#285b43;color:#8de0b2
+}
+body.dark .notice.error{
+  background:#351d1d;border-color:#633232;color:#ffaaa3
+}
+body.dark .stat,
+body.dark .toolbar,
+body.dark .member-card,
+body.dark .empty,
+body.dark .loading,
+body.dark .modal-box{
+  background:#101d17;border-color:#263a30;
+  box-shadow:0 5px 18px rgba(0,0,0,.2)
+}
+body.dark .stat-icon{
+  color:#dff8e9
+}
+body.dark .stat-label,
+body.dark .section-count,
+body.dark .member-id,
+body.dark .info-label,
+body.dark .field label{
+  color:#9aaba2
+}
+body.dark .stat-number{color:#32d987}
+body.dark .search input,
+body.dark .filter select,
+body.dark .field input,
+body.dark .field select{
+  background:#0d1914;color:#e8f3ed;border-color:#30483b
+}
+body.dark .info-box{
+  background:#13231c
+}
+body.dark .member-bottom{
+  border-top-color:#263a30
+}
+body.dark .edit{background:#173829;color:#75dfa8}
+body.dark .lifetime{background:#3a3219;color:#f1d978}
+body.dark .disable{background:#3b2020;color:#ffaaa3}
+body.dark .cancel,
+body.dark .close{
+  background:#26352e;color:#e8f3ed
+}
+body.dark .preview{
+  background:#122c20;border-color:#285b43;color:#8de0b2
+}
+body.dark footer{background:#050b08}
 
-/* =====================================================
-   DATE PREVIEW
-===================================================== */
+/* ===== DARK MODE ULTRA FINAL OVERRIDE =====
+   Membuat seluruh permukaan halaman benar-benar gelap.
+   Tidak mengubah HTML, JavaScript, Supabase, atau fitur.
+*/
+body.dark,
+body.dark html{
+  background:#050a08 !important;
+  color:#e8f2ed !important;
+}
 
-.date-preview{
-    margin-top:10px;
-    background:#e5f9ed;
-    border:1px solid #bde8cf;
-    color:#087a47;
-    padding:10px;
-    border-radius:8px;
-    font-size:8px;
+body.dark header{
+  background:#070e0b !important;
+  border-bottom:1px solid #17231d !important;
+}
+
+body.dark main{
+  background:transparent !important;
+}
+
+body.dark .hero{
+  background:linear-gradient(135deg,#006b3c,#008f50) !important;
+}
+
+body.dark .notice{
+  background:#0a1b13 !important;
+  border-color:#173b2a !important;
+  color:#82dca9 !important;
+}
+
+body.dark .notice.error{
+  background:#21100f !important;
+  border-color:#4b2422 !important;
+  color:#ffaaa3 !important;
+}
+
+/* Semua kartu / panel */
+body.dark .stat,
+body.dark .toolbar,
+body.dark .member-card,
+body.dark .empty,
+body.dark .loading{
+  background:#09120e !important;
+  border:1px solid #172820 !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.35) !important;
+}
+
+/* Statistik */
+body.dark .stat-icon{
+  background:#0d1c15 !important;
+  color:#8be4b1 !important;
+}
+body.dark .stat-number{
+  color:#18d779 !important;
+}
+body.dark .stat-label{
+  color:#71857b !important;
+}
+
+/* Search & filter */
+body.dark .search input,
+body.dark .filter select{
+  background:#070f0b !important;
+  color:#dcebe4 !important;
+  border-color:#1b3026 !important;
+}
+body.dark .search input::placeholder{
+  color:#5d7067 !important;
+}
+body.dark .search input:focus,
+body.dark .filter select:focus{
+  border-color:#087a47 !important;
+}
+
+/* Member cards */
+body.dark .member-card{
+  background:#09130f !important;
+}
+body.dark .member-name{
+  color:#e6f1eb !important;
+}
+body.dark .member-id{
+  color:#5e7168 !important;
+}
+body.dark .info-box{
+  background:#0b1913 !important;
+  border:1px solid #14271f !important;
+}
+body.dark .info-label{
+  color:#61766b !important;
+}
+body.dark .info-value{
+  color:#cfe0d8 !important;
+}
+body.dark .member-bottom{
+  border-top-color:#16271f !important;
+}
+
+/* Tombol */
+body.dark .edit{
+  background:#0d2a1d !important;
+  color:#65d99e !important;
+}
+body.dark .extend{
+  background:#008f50 !important;
+  color:#fff !important;
+}
+body.dark .lifetime{
+  background:#2a2410 !important;
+  color:#ead36c !important;
+}
+body.dark .disable{
+  background:#351716 !important;
+  color:#ff9d96 !important;
+}
+body.dark .small-btn{
+  background:#0d2a1d !important;
+  color:#65d99e !important;
+}
+
+/* Badge */
+body.dark .badge-active{
+  background:#0c2b1d !important;
+  color:#70e0a7 !important;
+}
+body.dark .badge-expired{
+  background:#351716 !important;
+  color:#ffaaa3 !important;
+}
+body.dark .badge-free{
+  background:#18201c !important;
+  color:#9aa9a2 !important;
+}
+body.dark .badge-life{
+  background:#30270e !important;
+  color:#f0d96e !important;
+}
+
+/* Modal */
+body.dark .modal{
+  background:rgba(0,0,0,.78) !important;
+}
+body.dark .modal-box{
+  background:#09120e !important;
+  border:1px solid #1a2d23 !important;
+  color:#e8f2ed !important;
+}
+body.dark .field label{
+  color:#71857b !important;
+}
+body.dark .field input,
+body.dark .field select{
+  background:#070f0b !important;
+  color:#e8f2ed !important;
+  border-color:#1b3026 !important;
+}
+body.dark .preview{
+  background:#0a1b13 !important;
+  border-color:#173b2a !important;
+  color:#82dca9 !important;
+}
+body.dark .cancel,
+body.dark .close{
+  background:#17211d !important;
+  color:#c8d5cf !important;
+}
+body.dark .save{
+  background:#008f50 !important;
+  color:#fff !important;
+}
+
+/* Footer */
+body.dark footer{
+  background:#020604 !important;
+  border-top:1px solid #111c17 !important;
+}
+body.dark .footer-text{
+  color:#596961 !important;
 }
 
 </style>
-
-  <link rel="stylesheet" href="theme.css">
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
-
-<div class="nav">
-<a href="admin-dashboard.html" class="nav-btn dashboard-btn">← Dashboard Admin</a>
-
-
-<div class="logo">
-📖 NgajiPlus Akademi
-</div>
-
-<div class="nav-buttons">
-
-<a
-    href="dashboard.html"
-    class="nav-btn dashboard-btn"
->
-← Dashboard
-</a>
-
-<button
-    type="button"
-    id="themeBtn"
-    class="nav-btn theme-btn"
-    onclick="NgajiPlusToggleTheme(event)"
-    aria-label="Gunakan Mode Gelap"
-    title="Gunakan Mode Gelap"
->
-🌙
-</button>
-
-<button
-    id="logoutBtn"
-    class="nav-btn logout-btn"
->
-Keluar
-</button>
-
-</div>
-
-</div>
-
+  <div class="nav">
+    <div class="logo">📖 NgajiPlus Akademi</div>
+    <div class="nav-buttons">
+      <a href="admin-dashboard.html" class="nav-btn dashboard-btn">← Dashboard Admin</a>
+      <button id="themeBtn" class="nav-btn theme-btn" type="button">🌙</button>
+      <button id="logoutBtn" class="nav-btn logout-btn" type="button">Keluar</button>
+    </div>
+  </div>
 </header>
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main>
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-<div class="hero-label">
-🔐 PANEL ADMIN
-</div>
-
-<h1>
-Pesanan Membership
-</h1>
-
-<p>
-Kelola pesanan membership dan aktivasi akun member.
-</p>
-
-</section>
-
-
-<!-- NOTICE -->
-
-<div
-    id="notice"
-    class="notice"
->
-⏳ Memeriksa akses admin...
-</div>
-
-
-<!-- STATS -->
-
-<section class="stats">
-
-<div class="stat-card">
-
-<div class="stat-icon">
-📦
-</div>
-
-<div
-    id="totalOrders"
-    class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-Total Pesanan
-</div>
-
-</div>
-
-
-<div class="stat-card">
-
-<div class="stat-icon">
-⏳
-</div>
-
-<div
-    id="waitingOrders"
-    class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-Menunggu / Diproses
-</div>
-
-</div>
-
-
-<div class="stat-card">
-
-<div class="stat-icon">
-☑️
-</div>
-
-<div
-    id="approvedOrders"
-    class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-Disetujui
-</div>
-
-</div>
-
-
-<div class="stat-card">
-
-<div class="stat-icon">
-❌
-</div>
-
-<div
-    id="rejectedOrders"
-    class="stat-number"
->
-0
-</div>
-
-<div class="stat-label">
-Ditolak
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TOOLBAR -->
-
-<section class="toolbar">
-
-<div class="search">
-
-<input
-    id="searchInput"
-    type="search"
-    placeholder="🔎 Cari nama, email atau paket..."
->
-
-</div>
-
-<div class="filter">
-
-<select id="statusFilter">
-
-<option value="">
-Semua Status
-</option>
-
-<option value="menunggu">
-Menunggu
-</option>
-
-<option value="diproses">
-Diproses
-</option>
-
-<option value="disetujui">
-Disetujui
-</option>
-
-<option value="ditolak">
-Ditolak
-</option>
-
-<option value="dibatalkan">
-Dibatalkan
-</option>
-
-</select>
-
-</div>
-
-<button
-    id="refreshBtn"
-    class="refresh-btn"
->
-🔄 Refresh
-</button>
-
-</section>
-
-
-<!-- SECTION TITLE -->
-
-<div class="section-title">
-
-<h2>
-📋 Daftar Pesanan
-</h2>
-
-<div
-    id="orderCount"
-    class="section-count"
->
-0 pesanan
-</div>
-
-</div>
-
-
-<!-- ORDERS -->
-
-<section id="ordersContainer">
-
-<div class="loading">
-⏳ Memuat pesanan...
-</div>
-
-</section>
-
-
+  <section class="hero">
+    <div class="hero-label">🔐 PANEL ADMIN</div>
+    <h1>Manajemen Member</h1>
+    <p>Kelola status, paket, dan masa aktif member NgajiPlus.</p>
+  </section>
+
+  <div id="notice" class="notice">⏳ Memeriksa akses admin...</div>
+
+  <section class="stats">
+    <div class="stat"><div class="stat-icon">👥</div><div id="total" class="stat-number">0</div><div class="stat-label">Total Member</div></div>
+    <div class="stat"><div class="stat-icon">💎</div><div id="active" class="stat-number">0</div><div class="stat-label">Premium Aktif</div></div>
+    <div class="stat"><div class="stat-icon">♾️</div><div id="lifetime" class="stat-number">0</div><div class="stat-label">Lifetime</div></div>
+    <div class="stat"><div class="stat-icon">⏰</div><div id="expired" class="stat-number">0</div><div class="stat-label">Expired</div></div>
+  </section>
+
+  <section class="toolbar">
+    <div class="search"><input id="search" type="search" placeholder="🔎 Cari nama atau ID user..."></div>
+    <div class="filter">
+      <select id="filter">
+        <option value="">Semua Member</option>
+        <option value="aktif">Premium Aktif</option>
+        <option value="lifetime">Lifetime</option>
+        <option value="expired">Expired</option>
+        <option value="nonaktif">Nonaktif / Free</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <button id="refresh" class="refresh-btn" type="button">🔄 Refresh</button>
+  </section>
+
+  <div class="section-title">
+    <h2>👥 Daftar Member</h2>
+    <div id="count" class="section-count">0 member</div>
+  </div>
+
+  <section id="members" class="members">
+    <div class="loading">⏳ Memuat member...</div>
+  </section>
 </main>
 
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="modalTitle" class="modal-title">✏️ Edit Member</h2>
+      <button id="close" class="close" type="button">×</button>
+    </div>
 
-<!-- =====================================================
-     MODAL DETAIL
-===================================================== -->
+    <div class="form-grid">
+      <div class="field full">
+        <label>Nama</label>
+        <input id="nama" type="text">
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="status">
+          <option value="aktif">Aktif</option>
+          <option value="nonaktif">Nonaktif</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Paket</label>
+        <select id="paket">
+          <option value="3 Bulan">3 Bulan</option>
+          <option value="6 Bulan">6 Bulan</option>
+          <option value="1 Tahun">1 Tahun</option>
+          <option value="Lifetime">Lifetime</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Berlaku Sampai</label>
+        <input id="expiry" type="date">
+      </div>
+    </div>
 
-<div
-    id="detailModal"
-    class="modal hidden"
->
+    <div id="preview" class="preview"></div>
 
-<div class="modal-box">
-
-<div class="modal-header">
-
-<h2 class="modal-title">
-📋 Detail Pesanan
-</h2>
-
-<button
-    id="closeModalBtn"
-    class="close-btn"
->
-×
-</button>
-
+    <div class="modal-actions">
+      <button id="cancel" class="cancel" type="button">Batal</button>
+      <button id="save" class="save" type="button">💾 Simpan Perubahan</button>
+    </div>
+  </div>
 </div>
-
-
-<div
-    id="detailContent"
->
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
 <footer>
-
-<div class="footer-inner">
-
-<div class="footer-logo">
-📖 NgajiPlus Akademi
-</div>
-
-<div class="footer-text">
-Panel administrasi membership NgajiPlus Akademi.
-</div>
-
-</div>
-
+  <div class="footer-inner">
+    <div class="footer-logo">📖 NgajiPlus Akademi</div>
+    <div class="footer-text">Panel administrasi member NgajiPlus Akademi.</div>
+  </div>
 </footer>
 
-
 <script>
+const SUPABASE_URL="https://ksgywgdrfskqsufchbcm.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+let currentUser=null;
+let allMembers=[];
+let editing=null;
 
-const SUPABASE_URL =
-    "https://ksgywgdrfskqsufchbcm.supabase.co";
+const $=id=>document.getElementById(id);
 
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-let currentUser = null;
-
-let allOrders = [];
-
-let currentDetailOrder = null;
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const notice =
-    document.getElementById(
-        "notice"
-    );
-
-const ordersContainer =
-    document.getElementById(
-        "ordersContainer"
-    );
-
-const totalOrders =
-    document.getElementById(
-        "totalOrders"
-    );
-
-const waitingOrders =
-    document.getElementById(
-        "waitingOrders"
-    );
-
-const approvedOrders =
-    document.getElementById(
-        "approvedOrders"
-    );
-
-const rejectedOrders =
-    document.getElementById(
-        "rejectedOrders"
-    );
-
-const orderCount =
-    document.getElementById(
-        "orderCount"
-    );
-
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
-
-const statusFilter =
-    document.getElementById(
-        "statusFilter"
-    );
-
-const refreshBtn =
-    document.getElementById(
-        "refreshBtn"
-    );
-
-const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
-
-const detailModal =
-    document.getElementById(
-        "detailModal"
-    );
-
-const detailContent =
-    document.getElementById(
-        "detailContent"
-    );
-
-const closeModalBtn =
-    document.getElementById(
-        "closeModalBtn"
-    );
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
+function esc(v){
+  return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
-
-/* =====================================================
-   FORMAT RUPIAH
-===================================================== */
-
-function formatRupiah(value){
-
-    return new Intl.NumberFormat(
-        "id-ID",
-        {
-            style:"currency",
-            currency:"IDR",
-            maximumFractionDigits:0
-        }
-    ).format(
-        Number(value || 0)
-    );
-
+function norm(v){return String(v||"").trim().toLowerCase()}
+function dateOnly(v){return v?String(v).slice(0,10):""}
+function fmt(v){
+  if(!v)return "-";
+  const d=new Date(v);
+  if(isNaN(d.getTime()))return "-";
+  return d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
 }
-
-
-/* =====================================================
-   FORMAT DATE
-===================================================== */
-
-function formatTanggal(value){
-
-    if(!value){
-        return "-";
-    }
-
-    const date =
-        new Date(value);
-
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-        return "-";
-    }
-
-    return date.toLocaleDateString(
-        "id-ID",
-        {
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        }
-    );
-
+function today(){
+  const d=new Date();
+  return new Date(d.getFullYear(),d.getMonth(),d.getDate());
 }
-
-
-/* =====================================================
-   FORMAT DATETIME
-===================================================== */
-
-function formatTanggalJam(value){
-
-    if(!value){
-        return "-";
-    }
-
-    const date =
-        new Date(value);
-
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-        return "-";
-    }
-
-    return date.toLocaleString(
-        "id-ID",
-        {
-            day:"numeric",
-            month:"long",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
+function parse(v){
+  if(!v)return null;
+  const p=String(v).slice(0,10).split("-");
+  if(p.length!==3)return null;
+  const d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));
+  return isNaN(d.getTime())?null:d;
 }
-
-
-/* =====================================================
-   NORMALIZE STATUS
-===================================================== */
-
-function normalizeStatus(status){
-
-    return String(
-        status || ""
-    )
-    .toLowerCase()
-    .trim();
-
+function isLifetime(m){
+  return norm(m.paket)==="lifetime";
 }
-
-
-/* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function getStatusClass(status){
-
-    const value =
-        normalizeStatus(status);
-
-    if(value === "disetujui"){
-        return "status-disetujui";
-    }
-
-    if(value === "diproses"){
-        return "status-diproses";
-    }
-
-    if(
-        value === "ditolak" ||
-        value === "dibatalkan"
-    ){
-        return "status-ditolak";
-    }
-
-    return "status-menunggu";
-
+function isActive(m){
+  if(norm(m.status)!=="aktif")return false;
+  if(isLifetime(m))return true;
+  const d=parse(m.berlaku_sampai);
+  return !!d && d>=today();
 }
-
-
-/* =====================================================
-   TODAY DATE ONLY
-=====================================================
-
-   Kita sengaja menggunakan tanggal lokal Indonesia,
-   bukan UTC, agar tidak bergeser satu hari.
-===================================================== */
-
-function getTodayDateOnly(){
-
-    const now =
-        new Date();
-
-    return new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate()
-    );
-
+function badge(m){
+  if(isLifetime(m)&&norm(m.status)==="aktif") return ['badge-life','♾️ Lifetime'];
+  if(isActive(m)) return ['badge-active','💎 Premium Aktif'];
+  const d=parse(m.berlaku_sampai);
+  if(norm(m.status)==="aktif" && d && d<today()) return ['badge-expired','⏰ Expired'];
+  return ['badge-free','○ Nonaktif / Free'];
 }
-
-
-/* =====================================================
-   PARSE DATE ONLY
-===================================================== */
-
-function parseDateOnly(value){
-
-    if(!value){
-        return null;
-    }
-
-    const text =
-        String(value)
-        .slice(0,10);
-
-    const parts =
-        text.split("-");
-
-    if(parts.length !== 3){
-        return null;
-    }
-
-    const year =
-        Number(parts[0]);
-
-    const month =
-        Number(parts[1]);
-
-    const day =
-        Number(parts[2]);
-
-    if(
-        !year ||
-        !month ||
-        !day
-    ){
-        return null;
-    }
-
-    const date =
-        new Date(
-            year,
-            month - 1,
-            day
-        );
-
-    if(
-        isNaN(
-            date.getTime()
-        )
-    ){
-        return null;
-    }
-
-    return date;
-
-}
-
-
-/* =====================================================
-   DATE TO YYYY-MM-DD
-===================================================== */
-
-function dateToYMD(date){
-
-    const year =
-        date.getFullYear();
-
-    const month =
-        String(
-            date.getMonth() + 1
-        )
-        .padStart(2,"0");
-
-    const day =
-        String(
-            date.getDate()
-        )
-        .padStart(2,"0");
-
-    return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
-    );
-
-}
-
-
-/* =====================================================
-   HITUNG TANGGAL MEMBERSHIP
-=====================================================
-
-   LOGIKA:
-
-   Jika membership lama masih aktif:
-       tanggal mulai = expiry lama
-
-   Jika sudah expired:
-       tanggal mulai = hari ini
-
-   Kemudian:
-       expiry baru = tanggal mulai + durasi hari
-
-   Contoh:
-       3 September + 30 hari
-       = 3 Oktober
-
-===================================================== */
-
-function calculateNewExpiry(
-    oldExpiry,
-    durationDays
-){
-
-    const today =
-        getTodayDateOnly();
-
-    let baseDate =
-        today;
-
-
-    const oldDate =
-        parseDateOnly(
-            oldExpiry
-        );
-
-
-    if(
-        oldDate &&
-        oldDate > today
-    ){
-
-        baseDate =
-            oldDate;
-
-    }
-
-
-    const newExpiry =
-        new Date(
-            baseDate.getFullYear(),
-            baseDate.getMonth(),
-            baseDate.getDate()
-        );
-
-
-    newExpiry.setDate(
-        newExpiry.getDate() +
-        Number(durationDays || 0)
-    );
-
-
-    return {
-        startDate:baseDate,
-        expiryDate:newExpiry
-    };
-
-}
-
-
-/* =====================================================
-   CHECK ADMIN
-===================================================== */
 
 async function checkAdmin(){
+  try{
+    const {data:{user},error}=await sb.auth.getUser();
+    if(error)throw error;
+    currentUser=user;
+    if(!currentUser)throw new Error("Anda belum login.");
 
-    try{
+    const p=await sb.from("profiles").select("id,nama,is_admin").eq("id",currentUser.id).maybeSingle();
+    if(p.error)throw p.error;
 
-        const result =
-            await supabaseClient
-                .auth
-                .getUser();
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        currentUser =
-            result.data.user;
-
-
-        if(!currentUser){
-
-            throw new Error(
-                "Anda belum login."
-            );
-
-        }
-
-
-        /*
-           CEK PROFILES
-        */
-
-        const profileResult =
-            await supabaseClient
-                .from("profiles")
-                .select(
-                    "id,nama,is_admin"
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
-
-
-        if(profileResult.error){
-
-            throw profileResult.error;
-
-        }
-
-
-        const profile =
-            profileResult.data;
-
-
-        let isAdmin =
-            Boolean(
-                profile?.is_admin
-            );
-
-
-        /*
-           JIKA BELUM ADMIN DARI PROFILES,
-           CEK admin_users
-        */
-
-        if(!isAdmin){
-
-            const adminResult =
-                await supabaseClient
-                    .from("admin_users")
-                    .select(
-                        "user_id"
-                    )
-                    .eq(
-                        "user_id",
-                        currentUser.id
-                    )
-                    .maybeSingle();
-
-
-            if(
-                !adminResult.error &&
-                adminResult.data
-            ){
-
-                isAdmin = true;
-
-            }
-
-        }
-
-
-        if(!isAdmin){
-
-            throw new Error(
-                "Akun Anda tidak memiliki akses admin."
-            );
-
-        }
-
-
-        notice.className =
-            "notice";
-
-        notice.innerHTML =
-            "✅ Login sebagai admin. Anda dapat mengelola pesanan membership.";
-
-
-        await loadOrders();
-
-        return true;
-
+    let admin=!!p.data?.is_admin;
+    if(!admin){
+      const a=await sb.from("admin_users").select("user_id").eq("user_id",currentUser.id).maybeSingle();
+      if(!a.error&&a.data)admin=true;
     }
+    if(!admin)throw new Error("Akun Anda tidak memiliki akses admin.");
 
-    catch(error){
-
-        console.error(
-            "CHECK ADMIN ERROR:",
-            error
-        );
-
-
-        notice.className =
-            "notice error";
-
-        notice.innerHTML =
-            "❌ " +
-            escapeHtml(
-                error.message
-            );
-
-
-        ordersContainer.innerHTML = `
-
-            <div class="empty">
-
-                🔐 Akses admin diperlukan.
-
-            </div>
-
-        `;
-
-
-        return false;
-
-    }
-
+    $("notice").className="notice";
+    $("notice").textContent="✅ Login sebagai admin. Data member siap dikelola.";
+    await loadMembers();
+  }catch(e){
+    console.error(e);
+    $("notice").className="notice error";
+    $("notice").textContent="❌ "+(e.message||"Akses admin gagal.");
+    $("members").innerHTML='<div class="empty">🔐 Akses admin diperlukan.</div>';
+  }
 }
 
-
-/* =====================================================
-   LOAD ORDERS
-===================================================== */
-
-async function loadOrders(){
-
-    ordersContainer.innerHTML = `
-
-        <div class="loading">
-            ⏳ Memuat pesanan...
-        </div>
-
-    `;
-
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from(
-                    "membership_orders"
-                )
-                .select(
-                    "id,user_id,nama,email,paket,harga,durasi_hari,status,created_at"
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        allOrders =
-            result.data || [];
-
-
-        updateStats();
-
-        renderOrders();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "LOAD ORDERS ERROR:",
-            error
-        );
-
-
-        ordersContainer.innerHTML = `
-
-            <div class="empty">
-
-                ❌ Gagal mengambil pesanan.<br><br>
-
-                ${escapeHtml(
-                    error.message
-                )}
-
-            </div>
-
-        `;
-
-    }
-
+async function loadMembers(){
+  $("members").innerHTML='<div class="loading">⏳ Memuat member...</div>';
+  try{
+    const r=await sb.from("profiles")
+      .select("id,nama,status,paket,berlaku_sampai,is_admin")
+      .order("nama",{ascending:true});
+    if(r.error)throw r.error;
+    allMembers=r.data||[];
+    updateStats();
+    render();
+  }catch(e){
+    console.error(e);
+    $("members").innerHTML='<div class="empty">❌ Gagal mengambil data member.<br><br>'+esc(e.message)+'</div>';
+  }
 }
-
-
-/* =====================================================
-   UPDATE STATS
-===================================================== */
 
 function updateStats(){
-
-    const total =
-        allOrders.length;
-
-
-    const waiting =
-        allOrders.filter(
-            order => {
-
-                const status =
-                    normalizeStatus(
-                        order.status
-                    );
-
-                return (
-                    status === "menunggu" ||
-                    status === "diproses"
-                );
-
-            }
-        )
-        .length;
-
-
-    const approved =
-        allOrders.filter(
-            order =>
-                normalizeStatus(
-                    order.status
-                ) === "disetujui"
-        )
-        .length;
-
-
-    const rejected =
-        allOrders.filter(
-            order => {
-
-                const status =
-                    normalizeStatus(
-                        order.status
-                    );
-
-                return (
-                    status === "ditolak" ||
-                    status === "dibatalkan"
-                );
-
-            }
-        )
-        .length;
-
-
-    totalOrders.textContent =
-        total;
-
-    waitingOrders.textContent =
-        waiting;
-
-    approvedOrders.textContent =
-        approved;
-
-    rejectedOrders.textContent =
-        rejected;
-
+  $("total").textContent=allMembers.length;
+  $("active").textContent=allMembers.filter(isActive).length;
+  $("lifetime").textContent=allMembers.filter(m=>isLifetime(m)&&norm(m.status)==="aktif").length;
+  $("expired").textContent=allMembers.filter(m=>{
+    const d=parse(m.berlaku_sampai);
+    return norm(m.status)==="aktif" && !isLifetime(m) && d && d<today();
+  }).length;
 }
 
-
-/* =====================================================
-   FILTER ORDERS
-===================================================== */
-
-function getFilteredOrders(){
-
-    const search =
-        String(
-            searchInput.value || ""
-        )
-        .toLowerCase()
-        .trim();
-
-
-    const status =
-        normalizeStatus(
-            statusFilter.value
-        );
-
-
-    return allOrders.filter(
-        function(order){
-
-            const text =
-                (
-                    String(
-                        order.nama || ""
-                    ) +
-                    " " +
-                    String(
-                        order.email || ""
-                    ) +
-                    " " +
-                    String(
-                        order.paket || ""
-                    )
-                )
-                .toLowerCase();
-
-
-            const matchesSearch =
-                !search ||
-                text.includes(
-                    search
-                );
-
-
-            const matchesStatus =
-                !status ||
-                normalizeStatus(
-                    order.status
-                ) === status;
-
-
-            return (
-                matchesSearch &&
-                matchesStatus
-            );
-
-        }
-    );
-
+function filtered(){
+  const q=norm($("search").value);
+  const f=norm($("filter").value);
+  return allMembers.filter(m=>{
+    const text=(String(m.nama||"")+" "+String(m.id||"")).toLowerCase();
+    if(q&&!text.includes(q))return false;
+    if(!f)return true;
+    if(f==="aktif")return isActive(m);
+    if(f==="lifetime")return isLifetime(m)&&norm(m.status)==="aktif";
+    if(f==="expired"){
+      const d=parse(m.berlaku_sampai);
+      return norm(m.status)==="aktif"&&!isLifetime(m)&&d&&d<today();
+    }
+    if(f==="nonaktif")return !isActive(m);
+    if(f==="admin")return !!m.is_admin;
+    return true;
+  });
 }
 
-
-/* =====================================================
-   RENDER ORDERS
-===================================================== */
-
-function renderOrders(){
-
-    const orders =
-        getFilteredOrders();
-
-
-    orderCount.textContent =
-        orders.length +
-        " pesanan";
-
-
-    if(
-        orders.length === 0
-    ){
-
-        ordersContainer.innerHTML = `
-
-            <div class="empty">
-
-                📭 Tidak ada pesanan
-                yang sesuai.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    ordersContainer.innerHTML =
-        orders
-            .map(
-                function(order){
-
-                    const status =
-                        normalizeStatus(
-                            order.status
-                        );
-
-
-                    const isPending =
-                        (
-                            status === "menunggu" ||
-                            status === "diproses"
-                        );
-
-
-                    return `
-
-                        <article
-                            class="order-card"
-                        >
-
-                            <div class="order-top">
-
-                                <div>
-
-                                    <div
-                                        class="member-name"
-                                    >
-                                        ${escapeHtml(
-                                            order.nama
-                                        )}
-                                    </div>
-
-                                    <div
-                                        class="member-email"
-                                    >
-                                        ${escapeHtml(
-                                            order.email
-                                        )}
-                                    </div>
-
-                                </div>
-
-
-                                <span
-                                    class="
-                                        status
-                                        ${getStatusClass(
-                                            order.status
-                                        )}
-                                    "
-                                >
-                                    ${escapeHtml(
-                                        order.status
-                                    )}
-                                </span>
-
-                            </div>
-
-
-                            <div class="order-info">
-
-
-                                <div class="info-box">
-
-                                    <div
-                                        class="info-label"
-                                    >
-                                        Paket
-                                    </div>
-
-                                    <div
-                                        class="info-value"
-                                    >
-                                        ${escapeHtml(
-                                            order.paket
-                                        )}
-                                    </div>
-
-                                </div>
-
-
-                                <div class="info-box">
-
-                                    <div
-                                        class="info-label"
-                                    >
-                                        Harga
-                                    </div>
-
-                                    <div
-                                        class="info-value"
-                                    >
-                                        ${formatRupiah(
-                                            order.harga
-                                        )}
-                                    </div>
-
-                                </div>
-
-
-                                <div class="info-box">
-
-                                    <div
-                                        class="info-label"
-                                    >
-                                        Durasi
-                                    </div>
-
-                                    <div
-                                        class="info-value"
-                                    >
-                                        ${escapeHtml(
-                                            order.durasi_hari
-                                        )}
-                                        hari
-                                    </div>
-
-                                </div>
-
-
-                                <div class="info-box">
-
-                                    <div
-                                        class="info-label"
-                                    >
-                                        Pesanan
-                                    </div>
-
-                                    <div
-                                        class="info-value"
-                                    >
-                                        ${formatTanggal(
-                                            order.created_at
-                                        )}
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="order-bottom">
-
-                                <div
-                                    class="order-id"
-                                >
-                                    ID Pesanan:
-                                    ${escapeHtml(
-                                        order.id
-                                    )}
-                                </div>
-
-
-                                <div class="action-buttons">
-
-
-                                    <button
-                                        class="
-                                            action-btn
-                                            detail-btn
-                                        "
-                                        onclick="
-                                            showDetail(
-                                                ${Number(order.id)}
-                                            )
-                                        "
-                                    >
-                                        🔎 Detail
-                                    </button>
-
-
-                                    ${
-                                        isPending
-                                        ?
-                                        `
-
-                                            <button
-                                                class="
-                                                    action-btn
-                                                    approve-btn
-                                                "
-                                                onclick="
-                                                    approveOrder(
-                                                        ${Number(order.id)}
-                                                    )
-                                                "
-                                            >
-                                                ✅ Setujui
-                                            </button>
-
-
-                                            <button
-                                                class="
-                                                    action-btn
-                                                    reject-btn
-                                                "
-                                                onclick="
-                                                    rejectOrder(
-                                                        ${Number(order.id)}
-                                                    )
-                                                "
-                                            >
-                                                ❌ Tolak
-                                            </button>
-
-                                        `
-                                        :
-                                        ""
-                                    }
-
-
-                                </div>
-
-                            </div>
-
-                        </article>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =====================================================
-   SHOW DETAIL
-===================================================== */
-
-function showDetail(orderId){
-
-    const order =
-        allOrders.find(
-            item =>
-                Number(item.id) ===
-                Number(orderId)
-        );
-
-
-    if(!order){
-
-        alert(
-            "Pesanan tidak ditemukan."
-        );
-
-        return;
-
-    }
-
-
-    currentDetailOrder =
-        order;
-
-
-    const status =
-        normalizeStatus(
-            order.status
-        );
-
-
-    let extraInfo = "";
-
-
-    if(
-        status === "menunggu" ||
-        status === "diproses"
-    ){
-
-        const isLifetime =
-            String(order.paket || "").trim().toLowerCase() === "lifetime";
-
-        if(isLifetime){
-            extraInfo = `
-                <div class="date-preview">
-                    ♾️ <strong>Lifetime</strong><br>
-                    Jika disetujui, Premium aktif selamanya dan
-                    <strong>tidak memiliki tanggal kedaluwarsa</strong>.
-                </div>
-            `;
-        }else{
-            const preview =
-                calculateNewExpiry(
-                    null,
-                    order.durasi_hari
-                );
-
-            extraInfo = `
-                <div class="date-preview">
-                    📅 Jika disetujui hari ini,
-                    perkiraan membership aktif sampai:
-                    <strong>
-                        ${formatTanggal(preview.expiryDate)}
-                    </strong>
-                </div>
-            `;
-        }
-
-    }
-
-
-    detailContent.innerHTML = `
-
-        <div class="detail-grid">
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Nama Member
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.nama
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Email
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.email
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Paket
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.paket
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Harga
-                </div>
-
-                <div class="detail-value">
-                    ${formatRupiah(
-                        order.harga
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Durasi
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.durasi_hari
-                    )}
-                    hari
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Status
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.status
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    ID User
-                </div>
-
-                <div class="detail-value">
-                    ${escapeHtml(
-                        order.user_id
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <div class="detail-label">
-                    Dibuat
-                </div>
-
-                <div class="detail-value">
-                    ${formatTanggalJam(
-                        order.created_at
-                    )}
-                </div>
-
-            </div>
-
-
+function render(){
+  const list=filtered();
+  $("count").textContent=list.length+" member";
+  if(!list.length){
+    $("members").innerHTML='<div class="empty">📭 Tidak ada member yang sesuai.</div>';
+    return;
+  }
+  $("members").innerHTML=list.map(m=>{
+    const b=badge(m);
+    return `<article class="member-card">
+      <div class="member-top">
+        <div>
+          <div class="member-name">${esc(m.nama||"Tanpa Nama")}</div>
+          <div class="member-id">${esc(m.id)}</div>
         </div>
-
-
-        ${extraInfo}
-
-
-        ${
-            (
-                status === "menunggu" ||
-                status === "diproses"
-            )
-            ?
-            `
-
-                <div class="modal-actions">
-
-                    <button
-                        class="
-                            action-btn
-                            approve-btn
-                        "
-                        onclick="
-                            closeDetail();
-                            approveOrder(
-                                ${Number(order.id)}
-                            );
-                        "
-                    >
-                        ✅ Setujui Pesanan
-                    </button>
-
-                    <button
-                        class="
-                            action-btn
-                            reject-btn
-                        "
-                        onclick="
-                            closeDetail();
-                            rejectOrder(
-                                ${Number(order.id)}
-                            );
-                        "
-                    >
-                        ❌ Tolak
-                    </button>
-
-                </div>
-
-            `
-            :
-            ""
-        }
-
-    `;
-
-
-    detailModal.classList.remove(
-        "hidden"
-    );
-
+        <span class="badge ${b[0]}">${b[1]}</span>
+      </div>
+      <div class="member-info">
+        <div class="info-box"><div class="info-label">Status</div><div class="info-value">${esc(m.status||"nonaktif")}</div></div>
+        <div class="info-box"><div class="info-label">Paket</div><div class="info-value">${esc(m.paket||"-")}</div></div>
+        <div class="info-box"><div class="info-label">Berlaku Sampai</div><div class="info-value">${isLifetime(m)&&norm(m.status)==="aktif"?"Selamanya":fmt(m.berlaku_sampai)}</div></div>
+        <div class="info-box"><div class="info-label">Admin</div><div class="info-value">${m.is_admin?"Ya":"Tidak"}</div></div>
+      </div>
+      <div class="member-bottom">
+        <div class="member-id">User ID: ${esc(m.id)}</div>
+        <div class="actions">
+          <button class="action edit" onclick="openEdit('${esc(m.id)}')">✏️ Edit</button>
+          <button class="action extend" onclick="quickExtend('${esc(m.id)}')">📅 +30 Hari</button>
+          <button class="action lifetime" onclick="makeLifetime('${esc(m.id)}')">♾️ Lifetime</button>
+          <button class="action disable" onclick="toggleMember('${esc(m.id)}')">${isActive(m)?"⛔ Nonaktifkan":"✅ Aktifkan"}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
 }
 
-
-/* =====================================================
-   CLOSE DETAIL
-===================================================== */
-
-function closeDetail(){
-
-    detailModal.classList.add(
-        "hidden"
-    );
-
-    currentDetailOrder =
-        null;
-
+function openEdit(id){
+  editing=allMembers.find(m=>String(m.id)===String(id));
+  if(!editing)return alert("Member tidak ditemukan.");
+  $("modalTitle").textContent="✏️ Edit Member";
+  $("nama").value=editing.nama||"";
+  $("status").value=norm(editing.status)==="aktif"?"aktif":"nonaktif";
+  $("paket").value=isLifetime(editing)?"Lifetime":(editing.paket||"3 Bulan");
+  $("expiry").value=dateOnly(editing.berlaku_sampai);
+  updatePreview();
+  $("modal").classList.remove("hidden");
+}
+function closeModal(){
+  $("modal").classList.add("hidden");editing=null;
+}
+function updatePreview(){
+  if(!$("modal").classList.contains("hidden")){
+    const s=norm($("status").value);
+    const p=norm($("paket").value);
+    $("preview").innerHTML=p==="lifetime"&&s==="aktif"
+      ? "♾️ <strong>Lifetime</strong>: Premium aktif selamanya, berlaku_sampai akan menjadi NULL."
+      : "📅 Tanggal berlaku: <strong>"+esc($("expiry").value||"-")+"</strong>";
+  }
 }
 
+async function saveEdit(){
+  if(!editing)return;
+  const nama=$("nama").value.trim();
+  const status=$("status").value;
+  const paket=$("paket").value;
+  if(!nama)return alert("Nama tidak boleh kosong.");
 
-/* =====================================================
-   APPROVE ORDER
-===================================================== */
+  const payload={nama,status,paket};
+  if(paket==="Lifetime"&&status==="aktif"){
+    payload.berlaku_sampai=null;
+  }else{
+    payload.berlaku_sampai=$("expiry").value||null;
+  }
 
-async function approveOrder(orderId){
-
-    const order =
-        allOrders.find(
-            item => Number(item.id) === Number(orderId)
-        );
-
-    if(!order){
-        alert("Pesanan tidak ditemukan.");
-        return;
-    }
-
-    const status = normalizeStatus(order.status);
-
-    if(status !== "menunggu" && status !== "diproses"){
-        alert("Pesanan ini sudah diproses.");
-        return;
-    }
-
-    const isLifetime =
-        String(order.paket || "").trim().toLowerCase() === "lifetime";
-
-    try{
-        const { data: profile, error: profileError } =
-            await supabaseClient
-                .from("profiles")
-                .select("id,nama,status,paket,berlaku_sampai")
-                .eq("id", order.user_id)
-                .maybeSingle();
-
-        if(profileError) throw profileError;
-
-        let message = "";
-
-        if(isLifetime){
-            message =
-                "👑 AKTIVASI LIFETIME\n\n" +
-                "Member: " + order.nama + "\n" +
-                "Paket: Lifetime\n" +
-                "Harga: " + formatRupiah(order.harga) + "\n\n" +
-                "Membership akan menjadi:\n" +
-                "♾️ Premium Lifetime\n" +
-                "📅 Tanpa tanggal kedaluwarsa\n" +
-                "🔒 berlaku_sampai = NULL\n\n" +
-                "Setujui pesanan Lifetime ini?";
-        }else{
-            const calculation = calculateNewExpiry(
-                profile?.berlaku_sampai,
-                order.durasi_hari
-            );
-
-            const previewExpiry = calculation.expiryDate;
-            const oldExpiry = parseDateOnly(profile?.berlaku_sampai);
-            const today = getTodayDateOnly();
-
-            if(oldExpiry && oldExpiry > today){
-                message =
-                    "Membership lama masih aktif sampai " +
-                    formatTanggal(oldExpiry) +
-                    ".\n\n" +
-                    "Durasi " + order.durasi_hari +
-                    " hari akan ditambahkan setelah tanggal tersebut.\n\n";
-            }else{
-                message =
-                    "Membership akan dimulai dari hari ini.\n\n";
-            }
-
-            message +=
-                "Member: " + order.nama + "\n" +
-                "Paket: " + order.paket + "\n" +
-                "Harga: " + formatRupiah(order.harga) + "\n" +
-                "Durasi: " + order.durasi_hari + " hari\n\n" +
-                "Perkiraan membership aktif sampai:\n" +
-                formatTanggal(previewExpiry) +
-                "\n\n" +
-                "Tanggal final dihitung otomatis oleh sistem.\n\n" +
-                "Setujui pesanan ini?";
-        }
-
-        if(!confirm(message)) return;
-
-        const { data: result, error } =
-            await supabaseClient.rpc(
-                "approve_membership_order",
-                {
-                    p_order_id: Number(order.id)
-                }
-            );
-
-        if(error) throw error;
-
-        const finalResult = Array.isArray(result)
-            ? result[0]
-            : result;
-
-        if(isLifetime){
-            alert(
-                "✅ LIFETIME BERHASIL DIAKTIFKAN\n\n" +
-                "Member: " + order.nama + "\n" +
-                "Paket: Lifetime\n" +
-                "Harga: " + formatRupiah(order.harga) + "\n\n" +
-                "♾️ Premium aktif selamanya.\n" +
-                "📅 Tidak memiliki tanggal kedaluwarsa."
-            );
-        }else{
-            alert(
-                "✅ PEMBAYARAN DIKONFIRMASI\n\n" +
-                "Member: " + order.nama + "\n" +
-                "Paket: " + order.paket + "\n" +
-                "Harga: " + formatRupiah(order.harga) + "\n" +
-                "Durasi: " + order.durasi_hari + " hari\n\n" +
-                "Membership aktif sampai:\n" +
-                formatTanggal(finalResult?.tanggal_baru)
-            );
-        }
-
-        await loadOrders();
-
-    }catch(error){
-
-        console.error("APPROVE ORDER ERROR:", error);
-
-        alert(
-            "❌ Gagal menyetujui pesanan.\n\n" +
-            (error?.message || "Terjadi kesalahan pada server.")
-        );
-    }
+  if(!confirm("Simpan perubahan member "+nama+"?"))return;
+  $("save").disabled=true;
+  $("save").textContent="⏳ Menyimpan...";
+  try{
+    const r=await sb.from("profiles").update(payload).eq("id",editing.id);
+    if(r.error)throw r.error;
+    alert("✅ Data member berhasil diperbarui.");
+    closeModal();
+    await loadMembers();
+  }catch(e){
+    console.error(e);
+    alert("❌ Gagal memperbarui member.\n\n"+e.message);
+  }finally{
+    $("save").disabled=false;$("save").textContent="💾 Simpan Perubahan";
+  }
 }
 
-/* =====================================================
-   REJECT ORDER
-===================================================== */
-
-async function rejectOrder(orderId){
-
-    const order =
-        allOrders.find(
-            item =>
-                Number(item.id) ===
-                Number(orderId)
-        );
-
-
-    if(!order){
-
-        alert(
-            "Pesanan tidak ditemukan."
-        );
-
-        return;
-
-    }
-
-
-    const status =
-        normalizeStatus(
-            order.status
-        );
-
-
-    if(
-        status !== "menunggu" &&
-        status !== "diproses"
-    ){
-
-        alert(
-            "Pesanan ini sudah diproses."
-        );
-
-        return;
-
-    }
-
-
-    const alasan =
-        prompt(
-            "Alasan penolakan pesanan:\n\n" +
-            "Boleh dikosongkan."
-        );
-
-
-    if(
-        alasan === null
-    ){
-
-        return;
-
-    }
-
-
-    const yakin =
-        confirm(
-            "Tolak pesanan " +
-            order.paket +
-            " milik " +
-            order.nama +
-            "?"
-        );
-
-
-    if(!yakin){
-
-        return;
-
-    }
-
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from(
-                    "membership_orders"
-                )
-                .update({
-
-                    status:
-                        "ditolak"
-
-                })
-                .eq(
-                    "id",
-                    order.id
-                );
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        alert(
-            "❌ Pesanan telah ditolak."
-        );
-
-
-        await loadOrders();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "REJECT ORDER ERROR:",
-            error
-        );
-
-
-        alert(
-            "❌ Gagal menolak pesanan.\n\n" +
-            error.message
-        );
-
-    }
-
+function addDays(base,days){
+  const d=new Date(base.getFullYear(),base.getMonth(),base.getDate());
+  d.setDate(d.getDate()+days);
+  return d;
+}
+function ymd(d){
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
+async function quickExtend(id){
+  const m=allMembers.find(x=>String(x.id)===String(id));
+  if(!m)return;
+  const old=parse(m.berlaku_sampai);
+  const base=old&&old>=today()?old:today();
+  const next=addDays(base,30);
+  if(!confirm("Perpanjang 30 hari untuk "+(m.nama||"member")+"?\n\nBerlaku sampai: "+fmt(next)))return;
+  try{
+    const r=await sb.from("profiles").update({
+      status:"aktif",paket:(m.paket&&norm(m.paket)!=="lifetime")?m.paket:"3 Bulan",
+      berlaku_sampai:ymd(next)
+    }).eq("id",m.id);
+    if(r.error)throw r.error;
+    alert("✅ Membership diperpanjang 30 hari.\n\nSampai: "+fmt(next));
+    await loadMembers();
+  }catch(e){alert("❌ Gagal memperpanjang.\n\n"+e.message)}
+}
 
-/* =====================================================
-   SEARCH
-===================================================== */
+async function makeLifetime(id){
+  const m=allMembers.find(x=>String(x.id)===String(id));
+  if(!m)return;
+  if(!confirm("Aktifkan LIFETIME untuk "+(m.nama||"member")+"?\n\nPremium aktif selamanya dan berlaku_sampai = NULL."))return;
+  try{
+    const r=await sb.from("profiles").update({
+      status:"aktif",paket:"Lifetime",berlaku_sampai:null
+    }).eq("id",m.id);
+    if(r.error)throw r.error;
+    alert("✅ Premium Lifetime berhasil diaktifkan.");
+    await loadMembers();
+  }catch(e){alert("❌ Gagal mengaktifkan Lifetime.\n\n"+e.message)}
+}
 
-searchInput.addEventListener(
-    "input",
-    function(){
+async function toggleMember(id){
+  const m=allMembers.find(x=>String(x.id)===String(id));
+  if(!m)return;
+  const active=isActive(m);
+  const next=active?"nonaktif":"aktif";
+  if(!confirm((active?"Nonaktifkan":"Aktifkan")+" member "+(m.nama||"ini")+"?"))return;
 
-        renderOrders();
-
+  let payload={status:next};
+  if(next==="aktif"){
+    if(isLifetime(m)){
+      payload.paket="Lifetime";payload.berlaku_sampai=null;
+    }else{
+      const d=parse(m.berlaku_sampai);
+      payload.paket=m.paket||"3 Bulan";
+      payload.berlaku_sampai=d&&d>=today()?dateOnly(m.berlaku_sampai):ymd(addDays(today(),30));
     }
-);
+  }
+  try{
+    const r=await sb.from("profiles").update(payload).eq("id",m.id);
+    if(r.error)throw r.error;
+    alert("✅ Status member berhasil diubah.");
+    await loadMembers();
+  }catch(e){alert("❌ Gagal mengubah status.\n\n"+e.message)}
+}
 
+$("search").addEventListener("input",render);
+$("filter").addEventListener("change",render);
+$("refresh").addEventListener("click",async()=>{
+  $("refresh").disabled=true;$("refresh").textContent="⏳ Memuat...";
+  await loadMembers();
+  $("refresh").disabled=false;$("refresh").textContent="🔄 Refresh";
+});
+$("close").addEventListener("click",closeModal);
+$("cancel").addEventListener("click",closeModal);
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal()});
+$("save").addEventListener("click",saveEdit);
+$("status").addEventListener("change",updatePreview);
+$("paket").addEventListener("change",updatePreview);
 
-/* =====================================================
-   FILTER
-===================================================== */
+$("logoutBtn").addEventListener("click",async()=>{
+  if(!confirm("Apakah Anda ingin keluar?"))return;
+  const r=await sb.auth.signOut();
+  if(r.error)return alert("❌ "+r.error.message);
+  location.href="login.html";
+});
 
-statusFilter.addEventListener(
-    "change",
-    function(){
-
-        renderOrders();
-
-    }
-);
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-refreshBtn.addEventListener(
-    "click",
-    async function(){
-
-        refreshBtn.disabled =
-            true;
-
-        refreshBtn.textContent =
-            "⏳ Memuat...";
-
-
-        await loadOrders();
-
-
-        refreshBtn.disabled =
-            false;
-
-        refreshBtn.textContent =
-            "🔄 Refresh";
-
-    }
-);
-
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-closeModalBtn.addEventListener(
-    "click",
-    closeDetail
-);
-
-
-detailModal.addEventListener(
-    "click",
-    function(event){
-
-        if(
-            event.target ===
-            detailModal
-        ){
-
-            closeDetail();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-logoutBtn.addEventListener(
-    "click",
-    async function(){
-
-        const yakin =
-            confirm(
-                "Apakah Anda ingin keluar?"
-            );
-
-
-        if(!yakin){
-
-            return;
-
-        }
-
-
-        try{
-
-            const result =
-                await supabaseClient
-                    .auth
-                    .signOut();
-
-
-            if(result.error){
-
-                throw result.error;
-
-            }
-
-
-            window.location.href =
-                "login.html";
-
-        }
-
-        catch(error){
-
-            alert(
-                "❌ Gagal keluar.\n\n" +
-                error.message
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-supabaseClient
-    .auth
-    .onAuthStateChange(
-        function(event){
-
-            if(
-                event ===
-                "SIGNED_OUT"
-            ){
-
-                window.location.href =
-                    "login.html";
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   START
-===================================================== */
-
+function applyTheme(){
+  const dark=localStorage.getItem("ngajiplus-theme")==="dark";
+  document.body.classList.toggle("dark",dark);
+  $("themeBtn").textContent=dark?"☀️":"🌙";
+  $("themeBtn").title=dark?"Gunakan Mode Terang":"Gunakan Mode Gelap";
+}
+$("themeBtn").addEventListener("click",()=>{
+  const dark=!document.body.classList.contains("dark");
+  localStorage.setItem("ngajiplus-theme",dark?"dark":"light");
+  applyTheme();
+});
+applyTheme();
 checkAdmin();
-
 </script>
-
-  <script>
-    /* Fallback tema khusus halaman Admin Membership.
-       Tidak bergantung pada theme.js agar tombol navbar selalu bisa diklik. */
-    window.NgajiPlusToggleTheme = function(event){
-      if(event){ event.preventDefault(); event.stopPropagation(); }
-      const body = document.body;
-      const nextDark = !body.classList.contains("dark-mode");
-      body.classList.toggle("dark-mode", nextDark);
-      body.classList.toggle("dark", nextDark);
-      try { localStorage.setItem("ngajiplus-theme", nextDark ? "dark" : "light"); } catch(e) {}
-      const buttons = document.querySelectorAll("#themeBtn, #themeToggle, .theme-toggle, .theme-btn, .ngp-theme-floating");
-      buttons.forEach(function(btn){
-        btn.textContent = nextDark ? "☀️" : "🌙";
-        btn.title = nextDark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
-        btn.setAttribute("aria-label", btn.title);
-      });
-    };
-    (function(){
-      const saved = localStorage.getItem("ngajiplus-theme");
-      const dark = saved === "dark";
-      document.body.classList.toggle("dark-mode", dark);
-      document.body.classList.toggle("dark", dark);
-      const btn = document.getElementById("themeBtn");
-      if(btn){
-        btn.textContent = dark ? "☀️" : "🌙";
-        btn.title = dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
-      }
-    })();
-  </script>
-  <script src="theme.js"></script>
 </body>
-
 </html>
