@@ -4,418 +4,2666 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Akademi NgajiPlus — Kurikulum</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{
- --bg:#061810;--surface:#0a2118;--surface2:#0e2b20;--border:#194936;
- --text:#f3faf6;--muted:#9db5a9;--green:#00c96b;--green2:#19e77f;
- --gold:#f6c453;--danger:#ef4444;
+ --bg:#061810;
+ --surface:#0a2118;
+ --surface2:#0e2b20;
+ --border:#194936;
+ --text:#f3faf6;
+ --muted:#9db5a9;
+ --green:#00c96b;
+ --green2:#19e77f;
+ --gold:#f6c453;
+ --danger:#ef4444;
 }
-*{box-sizing:border-box}html,body{margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-body.light{--bg:#f4f8f6;--surface:#fff;--surface2:#edf5f1;--border:#d5e4dc;--text:#14221b;--muted:#61746a}
-a{color:inherit;text-decoration:none}button,input,select{font:inherit}
-button{cursor:pointer}
-header{position:sticky;top:0;z-index:30;background:rgba(6,24,16,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-body.light header{background:rgba(255,255,255,.95)}
-.nav{max-width:1180px;margin:auto;padding:11px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{font-weight:800;color:var(--green2);font-size:14px}
-.nav-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.nav-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:9px;padding:8px 10px;font-size:11px}
-main{max-width:1180px;margin:auto;padding:18px 15px 50px}
-.hero{background:linear-gradient(135deg,#063b25,#08723e);border:1px solid #169257;border-radius:18px;padding:22px;margin-bottom:14px}
-.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;color:#d5eee2;line-height:1.6;font-size:12px}
-.notice{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:var(--muted)}
-.notice strong{color:var(--text)}
-.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
-.stat{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:12px}
-.stat-label{font-size:9px;color:var(--muted);text-transform:uppercase}
-.stat-value{font-size:20px;font-weight:900;color:var(--green2);margin-top:4px}
-.stat-sub{font-size:9px;color:var(--muted);margin-top:3px}
-.course-progress{margin-top:9px}
-.course-progress-top{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted)}
-.course-progress-top strong{color:var(--green2)}
-.level-progress-bar{height:4px;background:var(--surface);border-radius:99px;overflow:hidden;margin-top:7px}
-.hidden{display:none!important}.continue-box{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:13px;padding:13px;margin-bottom:14px}
-.continue-title{font-size:11px;color:var(--muted);margin-bottom:5px}
-.continue-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.continue-name{font-weight:800;font-size:13px}.continue-meta{font-size:10px;color:var(--muted);margin-top:3px}
-.progress-wrap{height:6px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-top:8px}
-.progress-bar{height:100%;background:var(--green);border-radius:99px}
-.toolbar{display:flex;gap:8px;margin-bottom:14px}
-input,select{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 11px;outline:none}
-input{flex:1}input:focus,select:focus{border-color:var(--green)}
-.course{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:13px;overflow:hidden}
-.course-head{padding:15px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
-.course-title{display:flex;gap:10px;align-items:center}.course-icon{font-size:25px}
-.course h2{font-size:17px;margin:0 0 4px}.course-desc{font-size:11px;color:var(--muted);line-height:1.5}
-.chev{font-size:18px;color:var(--green2)}
-.levels{display:none;border-top:1px solid var(--border);padding:12px}
-.course.open .levels{display:block}
-.level{background:var(--surface2);border:1px solid var(--border);border-radius:12px;margin-bottom:9px;overflow:hidden}
-.level:last-child{margin-bottom:0}
-.level-head{padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
-.level-name{font-weight:800;font-size:13px}.level-desc{font-size:10px;color:var(--muted);margin-top:3px}.level-progress{font-size:9px;color:var(--green2);margin-top:5px;font-weight:700}
-.materials{display:none;padding:0 10px 10px}
-.level.open .materials{display:block}
-.material{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px;margin-top:7px;display:flex;align-items:center;gap:10px}
-.m-icon{font-size:20px}.m-main{flex:1;min-width:0}.m-title{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.m-meta{font-size:10px;color:var(--muted);margin-top:3px}
-.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 7px;font-size:9px;margin-right:4px}
-.badge.premium{color:var(--gold);border-color:#80651c}.badge.free{color:var(--green2)}
-.open-btn{border:0;border-radius:8px;background:var(--green);color:#04140c;padding:8px 10px;font-size:10px;font-weight:800}
-.lock-btn{border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);padding:8px 9px;font-size:10px}.sequence-lock{opacity:.72}.lock-note{font-size:9px;color:var(--muted);margin-top:5px}
-.empty,.loading,.error{text-align:center;color:var(--muted);padding:28px 10px;font-size:12px}
-.error{color:#ff9090}
-footer{border-top:1px solid var(--border);padding:22px 15px;text-align:center;color:var(--muted);font-size:10px}
+
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ padding:0;
+}
+
+body{
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+}
+
+body.light{
+ --bg:#f4f8f6;
+ --surface:#fff;
+ --surface2:#edf5f1;
+ --border:#d5e4dc;
+ --text:#14221b;
+ --muted:#61746a;
+}
+
+a{
+ color:inherit;
+ text-decoration:none;
+}
+
+button,input,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+/* HEADER */
+
+header{
+ position:sticky;
+ top:0;
+ z-index:30;
+ background:rgba(6,24,16,.95);
+ backdrop-filter:blur(12px);
+ border-bottom:1px solid var(--border);
+}
+
+body.light header{
+ background:rgba(255,255,255,.95);
+}
+
+.nav{
+ max-width:1180px;
+ margin:auto;
+ padding:11px 15px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.logo{
+ font-weight:800;
+ color:var(--green2);
+ font-size:14px;
+}
+
+.nav-actions{
+ display:flex;
+ gap:6px;
+ flex-wrap:wrap;
+ align-items:center;
+}
+
+.nav-btn{
+ border:1px solid var(--border);
+ background:var(--surface);
+ color:var(--text);
+ border-radius:9px;
+ padding:8px 10px;
+ font-size:11px;
+}
+
+/* MAIN */
+
+main{
+ max-width:1180px;
+ margin:auto;
+ padding:18px 15px 50px;
+}
+
+/* HERO */
+
+.hero{
+ background:linear-gradient(135deg,#063b25,#08723e);
+ border:1px solid #169257;
+ border-radius:18px;
+ padding:22px;
+ margin-bottom:14px;
+}
+
+.hero h1{
+ margin:0 0 7px;
+ font-size:25px;
+}
+
+.hero p{
+ margin:0;
+ color:#d5eee2;
+ line-height:1.6;
+ font-size:12px;
+}
+
+/* NOTICE */
+
+.notice{
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:11px 13px;
+ margin-bottom:14px;
+ font-size:12px;
+ color:var(--muted);
+}
+
+.notice strong{
+ color:var(--text);
+}
+
+/* SUMMARY */
+
+.summary{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:9px;
+ margin-bottom:14px;
+}
+
+.stat{
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:13px;
+ padding:12px;
+}
+
+.stat-label{
+ font-size:9px;
+ color:var(--muted);
+ text-transform:uppercase;
+}
+
+.stat-value{
+ font-size:20px;
+ font-weight:900;
+ color:var(--green2);
+ margin-top:4px;
+}
+
+.stat-sub{
+ font-size:9px;
+ color:var(--muted);
+ margin-top:3px;
+}
+
+/* CONTINUE */
+
+.course-progress{
+ margin-top:9px;
+}
+
+.course-progress-top{
+ display:flex;
+ justify-content:space-between;
+ gap:8px;
+ font-size:9px;
+ color:var(--muted);
+}
+
+.course-progress-top strong{
+ color:var(--green2);
+}
+
+.level-progress-bar{
+ height:4px;
+ background:var(--surface);
+ border-radius:99px;
+ overflow:hidden;
+ margin-top:7px;
+}
+
+.hidden{
+ display:none!important;
+}
+
+.continue-box{
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-left:4px solid var(--green);
+ border-radius:13px;
+ padding:13px;
+ margin-bottom:14px;
+}
+
+.continue-title{
+ font-size:11px;
+ color:var(--muted);
+ margin-bottom:5px;
+}
+
+.continue-main{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.continue-name{
+ font-weight:800;
+ font-size:13px;
+}
+
+.continue-meta{
+ font-size:10px;
+ color:var(--muted);
+ margin-top:3px;
+}
+
+.progress-wrap{
+ height:6px;
+ background:var(--surface2);
+ border-radius:99px;
+ overflow:hidden;
+ margin-top:8px;
+}
+
+.progress-bar{
+ height:100%;
+ background:var(--green);
+ border-radius:99px;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+ display:flex;
+ gap:8px;
+ margin-bottom:14px;
+}
+
+input,select{
+ background:var(--surface);
+ color:var(--text);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:10px 11px;
+ outline:none;
+}
+
+input{
+ flex:1;
+}
+
+input:focus,
+select:focus{
+ border-color:var(--green);
+}
+
+/* COURSE */
+
+.course{
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:16px;
+ margin-bottom:13px;
+ overflow:hidden;
+}
+
+.course-head{
+ padding:15px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ cursor:pointer;
+}
+
+.course-title{
+ display:flex;
+ gap:10px;
+ align-items:center;
+}
+
+.course-icon{
+ font-size:25px;
+}
+
+.course h2{
+ font-size:17px;
+ margin:0 0 4px;
+}
+
+.course-desc{
+ font-size:11px;
+ color:var(--muted);
+ line-height:1.5;
+}
+
+.chev{
+ font-size:18px;
+ color:var(--green2);
+}
+
+.levels{
+ display:none;
+ border-top:1px solid var(--border);
+ padding:12px;
+}
+
+.course.open .levels{
+ display:block;
+}
+
+/* LEVEL */
+
+.level{
+ background:var(--surface2);
+ border:1px solid var(--border);
+ border-radius:12px;
+ margin-bottom:9px;
+ overflow:hidden;
+}
+
+.level:last-child{
+ margin-bottom:0;
+}
+
+.level-head{
+ padding:12px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ cursor:pointer;
+}
+
+.level-name{
+ font-weight:800;
+ font-size:13px;
+}
+
+.level-desc{
+ font-size:10px;
+ color:var(--muted);
+ margin-top:3px;
+}
+
+.level-progress{
+ font-size:9px;
+ color:var(--green2);
+ margin-top:5px;
+ font-weight:700;
+}
+
+.materials{
+ display:none;
+ padding:0 10px 10px;
+}
+
+.level.open .materials{
+ display:block;
+}
+
+/* MATERIAL */
+
+.material{
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:10px;
+ margin-top:7px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.m-icon{
+ font-size:20px;
+}
+
+.m-main{
+ flex:1;
+ min-width:0;
+}
+
+.m-title{
+ font-weight:700;
+ font-size:12px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.m-meta{
+ font-size:10px;
+ color:var(--muted);
+ margin-top:3px;
+}
+
+.badge{
+ display:inline-block;
+ border:1px solid var(--border);
+ border-radius:999px;
+ padding:4px 7px;
+ font-size:9px;
+ margin-right:4px;
+}
+
+.badge.premium{
+ color:var(--gold);
+ border-color:#80651c;
+}
+
+.badge.free{
+ color:var(--green2);
+}
+
+.open-btn{
+ border:0;
+ border-radius:8px;
+ background:var(--green);
+ color:#04140c;
+ padding:8px 10px;
+ font-size:10px;
+ font-weight:800;
+ white-space:nowrap;
+}
+
+.lock-btn{
+ border:1px solid var(--border);
+ border-radius:8px;
+ background:var(--surface2);
+ color:var(--muted);
+ padding:8px 9px;
+ font-size:10px;
+ white-space:nowrap;
+}
+
+.sequence-lock{
+ opacity:.72;
+}
+
+.lock-note{
+ font-size:9px;
+ color:var(--muted);
+ margin-top:5px;
+}
+
+/* EXAM */
+
+.exam-box{
+ margin:0 10px 10px;
+ padding:11px;
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-left:3px solid var(--green);
+ border-radius:10px;
+
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.exam-box.locked{
+ border-left-color:#80651c;
+ opacity:.85;
+}
+
+.exam-title{
+ font-weight:800;
+ font-size:11px;
+}
+
+.exam-meta{
+ font-size:9px;
+ color:var(--muted);
+ margin-top:4px;
+ line-height:1.5;
+}
+
+.exam-box .open-btn{
+ white-space:nowrap;
+}
+
+/* STATES */
+
+.empty,
+.loading,
+.error{
+ text-align:center;
+ color:var(--muted);
+ padding:28px 10px;
+ font-size:12px;
+}
+
+.error{
+ color:#ff9090;
+}
+
+/* FOOTER */
+
+footer{
+ border-top:1px solid var(--border);
+ padding:22px 15px;
+ text-align:center;
+ color:var(--muted);
+ font-size:10px;
+}
+
+/* MOBILE */
+
 @media(max-width:650px){
- .hero h1{font-size:21px}.nav{align-items:flex-start}.nav-actions{justify-content:flex-end}
- .course-head{padding:13px}.course-icon{font-size:21px}.course h2{font-size:15px}
- .material{align-items:flex-start}.open-btn,.lock-btn{white-space:nowrap}.stat{padding:10px 8px}.stat-value{font-size:17px}
+
+ .hero h1{
+  font-size:21px;
+ }
+
+ .nav{
+  align-items:flex-start;
+ }
+
+ .nav-actions{
+  justify-content:flex-end;
+ }
+
+ .course-head{
+  padding:13px;
+ }
+
+ .course-icon{
+  font-size:21px;
+ }
+
+ .course h2{
+  font-size:15px;
+ }
+
+ .material{
+  align-items:flex-start;
+ }
+
+ .open-btn,
+ .lock-btn{
+  white-space:nowrap;
+ }
+
+ .stat{
+  padding:10px 8px;
+ }
+
+ .stat-value{
+  font-size:17px;
+ }
+
+ .exam-box{
+  align-items:flex-start;
+ }
+
+ .exam-box .open-btn{
+  padding:8px;
+ }
 }
 </style>
 </head>
+
 <body>
+
 <header>
  <div class="nav">
-  <a class="logo" href="index.html">📖 NgajiPlus Akademi</a>
+
+  <a class="logo" href="index.html">
+   📖 NgajiPlus Akademi
+  </a>
+
   <div class="nav-actions">
-   <button class="nav-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-   <a class="nav-btn" href="dashboard.html">📊 Dashboard</a>
-   <a class="nav-btn" href="profile.html">👤 Profil</a>
+
+   <button
+    class="nav-btn"
+    id="themeBtn"
+    onclick="toggleTheme()">
+    🌙
+   </button>
+
+   <a
+    class="nav-btn"
+    href="dashboard.html">
+    📊 Dashboard
+   </a>
+
+   <a
+    class="nav-btn"
+    href="profile.html">
+    👤 Profil
+   </a>
+
   </div>
  </div>
 </header>
 
+
 <main>
+
  <section class="hero">
+
   <h1>📚 Akademi NgajiPlus</h1>
-  <p>Belajar secara bertahap melalui struktur <b>Course → Level → Materi</b>. Pilih bidang ilmu, buka level, lalu lanjutkan materi Anda.</p>
+
+  <p>
+   Belajar secara bertahap melalui struktur
+   <b>Course → Level → Materi → Ujian</b>.
+   Pilih bidang ilmu, buka level, selesaikan materi,
+   lalu kerjakan ujian.
+  </p>
+
  </section>
 
- <div id="notice" class="notice">⏳ Memeriksa status akun...</div>
-<div id="summary" class="summary">
- <div class="stat"><div class="stat-label">Course</div><div class="stat-value">0/0</div><div class="stat-sub">selesai</div></div>
- <div class="stat"><div class="stat-label">Level</div><div class="stat-value">0/0</div><div class="stat-sub">selesai</div></div>
- <div class="stat"><div class="stat-label">Materi</div><div class="stat-value">0/0</div><div class="stat-sub">selesai</div></div>
-</div>
-<div id="continueBox" class="continue-box hidden"></div>
 
- <div class="toolbar">
-  <input id="search" type="search" placeholder="🔎 Cari course, level, atau materi...">
+ <div id="notice" class="notice">
+  ⏳ Memeriksa status akun...
  </div>
 
- <div id="academy"><div class="loading">⏳ Memuat kurikulum...</div></div>
+
+ <div id="summary" class="summary">
+
+  <div class="stat">
+   <div class="stat-label">Course</div>
+   <div class="stat-value">0/0</div>
+   <div class="stat-sub">selesai</div>
+  </div>
+
+  <div class="stat">
+   <div class="stat-label">Level</div>
+   <div class="stat-value">0/0</div>
+   <div class="stat-sub">selesai</div>
+  </div>
+
+  <div class="stat">
+   <div class="stat-label">Materi</div>
+   <div class="stat-value">0/0</div>
+   <div class="stat-sub">selesai</div>
+  </div>
+
+ </div>
+
+
+ <div
+  id="continueBox"
+  class="continue-box hidden">
+ </div>
+
+
+ <div class="toolbar">
+
+  <input
+   id="search"
+   type="search"
+   placeholder="🔎 Cari course, level, atau materi...">
+
+ </div>
+
+
+ <div id="academy">
+  <div class="loading">
+   ⏳ Memuat kurikulum...
+  </div>
+ </div>
+
 </main>
 
-<footer>📖 NgajiPlus Akademi — Belajar Islam secara bertahap</footer>
+
+<footer>
+ 📖 NgajiPlus Akademi — Belajar Islam secara bertahap
+</footer>
+
 
 <script>
-const SUPABASE_URL="https://ksgywgdrfskqsufchbcm.supabase.co";
-const SUPABASE_KEY="sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-let courses=[],levels=[],links=[],materials=[];
-let membershipActive=false,currentUser=null,currentProfile=null,progressMap=new Map();
+const SUPABASE_URL =
+ "https://ksgywgdrfskqsufchbcm.supabase.co";
 
-function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function premium(m){return m?.premium===true||m?.premium==="true"||m?.premium===1||m?.premium==="1"}
-function typeOf(m){return String(m?.tipe||m?.type||"video").toLowerCase().trim()}
-function icon(m){const t=typeOf(m);return t==="audio"?"🎧":t==="pdf"?"📄":"🎥"}
+const SUPABASE_KEY =
+ "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
+
+const sb =
+ window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* DATA */
+
+let courses=[];
+let levels=[];
+let links=[];
+let materials=[];
+let exams=[];
+
+let membershipActive=false;
+let currentUser=null;
+let currentProfile=null;
+
+let progressMap=new Map();
+
+
+/* HELPERS */
+
+function esc(v){
+
+ return String(v??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+}
+
+
+function premium(m){
+
+ return m?.premium===true ||
+        m?.premium==="true" ||
+        m?.premium===1 ||
+        m?.premium==="1";
+
+}
+
+
+function typeOf(m){
+
+ const t=
+  String(
+   m?.tipe ||
+   m?.type ||
+   "video"
+  )
+  .toLowerCase()
+  .trim();
+
+ return t;
+}
+
+
+function icon(m){
+
+ const t=typeOf(m);
+
+ if(t==="audio") return "🎧";
+ if(t==="pdf") return "📄";
+
+ return "🎥";
+}
+
+
+/* THEME */
 
 function applyTheme(){
- const dark=localStorage.getItem("ngajiplus-theme")==="dark";
- document.body.classList.toggle("light",!dark);
- document.getElementById("themeBtn").textContent=dark?"☀️":"🌙";
+
+ const dark =
+  localStorage.getItem("ngajiplus-theme")==="dark";
+
+ document.body.classList.toggle(
+  "light",
+  !dark
+ );
+
+ document.getElementById(
+  "themeBtn"
+ ).textContent =
+  dark ? "☀️" : "🌙";
 }
+
+
 function toggleTheme(){
- const dark=localStorage.getItem("ngajiplus-theme")==="dark";
- localStorage.setItem("ngajiplus-theme",dark?"light":"dark");applyTheme();
+
+ const dark =
+  localStorage.getItem("ngajiplus-theme")==="dark";
+
+ localStorage.setItem(
+  "ngajiplus-theme",
+  dark ? "light" : "dark"
+ );
+
+ applyTheme();
 }
+
+
 applyTheme();
 
+
+/* DATE */
+
 function formatDate(v){
+
  if(!v)return "";
- const d=new Date(v);if(isNaN(d.getTime()))return String(v);
- return d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+
+ const d=new Date(v);
+
+ if(isNaN(d.getTime()))
+  return String(v);
+
+ return d.toLocaleDateString(
+  "id-ID",
+  {
+   day:"numeric",
+   month:"long",
+   year:"numeric"
+  }
+ );
 }
+
+
+/* USER */
 
 async function checkUser(){
- const {data:{user},error}=await sb.auth.getUser();
+
+ const {
+  data:{user},
+  error
+ }=
+  await sb.auth.getUser();
+
  if(error)throw error;
+
  currentUser=user;
 
+
  if(!user){
+
   membershipActive=false;
-  document.getElementById("notice").innerHTML="👤 Belum login. Materi gratis tetap dapat dipelajari.";
+
+  document.getElementById(
+   "notice"
+  ).innerHTML=
+   "👤 Belum login. Materi gratis tetap dapat dipelajari.";
+
   return;
  }
 
- const {data:p,error:pe}=await sb.from("profiles")
-  .select("id,nama,status,paket,berlaku_sampai,is_admin")
-  .eq("id",user.id).maybeSingle();
+
+ const {
+  data:p,
+  error:pe
+ }=
+  await sb
+   .from("profiles")
+   .select(
+    "id,nama,status,paket,berlaku_sampai,is_admin"
+   )
+   .eq("id",user.id)
+   .maybeSingle();
+
  if(pe)throw pe;
+
  currentProfile=p;
 
- const admin=!!(p?.is_admin===true||p?.is_admin==="true"||p?.is_admin===1||p?.is_admin==="1");
+
+ const admin=
+  !!(
+   p?.is_admin===true ||
+   p?.is_admin==="true" ||
+   p?.is_admin===1 ||
+   p?.is_admin==="1"
+  );
+
 
  if(admin){
+
   membershipActive=true;
-  document.getElementById("notice").innerHTML="🛡️ <strong>Admin</strong> — seluruh materi dapat dibuka.";
+
+  document.getElementById(
+   "notice"
+  ).innerHTML=
+   "🛡️ <strong>Admin</strong> — seluruh materi dan ujian dapat dibuka.";
+
   return;
  }
 
- const statusAktif=String(p?.status||"").toLowerCase()==="aktif";
- const lifetime=String(p?.paket||"").toLowerCase()==="lifetime";
- const expiry=p?.berlaku_sampai?new Date(p.berlaku_sampai):null;
- membershipActive=statusAktif && (lifetime || (expiry && !isNaN(expiry.getTime()) && expiry>=new Date()));
+
+ const statusAktif=
+  String(p?.status||"")
+   .toLowerCase()==="aktif";
+
+ const lifetime=
+  String(p?.paket||"")
+   .toLowerCase()==="lifetime";
+
+ const expiry=
+  p?.berlaku_sampai
+   ? new Date(p.berlaku_sampai)
+   : null;
+
+
+ membershipActive=
+  statusAktif &&
+  (
+   lifetime ||
+   (
+    expiry &&
+    !isNaN(expiry.getTime()) &&
+    expiry>=new Date()
+   )
+  );
+
 
  if(membershipActive){
-  document.getElementById("notice").innerHTML=
-   "✅ Membership <strong>"+esc(p?.paket||"Premium")+"</strong> aktif"+
-   (lifetime?" selamanya.":" sampai <strong>"+esc(formatDate(p.berlaku_sampai))+"</strong>.")+
-   " Materi premium dapat dibuka.";
+
+  document.getElementById(
+   "notice"
+  ).innerHTML=
+
+   "✅ Membership <strong>"+
+   esc(p?.paket||"Premium")+
+   "</strong> aktif"+
+   (
+    lifetime
+     ? " selamanya."
+     : " sampai <strong>"+
+       esc(formatDate(p.berlaku_sampai))+
+       "</strong>."
+   )+
+   " Materi premium dan ujian dapat dibuka.";
+
  }else{
-  document.getElementById("notice").innerHTML=
+
+  document.getElementById(
+   "notice"
+  ).innerHTML=
    "👤 Anda sudah login, tetapi membership premium belum aktif. Materi gratis tetap dapat dipelajari.";
+
  }
+
 }
+
+
+/* PROGRESS */
 
 async function loadProgress(){
- if(!currentUser){progressMap=new Map();return}
- const {data,error}=await sb.from("learning_progress").select("material_id,status,progress,completed_at,last_watched_at").eq("user_id",currentUser.id);
+
+ if(!currentUser){
+
+  progressMap=new Map();
+
+  return;
+ }
+
+
+ const {
+  data,
+  error
+ }=
+  await sb
+   .from("learning_progress")
+   .select(
+    "material_id,status,progress,completed_at,last_watched_at"
+   )
+   .eq(
+    "user_id",
+    currentUser.id
+   );
+
+
  if(error)throw error;
- progressMap=new Map((data||[]).map(x=>[String(x.material_id),x]));
+
+
+ progressMap=
+  new Map(
+   (data||[])
+    .map(x=>[
+     String(x.material_id),
+     x
+    ])
+  );
+
 }
+
+
+/* LOAD CURRICULUM */
 
 async function loadCurriculum(){
- const academy=document.getElementById("academy");
- academy.innerHTML='<div class="loading">⏳ Memuat course, level, dan materi...</div>';
+
+ const academy=
+  document.getElementById("academy");
+
+ academy.innerHTML=
+  '<div class="loading">⏳ Memuat course, level, materi, dan ujian...</div>';
+
  try{
-  const [a,b,c,d]=await Promise.all([
-   sb.from("courses").select("id,nama,slug,deskripsi,thumbnail,aktif,urutan").eq("aktif",true).order("urutan",{ascending:true}).order("id",{ascending:true}),
-   sb.from("levels").select("id,course_id,nama,deskripsi,aktif,urutan").eq("aktif",true).order("urutan",{ascending:true}).order("id",{ascending:true}),
-   sb.from("course_materials").select("id,level_id,material_id,urutan,wajib").order("urutan",{ascending:true}).order("id",{ascending:true}),
-   sb.from("materials").select("id,judul,deskripsi,kategori,tipe,type,url,thumbnail,premium").order("id",{ascending:false})
-  ]);
-  for(const r of [a,b,c,d])if(r.error)throw r.error;
-  courses=a.data||[];levels=b.data||[];links=c.data||[];materials=d.data||[];
+
+  const [
+   a,
+   b,
+   c,
+   d,
+   e
+  ]=
+   await Promise.all([
+
+    sb
+     .from("courses")
+     .select(
+      "id,nama,slug,deskripsi,thumbnail,aktif,urutan"
+     )
+     .eq("aktif",true)
+     .order(
+      "urutan",
+      {ascending:true}
+     )
+     .order(
+      "id",
+      {ascending:true}
+     ),
+
+    sb
+     .from("levels")
+     .select(
+      "id,course_id,nama,deskripsi,aktif,urutan"
+     )
+     .eq("aktif",true)
+     .order(
+      "urutan",
+      {ascending:true}
+     )
+     .order(
+      "id",
+      {ascending:true}
+     ),
+
+    sb
+     .from("course_materials")
+     .select(
+      "id,level_id,material_id,urutan,wajib"
+     )
+     .order(
+      "urutan",
+      {ascending:true}
+     )
+     .order(
+      "id",
+      {ascending:true}
+     ),
+
+    sb
+     .from("materials")
+     .select(
+      "id,judul,deskripsi,kategori,tipe,type,url,thumbnail,premium"
+     )
+     .order(
+      "id",
+      {ascending:false}
+     ),
+
+    sb
+     .from("exams")
+     .select(
+      "id,level_id,judul,passing_score,nilai_maksimal,waktu_menit,aktif,boleh_mengulang"
+     )
+     .eq("aktif",true)
+     .order(
+      "id",
+      {ascending:true}
+     )
+
+   ]);
+
+
+  for(
+   const r of [a,b,c,d,e]
+  ){
+
+   if(r.error)
+    throw r.error;
+
+  }
+
+
+  courses=a.data||[];
+  levels=b.data||[];
+  links=c.data||[];
+  materials=d.data||[];
+  exams=e.data||[];
+
+
   await loadProgress();
+
   render();
+
   renderSummary();
+
   renderContinue();
+
+
  }catch(e){
+
   console.error(e);
-  academy.innerHTML='<div class="error">❌ Gagal memuat kurikulum.<br><br>'+esc(e.message)+'</div>';
+
+  academy.innerHTML=
+   '<div class="error">'+
+   '❌ Gagal memuat kurikulum.<br><br>'+
+   esc(e.message)+
+   '</div>';
+
  }
+
 }
+
+
+/* MATERIAL STATUS */
 
 function isDone(materialId){
- const p=progressMap.get(String(materialId));
- return p?.status==="completed" || Number(p?.progress||0)>=95;
+
+ const p=
+  progressMap.get(
+   String(materialId)
+  );
+
+ return (
+  p?.status==="completed" ||
+  Number(p?.progress||0)>=95
+ );
+
 }
+
+
+/* LEVEL STATS */
+
 function levelStats(levelId){
- const ls=links.filter(x=>String(x.level_id)===String(levelId));
- const completed=ls.filter(x=>isDone(x.material_id)).length;
- const pct=ls.length?Math.round(completed/ls.length*100):0;
- return {total:ls.length,completed,pct};
+
+ const ls=
+  links.filter(
+   x=>
+    String(x.level_id)===
+    String(levelId)
+  );
+
+ const completed=
+  ls.filter(
+   x=>isDone(x.material_id)
+  ).length;
+
+ const pct=
+  ls.length
+   ? Math.round(
+      completed/ls.length*100
+     )
+   :0;
+
+ return{
+  total:ls.length,
+  completed,
+  pct
+ };
+
 }
+
+
+/* COURSE STATS */
+
 function courseStats(courseId){
- const courseLevels=levels.filter(l=>String(l.course_id)===String(courseId));
- const courseLinks=links.filter(x=>courseLevels.some(l=>String(l.id)===String(x.level_id)));
- const total=courseLinks.length;
- const completed=courseLinks.filter(x=>isDone(x.material_id)).length;
- const pct=total?Math.round(completed/total*100):0;
- const completedLevels=courseLevels.filter(l=>{
-  const st=levelStats(l.id);
-  return st.total>0 && st.completed===st.total;
- }).length;
- return {total,completed,pct,levels:courseLevels.length,completedLevels};
+
+ const courseLevels=
+  levels.filter(
+   l=>
+    String(l.course_id)===
+    String(courseId)
+  );
+
+ const courseLinks=
+  links.filter(
+   x=>
+    courseLevels.some(
+     l=>
+      String(l.id)===
+      String(x.level_id)
+    )
+  );
+
+ const total=
+  courseLinks.length;
+
+ const completed=
+  courseLinks.filter(
+   x=>isDone(x.material_id)
+  ).length;
+
+ const pct=
+  total
+   ? Math.round(
+      completed/total*100
+     )
+   :0;
+
+ const completedLevels=
+  courseLevels.filter(l=>{
+
+   const st=
+    levelStats(l.id);
+
+   return(
+    st.total>0 &&
+    st.completed===st.total
+   );
+
+  }).length;
+
+
+ return{
+  total,
+  completed,
+  pct,
+  levels:courseLevels.length,
+  completedLevels
+ };
+
 }
+
+
+/* SUMMARY */
+
 function renderSummary(){
- const totalMaterials=links.length;
- const completedMaterials=links.filter(x=>isDone(x.material_id)).length;
- const totalLevels=levels.length;
- const completedLevels=levels.filter(l=>{
-  const st=levelStats(l.id);
-  return st.total>0 && st.completed===st.total;
- }).length;
- const totalCourses=courses.length;
- const completedCourses=courses.filter(c=>{
-  const st=courseStats(c.id);
-  return st.total>0 && st.completed===st.total;
- }).length;
- document.getElementById("summary").innerHTML=
- `<div class="stat"><div class="stat-label">Course</div><div class="stat-value">${completedCourses}/${totalCourses}</div><div class="stat-sub">course selesai</div></div>
-  <div class="stat"><div class="stat-label">Level</div><div class="stat-value">${completedLevels}/${totalLevels}</div><div class="stat-sub">level selesai</div></div>
-  <div class="stat"><div class="stat-label">Materi</div><div class="stat-value">${completedMaterials}/${totalMaterials}</div><div class="stat-sub">materi selesai</div></div>`;
+
+ const totalMaterials=
+  links.length;
+
+ const completedMaterials=
+  links.filter(
+   x=>isDone(x.material_id)
+  ).length;
+
+ const totalLevels=
+  levels.length;
+
+ const completedLevels=
+  levels.filter(l=>{
+
+   const st=
+    levelStats(l.id);
+
+   return(
+    st.total>0 &&
+    st.completed===st.total
+   );
+
+  }).length;
+
+ const totalCourses=
+  courses.length;
+
+ const completedCourses=
+  courses.filter(c=>{
+
+   const st=
+    courseStats(c.id);
+
+   return(
+    st.total>0 &&
+    st.completed===st.total
+   );
+
+  }).length;
+
+
+ document.getElementById(
+  "summary"
+ ).innerHTML=
+
+ `<div class="stat">
+   <div class="stat-label">Course</div>
+   <div class="stat-value">
+    ${completedCourses}/${totalCourses}
+   </div>
+   <div class="stat-sub">
+    course selesai
+   </div>
+  </div>
+
+  <div class="stat">
+   <div class="stat-label">Level</div>
+   <div class="stat-value">
+    ${completedLevels}/${totalLevels}
+   </div>
+   <div class="stat-sub">
+    level selesai
+   </div>
+  </div>
+
+  <div class="stat">
+   <div class="stat-label">Materi</div>
+   <div class="stat-value">
+    ${completedMaterials}/${totalMaterials}
+   </div>
+   <div class="stat-sub">
+    materi selesai
+   </div>
+  </div>`;
+
 }
+
+
+/* RENDER COURSE */
 
 function render(){
- const q=document.getElementById("search").value.trim().toLowerCase();
- const root=document.getElementById("academy");
 
- const visibleCourses=courses.filter(c=>{
-  const courseMatch=!q||[c.nama,c.deskripsi,c.slug].join(" ").toLowerCase().includes(q);
-  const courseLevels=levels.filter(l=>String(l.course_id)===String(c.id));
-  const levelMatch=courseLevels.some(l=>{
-   const lm=[l.nama,l.deskripsi].join(" ").toLowerCase().includes(q);
-   const ls=links.filter(x=>String(x.level_id)===String(l.id));
-   return lm||ls.some(x=>{
-    const m=materials.find(z=>String(z.id)===String(x.material_id));
-    return m&&[m.judul,m.deskripsi,m.kategori].join(" ").toLowerCase().includes(q);
+ const q=
+  document
+   .getElementById("search")
+   .value
+   .trim()
+   .toLowerCase();
+
+ const root=
+  document.getElementById("academy");
+
+
+ const visibleCourses=
+  courses.filter(c=>{
+
+   const courseMatch=
+    !q ||
+    [
+     c.nama,
+     c.deskripsi,
+     c.slug
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(q);
+
+
+   const courseLevels=
+    levels.filter(
+     l=>
+      String(l.course_id)===
+      String(c.id)
+    );
+
+
+   const levelMatch=
+    courseLevels.some(l=>{
+
+     const lm=
+      [
+       l.nama,
+       l.deskripsi
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(q);
+
+
+     const ls=
+      links.filter(
+       x=>
+        String(x.level_id)===
+        String(l.id)
+      );
+
+
+     return(
+      lm ||
+      ls.some(x=>{
+
+       const m=
+        materials.find(
+         z=>
+          String(z.id)===
+          String(x.material_id)
+        );
+
+       return(
+        m &&
+        [
+         m.judul,
+         m.deskripsi,
+         m.kategori
+        ]
+        .join(" ")
+        .toLowerCase()
+        .includes(q)
+       );
+
+      })
+     );
+
    });
+
+
+   return(
+    !q ||
+    courseMatch ||
+    levelMatch
+   );
+
   });
-  return !q||courseMatch||levelMatch;
- });
 
- if(!visibleCourses.length){root.innerHTML='<div class="empty">📚 Tidak ada course yang cocok.</div>';return}
 
- root.innerHTML=visibleCourses.map(c=>{
-  const ls=levels.filter(l=>String(l.course_id)===String(c.id));
-  const st=courseStats(c.id);
-  const courseIcon=c.slug==="fiqih"?"🕌":c.slug==="aqidah"?"💎":c.slug==="akhlak-adab"?"🌿":c.slug==="bahasa-arab"?"🇸🇦":c.slug==="hadits"?"📜":c.slug==="tafsir"?"📚":c.slug==="sejarah-islam"?"🏛️":"📖";
-  return `<section class="course" data-course="${esc(c.id)}">
-   <div class="course-head" onclick="toggleCourse(this)">
-    <div class="course-title"><div class="course-icon">${courseIcon}</div><div style="min-width:0"><h2>${esc(c.nama)}</h2><div class="course-desc">${esc(c.deskripsi||"Kurikulum pembelajaran Islam.")}</div>
-     <div class="course-progress"><div class="course-progress-top"><span>📊 ${st.completed}/${st.total} materi • ${st.completedLevels}/${st.levels} level</span><strong>${st.pct}%</strong></div><div class="progress-wrap"><div class="progress-bar" style="width:${st.pct}%"></div></div></div>
-    </div></div>
-    <div class="chev">⌄</div>
-   </div>
-   <div class="levels">${ls.length?ls.map(l=>renderLevel(l)).join(""):'<div class="empty">Belum ada level aktif.</div>'}</div>
-  </section>`;
- }).join("");
+ if(!visibleCourses.length){
 
- if(q)document.querySelectorAll(".course").forEach(x=>x.classList.add("open"));
+  root.innerHTML=
+   '<div class="empty">'+
+   '📚 Tidak ada course yang cocok.'+
+   '</div>';
+
+  return;
+
+ }
+
+
+ root.innerHTML=
+  visibleCourses
+   .map(c=>{
+
+    const ls=
+     levels.filter(
+      l=>
+       String(l.course_id)===
+       String(c.id)
+     );
+
+
+    const st=
+     courseStats(c.id);
+
+
+    const courseIcon=
+     c.slug==="fiqih"
+      ? "🕌"
+      : c.slug==="aqidah"
+      ? "💎"
+      : c.slug==="akhlak-adab"
+      ? "🌿"
+      : c.slug==="bahasa-arab"
+      ? "🇸🇦"
+      : c.slug==="hadits"
+      ? "📜"
+      : c.slug==="tafsir"
+      ? "📚"
+      : c.slug==="sejarah-islam"
+      ? "🏛️"
+      : "📖";
+
+
+    return`
+
+     <section
+      class="course"
+      data-course="${esc(c.id)}"
+     >
+
+      <div
+       class="course-head"
+       onclick="toggleCourse(this)"
+      >
+
+       <div class="course-title">
+
+        <div class="course-icon">
+         ${courseIcon}
+        </div>
+
+        <div style="min-width:0">
+
+         <h2>
+          ${esc(c.nama)}
+         </h2>
+
+         <div class="course-desc">
+          ${esc(
+           c.deskripsi ||
+           "Kurikulum pembelajaran Islam."
+          )}
+         </div>
+
+
+         <div class="course-progress">
+
+          <div class="course-progress-top">
+
+           <span>
+            📊
+            ${st.completed}/${st.total}
+            materi •
+            ${st.completedLevels}/${st.levels}
+            level
+           </span>
+
+           <strong>
+            ${st.pct}%
+           </strong>
+
+          </div>
+
+
+          <div class="progress-wrap">
+
+           <div
+            class="progress-bar"
+            style="width:${st.pct}%"
+           ></div>
+
+          </div>
+
+         </div>
+
+        </div>
+
+       </div>
+
+
+       <div class="chev">
+        ⌄
+       </div>
+
+      </div>
+
+
+      <div class="levels">
+
+       ${
+        ls.length
+         ? ls.map(
+            l=>renderLevel(l)
+           ).join("")
+         : '<div class="empty">Belum ada level aktif.</div>'
+       }
+
+      </div>
+
+     </section>
+
+    `;
+
+   })
+   .join("");
+
+
+ if(q){
+
+  document
+   .querySelectorAll(".course")
+   .forEach(
+    x=>x.classList.add("open")
+   );
+
+ }
+
 }
+
+
+/* LEVEL */
 
 function renderLevel(l){
- const ls=links.filter(x=>String(x.level_id)===String(l.id));
- const st=levelStats(l.id);
- let status="Belum mulai";
- if(st.total>0&&st.completed===st.total)status="🏆 Selesai";
- else if(st.completed>0)status="📖 Sedang belajar";
- return `<div class="level" data-level="${esc(l.id)}">
-  <div class="level-head" onclick="toggleLevel(this)">
-   <div style="flex:1;min-width:0"><div class="level-name">📖 ${esc(l.nama)}</div><div class="level-desc">${esc(l.deskripsi||"Tahap pembelajaran.")} • ${ls.length} materi</div><div class="level-progress">${ls.length?`✅ ${st.completed}/${st.total} selesai • ${st.pct}% • ${status}`:"Belum ada materi"}</div>${ls.length?`<div class="level-progress-bar"><div class="progress-bar" style="width:${st.pct}%"></div></div>`:""}</div>
-   <div class="chev">⌄</div>
+
+ const ls=
+  links.filter(
+   x=>
+    String(x.level_id)===
+    String(l.id)
+  );
+
+
+ const st=
+  levelStats(l.id);
+
+
+ let status=
+  "Belum mulai";
+
+
+ if(
+  st.total>0 &&
+  st.completed===st.total
+ ){
+
+  status="🏆 Selesai";
+
+ }else if(st.completed>0){
+
+  status="📖 Sedang belajar";
+
+ }
+
+
+ /*
+  * Cari ujian aktif berdasarkan level_id
+  */
+
+ const exam=
+  exams.find(
+   x=>
+    String(x.level_id)===
+    String(l.id)
+  );
+
+
+ let examHtml="";
+
+
+ if(exam){
+
+  const ready=
+   st.total>0 &&
+   st.completed===st.total;
+
+
+  if(ready){
+
+   examHtml=`
+
+    <div class="exam-box">
+
+     <div>
+
+      <div class="exam-title">
+
+       📝 ${esc(
+        exam.judul ||
+        "Ujian Level"
+       )}
+
+      </div>
+
+
+      <div class="exam-meta">
+
+       KKM
+       ${Number(
+        exam.passing_score ?? 80
+       )}
+
+       ${
+        exam.waktu_menit
+         ? " • "+
+           Number(exam.waktu_menit)+
+           " menit"
+         : ""
+       }
+
+      </div>
+
+     </div>
+
+
+     <a
+      class="open-btn"
+      href="ujian.html?id=${encodeURIComponent(exam.id)}"
+     >
+
+      📝 Kerjakan Ujian
+
+     </a>
+
+    </div>
+
+   `;
+
+  }else{
+
+   examHtml=`
+
+    <div class="exam-box locked">
+
+     <div>
+
+      <div class="exam-title">
+
+       🔒 ${esc(
+        exam.judul ||
+        "Ujian Level"
+       )}
+
+      </div>
+
+
+      <div class="exam-meta">
+
+       Selesaikan seluruh materi
+       level terlebih dahulu
+
+       • KKM
+       ${Number(
+        exam.passing_score ?? 80
+       )}
+
+      </div>
+
+     </div>
+
+
+     <span class="lock-btn">
+      🔒 Terkunci
+     </span>
+
+    </div>
+
+   `;
+
+  }
+
+ }
+
+
+ return`
+
+  <div
+   class="level"
+   data-level="${esc(l.id)}"
+  >
+
+   <div
+    class="level-head"
+    onclick="toggleLevel(this)"
+   >
+
+    <div
+     style="flex:1;min-width:0"
+    >
+
+     <div class="level-name">
+
+      📖 ${esc(l.nama)}
+
+     </div>
+
+
+     <div class="level-desc">
+
+      ${esc(
+       l.deskripsi ||
+       "Tahap pembelajaran."
+      )}
+
+      • ${ls.length} materi
+
+     </div>
+
+
+     <div class="level-progress">
+
+      ${
+       ls.length
+        ? `
+          ✅
+          ${st.completed}/${st.total}
+          selesai •
+          ${st.pct}% •
+          ${status}
+         `
+        : "Belum ada materi"
+      }
+
+     </div>
+
+
+     ${
+      ls.length
+       ? `
+        <div class="level-progress-bar">
+
+         <div
+          class="progress-bar"
+          style="width:${st.pct}%"
+         ></div>
+
+        </div>
+       `
+       : ""
+     }
+
+    </div>
+
+
+    <div class="chev">
+     ⌄
+    </div>
+
+   </div>
+
+
+   ${examHtml}
+
+
+   <div class="materials">
+
+    ${
+     ls.length
+      ? ls
+        .map(
+         x=>renderMaterial(x)
+        )
+        .join("")
+      : `
+       <div class="empty">
+        Belum ada materi pada level ini.
+       </div>
+      `
+    }
+
+   </div>
+
   </div>
-  <div class="materials">${ls.length?ls.map(x=>renderMaterial(x)).join(""):'<div class="empty">Belum ada materi pada level ini.</div>'}</div>
- </div>`;
+
+ `;
+
 }
+
+
+/* ADMIN */
 
 function isAdminUser(){
- return !!(currentProfile?.is_admin===true||currentProfile?.is_admin==="true"||currentProfile?.is_admin===1||currentProfile?.is_admin==="1");
+
+ return !!(
+  currentProfile?.is_admin===true ||
+  currentProfile?.is_admin==="true" ||
+  currentProfile?.is_admin===1 ||
+  currentProfile?.is_admin==="1"
+ );
+
 }
+
+
+/* LEVEL SEQUENCE */
 
 function levelSequenceState(level){
- if(isAdminUser()) return {available:true,reason:""};
- const courseLevels=levels
-  .filter(x=>String(x.course_id)===String(level.course_id))
-  .sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id));
- const idx=courseLevels.findIndex(x=>String(x.id)===String(level.id));
- if(idx<=0) return {available:true,reason:""};
- const previous=courseLevels[idx-1];
- const prevLinks=links.filter(x=>String(x.level_id)===String(previous.id));
- if(!prevLinks.length) return {available:true,reason:""};
- const prevDone=prevLinks.every(x=>isDone(x.material_id));
+
+ if(isAdminUser())
+  return{
+   available:true,
+   reason:""
+  };
+
+
+ const courseLevels=
+  levels
+   .filter(
+    x=>
+     String(x.course_id)===
+     String(level.course_id)
+   )
+   .sort(
+    (a,b)=>
+     (Number(a.urutan)||0)-
+     (Number(b.urutan)||0) ||
+     Number(a.id)-Number(b.id)
+   );
+
+
+ const idx=
+  courseLevels.findIndex(
+   x=>
+    String(x.id)===
+    String(level.id)
+  );
+
+
+ if(idx<=0){
+
+  return{
+   available:true,
+   reason:""
+  };
+
+ }
+
+
+ const previous=
+  courseLevels[idx-1];
+
+
+ const prevLinks=
+  links.filter(
+   x=>
+    String(x.level_id)===
+    String(previous.id)
+  );
+
+
+ if(!prevLinks.length){
+
+  return{
+   available:true,
+   reason:""
+  };
+
+ }
+
+
+ const prevDone=
+  prevLinks.every(
+   x=>
+    isDone(x.material_id)
+  );
+
+
  return prevDone
-  ? {available:true,reason:""}
-  : {available:false,reason:`Selesaikan ${previous.nama} terlebih dahulu.`};
+  ? {
+     available:true,
+     reason:""
+    }
+  : {
+     available:false,
+     reason:
+      `Selesaikan ${previous.nama} terlebih dahulu.`
+    };
+
 }
+
+
+/* MATERIAL SEQUENCE */
 
 function materialSequenceState(link){
- if(isAdminUser()) return {available:true,reason:""};
- const level=levels.find(x=>String(x.id)===String(link.level_id));
- if(!level) return {available:false,reason:"Level tidak ditemukan."};
- const levelState=levelSequenceState(level);
- if(!levelState.available) return levelState;
- const levelLinks=links
-  .filter(x=>String(x.level_id)===String(level.id))
-  .sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id));
- const idx=levelLinks.findIndex(x=>String(x.id)===String(link.id));
- if(idx<=0) return {available:true,reason:""};
- const previous=levelLinks[idx-1];
- if(isDone(previous.material_id)) return {available:true,reason:""};
- const previousMaterial=materials.find(x=>String(x.id)===String(previous.material_id));
- return {available:false,reason:`Selesaikan “${previousMaterial?.judul||"materi sebelumnya"}” terlebih dahulu.`};
+
+ if(isAdminUser())
+  return{
+   available:true,
+   reason:""
+  };
+
+
+ const level=
+  levels.find(
+   x=>
+    String(x.id)===
+    String(link.level_id)
+  );
+
+
+ if(!level){
+
+  return{
+   available:false,
+   reason:"Level tidak ditemukan."
+  };
+
+ }
+
+
+ const levelState=
+  levelSequenceState(level);
+
+
+ if(!levelState.available)
+  return levelState;
+
+
+ const levelLinks=
+  links
+   .filter(
+    x=>
+     String(x.level_id)===
+     String(level.id)
+   )
+   .sort(
+    (a,b)=>
+     (Number(a.urutan)||0)-
+     (Number(b.urutan)||0) ||
+     Number(a.id)-Number(b.id)
+   );
+
+
+ const idx=
+  levelLinks.findIndex(
+   x=>
+    String(x.id)===
+    String(link.id)
+  );
+
+
+ if(idx<=0){
+
+  return{
+   available:true,
+   reason:""
+  };
+
+ }
+
+
+ const previous=
+  levelLinks[idx-1];
+
+
+ if(
+  isDone(
+   previous.material_id
+  )
+ ){
+
+  return{
+   available:true,
+   reason:""
+  };
+
+ }
+
+
+ const previousMaterial=
+  materials.find(
+   x=>
+    String(x.id)===
+    String(previous.material_id)
+  );
+
+
+ return{
+  available:false,
+  reason:
+   `Selesaikan “${
+    previousMaterial?.judul ||
+    "materi sebelumnya"
+   }” terlebih dahulu.`
+ };
+
 }
+
+
+/* MATERIAL */
 
 function renderMaterial(link){
- const m=materials.find(x=>String(x.id)===String(link.material_id));
- if(!m)return `<div class="material"><div class="m-main"><div class="m-title">⚠️ Materi #${esc(link.material_id)} tidak ditemukan</div></div></div>`;
- const p=premium(m),membershipCanOpen=!p||membershipActive;
- const sequence=materialSequenceState(link);
- const canOpen=membershipCanOpen&&sequence.available;
- const prog=progressMap.get(String(m.id));
- const done=prog?.status==="completed"||Number(prog?.progress||0)>=95;
- const percent=Math.max(0,Math.min(100,Number(prog?.progress||0)));
- const progressLabel=done?'<span class="badge free">✅ SELESAI</span>':percent>0?`<span class="badge">${percent}%</span>`:"";
+
+ const m=
+  materials.find(
+   x=>
+    String(x.id)===
+    String(link.material_id)
+  );
+
+
+ if(!m){
+
+  return`
+
+   <div class="material">
+
+    <div class="m-main">
+
+     <div class="m-title">
+
+      ⚠️ Materi #${esc(
+       link.material_id
+      )}
+      tidak ditemukan
+
+     </div>
+
+    </div>
+
+   </div>
+
+  `;
+
+ }
+
+
+ const p=
+  premium(m);
+
+
+ const membershipCanOpen=
+  !p ||
+  membershipActive;
+
+
+ const sequence=
+  materialSequenceState(link);
+
+
+ const canOpen=
+  membershipCanOpen &&
+  sequence.available;
+
+
+ const prog=
+  progressMap.get(
+   String(m.id)
+  );
+
+
+ const done=
+  prog?.status==="completed" ||
+  Number(prog?.progress||0)>=95;
+
+
+ const percent=
+  Math.max(
+   0,
+   Math.min(
+    100,
+    Number(
+     prog?.progress||0
+    )
+   )
+  );
+
+
+ const progressLabel=
+  done
+   ? '<span class="badge free">✅ SELESAI</span>'
+   : percent>0
+   ? `<span class="badge">${percent}%</span>`
+   : "";
+
+
  let action="";
+
+
  if(!membershipCanOpen){
-   action=`<button class="lock-btn" onclick="needMembership()">🔐 Premium</button>`;
+
+  action=`
+
+   <button
+    class="lock-btn"
+    onclick="needMembership()"
+   >
+
+    🔐 Premium
+
+   </button>
+
+  `;
+
  }else if(!sequence.available){
-   action=`<button class="lock-btn sequence-lock" onclick="sequenceAlert(${JSON.stringify(sequence.reason)})">🔒 Terkunci</button>`;
+
+  action=`
+
+   <button
+    class="lock-btn sequence-lock"
+    onclick='sequenceAlert(${JSON.stringify(sequence.reason)})'
+   >
+
+    🔒 Terkunci
+
+   </button>
+
+  `;
+
  }else{
-   action=`<a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">${done?"↻ Ulangi":"▶️ Buka"}</a>`;
+
+  action=`
+
+   <a
+    class="open-btn"
+    href="player.html?id=${encodeURIComponent(m.id)}"
+   >
+
+    ${done ? "↻ Ulangi" : "▶️ Buka"}
+
+   </a>
+
+  `;
+
  }
- const note=!membershipCanOpen
-   ?'<div class="lock-note">🔐 Khusus member premium</div>'
-   :(!sequence.available?`<div class="lock-note">🔒 ${esc(sequence.reason)}</div>`:"");
- return `<div class="material">
-  <div class="m-icon">${icon(m)}</div>
-  <div class="m-main">
-   <div class="m-title">${esc(m.judul||"Tanpa Judul")}</div>
-   <div class="m-meta"><span class="badge ${p?"premium":"free"}">${p?"🔐 Premium":"✓ Gratis"}</span><span class="badge">${esc(typeOf(m).toUpperCase())}</span>${link.wajib?'<span class="badge">WAJIB</span>':'<span class="badge">OPSIONAL</span>'}${progressLabel}</div>
-   ${percent>0&&!done?`<div class="progress-wrap"><div class="progress-bar" style="width:${percent}%"></div></div>`:""}
-   ${note}
+
+
+ const note=
+  !membershipCanOpen
+   ? `
+     <div class="lock-note">
+      🔐 Khusus member premium
+     </div>
+    `
+   :
+  (
+   !sequence.available
+    ? `
+      <div class="lock-note">
+       🔒 ${esc(
+        sequence.reason
+       )}
+      </div>
+     `
+    : ""
+  );
+
+
+ return`
+
+  <div class="material">
+
+   <div class="m-icon">
+    ${icon(m)}
+   </div>
+
+
+   <div class="m-main">
+
+    <div class="m-title">
+     ${esc(
+      m.judul ||
+      "Tanpa Judul"
+     )}
+    </div>
+
+
+    <div class="m-meta">
+
+     <span
+      class="badge ${
+       p
+        ? "premium"
+        : "free"
+      }"
+     >
+
+      ${
+       p
+        ? "🔐 Premium"
+        : "✓ Gratis"
+      }
+
+     </span>
+
+
+     <span class="badge">
+
+      ${esc(
+       typeOf(m)
+        .toUpperCase()
+      )}
+
+     </span>
+
+
+     ${
+      link.wajib
+       ? '<span class="badge">WAJIB</span>'
+       : '<span class="badge">OPSIONAL</span>'
+     }
+
+
+     ${progressLabel}
+
+    </div>
+
+
+    ${
+     percent>0&&!done
+      ? `
+       <div class="progress-wrap">
+
+        <div
+         class="progress-bar"
+         style="width:${percent}%"
+        ></div>
+
+       </div>
+      `
+      : ""
+    }
+
+
+    ${note}
+
+   </div>
+
+
+   ${action}
+
   </div>
-  ${action}
- </div>`;
+
+ `;
+
 }
-function toggleCourse(head){head.parentElement.classList.toggle("open")}
-function toggleLevel(head){head.parentElement.classList.toggle("open")}
+
+
+/* TOGGLE */
+
+function toggleCourse(head){
+
+ head
+  .parentElement
+  .classList
+  .toggle("open");
+
+}
+
+
+function toggleLevel(head){
+
+ head
+  .parentElement
+  .classList
+  .toggle("open");
+
+}
+
+
+/* CONTINUE */
+
 function renderContinue(){
- const box=document.getElementById("continueBox");
- if(!currentUser){box.classList.add("hidden");return}
 
- // Lanjutkan dari materi terakhir yang masih bisa dipelajari.
+ const box=
+  document.getElementById(
+   "continueBox"
+  );
+
+
+ if(!currentUser){
+
+  box.classList.add("hidden");
+
+  return;
+
+ }
+
+
  const ordered=[];
- courses.slice().sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(c=>{
-  levels.filter(l=>String(l.course_id)===String(c.id)).sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(l=>{
-   links.filter(x=>String(x.level_id)===String(l.id)).sort((a,b)=>(Number(a.urutan)||0)-(Number(b.urutan)||0)||Number(a.id)-Number(b.id)).forEach(x=>ordered.push(x));
+
+
+ courses
+  .slice()
+  .sort(
+   (a,b)=>
+    (Number(a.urutan)||0)-
+    (Number(b.urutan)||0) ||
+    Number(a.id)-Number(b.id)
+  )
+  .forEach(c=>{
+
+   levels
+    .filter(
+     l=>
+      String(l.course_id)===
+      String(c.id)
+    )
+    .sort(
+     (a,b)=>
+      (Number(a.urutan)||0)-
+      (Number(b.urutan)||0) ||
+      Number(a.id)-Number(b.id)
+    )
+    .forEach(l=>{
+
+     links
+      .filter(
+       x=>
+        String(x.level_id)===
+        String(l.id)
+      )
+      .sort(
+       (a,b)=>
+        (Number(a.urutan)||0)-
+        (Number(b.urutan)||0) ||
+        Number(a.id)-Number(b.id)
+      )
+      .forEach(
+       x=>ordered.push(x)
+      );
+
+    });
+
   });
- });
- const candidates=ordered.map(link=>({link,m:materials.find(m=>String(m.id)===String(link.material_id)),p:progressMap.get(String(link.material_id))}))
-  .filter(x=>x.m&&!isDone(x.m.id)&&materialSequenceState(x.link).available)
-  .sort((a,b)=>new Date(b.p?.last_watched_at||0)-new Date(a.p?.last_watched_at||0));
- const x=candidates.find(y=>Number(y.p?.progress||0)>0)||candidates[0];
- if(!x){box.classList.add("hidden");return}
- const m=x.m,percent=Math.max(0,Math.min(100,Number(x.p?.progress||0)));
- box.innerHTML=`<div class="continue-title">▶️ LANJUTKAN BELAJAR</div><div class="continue-main"><div><div class="continue-name">${icon(m)} ${esc(m.judul||"Materi")}</div><div class="continue-meta">${percent}% selesai • ${esc(m.kategori||"Akademi")}</div></div><a class="open-btn" href="player.html?id=${encodeURIComponent(m.id)}">Lanjut</a></div><div class="progress-wrap"><div class="progress-bar" style="width:${percent}%"></div></div>`;
- box.classList.remove("hidden");
+
+
+ const candidates=
+  ordered
+   .map(
+    link=>({
+
+     link,
+
+     m:
+      materials.find(
+       m=>
+        String(m.id)===
+        String(link.material_id)
+      ),
+
+     p:
+      progressMap.get(
+       String(link.material_id)
+      )
+
+    })
+   )
+   .filter(
+    x=>
+     x.m &&
+     !isDone(x.m.id) &&
+     materialSequenceState(
+      x.link
+     ).available
+   )
+   .sort(
+    (a,b)=>
+     new Date(
+      b.p?.last_watched_at||0
+     )-
+     new Date(
+      a.p?.last_watched_at||0
+     )
+   );
+
+
+ const x=
+  candidates.find(
+   y=>
+    Number(
+     y.p?.progress||0
+    )>0
+  ) ||
+  candidates[0];
+
+
+ if(!x){
+
+  box.classList.add("hidden");
+
+  return;
+
+ }
+
+
+ const m=x.m;
+
+
+ const percent=
+  Math.max(
+   0,
+   Math.min(
+    100,
+    Number(
+     x.p?.progress||0
+    )
+   )
+  );
+
+
+ box.innerHTML=`
+
+  <div class="continue-title">
+   ▶️ LANJUTKAN BELAJAR
+  </div>
+
+
+  <div class="continue-main">
+
+   <div>
+
+    <div class="continue-name">
+
+     ${icon(m)}
+     ${esc(
+      m.judul ||
+      "Materi"
+     )}
+
+    </div>
+
+
+    <div class="continue-meta">
+
+     ${percent}% selesai •
+     ${esc(
+      m.kategori ||
+      "Akademi"
+     )}
+
+    </div>
+
+   </div>
+
+
+   <a
+    class="open-btn"
+    href="player.html?id=${encodeURIComponent(m.id)}"
+   >
+
+    Lanjut
+
+   </a>
+
+  </div>
+
+
+  <div class="progress-wrap">
+
+   <div
+    class="progress-bar"
+    style="width:${percent}%"
+   ></div>
+
+  </div>
+
+ `;
+
+
+ box.classList.remove(
+  "hidden"
+ );
+
 }
 
-function sequenceAlert(message){alert("🔒 Materi terkunci.\n\n"+message)}
 
-function needMembership(){if(confirm("🔐 Materi ini khusus member premium. Buka halaman Membership?"))location.href="membership.html"}
+/* LOCK MESSAGE */
 
-document.getElementById("search").addEventListener("input",render);
+function sequenceAlert(message){
 
-sb.auth.onAuthStateChange((event)=>{
- if(["SIGNED_IN","SIGNED_OUT","TOKEN_REFRESHED"].includes(event)){
-  setTimeout(async()=>{try{await checkUser();await loadProgress();render();renderSummary();renderContinue()}catch(e){console.error(e)}},0);
+ alert(
+  "🔒 Materi terkunci.\n\n"+
+  message
+ );
+
+}
+
+
+/* MEMBERSHIP */
+
+function needMembership(){
+
+ if(
+  confirm(
+   "🔐 Materi ini khusus member premium. Buka halaman Membership?"
+  )
+ ){
+
+  location.href=
+   "membership.html";
+
  }
-});
-document.addEventListener("visibilitychange",async()=>{
- if(document.visibilityState==="visible"&&currentUser){try{await loadProgress();render();renderSummary();renderContinue()}catch(e){console.error(e)}}
-});
+
+}
+
+
+/* SEARCH */
+
+document
+ .getElementById("search")
+ .addEventListener(
+  "input",
+  render
+ );
+
+
+/* AUTH CHANGE */
+
+sb.auth.onAuthStateChange(
+ event=>{
+
+  if(
+   [
+    "SIGNED_IN",
+    "SIGNED_OUT",
+    "TOKEN_REFRESHED"
+   ].includes(event)
+  ){
+
+   setTimeout(
+    async()=>{
+
+     try{
+
+      await checkUser();
+
+      await loadProgress();
+
+      render();
+
+      renderSummary();
+
+      renderContinue();
+
+     }catch(e){
+
+      console.error(e);
+
+     }
+
+    },
+    0
+   );
+
+  }
+
+ });
+
+
+/* REFRESH PROGRESS */
+
+document.addEventListener(
+ "visibilitychange",
+ async()=>{
+
+  if(
+   document.visibilityState==="visible" &&
+   currentUser
+  ){
+
+   try{
+
+    await loadProgress();
+
+    render();
+
+    renderSummary();
+
+    renderContinue();
+
+   }catch(e){
+
+    console.error(e);
+
+   }
+
+  }
+
+ });
+
+
+/* INIT */
 
 (async function(){
- try{await checkUser();await loadCurriculum()}catch(e){
-  document.getElementById("academy").innerHTML='<div class="error">❌ '+esc(e.message)+'</div>';
+
+ try{
+
+  await checkUser();
+
+  await loadCurriculum();
+
+ }catch(e){
+
+  document.getElementById(
+   "academy"
+  ).innerHTML=
+
+   '<div class="error">'+
+   '❌ '+
+   esc(e.message)+
+   '</div>';
+
  }
+
 })();
+
 </script>
+
 </body>
 </html>
