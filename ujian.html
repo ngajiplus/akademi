@@ -154,7 +154,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const params=new URLSearchParams(location.search);
 const examId=params.get('id');
 
-let user=null, exam=null, questions=[], answers={}, attempt=null;
+let user=null, profile=null, exam=null, questions=[], answers={}, attempt=null;
+let accessAllowed=false, isAdmin=false, membershipActive=false;
 let timerHandle=null, secondsLeft=null, submitting=false;
 let examStarted=false;
 let violationCount=0;
@@ -168,12 +169,12 @@ function setMsg(text,ok=true){
 }
 
 function toggleTheme(){
-  const light=localStorage.getItem('np_theme')==='light';
+  const light=localStorage.getItem('ngajiplus-theme')==='light';
   if(light){
-    localStorage.setItem('np_theme','dark');
+    localStorage.setItem('ngajiplus-theme','dark');
     location.reload();
   }else{
-    localStorage.setItem('np_theme','light');
+    localStorage.setItem('ngajiplus-theme','light');
     applyLight();
   }
 }
@@ -187,7 +188,7 @@ function applyLight(){
   document.documentElement.style.setProperty('--border','#9bd8c2');
 }
 
-if(localStorage.getItem('np_theme')==='light')applyLight();
+if(localStorage.getItem('ngajiplus-theme')==='light')applyLight();
 
 async function init(){
   try{
@@ -200,6 +201,9 @@ async function init(){
       location.href='login.html?redirect='+encodeURIComponent(location.href);
       return;
     }
+
+    await checkExamAccess();
+    if(!accessAllowed) return;
 
     const er=await db.from('exams')
       .select('id,level_id,judul,deskripsi,aktif,kkm,nilai_maksimal,waktu_menit,instruksi,boleh_mengulang')
@@ -243,6 +247,30 @@ async function init(){
       '<p class="small">'+esc(e.message||e)+'</p>'+
       '<button class="btn" onclick="location.href=\'akademi.html\'">Kembali</button></div>';
   }
+}
+
+async function checkExamAccess(){
+  const pr=await db.from('profiles').select('id,nama,status,paket,berlaku_sampai,is_admin').eq('id',user.id).maybeSingle();
+  if(pr.error) throw pr.error; profile=pr.data||null;
+  isAdmin=!!(profile?.is_admin===true||profile?.is_admin==='true'||profile?.is_admin===1||profile?.is_admin==='1');
+  if(!isAdmin){
+    const ar=await db.from('admin_users').select('id').eq('user_id',user.id).maybeSingle();
+    if(ar.error && !String(ar.error.message||'').toLowerCase().includes('no rows')) throw ar.error;
+    isAdmin=!!ar.data;
+  }
+  if(isAdmin){ membershipActive=true; accessAllowed=true; setMsg('🛡️ Admin — Anda memiliki akses penuh ke ujian.'); return; }
+  const statusAktif=String(profile?.status||'').toLowerCase().trim()==='aktif';
+  const paket=String(profile?.paket||'').toLowerCase().trim();
+  const lifetime=paket==='lifetime';
+  const expiry=profile?.berlaku_sampai?new Date(profile.berlaku_sampai):null;
+  const activeDate=!!(expiry&&!isNaN(expiry.getTime())&&expiry>=new Date());
+  membershipActive=statusAktif&&(lifetime||activeDate);
+  if(!membershipActive){
+    accessAllowed=false;
+    $('msg').innerHTML='🔐 <strong>Ujian khusus member aktif.</strong><br><span class="small">Aktifkan membership terlebih dahulu untuk mengikuti ujian.</span><div class="actions" style="margin-top:10px"><button class="btn primary" onclick="location.href=\'membership.html\'">💎 Buka Membership</button><button class="btn" onclick="location.href=\'akademi.html\'">📚 Kembali ke Akademi</button></div>';
+    $('questions').innerHTML=''; return;
+  }
+  accessAllowed=true; setMsg('✅ Membership '+(profile?.paket||'Premium')+' aktif — ujian dapat dikerjakan.');
 }
 
 async function startOrResumeAttempt(){
