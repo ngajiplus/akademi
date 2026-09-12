@@ -206,14 +206,14 @@ async function init(){
     if(!accessAllowed) return;
 
     const er=await db.from('exams')
-      .select('id,level_id,judul,deskripsi,aktif,kkm,nilai_maksimal,waktu_menit,instruksi,boleh_mengulang')
+      .select('id,level_id,judul,deskripsi,aktif,passing_score,nilai_maksimal,waktu_menit,instruksi,boleh_mengulang')
       .eq('id',examId)
       .maybeSingle();
 
     if(er.error)throw er.error;
     if(!er.data)throw Error('Ujian tidak ditemukan.');
 
-    exam=er.data;
+    exam={...er.data,kkm:er.data.passing_score};
 
     if(exam.aktif===false)throw Error('Ujian ini sedang tidak aktif.');
 
