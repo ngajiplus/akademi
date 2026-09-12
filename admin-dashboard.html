@@ -1,2943 +1,630 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-      content="#06130d">
-
-<meta name="description"
-      content="Admin Dashboard NgajiPlus Akademi">
-
-<title>Admin Dashboard - NgajiPlus Akademi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#008f50">
+<title>Dashboard Admin — NgajiPlus Akademi</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =====================================================
-   THEME VARIABLES
-===================================================== */
-
-:root{
-
-    --bg:#eef6f1;
-    --surface:#ffffff;
-    --surface2:#f5faf7;
-    --surface3:#e6f3eb;
-
-    --border:#d5e6dc;
-
-    --text:#15241d;
-    --text2:#4f6258;
-    --muted:#72847b;
-
-    --green:#009b55;
-    --green2:#00b864;
-    --greenDark:#007c45;
-
-    --danger:#c93636;
-    --dangerBg:#fff0f0;
-
-    --warning:#a56f00;
-    --warningBg:#fff8df;
-
-    --shadow:
-        0 5px 20px rgba(0,0,0,.06);
-}
-
-
-/* =====================================================
-   DARK MODE
-===================================================== */
-
-body.dark-mode{
-
-    --bg:#06130d;
-    --surface:#0d2118;
-    --surface2:#10291f;
-    --surface3:#143326;
-
-    --border:#234738;
-
-    --text:#edf8f2;
-    --text2:#c1d3c9;
-    --muted:#91a79b;
-
-    --green:#00bd69;
-    --green2:#00cf75;
-    --greenDark:#00a85d;
-
-    --danger:#ff7777;
-    --dangerBg:#351b1b;
-
-    --warning:#ffd75d;
-    --warningBg:#332b15;
-
-    --shadow:
-        0 8px 25px rgba(0,0,0,.25);
-}
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-
     margin:0;
-
-    background:var(--bg);
-
-    color:var(--text);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    transition:
-        background .25s ease,
-        color .25s ease;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4faf7;
+    color:#1f2b25;
+    line-height:1.5;
 }
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-button{
-    font-family:inherit;
-    cursor:pointer;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
 header{
-
     position:sticky;
-
     top:0;
-
     z-index:1000;
-
-    background:var(--surface);
-
-    border-bottom:
-        1px solid var(--border);
+    background:#fff;
+    border-bottom:1px solid #dce9e2;
 }
-
 .nav{
-
-    max-width:1200px;
-
+    max-width:1250px;
     margin:auto;
-
-    min-height:52px;
-
-    padding:
-        7px 12px;
-
+    padding:11px 16px;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    gap:8px;
+    gap:12px;
 }
-
 .logo{
-
-    color:var(--green);
-
-    font-size:11px;
-
-    font-weight:bold;
-
-    white-space:nowrap;
+    color:#008f50;
+    font-size:14px;
+    font-weight:800;
 }
-
-.nav-actions{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-}
-
+.nav-actions{display:flex;gap:7px;align-items:center}
 .nav-btn{
-
-    min-height:34px;
-
-    padding:
-        7px 10px;
-
-    border:
-        1px solid var(--border);
-
+    border:0;
     border-radius:8px;
-
-    background:var(--surface2);
-
-    color:var(--text);
-
-    font-size:8px;
-
-    font-weight:bold;
-
-    transition:.2s;
+    padding:8px 11px;
+    font-size:10px;
+    font-weight:700;
+    text-decoration:none;
 }
-
-.nav-btn:hover{
-
-    transform:
-        translateY(-1px);
-}
-
-.nav-btn.green{
-
-    background:var(--green);
-
-    color:#fff;
-
-    border-color:var(--green);
-}
-
-.theme-btn{
-
-    width:38px;
-
-    padding:5px;
-
-    font-size:15px;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
+.dashboard-btn{background:#e7f7ef;color:#087a47}
+.theme-btn{background:#eef2f0;color:#34423b}
+.logout-btn{background:#ffeaea;color:#b42318}
 
 main{
-
-    max-width:1200px;
-
+    max-width:1250px;
     margin:auto;
-
-    padding:
-        16px 12px 45px;
+    padding:22px 16px 55px;
 }
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
 .hero{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:
-        25px 20px;
-
-    border-radius:16px;
-
-    margin-bottom:12px;
-
+    background:linear-gradient(135deg,#007f47,#00b85c);
     color:#fff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00a95c,
-            #007e48
-        );
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,150,80,.18);
+    border-radius:18px;
+    padding:30px 24px;
+    margin-bottom:16px;
+    box-shadow:0 10px 28px rgba(0,143,80,.18);
 }
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:220px;
-
-    height:220px;
-
-    right:-90px;
-
-    top:-110px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.08);
-}
-
 .hero-label{
-
-    position:relative;
-
-    z-index:1;
-
-    font-size:8px;
-
-    margin-bottom:5px;
-
-    font-weight:bold;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.8px;
+    opacity:.9;
 }
-
-.hero h1{
-
-    position:relative;
-
-    z-index:1;
-
-    margin:
-        0 0 5px;
-
-    font-size:
-        clamp(25px,5vw,40px);
-}
-
-.hero p{
-
-    position:relative;
-
-    z-index:1;
-
-    margin:0;
-
-    font-size:8px;
-
-    opacity:.92;
-}
-
-
-/* =====================================================
-   NOTICE
-===================================================== */
+.hero h1{margin:5px 0 4px;font-size:34px}
+.hero p{margin:0;font-size:11px;opacity:.92}
 
 .notice{
-
-    min-height:38px;
-
-    display:flex;
-
-    align-items:center;
-
-    background:var(--surface);
-
-    color:var(--text2);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:9px;
-
-    padding:
-        9px 12px;
-
-    margin-bottom:12px;
-
-    font-size:8px;
-}
-
-.notice.success{
-
-    color:var(--green);
-
-}
-
-.notice.error{
-
-    color:var(--danger);
-
-    background:var(--dangerBg);
-
-    border-color:
-        rgba(201,54,54,.35);
-}
-
-
-/* =====================================================
-   ERROR DETAILS
-===================================================== */
-
-.error-box{
-
-    display:none;
-
-    background:var(--dangerBg);
-
-    color:var(--danger);
-
-    border:
-        1px solid rgba(201,54,54,.35);
-
+    padding:12px 15px;
     border-radius:10px;
-
-    padding:10px 12px;
-
-    margin-bottom:12px;
-
-    font-size:8px;
-
-    word-break:break-word;
+    margin-bottom:16px;
+    font-size:10px;
+    background:#e5f9ed;
+    border:1px solid #bde8cf;
+    color:#087a47;
+}
+.notice.error{
+    background:#ffe9e9;
+    border-color:#f3c2c2;
+    color:#b42318;
 }
 
-
-/* =====================================================
-   REFRESH BAR
-===================================================== */
-
-.toolbar{
-
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+.stat{
+    background:#fff;
+    border:1px solid #e0ebe5;
+    border-radius:15px;
+    padding:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.045);
+}
+.stat-top{
     display:flex;
-
-    justify-content:flex-end;
-
-    margin-bottom:12px;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
-
-.refresh-btn{
-
-    min-height:34px;
-
-    padding:
-        7px 12px;
-
-    border:
-        1px solid var(--green);
-
-    border-radius:8px;
-
-    background:var(--green);
-
-    color:#fff;
-
-    font-size:8px;
-
-    font-weight:bold;
+.stat-icon{
+    width:42px;height:42px;
+    display:grid;place-items:center;
+    border-radius:12px;
+    background:#e9f8f0;
+    font-size:21px;
 }
-
-.refresh-btn:disabled{
-
-    opacity:.6;
-
-    cursor:wait;
+.stat-number{
+    margin-top:12px;
+    font-size:30px;
+    font-weight:800;
+    color:#087a47;
 }
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-.section{
-
-    margin-bottom:15px;
+.stat-label{
+    font-size:10px;
+    color:#68766f;
+    font-weight:700;
 }
 
 .section-title{
-
-    margin:
-        0 0 3px;
-
-    font-size:15px;
+    margin:20px 0 10px;
+    font-size:17px;
+    font-weight:800;
 }
-
-.section-subtitle{
-
-    margin:
-        0 0 10px;
-
-    color:var(--muted);
-
-    font-size:8px;
-}
-
-
-/* =====================================================
-   STAT CARDS
-===================================================== */
-
-.stats{
-
+.menu-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:10px;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
-
-.stat{
-
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    padding:13px;
-
-    box-shadow:var(--shadow);
-
-    min-width:0;
-}
-
-.stat-icon{
-
-    font-size:21px;
-
-    margin-bottom:5px;
-}
-
-.stat-number{
-
-    color:var(--green);
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    line-height:1.1;
-}
-
-.stat-label{
-
-    color:var(--muted);
-
-    font-size:7px;
-
-    margin-top:4px;
-}
-
-
-/* =====================================================
-   MANAGEMENT
-===================================================== */
-
-.management-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:10px;
-}
-
-.card{
-
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    padding:15px;
-
-    box-shadow:var(--shadow);
-}
-
-.card-icon{
-
-    font-size:26px;
-
-    margin-bottom:6px;
-}
-
-.card h3{
-
-    margin:
-        0 0 4px;
-
-    font-size:13px;
-}
-
-.card p{
-
-    margin:
-        0 0 10px;
-
-    color:var(--muted);
-
-    font-size:8px;
-}
-
-.mini-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:6px;
-
-    margin-bottom:10px;
-}
-
-.mini{
-
-    padding:8px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:8px;
-
-    background:var(--surface2);
-}
-
-.mini-number{
-
-    color:var(--green);
-
-    font-size:14px;
-
-    font-weight:bold;
-}
-
-.mini-label{
-
-    color:var(--muted);
-
-    font-size:7px;
-}
-
-.manage-btn{
-
+.menu-card{
     display:block;
-
-    text-align:center;
-
-    background:var(--green);
-
-    color:#fff;
-
-    border-radius:8px;
-
-    padding:9px;
-
-    font-size:8px;
-
-    font-weight:bold;
+    text-decoration:none;
+    color:inherit;
+    background:#fff;
+    border:1px solid #e0ebe5;
+    border-radius:15px;
+    padding:18px;
+    transition:.18s ease;
+    box-shadow:0 5px 18px rgba(0,0,0,.04);
 }
-
-
-/* =====================================================
-   MEMBERSHIP STATUS
-===================================================== */
-
-.status-panel{
-
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    padding:14px;
-
-    box-shadow:var(--shadow);
+.menu-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 9px 25px rgba(0,0,0,.08);
 }
+.menu-icon{
+    width:46px;height:46px;
+    display:grid;place-items:center;
+    border-radius:13px;
+    background:#e9f8f0;
+    font-size:23px;
+    margin-bottom:11px;
+}
+.menu-card h3{margin:0 0 3px;font-size:13px}
+.menu-card p{margin:0;color:#748079;font-size:9px}
 
-.status-grid{
-
+.content-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:7px;
+    grid-template-columns:1.45fr .85fr;
+    gap:14px;
+    margin-top:18px;
 }
-
-.status{
-
-    background:var(--surface2);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:8px;
-
-    text-align:center;
-
-    padding:10px 5px;
+.panel{
+    background:#fff;
+    border:1px solid #e0ebe5;
+    border-radius:15px;
+    padding:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.04);
 }
-
-.status-number{
-
-    color:var(--green);
-
-    font-size:18px;
-
-    font-weight:bold;
-}
-
-.status-label{
-
-    color:var(--muted);
-
-    font-size:7px;
-}
-
-
-/* =====================================================
-   ACTIVITY
-===================================================== */
-
-.activity-panel{
-
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:12px;
-
-    padding:14px;
-
-    box-shadow:var(--shadow);
-}
-
-.activity{
-
+.panel-head{
     display:flex;
-
-    align-items:center;
-
     justify-content:space-between;
-
+    align-items:center;
     gap:10px;
-
-    background:var(--surface2);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:8px;
-
-    padding:
-        9px 10px;
-
-    margin-bottom:6px;
+    margin-bottom:12px;
 }
-
-.activity:last-child{
-    margin-bottom:0;
-}
-
-.activity-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    min-width:0;
-}
-
-.activity-icon{
-
-    width:28px;
-
-    height:28px;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-
-    background:var(--surface3);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-}
-
-.activity-title{
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-.activity-desc{
-
-    color:var(--muted);
-
-    font-size:7px;
-}
-
-.activity-value{
-
-    color:var(--green);
-
+.panel h2{margin:0;font-size:15px}
+.small-btn{
+    border:0;
+    border-radius:7px;
+    padding:7px 9px;
+    background:#e9f8f0;
+    color:#087a47;
     font-size:9px;
-
-    font-weight:bold;
-
+    font-weight:800;
+    text-decoration:none;
+}
+.order{
+    border-top:1px solid #edf2ef;
+    padding:11px 0;
+}
+.order:first-child{border-top:0}
+.order-main{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+.order-name{font-size:11px;font-weight:800}
+.order-package{font-size:9px;color:#68766f;margin-top:2px}
+.order-status{
     white-space:nowrap;
-}
-
-
-/* =====================================================
-   QUICK LINKS
-===================================================== */
-
-.quick-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:8px;
-}
-
-.quick{
-
-    background:var(--surface);
-
-    border:
-        1px solid var(--border);
-
-    border-radius:10px;
-
-    padding:
-        12px 7px;
-
-    text-align:center;
-
+    align-self:flex-start;
+    padding:4px 7px;
+    border-radius:999px;
     font-size:8px;
-
-    font-weight:bold;
-
-    transition:.2s;
+    font-weight:800;
+    background:#fff4cf;
+    color:#806b19;
 }
+.order-status.ok{background:#e5f9ed;color:#087a47}
+.order-status.bad{background:#ffe9e9;color:#b42318}
+.empty{font-size:10px;color:#7a867f;padding:12px 0}
 
-.quick:hover{
-
-    background:var(--surface3);
-
-    transform:
-        translateY(-1px);
+.quick-list{display:grid;gap:9px}
+.quick{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:11px 12px;
+    border-radius:10px;
+    background:#f6faf8;
+    border:1px solid #e4eee9;
 }
-
-.quick-icon{
-
-    display:block;
-
-    font-size:20px;
-
-    margin-bottom:4px;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
+.quick span{font-size:10px;font-weight:700}
+.quick b{font-size:13px;color:#087a47}
 
 footer{
-
-    background:
-        #071b12;
-
-    color:#fff;
-
-    padding:
-        23px 12px;
+    text-align:center;
+    padding:18px;
+    color:#78857e;
+    font-size:9px;
 }
 
-.footer-inner{
-
-    max-width:1200px;
-
-    margin:auto;
+body.dark{
+    background:#0f1713;
+    color:#eaf4ee;
 }
-
-.footer-logo{
-
-    color:#39c984;
-
-    font-size:10px;
-
-    font-weight:bold;
+body.dark header,
+body.dark .stat,
+body.dark .menu-card,
+body.dark .panel{
+    background:#17211c;
+    border-color:#2b3a32;
 }
-
-.footer-text{
-
-    color:#9aacA2;
-
-    font-size:7px;
-
-    margin-top:3px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
+body.dark .theme-btn{background:#27352e;color:#eaf4ee}
+body.dark .dashboard-btn{background:#203c2e}
+body.dark .stat-label,
+body.dark .menu-card p,
+body.dark .order-package,
+body.dark footer,
+body.dark .empty{color:#9eaca5}
+body.dark .quick{background:#1d2923;border-color:#2b3a32}
+body.dark .order{border-color:#2b3a32}
 
 @media(max-width:900px){
-
-    .stats{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .management-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .quick-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .menu-grid{grid-template-columns:repeat(2,1fr)}
+    .content-grid{grid-template-columns:1fr}
 }
-
-
-@media(max-width:560px){
-
-    .nav{
-
-        min-height:48px;
-
-        padding:
-            6px 8px;
-    }
-
-    .logo{
-
-        font-size:9px;
-    }
-
-    .nav-actions{
-
-        gap:3px;
-    }
-
-    .nav-btn{
-
-        min-height:32px;
-
-        padding:
-            6px 7px;
-
-        font-size:7px;
-    }
-
-    .theme-btn{
-
-        width:34px;
-
-        font-size:14px;
-    }
-
-    main{
-
-        padding:
-            12px 9px 35px;
-    }
-
-    .hero{
-
-        padding:
-            21px 16px;
-    }
-
-    .hero h1{
-
-        font-size:27px;
-    }
-
-    .stats{
-
-        gap:7px;
-    }
-
-    .stat{
-
-        padding:11px;
-    }
-
-    .stat-number{
-
-        font-size:19px;
-    }
-
-    .management-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .status-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+@media(max-width:550px){
+    .nav{padding:9px 10px}
+    .logo{font-size:11px}
+    .nav-btn{padding:7px 8px;font-size:8px}
+    main{padding:13px 10px 40px}
+    .hero{padding:23px 17px}
+    .hero h1{font-size:27px}
+    .hero p{font-size:9px}
+    .stats{gap:8px}
+    .stat{padding:13px}
+    .stat-icon{width:36px;height:36px;font-size:18px}
+    .stat-number{font-size:24px}
+    .menu-grid{gap:8px}
+    .menu-card{padding:14px}
 }
-
-
-/* =====================================================
-   PREVENT WHITE FORM CONTROLS
-===================================================== */
-
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea{
-
-    background:
-        var(--surface2) !important;
-
-    color:
-        var(--text) !important;
-
-    border-color:
-        var(--border) !important;
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
-
-<div class="nav">
-
-
-<div class="logo">
-📖 NgajiPlus Akademi
-</div>
-
-
-<div class="nav-actions">
-
-
-<a
-    href="dashboard.html"
-    class="nav-btn"
->
-← Dashboard
-</a>
-
-
-<a
-    href="profile.html"
-    class="nav-btn"
->
-👤 Profil
-</a>
-
-
-<button
-    type="button"
-    id="themeBtn"
-    class="nav-btn theme-btn"
-    aria-label="Ganti tema"
->
-🌙
-</button>
-
-
-<button
-    type="button"
-    id="logoutBtn"
-    class="nav-btn"
->
-Keluar
-</button>
-
-
-</div>
-
-</div>
-
+    <div class="nav">
+        <div class="logo">📖 NgajiPlus Akademi</div>
+        <div class="nav-actions">
+            <a href="dashboard.html" class="nav-btn dashboard-btn">← Dashboard</a>
+            <button id="themeBtn" class="nav-btn theme-btn" type="button">🌙</button>
+            <button id="logoutBtn" class="nav-btn logout-btn" type="button">Keluar</button>
+        </div>
+    </div>
 </header>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
 
 <main>
 
-
-<!-- HERO -->
-
 <section class="hero">
-
-<div class="hero-label">
-🛡️ PANEL ADMIN
-</div>
-
-<h1>
-Admin Dashboard
-</h1>
-
-<p>
-Kelola membership, materi, member,
-dan aktivitas pembelajaran NgajiPlus Akademi.
-</p>
-
+    <div class="hero-label">🔐 PANEL ADMINISTRATOR</div>
+    <h1>Dashboard Admin</h1>
+    <p>Pusat kontrol NgajiPlus Akademi — member, membership, materi dan sertifikat.</p>
 </section>
 
+<div id="notice" class="notice">⏳ Memeriksa akses administrator...</div>
 
-<!-- NOTICE -->
+<section class="stats">
+    <div class="stat">
+        <div class="stat-top"><div class="stat-label">TOTAL MEMBER</div><div class="stat-icon">👥</div></div>
+        <div id="totalMembers" class="stat-number">—</div>
+        <div class="stat-label">Akun terdaftar</div>
+    </div>
 
-<div
-    id="notice"
-    class="notice"
->
-⏳ Memeriksa akses administrator...
-</div>
+    <div class="stat">
+        <div class="stat-top"><div class="stat-label">PREMIUM AKTIF</div><div class="stat-icon">💎</div></div>
+        <div id="activeMembers" class="stat-number">—</div>
+        <div class="stat-label">Membership aktif</div>
+    </div>
 
+    <div class="stat">
+        <div class="stat-top"><div class="stat-label">PESANAN</div><div class="stat-icon">📦</div></div>
+        <div id="waitingOrders" class="stat-number">—</div>
+        <div class="stat-label">Menunggu diproses</div>
+    </div>
 
-<!-- ERROR -->
-
-<div
-    id="errorBox"
-    class="error-box"
-></div>
-
-
-<!-- TOOLBAR -->
-
-<div class="toolbar">
-
-<button
-    type="button"
-    id="refreshBtn"
-    class="refresh-btn"
->
-🔄 Refresh Data
-</button>
-
-</div>
-
-
-<!-- =====================================================
-     RINGKASAN
-===================================================== -->
-
-<section class="section">
-
-<h2 class="section-title">
-📊 Ringkasan Akademi
-</h2>
-
-<p class="section-subtitle">
-Informasi keseluruhan sistem NgajiPlus Akademi.
-</p>
-
-
-<div class="stats">
-
-
-<div class="stat">
-
-<div class="stat-icon">
-👥
-</div>
-
-<div
-    id="totalMembers"
-    class="stat-number"
->
-—
-</div>
-
-<div class="stat-label">
-Total Member
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
-💎
-</div>
-
-<div
-    id="premiumMembers"
-    class="stat-number"
->
-—
-</div>
-
-<div class="stat-label">
-Premium Aktif
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
-⏰
-</div>
-
-<div
-    id="expiredMembers"
-    class="stat-number"
->
-—
-</div>
-
-<div class="stat-label">
-Membership Expired
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
-📚
-</div>
-
-<div
-    id="totalMaterials"
-    class="stat-number"
->
-—
-</div>
-
-<div class="stat-label">
-Total Materi
-</div>
-
-</div>
-
-
-</div>
-
+    <div class="stat">
+        <div class="stat-top"><div class="stat-label">SERTIFIKAT</div><div class="stat-icon">🏆</div></div>
+        <div id="totalCertificates" class="stat-number">—</div>
+        <div class="stat-label">Total sertifikat</div>
+    </div>
 </section>
 
-
-<!-- =====================================================
-     MANAJEMEN
-===================================================== -->
-
-<section class="section">
-
-<h2 class="section-title">
-⚙️ Manajemen
-</h2>
-
-<p class="section-subtitle">
-Akses cepat ke bagian administrasi.
-</p>
-
-
-<div class="management-grid">
-
-
-<!-- MEMBERSHIP -->
-
-<div class="card">
-
-<div class="card-icon">
-💎
-</div>
-
-<h3>
-Membership
-</h3>
-
-<p>
-Kelola pesanan dan aktivasi membership Premium.
-</p>
-
-
-<div class="mini-grid">
-
-<div class="mini">
-
-<div
-    id="membershipWaiting"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Menunggu
-</div>
-
-</div>
-
-
-<div class="mini">
-
-<div
-    id="membershipApproved"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Disetujui
-</div>
-
-</div>
-
-</div>
-
-
-<a
-    href="admin-membership.html"
-    class="manage-btn"
->
-💎 Kelola Membership
-</a>
-
-</div>
-
-
-<!-- MATERI -->
-
-<div class="card">
-
-<div class="card-icon">
-📚
-</div>
-
-<h3>
-Materi
-</h3>
-
-<p>
-Kelola video, audio, PDF dan materi Premium.
-</p>
-
-
-<div class="mini-grid">
-
-<div class="mini">
-
-<div
-    id="videoMaterials"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Video
-</div>
-
-</div>
-
-
-<div class="mini">
-
-<div
-    id="audioMaterials"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Audio
-</div>
-
-</div>
-
-</div>
-
-
-<a
-    href="admin.html"
-    class="manage-btn"
->
-📚 Kelola Materi
-</a>
-
-</div>
-
-
-<!-- MEMBER -->
-
-<div class="card">
-
-<div class="card-icon">
-👥
-</div>
-
-<h3>
-Member
-</h3>
-
-<p>
-Lihat member dan status membership mereka.
-</p>
-
-
-<div class="mini-grid">
-
-<div class="mini">
-
-<div
-    id="activeMembers"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Aktif
-</div>
-
-</div>
-
-
-<div class="mini">
-
-<div
-    id="freeMembers"
-    class="mini-number"
->
-—
-</div>
-
-<div class="mini-label">
-Gratis
-</div>
-
-</div>
-
-</div>
-
-
-<a
-    href="admin-members.html"
-    class="manage-btn"
->
-👥 Kelola Member
-</a>
-
-</div>
-
-
-</div>
-
+<div class="section-title">⚡ Menu Utama</div>
+
+<section class="menu-grid">
+    <a class="menu-card" href="admin-membership.html">
+        <div class="menu-icon">💎</div>
+        <h3>Membership</h3>
+        <p>Kelola paket dan pesanan membership.</p>
+    </a>
+
+    <a class="menu-card" href="akademi.html">
+        <div class="menu-icon">📚</div>
+        <h3>Materi Akademi</h3>
+        <p>Kelola dan pantau materi pembelajaran.</p>
+    </a>
+
+    <a class="menu-card" href="sertifikat.html">
+        <div class="menu-icon">🏆</div>
+        <h3>Sertifikat</h3>
+        <p>Lihat dan cetak sertifikat peserta.</p>
+    </a>
+
+    <a class="menu-card" href="dashboard.html">
+        <div class="menu-icon">👤</div>
+        <h3>Dashboard User</h3>
+        <p>Kembali ke dashboard akun.</p>
+    </a>
 </section>
 
+<section class="content-grid">
 
-<!-- =====================================================
-     STATUS MEMBERSHIP
-===================================================== -->
+    <div class="panel">
+        <div class="panel-head">
+            <h2>📦 Pesanan Terbaru</h2>
+            <a href="admin-membership.html" class="small-btn">Kelola</a>
+        </div>
+        <div id="recentOrders">
+            <div class="empty">⏳ Memuat pesanan...</div>
+        </div>
+    </div>
 
-<section class="section">
+    <div class="panel">
+        <div class="panel-head">
+            <h2>📊 Ringkasan</h2>
+        </div>
 
-<h2 class="section-title">
-💎 Status Membership
-</h2>
-
-<p class="section-subtitle">
-Ringkasan pesanan membership.
-</p>
-
-
-<div class="status-panel">
-
-<div class="status-grid">
-
-
-<div class="status">
-
-<div
-    id="orderTotal"
-    class="status-number"
->
-—
-</div>
-
-<div class="status-label">
-Total Pesanan
-</div>
-
-</div>
-
-
-<div class="status">
-
-<div
-    id="orderWaiting"
-    class="status-number"
->
-—
-</div>
-
-<div class="status-label">
-Menunggu
-</div>
-
-</div>
-
-
-<div class="status">
-
-<div
-    id="orderProcessing"
-    class="status-number"
->
-—
-</div>
-
-<div class="status-label">
-Diproses
-</div>
-
-</div>
-
-
-<div class="status">
-
-<div
-    id="orderRejected"
-    class="status-number"
->
-—
-</div>
-
-<div class="status-label">
-Ditolak
-</div>
-
-</div>
-
-
-</div>
-
-</div>
+        <div class="quick-list">
+            <div class="quick"><span>👥 Member gratis / belum aktif</span><b id="freeMembers">—</b></div>
+            <div class="quick"><span>⏳ Semua pesanan</span><b id="allOrders">—</b></div>
+            <div class="quick"><span>📚 Total materi</span><b id="totalMaterials">—</b></div>
+            <div class="quick"><span>🏆 Sertifikat</span><b id="certificateQuick">—</b></div>
+        </div>
+    </div>
 
 </section>
-
-
-<!-- =====================================================
-     PEMBELAJARAN
-===================================================== -->
-
-<section class="section">
-
-<h2 class="section-title">
-📈 Aktivitas Pembelajaran
-</h2>
-
-<p class="section-subtitle">
-Ringkasan progress belajar.
-</p>
-
-
-<div class="activity-panel">
-
-
-<div class="activity">
-
-<div class="activity-left">
-
-<div class="activity-icon">
-▶️
-</div>
-
-<div>
-
-<div class="activity-title">
-Sedang Dipelajari
-</div>
-
-<div class="activity-desc">
-Progress belum mencapai 100%.
-</div>
-
-</div>
-
-</div>
-
-<div
-    id="learningStarted"
-    class="activity-value"
->
-—
-</div>
-
-</div>
-
-
-<div class="activity">
-
-<div class="activity-left">
-
-<div class="activity-icon">
-✅
-</div>
-
-<div>
-
-<div class="activity-title">
-Materi Selesai
-</div>
-
-<div class="activity-desc">
-Progress sudah 100%.
-</div>
-
-</div>
-
-</div>
-
-<div
-    id="learningCompleted"
-    class="activity-value"
->
-—
-</div>
-
-</div>
-
-
-<div class="activity">
-
-<div class="activity-left">
-
-<div class="activity-icon">
-📊
-</div>
-
-<div>
-
-<div class="activity-title">
-Total Progress
-</div>
-
-<div class="activity-desc">
-Data pembelajaran tersimpan.
-</div>
-
-</div>
-
-</div>
-
-<div
-    id="learningTotal"
-    class="activity-value"
->
-—
-</div>
-
-</div>
-
-
-<div class="activity">
-
-<div class="activity-left">
-
-<div class="activity-icon">
-📄
-</div>
-
-<div>
-
-<div class="activity-title">
-PDF
-</div>
-
-<div class="activity-desc">
-Materi berbentuk PDF.
-</div>
-
-</div>
-
-</div>
-
-<div
-    id="pdfMaterials"
-    class="activity-value"
->
-—
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     QUICK ACCESS
-===================================================== -->
-
-<section class="section">
-
-<h2 class="section-title">
-⚡ Akses Cepat
-</h2>
-
-
-<div class="quick-grid">
-
-
-<a
-    href="admin-membership.html"
-    class="quick"
->
-
-<span class="quick-icon">
-💎
-</span>
-
-Membership
-
-</a>
-
-
-<a
-    href="admin.html"
-    class="quick"
->
-
-<span class="quick-icon">
-📚
-</span>
-
-Materi
-
-</a>
-
-
-<a
-    href="admin-members.html"
-    class="quick"
->
-
-<span class="quick-icon">
-👥
-</span>
-
-Member
-
-</a>
-
-
-<a
-    href="dashboard.html"
-    class="quick"
->
-
-<span class="quick-icon">
-🎓
-</span>
-
-Dashboard
-
-</a>
-
-
-</div>
-
-</section>
-
 
 </main>
 
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
-
-<div class="footer-inner">
-
-<div class="footer-logo">
-📖 NgajiPlus Akademi
-</div>
-
-<div class="footer-text">
-Panel administrasi NgajiPlus Akademi.
-</div>
-
-</div>
-
+    © 2026 NgajiPlus Akademi · Panel Administrator
 </footer>
 
-
 <script>
+const SUPABASE_URL = "https://ksgywgdrfskqsufchbcm.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
-
-const SUPABASE_URL =
-    "https://ksgywgdrfskqsufchbcm.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_HmFKwHMCISfN_YOoiLx3-A_MWnG9yG7";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =====================================================
-   ELEMENT
-===================================================== */
-
-const themeBtn =
-    document.getElementById("themeBtn");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-const refreshBtn =
-    document.getElementById("refreshBtn");
-
-const notice =
-    document.getElementById("notice");
-
-const errorBox =
-    document.getElementById("errorBox");
-
-
-/* =====================================================
-   THEME
-===================================================== */
-
-function applyTheme(){
-
-    const saved =
-        localStorage.getItem(
-            "ngajiplus-theme"
-        );
-
-
-    /*
-       Default project = DARK
-    */
-
-    const theme =
-        saved === "light"
-        ? "light"
-        : "dark";
-
-
-    document.body.classList.toggle(
-        "dark-mode",
-        theme === "dark"
-    );
-
-
-    themeBtn.textContent =
-        theme === "dark"
-        ? "☀️"
-        : "🌙";
-
-
-    themeBtn.setAttribute(
-        "aria-label",
-        theme === "dark"
-        ? "Aktifkan mode terang"
-        : "Aktifkan mode gelap"
-    );
-
-}
-
-
-function toggleTheme(){
-
-    const isDark =
-        document.body.classList.contains(
-            "dark-mode"
-        );
-
-
-    const newTheme =
-        isDark
-        ? "light"
-        : "dark";
-
-
-    localStorage.setItem(
-        "ngajiplus-theme",
-        newTheme
-    );
-
-
-    applyTheme();
-
-}
-
-
-themeBtn.addEventListener(
-    "click",
-    toggleTheme
+const sb = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
 );
 
+const $ = id => document.getElementById(id);
 
-/*
-   Jalankan langsung.
-*/
-
-applyTheme();
-
-
-/*
-   Sinkron jika tema berubah dari
-   tab lain.
-*/
-
-window.addEventListener(
-    "storage",
-    function(event){
-
-        if(
-            event.key ===
-            "ngajiplus-theme"
-        ){
-
-            applyTheme();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   ERROR HANDLER
-===================================================== */
-
-function clearError(){
-
-    errorBox.style.display =
-        "none";
-
-    errorBox.textContent =
-        "";
-
+function esc(v){
+    return String(v ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
-
-function showError(message){
-
-    errorBox.style.display =
-        "block";
-
-    errorBox.textContent =
-        "⚠️ " + message;
-
+function applyTheme(theme){
+    const dark = theme === "dark";
+    document.body.classList.toggle("dark", dark);
+    $("themeBtn").textContent = dark ? "☀️" : "🌙";
+    $("themeBtn").title = dark ? "Gunakan Mode Terang" : "Gunakan Mode Gelap";
+    localStorage.setItem("ngajiplus-theme", dark ? "dark" : "light");
 }
 
+$("themeBtn").addEventListener("click",()=>{
+    applyTheme(
+        document.body.classList.contains("dark") ? "light" : "dark"
+    );
+});
 
-/* =====================================================
-   NOTICE
-===================================================== */
+applyTheme(localStorage.getItem("ngajiplus-theme") || "light");
 
-function setNotice(
-    message,
-    type = ""
-){
+async function isAdmin(user){
+    const p = await sb
+        .from("profiles")
+        .select("id,nama,is_admin")
+        .eq("id",user.id)
+        .maybeSingle();
 
-    notice.className =
-        "notice " + type;
-
-    notice.textContent =
-        message;
-
-}
-
-
-/* =====================================================
-   NUMBER FORMAT
-===================================================== */
-
-function setNumber(
-    id,
-    value
-){
-
-    const element =
-        document.getElementById(id);
-
-
-    if(!element){
-
-        return;
-
-    }
-
-
-    element.textContent =
-        Number(value || 0).toLocaleString(
-            "id-ID"
-        );
-
-}
-
-
-/* =====================================================
-   CHECK ADMIN
-===================================================== */
-
-async function checkAdmin(){
-
-    /*
-       Gunakan getSession terlebih dahulu.
-       Ini lebih cepat dan stabil pada beberapa
-       kondisi browser mobile.
-    */
-
-    const sessionResult =
-        await supabaseClient
-            .auth
-            .getSession();
-
-
-    if(sessionResult.error){
-
-        throw sessionResult.error;
-
-    }
-
-
-    const session =
-        sessionResult
-            .data
-            .session;
-
-
-    if(!session){
-
-        window.location.href =
-            "login.html";
-
-        return false;
-
-    }
-
-
-    const user =
-        session.user;
-
-
-    let isAdmin = false;
-
-
-    /* ---------------------------------------------
-       CHECK PROFILES
-    --------------------------------------------- */
-
-    const profileResult =
-        await supabaseClient
-
-            .from("profiles")
-
-            .select(
-                "id,nama,is_admin"
-            )
-
-            .eq(
-                "id",
-                user.id
-            )
-
-            .maybeSingle();
-
+    if(p.error) throw p.error;
 
     if(
-        profileResult.data &&
-        profileResult.data.is_admin === true
+        p.data &&
+        (
+            p.data.is_admin === true ||
+            p.data.is_admin === "true" ||
+            p.data.is_admin === 1 ||
+            p.data.is_admin === "1"
+        )
     ){
-
-        isAdmin = true;
-
+        return true;
     }
 
+    const a = await sb
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id",user.id)
+        .maybeSingle();
 
-    /* ---------------------------------------------
-       CHECK ADMIN_USERS
-    --------------------------------------------- */
-
-    if(!isAdmin){
-
-        const adminResult =
-            await supabaseClient
-
-                .from("admin_users")
-
-                .select(
-                    "user_id"
-                )
-
-                .eq(
-                    "user_id",
-                    user.id
-                )
-
-                .maybeSingle();
-
-
-        if(
-            !adminResult.error &&
-            adminResult.data
-        ){
-
-            isAdmin = true;
-
-        }
-
-    }
-
-
-    if(!isAdmin){
-
-        setNotice(
-            "⛔ Akun ini bukan administrator.",
-            "error"
-        );
-
-
-        setTimeout(
-            function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },
-            1500
-        );
-
-
-        return false;
-
-    }
-
-
-    setNotice(
-        "✅ Login sebagai administrator. Data dashboard siap digunakan.",
-        "success"
-    );
-
-
-    return true;
-
+    return !a.error && !!a.data;
 }
 
+async function countTable(table){
+    const r = await sb
+        .from(table)
+        .select("*",{count:"exact",head:true});
 
-/* =====================================================
-   LOAD PROFILES
-===================================================== */
-
-async function loadProfiles(){
-
-    const result =
-        await supabaseClient
-
-            .from("profiles")
-
-            .select(
-                "id,status,paket,berlaku_sampai"
-            );
-
-
-    if(result.error){
-
-        console.error(
-            "PROFILES:",
-            result.error
-        );
-
-        /*
-           Jangan membuat seluruh dashboard gagal.
-        */
-
-        setNumber(
-            "totalMembers",
-            0
-        );
-
-        setNumber(
-            "premiumMembers",
-            0
-        );
-
-        setNumber(
-            "expiredMembers",
-            0
-        );
-
-        setNumber(
-            "activeMembers",
-            0
-        );
-
-        setNumber(
-            "freeMembers",
-            0
-        );
-
-        throw new Error(
-            "Data member tidak dapat dibaca: " +
-            result.error.message
-        );
-
-    }
-
-
-    const rows =
-        result.data || [];
-
-
-    const now =
-        new Date();
-
-
-    let active = 0;
-
-    let expired = 0;
-
-    let free = 0;
-
-
-    rows.forEach(
-        function(row){
-
-            const status =
-                String(
-                    row.status || ""
-                )
-                .trim()
-                .toLowerCase();
-
-
-            let expiry = null;
-
-
-            if(row.berlaku_sampai){
-
-                expiry =
-                    new Date(
-                        row.berlaku_sampai
-                    );
-
-            }
-
-
-            const validExpiry =
-                expiry &&
-                !isNaN(
-                    expiry.getTime()
-                );
-
-
-            const isActive =
-                status === "aktif" &&
-                validExpiry &&
-                expiry >= now;
-
-
-            const isExpired =
-                status === "aktif" &&
-                validExpiry &&
-                expiry < now;
-
-
-            if(isActive){
-
-                active++;
-
-            }
-
-            else if(isExpired){
-
-                expired++;
-
-            }
-
-            else{
-
-                free++;
-
-            }
-
-        }
-    );
-
-
-    setNumber(
-        "totalMembers",
-        rows.length
-    );
-
-
-    setNumber(
-        "premiumMembers",
-        active
-    );
-
-
-    setNumber(
-        "activeMembers",
-        active
-    );
-
-
-    setNumber(
-        "expiredMembers",
-        expired
-    );
-
-
-    setNumber(
-        "freeMembers",
-        free
-    );
-
+    if(r.error) return null;
+    return r.count ?? 0;
 }
 
-
-/* =====================================================
-   LOAD MEMBERSHIP
-===================================================== */
-
-async function loadMembership(){
-
-    const result =
-        await supabaseClient
-
-            .from("membership_orders")
-
-            .select(
-                "id,status"
-            );
-
-
-    if(result.error){
-
-        console.error(
-            "MEMBERSHIP:",
-            result.error
-        );
-
-        throw new Error(
-            "Data membership tidak dapat dibaca: " +
-            result.error.message
-        );
-
-    }
-
-
-    const rows =
-        result.data || [];
-
-
-    let waiting = 0;
-
-    let processing = 0;
-
-    let approved = 0;
-
-    let rejected = 0;
-
-
-    rows.forEach(
-        function(row){
-
-            const status =
-                String(
-                    row.status || ""
-                )
-                .trim()
-                .toLowerCase();
-
-
-            if(
-                status === "menunggu"
-            ){
-
-                waiting++;
-
-            }
-
-            else if(
-                status === "diproses"
-            ){
-
-                processing++;
-
-            }
-
-            else if(
-                status === "disetujui"
-            ){
-
-                approved++;
-
-            }
-
-            else if(
-                status === "ditolak"
-            ){
-
-                rejected++;
-
-            }
-
-        }
-    );
-
-
-    setNumber(
-        "orderTotal",
-        rows.length
-    );
-
-
-    setNumber(
-        "orderWaiting",
-        waiting
-    );
-
-
-    setNumber(
-        "orderProcessing",
-        processing
-    );
-
-
-    setNumber(
-        "orderRejected",
-        rejected
-    );
-
-
-    setNumber(
-        "membershipWaiting",
-        waiting
-    );
-
-
-    setNumber(
-        "membershipApproved",
-        approved
-    );
-
+function formatDate(v){
+    if(!v) return "-";
+    const d = new Date(v);
+    if(isNaN(d.getTime())) return "-";
+    return d.toLocaleDateString("id-ID",{
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+    });
 }
-
-
-/* =====================================================
-   LOAD MATERIALS
-===================================================== */
-
-async function loadMaterials(){
-
-    const result =
-        await supabaseClient
-
-            .from("materials")
-
-            .select(
-                "id,tipe,type,premium"
-            );
-
-
-    if(result.error){
-
-        console.error(
-            "MATERIALS:",
-            result.error
-        );
-
-        throw new Error(
-            "Data materi tidak dapat dibaca: " +
-            result.error.message
-        );
-
-    }
-
-
-    const rows =
-        result.data || [];
-
-
-    let video = 0;
-
-    let audio = 0;
-
-    let pdf = 0;
-
-
-    rows.forEach(
-        function(row){
-
-            const tipe =
-                String(
-                    row.tipe ||
-                    row.type ||
-                    ""
-                )
-                .trim()
-                .toLowerCase();
-
-
-            if(tipe === "audio"){
-
-                audio++;
-
-            }
-
-            else if(tipe === "pdf"){
-
-                pdf++;
-
-            }
-
-            else{
-
-                video++;
-
-            }
-
-        }
-    );
-
-
-    setNumber(
-        "totalMaterials",
-        rows.length
-    );
-
-
-    setNumber(
-        "videoMaterials",
-        video
-    );
-
-
-    setNumber(
-        "audioMaterials",
-        audio
-    );
-
-
-    setNumber(
-        "pdfMaterials",
-        pdf
-    );
-
-}
-
-
-/* =====================================================
-   LOAD LEARNING PROGRESS
-===================================================== */
-
-async function loadLearningProgress(){
-
-    const result =
-        await supabaseClient
-
-            .from("learning_progress")
-
-            .select(
-                "id,status,progress"
-            );
-
-
-    if(result.error){
-
-        console.error(
-            "LEARNING:",
-            result.error
-        );
-
-        throw new Error(
-            "Progress pembelajaran tidak dapat dibaca: " +
-            result.error.message
-        );
-
-    }
-
-
-    const rows =
-        result.data || [];
-
-
-    let started = 0;
-
-    let completed = 0;
-
-
-    rows.forEach(
-        function(row){
-
-            const progress =
-                Number(
-                    row.progress || 0
-                );
-
-
-            const status =
-                String(
-                    row.status || ""
-                )
-                .toLowerCase();
-
-
-            if(
-                progress >= 100 ||
-                status === "completed"
-            ){
-
-                completed++;
-
-            }
-
-            else if(
-                progress > 0 ||
-                status === "started"
-            ){
-
-                started++;
-
-            }
-
-        }
-    );
-
-
-    setNumber(
-        "learningTotal",
-        rows.length
-    );
-
-
-    setNumber(
-        "learningStarted",
-        started
-    );
-
-
-    setNumber(
-        "learningCompleted",
-        completed
-    );
-
-}
-
-
-/* =====================================================
-   LOAD EVERYTHING
-===================================================== */
 
 async function loadDashboard(){
-
-    clearError();
-
-
-    refreshBtn.disabled =
-        true;
-
-    refreshBtn.textContent =
-        "⏳ Memuat...";
-
-
     try{
+        const auth = await sb.auth.getUser();
 
-        /*
-           Jalankan satu per satu.
+        if(auth.error) throw auth.error;
 
-           Dengan cara ini kita tahu persis
-           bagian mana yang bermasalah.
-        */
+        const user = auth.data.user;
 
-        await loadProfiles();
-
-        await loadMembership();
-
-        await loadMaterials();
-
-        await loadLearningProgress();
-
-
-        setNotice(
-            "✅ Data dashboard berhasil diperbarui.",
-            "success"
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "DASHBOARD ERROR:",
-            error
-        );
-
-
-        showError(
-            error.message ||
-            "Gagal memuat data dashboard."
-        );
-
-
-        setNotice(
-            "⚠️ Sebagian data tidak berhasil dimuat.",
-            "error"
-        );
-
-    }
-
-    finally{
-
-        refreshBtn.disabled =
-            false;
-
-        refreshBtn.textContent =
-            "🔄 Refresh Data";
-
-    }
-
-}
-
-
-/* =====================================================
-   REFRESH
-===================================================== */
-
-refreshBtn.addEventListener(
-    "click",
-    async function(){
-
-        await loadDashboard();
-
-    }
-);
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-logoutBtn.addEventListener(
-    "click",
-    async function(){
-
-        const confirmLogout =
-            confirm(
-                "Apakah Anda yakin ingin keluar?"
-            );
-
-
-        if(!confirmLogout){
-
-            return;
-
+        if(!user){
+            throw new Error("Anda belum login.");
         }
 
-
-        logoutBtn.disabled =
-            true;
-
-        logoutBtn.textContent =
-            "⏳";
-
-
-        const result =
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-        if(result.error){
-
-            logoutBtn.disabled =
-                false;
-
-            logoutBtn.textContent =
-                "Keluar";
-
-            alert(
-                "Gagal keluar:\n" +
-                result.error.message
-            );
-
-            return;
-
+        if(!(await isAdmin(user))){
+            throw new Error("Akun Anda tidak memiliki akses administrator.");
         }
 
+        $("notice").className = "notice";
+        $("notice").innerHTML =
+            "✅ Login sebagai administrator. Semua fitur panel admin tersedia.";
 
-        window.location.href =
-            "login.html";
+        const profilesResult = await sb
+            .from("profiles")
+            .select("id,nama,status,paket,berlaku_sampai");
 
-    }
-);
+        if(profilesResult.error) throw profilesResult.error;
 
+        const profiles = profilesResult.data || [];
 
-/* =====================================================
-   AUTH CHANGE
-===================================================== */
+        const now = Date.now();
 
-supabaseClient
-    .auth
-    .onAuthStateChange(
-        function(event){
+        const active = profiles.filter(p=>{
+            const status = String(p.status || "").toLowerCase().trim();
+            const paket = String(p.paket || "").toLowerCase().trim();
 
-            if(
-                event ===
-                "SIGNED_OUT"
-            ){
+            if(status !== "aktif") return false;
+            if(paket === "lifetime") return true;
 
-                window.location.href =
-                    "login.html";
+            if(!p.berlaku_sampai) return false;
 
-            }
+            const d = new Date(p.berlaku_sampai);
+            return !isNaN(d.getTime()) && d.getTime() >= now;
+        });
 
+        $("totalMembers").textContent = profiles.length;
+        $("activeMembers").textContent = active.length;
+        $("freeMembers").textContent = Math.max(0,profiles.length-active.length);
+
+        const ordersResult = await sb
+            .from("membership_orders")
+            .select("id,nama,email,paket,harga,status,created_at")
+            .order("created_at",{ascending:false});
+
+        if(ordersResult.error) throw ordersResult.error;
+
+        const orders = ordersResult.data || [];
+        const waiting = orders.filter(o=>{
+            const s = String(o.status || "").toLowerCase().trim();
+            return s === "menunggu" || s === "diproses";
+        });
+
+        $("waitingOrders").textContent = waiting.length;
+        $("allOrders").textContent = orders.length;
+
+        const recent = orders.slice(0,5);
+
+        if(!recent.length){
+            $("recentOrders").innerHTML =
+                '<div class="empty">Belum ada pesanan membership.</div>';
+        }else{
+            $("recentOrders").innerHTML = recent.map(o=>{
+                const s = String(o.status || "menunggu").toLowerCase().trim();
+                let cls = "";
+                if(s === "disetujui" || s === "berhasil") cls = "ok";
+                if(s === "ditolak" || s === "dibatalkan") cls = "bad";
+
+                return `
+                    <div class="order">
+                        <div class="order-main">
+                            <div>
+                                <div class="order-name">${esc(o.nama || "Tanpa nama")}</div>
+                                <div class="order-package">
+                                    ${esc(o.paket || "-")} · ${formatDate(o.created_at)}
+                                </div>
+                            </div>
+                            <div class="order-status ${cls}">
+                                ${esc(o.status || "Menunggu")}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
         }
-    );
 
-
-/* =====================================================
-   START APPLICATION
-===================================================== */
-
-async function start(){
-
-    try{
-
-        const admin =
-            await checkAdmin();
-
-
-        if(!admin){
-
-            return;
-
-        }
-
-
-        /*
-           Timeout safety.
-           Kalau browser/Supabase macet,
-           halaman tidak akan menggantung selamanya.
-        */
-
-        const timeout =
-            new Promise(
-                function(resolve){
-
-                    setTimeout(
-                        function(){
-
-                            resolve(
-                                "timeout"
-                            );
-
-                        },
-                        15000
-                    );
-
-                }
-            );
-
-
-        await Promise.race([
-
-            loadDashboard(),
-
-            timeout
-
+        const [certificateCount,materialCount] = await Promise.all([
+            countTable("certificates"),
+            countTable("materials")
         ]);
 
+        $("totalCertificates").textContent =
+            certificateCount === null ? "—" : certificateCount;
 
+        $("certificateQuick").textContent =
+            certificateCount === null ? "—" : certificateCount;
+
+        $("totalMaterials").textContent =
+            materialCount === null ? "—" : materialCount;
+
+    }catch(error){
+        console.error("ADMIN DASHBOARD ERROR:",error);
+
+        $("notice").className = "notice error";
+        $("notice").innerHTML =
+            "❌ " + esc(error.message);
+
+        $("recentOrders").innerHTML =
+            '<div class="empty">🔐 Dashboard tidak dapat dimuat.</div>';
     }
-
-    catch(error){
-
-        console.error(
-            "START ERROR:",
-            error
-        );
-
-
-        showError(
-            error.message ||
-            "Terjadi kesalahan saat membuka dashboard admin."
-        );
-
-
-        setNotice(
-            "⚠️ Dashboard gagal dimuat.",
-            "error"
-        );
-
-    }
-
 }
 
+$("logoutBtn").addEventListener("click",async()=>{
+    if(!confirm("Apakah Anda ingin keluar?")) return;
 
-start();
+    const r = await sb.auth.signOut();
 
+    if(r.error){
+        alert("❌ Gagal keluar.\n\n" + r.error.message);
+        return;
+    }
+
+    location.href = "login.html";
+});
+
+sb.auth.onAuthStateChange((event)=>{
+    if(event === "SIGNED_OUT"){
+        location.href = "login.html";
+    }
+});
+
+loadDashboard();
 </script>
 
 </body>
-
 </html>
