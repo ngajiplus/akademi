@@ -134,8 +134,9 @@ body.exam-hidden #questions,body.exam-hidden #examHead{filter:blur(5px)}
   <div id="score" class="score">0</div>
   <div id="resultStatus"></div>
   <div id="resultDetail" class="small"></div>
-  <div class="actions">
+  <div id="resultActions" class="actions">
     <button class="btn" onclick="location.href='akademi.html'">📚 Kembali ke Akademi</button>
+    <button id="certificateBtn" class="btn" onclick="location.href='sertifikat.html?level_id='+encodeURIComponent(exam.level_id)" style="display:none">🏆 Terbitkan Sertifikat</button>
     <button id="retryBtn" class="btn primary" onclick="retryExam()" style="display:none">🔄 Ulangi Ujian</button>
   </div>
 </section>
@@ -153,6 +154,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const params=new URLSearchParams(location.search);
 const examId=params.get('id');
+const retryRequested=params.get('ulang')==='1';
 
 let user=null, profile=null, exam=null, questions=[], answers={}, attempt=null;
 let accessAllowed=false, isAdmin=false, membershipActive=false;
@@ -230,14 +232,22 @@ async function init(){
       throw Error('Soal belum tersedia. Silakan tunggu admin menambahkan soal.');
 
     await startOrResumeAttempt();
+
+    if(attempt.status==='selesai'){
+      showResult({
+        nilai:Number(attempt.nilai||0),
+        benar:Number(attempt.benar||0),
+        salah:Number(attempt.salah||0),
+        status:Number(attempt.nilai||0)>=Number(exam.kkm||0)?'lulus':'tidak_lulus'
+      });
+      return;
+    }
+
     await loadSavedAnswers();
     render();
     activateStrictExamMode();
 
-    setMsg(attempt.status==='berlangsung'
-      ? '✅ Ujian siap dikerjakan.'
-      : 'Ujian selesai.'
-    );
+    setMsg('✅ Ujian siap dikerjakan.');
 
   }catch(e){
     console.error(e);
@@ -291,8 +301,9 @@ async function startOrResumeAttempt(){
     return;
   }
 
-  if(last.data && last.data.status==='selesai' && exam.boleh_mengulang===false){
-    throw Error('Ujian ini sudah pernah dikerjakan dan tidak mengizinkan pengulangan.');
+  if(last.data && last.data.status==='selesai' && !retryRequested){
+    attempt=last.data;
+    return;
   }
 
   /*
@@ -638,14 +649,22 @@ function showResult(r){
     `KKM: <b>${exam.kkm}</b> • `+
     `Nilai maksimal: <b>${exam.nilai_maksimal}</b>`;
 
+  const passed=r.status==='lulus';
+  $('certificateBtn').style.display=passed?'inline-block':'none';
+  $('certificateBtn').textContent=passed?'🏆 Terbitkan Sertifikat':'🏆 Sertifikat';
+
   $('retryBtn').style.display=
     exam.boleh_mengulang?'inline-block':'none';
 
-  setMsg('✅ Ujian selesai.');
+  setMsg(passed?'🎉 Ujian selesai — Anda lulus KKM.':'📋 Ujian selesai — belum mencapai KKM.');
 }
 
 function retryExam(){
-  location.reload();
+  if(!exam || !exam.boleh_mengulang) return;
+  const url=new URL(location.href);
+  url.searchParams.set('id',exam.id);
+  url.searchParams.set('ulang','1');
+  location.href=url.toString();
 }
 
 function confirmExit(){
